@@ -85,7 +85,7 @@ export default function Dropdown({
                   <ListboxOption
                     key={`select-${option.text}`}
                     className={cn(
-                      "flex_row body_4 relative h-[5.6rem] cursor-pointer select-none p-[1.6rem] data-[focus]:bg-grayscale-200",
+                      "flex_row body_4 relative h-[5.6rem] cursor-pointer select-none p-[1.6rem] data-[focus]:bg-grayscale-100",
                     )}
                     value={option}
                   >
