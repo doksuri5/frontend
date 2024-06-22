@@ -1,13 +1,11 @@
 /**
- * props 정의
- * placeholder: Dropdown placeholder - (default : value, text 필수 )
- * options: Dropdown options 배열을 의미 - (default : value, text 필수 )
- * selected: Dropdown 선택한  option을 의미 - (default : {value, text} )
- * setSelected: Dropdown option 변경 함수 (onChange 적용되는 함수)
- *
- * name? : (default : 빈문자열) / 옵셔널 - form태그 사용시
- * label? : Dropdown Title을 의미  - (default : 빈문자열) / 옵셔널
- * className? : style 적용 - (default : 기본 width 100%) / 옵셔널
+ * placeholder → default : `선택해주세요` 문구
+ * options: Dropdown options 배열을 의미  → default : [ { value, text } ] 구성된 배열
+ * selected : Dropdown 선택한  option을 의미 → default : {value,text}
+ * setSelected : Dropdown option 변경 함수 onChange 적용되는 함수
+ * name? : form 태그 사용시  →  default : 빈문자열 / 옵셔널
+ * label? : Dropdown Title을 의미 → default : 빈문자열 / 옵셔널
+ * className? : style 적용 → default : 기본 width 100% / 옵셔널
  */
 
 import { Fragment } from "react";
