@@ -1,12 +1,12 @@
 import Image from "next/image";
 
-type TCardPreviewProps = {
+type TCardSimpleProps = {
   date: string;
   title: string;
   stockCode: string;
 };
 
-export default function CardPreview({ date, title, stockCode }: TCardPreviewProps) {
+export default function CardSimple({ date, title, stockCode }: TCardSimpleProps) {
   return (
     <div className="flex h-[100px] w-[355px] items-center rounded-3xl border border-grayscale-200 bg-grayscale-0 px-[16px] py-[24px]">
       <div className="h-13 flex w-[323px] flex-row justify-between gap-8">
