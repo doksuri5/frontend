@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ElementType, forwardRef, InputHTMLAttributes, LabelHTMLAttributes, useMemo, useState } from "react";
+import React, { ElementType, forwardRef, InputHTMLAttributes, useMemo, useState } from "react";
 
 import { cn } from "@/utils/cn";
 import { cva } from "class-variance-authority";
@@ -39,7 +39,7 @@ const inputVariants = cva(
     variants: {
       variant: {
         default: "border-grayscale-300 focus:outline-blue-500",
-        error: "border-warning-100 focus:outline-warning-100",
+        error: "border-warning-100 focus:outline-warning-100 placeholder-warning-100",
         success: "border-grayscale-300 focus:outline-blue-500",
       },
       size: {
