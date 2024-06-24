@@ -1,9 +1,9 @@
-import Image from "next/image";
 import NewsItem, { TINewsItemProps } from "./NewsItem";
 import { Fragment } from "react";
 
 type TINewsListProps = {
   newsItemArray: TINewsItemProps[];
+  lineBreak?: "lineBreak2" | "lineBreak4";
   variant?: "border" | "noBorder";
   style?: string;
 };
@@ -19,7 +19,12 @@ const Divider = () => {
   return <hr className="my-[32px] border border-solid border-grayscale-400" />;
 };
 
-export default function NewsList({ newsItemArray, variant = "border", style }: TINewsListProps) {
+export default function NewsList({
+  newsItemArray,
+  lineBreak = "lineBreak2",
+  variant = "border",
+  style,
+}: TINewsListProps) {
   const selectedVariantStyles = variantStyles[variant];
 
   return (
@@ -33,7 +38,7 @@ export default function NewsList({ newsItemArray, variant = "border", style }: T
             publishedTime={newsItem.publishedTime}
             newspaperCompany={newsItem.newspaperCompany}
             style={newsItem?.style}
-            variant="lineBreak4"
+            variant={lineBreak}
           />
           {index < newsItemArray.length - 1 && <Divider />}
         </Fragment>
