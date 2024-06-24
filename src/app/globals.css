@@ -39,6 +39,9 @@
   .body_5 {
     @apply text-[1.4rem] leading-[2rem];
   }
+  .body_6 {
+    @apply text-[1.3rem] leading-[1.8rem];
+  }
   .caption {
     @apply text-[1.2rem] leading-[1.6rem];
   }
