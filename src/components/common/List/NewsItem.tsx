@@ -6,17 +6,17 @@ export type TINewsItemProps = {
   description: string;
   publishedTime: string;
   newspaperCompany: string;
-  variant?: "lineBreak2" | "lineBreak4";
+  variant?: "lineClamp-2" | "lineClamp-4";
   style?: string;
 };
 
 const variantStyles = {
-  lineBreak2: {
+  "lineClamp-2": {
     height: "h-[10rem]",
     lineClamp: "line-clamp-2",
     imageSize: "h-[100px] w-[172px]",
   },
-  lineBreak4: {
+  "lineClamp-4": {
     height: "h-[14.8rem]",
     lineClamp: "line-clamp-4",
     imageSize: "h-[148px] w-[252px]",
@@ -29,7 +29,7 @@ export default function NewsItem({
   description,
   publishedTime,
   newspaperCompany,
-  variant = "lineBreak2",
+  variant = "lineClamp-2",
   style,
 }: TINewsItemProps) {
   const selectedVariantStyles = variantStyles[variant];

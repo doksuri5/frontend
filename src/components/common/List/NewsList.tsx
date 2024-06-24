@@ -2,8 +2,8 @@ import NewsItem, { TINewsItemProps } from "./NewsItem";
 import { Fragment } from "react";
 
 type TINewsListProps = {
-  newsItemArray: TINewsItemProps[];
-  lineBreak?: "lineBreak2" | "lineBreak4";
+  newsItems: TINewsItemProps[];
+  lineClamp?: "lineClamp-2" | "lineClamp-4";
   variant?: "border" | "noBorder";
   style?: string;
 };
@@ -19,17 +19,12 @@ const Divider = () => {
   return <hr className="my-[32px] border border-solid border-grayscale-400" />;
 };
 
-export default function NewsList({
-  newsItemArray,
-  lineBreak = "lineBreak2",
-  variant = "border",
-  style,
-}: TINewsListProps) {
+export default function NewsList({ newsItems, lineClamp = "lineClamp-2", variant = "border", style }: TINewsListProps) {
   const selectedVariantStyles = variantStyles[variant];
 
   return (
     <div className={`flex w-full flex-col ${selectedVariantStyles.border} ${style}`}>
-      {newsItemArray.map((newsItem, index) => (
+      {newsItems.map((newsItem, index) => (
         <Fragment key={index}>
           <NewsItem
             image={newsItem.image}
@@ -38,9 +33,9 @@ export default function NewsList({
             publishedTime={newsItem.publishedTime}
             newspaperCompany={newsItem.newspaperCompany}
             style={newsItem?.style}
-            variant={lineBreak}
+            variant={lineClamp}
           />
-          {index < newsItemArray.length - 1 && <Divider />}
+          {index < newsItems.length - 1 && <Divider />}
         </Fragment>
       ))}
     </div>
