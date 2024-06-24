@@ -1,12 +1,12 @@
 /**
- * variant: "card1" | "card2" | "card3", default는 "card1"
+ * variant: "iconCard" | "halfMediaCard" | "fullMediaCard", default는 "iconCard"
  * date: 뉴스 날짜
  * title: 뉴스 헤드라인
- * stockCode: 종목 이니셜. card1에서만 사용되는 props. ex) 애플-> "AAPL"
+ * stockCode: 종목 이니셜. iconCard에서만 사용되는 props. ex) 애플-> "AAPL"
  * image: 뉴스 이미지
  * content: 뉴스 기사
  * publisher: 발행처
- * size: 카드 사이즈. card3에서만 사용되는 props. "large" | "small" 선택 가능, default는 "large"
+ * size: 카드 사이즈. fullImgCard에서만 사용되는 props. "large" | "small" 선택 가능, default는 "large"
  */
 
 import Image from "next/image";
@@ -15,7 +15,7 @@ import SmallRect from "@/public/icons/card3Rectangle_small.svg";
 import Rectangle from "@/public/icons/card2Rectangle.svg";
 
 type TCardProps = {
-  variant: "card1" | "card2" | "card3";
+  variant: "iconCard" | "halfMediaCard" | "fullMediaCard";
   date?: string;
   title?: string;
   stockCode?: string;
@@ -26,7 +26,7 @@ type TCardProps = {
 };
 
 export default function Card({
-  variant = "card1",
+  variant = "iconCard",
   date,
   title,
   stockCode,
@@ -36,7 +36,7 @@ export default function Card({
   size = "large",
 }: TCardProps) {
   switch (variant) {
-    case "card1":
+    case "iconCard":
       return (
         <div className="flex h-[10rem] w-[35.5rem] flex-row items-center justify-between gap-[.8rem] rounded-[2.4rem] border border-grayscale-200 bg-grayscale-0 px-[1.6rem] py-[2.4rem]">
           <div className="body_5 flex h-[5.2rem] w-[24.3rem] flex-col justify-between gap-[.4rem] text-gray-400">
@@ -55,12 +55,12 @@ export default function Card({
           )}
         </div>
       );
-    case "card2":
+    case "halfMediaCard":
       return (
         <div className="flex h-[36rem] w-[38.8rem] flex-col overflow-hidden rounded-t-[1.6rem]">
           <div className="h-[23.6rem]">
             <Image
-              src={image && image !== "" ? image : Rectangle}
+              src={image || Rectangle}
               alt="news-image"
               width={388}
               height={236}
@@ -82,7 +82,7 @@ export default function Card({
           </div>
         </div>
       );
-    case "card3":
+    case "fullMediaCard":
       return (
         <div
           className={`container relative flex ${size === "large" ? "h-[42rem]" : "h-[20rem]"} w-[59rem] flex-col overflow-hidden rounded-[1.6rem]`}
@@ -90,7 +90,7 @@ export default function Card({
           <div className="relative h-[100%] w-[100%]">
             <Image
               layout="fill"
-              src={image && image !== "" ? image : size === "large" ? LargeRect : SmallRect}
+              src={image || (size === "large" ? LargeRect : SmallRect)}
               alt="news-image"
               className="object-cover"
             />
