@@ -13,4 +13,5 @@ const EyeShowIcon = ({ color = "#C5C5C5" }: { color?: string }) => (
     </defs>
   </svg>
 );
+
 export default EyeShowIcon;
