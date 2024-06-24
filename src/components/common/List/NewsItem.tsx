@@ -42,7 +42,7 @@ export default function NewsItem({
         <Image src={image} fill alt="news-image" />
       </div>
       <div className="flex w-full flex-1 flex-col gap-[1.6rem]">
-        <div className="flex justify-between">
+        <div className="flex items-center justify-between">
           <h3 className="body_3 font-bold text-grayscale-900">{title}</h3>
           <div className="body_5 flex gap-[0.8rem] font-medium text-grayscale-600">
             <span>{publishedTime}시간전</span>
