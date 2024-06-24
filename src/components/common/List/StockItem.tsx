@@ -1,7 +1,6 @@
 import Image from "next/image";
 
 type TIStockItemProps = {
-  type?: string;
   icon: string;
   stockKorName: string;
   stockEngName: string;
@@ -34,7 +33,6 @@ const variantStyles = {
 };
 
 export default function StockItem({
-  type,
   icon,
   stockKorName,
   stockEngName,
