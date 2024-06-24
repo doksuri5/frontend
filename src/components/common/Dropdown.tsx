@@ -12,7 +12,7 @@ import { Fragment } from "react";
 import { Field, Label, Listbox, ListboxButton, ListboxOption, ListboxOptions, Transition } from "@headlessui/react";
 
 import Image from "next/image";
-import ArrowIcon from "@/app/svg/arrow_icon.svg";
+import ArrowIcon from "@/public/icons/arrow_icon.svg";
 
 import { cn } from "@/utils/cn";
 
