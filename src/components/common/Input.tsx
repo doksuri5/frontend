@@ -18,8 +18,7 @@ export type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   variant?: VariantTypes;
   labelName?: string;
   size?: TSizes;
-  // validation
-  errorMessage?: string;
+  caption?: string;
   // custom style class
   inputGroupClass?: string;
   labelClass?: string;
@@ -83,7 +82,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     {
       type,
       variant,
-      errorMessage,
+      caption,
       size,
       labelName,
       inputGroupClass,
@@ -130,7 +129,11 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           )}
           {SuffixComp && <SuffixComp />}
         </Label>
-        {errorMessage && <Caption caption={errorMessage} variant={variant} captionClass={captionClass} />}
+        {caption && (
+          <Caption variant={variant} captionClass={captionClass}>
+            {caption}
+          </Caption>
+        )}
       </InputGroup>
     );
   },
