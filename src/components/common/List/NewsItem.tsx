@@ -1,3 +1,4 @@
+import { cn } from "@/utils/cn";
 import Image, { StaticImageData } from "next/image";
 
 export type TINewsItemProps = {
@@ -35,9 +36,11 @@ export default function NewsItem({
   const selectedVariantStyles = variantStyles[variant];
 
   return (
-    <div className={`flex w-full gap-[2rem] ${selectedVariantStyles.height} ${style}`}>
+    <div className={cn(`flex w-full gap-[2rem] ${selectedVariantStyles.height} ${style}`)}>
       <div
-        className={`relative h-[100px] w-[172px] flex-shrink-0 overflow-hidden rounded-2xl ${selectedVariantStyles.imageSize}`}
+        className={cn(
+          `relative h-[100px] w-[172px] flex-shrink-0 overflow-hidden rounded-2xl ${selectedVariantStyles.imageSize}`,
+        )}
       >
         <Image src={image} fill alt="news-image" />
       </div>
@@ -50,7 +53,7 @@ export default function NewsItem({
             <span>{newspaperCompany}</span>
           </div>
         </div>
-        <p className={`body_4 font-normal ${selectedVariantStyles.lineClamp}`}>{description}</p>
+        <p className={cn(`body_4 font-normal ${selectedVariantStyles.lineClamp}`)}>{description}</p>
       </div>
     </div>
   );

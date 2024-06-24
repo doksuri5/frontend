@@ -1,3 +1,4 @@
+import { cn } from "@/utils/cn";
 import Image from "next/image";
 
 type TIStockItemProps = {
@@ -49,7 +50,9 @@ export default function StockItem({
 
   return (
     <div
-      className={`flex items-center justify-between text-grayscale-900 ${selectedVariantStyles.weight} ${selectedVariantStyles.height} ${style}`}
+      className={cn(
+        `flex items-center justify-between text-grayscale-900 ${selectedVariantStyles.weight} ${selectedVariantStyles.height} ${style}`,
+      )}
     >
       <div className="flex items-center gap-[1.6rem]">
         <div className={selectedVariantStyles.imageSize}>
@@ -64,9 +67,9 @@ export default function StockItem({
         <div className={selectedVariantStyles.currentPrice}>
           <span>${currentPrice}</span>
         </div>
-        <div className={`${fluctuationColor} ${selectedVariantStyles.fluctuation}`}>
+        <div className={cn(`${fluctuationColor} ${selectedVariantStyles.fluctuation}`)}>
           <span>{fluctuationArrow + fluctuationPrice}</span>
-          <span className="">{fluctuationRatio}%</span>
+          <span>{fluctuationRatio}%</span>
         </div>
       </div>
     </div>

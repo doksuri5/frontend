@@ -1,3 +1,4 @@
+import { cn } from "@/utils/cn";
 import NewsItem, { TINewsItemProps } from "./NewsItem";
 import { Fragment } from "react";
 
@@ -23,7 +24,7 @@ export default function NewsList({ newsItems, lineClamp = "lineClamp-2", variant
   const selectedVariantStyles = variantStyles[variant];
 
   return (
-    <div className={`flex w-full flex-col ${selectedVariantStyles.border} ${style}`}>
+    <div className={cn(`flex w-full flex-col ${selectedVariantStyles.border} ${style}`)}>
       {newsItems.map((newsItem, index) => (
         <Fragment key={index}>
           <NewsItem
