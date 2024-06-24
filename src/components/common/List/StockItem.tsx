@@ -16,7 +16,7 @@ const variantStyles = {
   stock: {
     weight: "w-[49.4rem]",
     height: "h-32",
-    imageSize: "h-[64px] w-[64px]",
+    imageSize: "h-[6.4rem] w-[6.4rem]",
     stockKorName: "body_2 font-bold",
     stockEngName: "body_5 font-normal",
     currentPrice: "body_3 text-right font-medium",
@@ -25,7 +25,7 @@ const variantStyles = {
   findStock: {
     weight: "w-[26.3rem]",
     height: "h-[6.4rem]",
-    imageSize: "h-[48px] w-[48px]",
+    imageSize: "h-[4.8rem] w-[4.8rem]",
     stockKorName: "body_4 font-bold",
     stockEngName: "body_5 font-normal",
     currentPrice: "body_5 text-right font-medium",

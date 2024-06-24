@@ -39,7 +39,7 @@ export default function NewsItem({
     <div className={cn(`flex w-full gap-[2rem] ${selectedVariantStyles.height} ${style}`)}>
       <div
         className={cn(
-          `relative h-[100px] w-[172px] flex-shrink-0 overflow-hidden rounded-2xl ${selectedVariantStyles.imageSize}`,
+          `relative h-[10rem] w-[17.2rem] flex-shrink-0 overflow-hidden rounded-2xl ${selectedVariantStyles.imageSize}`,
         )}
       >
         <Image src={image} fill alt="news-image" />
