@@ -10,7 +10,7 @@ export type TIFindNewsProps = {
 
 export default function FindNews({ image, title, publishedTime, newspaperCompany, style }: TIFindNewsProps) {
   return (
-    <div className="flex h-[6.4rem] w-full gap-[2rem]">
+    <div className={`flex h-[6.4rem] w-full gap-[2rem] ${style}`}>
       <div className="relative h-[64px] w-[120px] flex-shrink-0 overflow-hidden rounded-2xl">
         <Image src={image} fill alt="news-image" />
       </div>

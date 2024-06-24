@@ -51,7 +51,7 @@ export default function StockItem({
 
   return (
     <div
-      className={`${selectedVariantStyles.weight} ${selectedVariantStyles.height} flex items-center justify-between text-grayscale-900 ${style}`}
+      className={`flex items-center justify-between text-grayscale-900 ${selectedVariantStyles.weight} ${selectedVariantStyles.height} ${style}`}
     >
       <div className="flex items-center gap-[1.6rem]">
         <div className={selectedVariantStyles.imageSize}>
