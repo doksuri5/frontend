@@ -39,7 +39,22 @@
   .body_5 {
     @apply text-[1.4rem] leading-[2rem];
   }
+  .body_6 {
+    @apply text-[1.3rem] leading-[1.8rem];
+  }
   .caption {
     @apply text-[1.2rem] leading-[1.6rem];
+  }
+  .flex_row{
+    @apply flex flex-row items-center
+  }
+  .flex_col{
+    @apply flex flex-col items-center 
+  }
+  .flex_row_center {
+    @apply flex flex-row items-center justify-center
+  }
+  .flex_row_col {
+    @apply flex flex-col items-center  justify-center
   }
 }

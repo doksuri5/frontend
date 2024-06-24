@@ -10,9 +10,9 @@
  */
 
 import Image from "next/image";
-import LargeRect from "@/app/svg/fullImgCardRectangle_large.svg";
-import SmallRect from "@/app/svg/fullImgCardRectangle_small.svg";
-import Rectangle from "@/app/svg/card2Rectangle.svg";
+import LargeRect from "@/public/icons/card3Rectangle_large.svg";
+import SmallRect from "@/public/icons/card3Rectangle_small.svg";
+import Rectangle from "@/public/icons/card2Rectangle.svg";
 
 type TCardProps = {
   variant: "iconCard" | "halfMediaCard" | "fullMediaCard";
