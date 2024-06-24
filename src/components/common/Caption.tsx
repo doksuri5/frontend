@@ -16,11 +16,11 @@ const captionVariants = cva("text-navy-900 peer-has-[:disabled]:text-grayscale-3
 });
 
 const Caption = ({
-  caption,
+  children,
   variant,
   captionClass,
 }: {
-  caption: string;
+  children: React.HTMLAttributes<HTMLParagraphElement>["children"];
   variant?: VariantTypes;
   size?: TSizes;
   captionClass?: string;
@@ -33,7 +33,7 @@ const Caption = ({
       }),
     )}
   >
-    {caption}
+    {children}
   </p>
 );
 
