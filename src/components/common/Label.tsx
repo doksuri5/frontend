@@ -38,7 +38,7 @@ const Label = ({
 } & LabelHTMLAttributes<HTMLLabelElement>) => (
   <label className={cn(labelVariants({ variant, size, className: labelClass }))} {...props}>
     {labelName}
-    <div className="relative min-h-20">{children}</div>
+    <div className="relative min-h-[5rem]">{children}</div>
   </label>
 );
 

@@ -42,9 +42,9 @@ const inputVariants = cva(
         success: "border-grayscale-300 focus:outline-blue-500",
       },
       size: {
-        default: "p-4 body_4",
-        sm: "p-2 body_5",
-        lg: "p-6 body_3",
+        default: "p-[1.6rem] body_4",
+        sm: "p-[0.8rem] body_5",
+        lg: "p-[2.4rem] body_3",
       },
     },
     defaultVariants: {
@@ -62,9 +62,9 @@ const trailingButtonVariants = cva("absolute", {
       success: "text-success-100",
     },
     size: {
-      default: "right-4 top-4",
-      sm: "right-2 top-2",
-      lg: "right-6 top-6",
+      default: "right-[1.6rem] top-[1.6rem]",
+      sm: "right-[0.8rem] top-[0.8rem]",
+      lg: "right-[2.4rem] top-[2.4rem]",
     },
   },
   defaultVariants: {
