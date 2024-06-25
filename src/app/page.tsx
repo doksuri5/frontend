@@ -1,10 +1,7 @@
-import { Input } from "@/components/common/Input";
-
-export default function Home() {
+export default function Main() {
   return (
     <>
-      <h1 className="bg-background-100">Home Component</h1>
-      <Input type="password" labelName="아이디" />
+      <h1>Main Page</h1>
     </>
   );
 }

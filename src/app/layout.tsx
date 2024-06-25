@@ -12,7 +12,7 @@ export default function RootLayout({
     <html lang="ko" className={pretendard.className}>
       <body>
         <Header />
-        {children}
+        <main className="m-auto h-[calc(100vh-8rem)] bg-background-100 px-[12rem]">{children}</main>
       </body>
     </html>
   );
