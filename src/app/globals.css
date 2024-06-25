@@ -60,6 +60,9 @@
   .flex_row_col {
     @apply flex flex-col items-center justify-center;
   }
+  .flex_col_center {
+    @apply flex flex-col items-center  justify-center
+  }
 }
 
 /* 스크롤바 숨기기 유틸리티 클래스 */
