@@ -9,6 +9,9 @@
   body {
     @apply text-[1.6rem];
   }
+  hr {
+    @apply my-[3.2rem] w-full border-t border-solid border-grayscale-300;
+  }
 }
 
 @layer utilities {
@@ -45,16 +48,16 @@
   .caption {
     @apply text-[1.2rem] leading-[1.6rem];
   }
-  .flex_row{
-    @apply flex flex-row items-center
+  .flex_row {
+    @apply flex flex-row items-center;
   }
-  .flex_col{
-    @apply flex flex-col items-center 
+  .flex_col {
+    @apply flex flex-col items-center;
   }
   .flex_row_center {
-    @apply flex flex-row items-center justify-center
+    @apply flex flex-row items-center justify-center;
   }
   .flex_row_col {
-    @apply flex flex-col items-center  justify-center
+    @apply flex flex-col items-center justify-center;
   }
 }
