@@ -1,5 +1,18 @@
 import type { Config } from "tailwindcss";
 
+import { PluginCreator } from "tailwindcss/types/config";
+
+const utilsPlugin: PluginCreator = ({ addUtilities }) =>
+  addUtilities({
+    ".scrollbar-hide": {
+      "-ms-overflow-style": "none" /* IE and Edge */,
+      "scrollbar-width": "none" /* Firefox */,
+      "&::-webkit-scrollbar": {
+        display: "none" /* Safari and Chrome */,
+      },
+    },
+  });
+
 const config: Config = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -64,15 +77,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [
-    // plugin(function({ addUtilities }: PluginAPI) {
-    //   const newUtilities: Record<string, CSSProperties> = {
-    //     ".border-default": {
-    //       border: "1px solid black",
-    //     },
-    //   };
-    //   addUtilities(newUtilities, ["responsive", "hover"]);
-    // }),
-  ],
+  plugins: [utilsPlugin],
 };
 export default config;
