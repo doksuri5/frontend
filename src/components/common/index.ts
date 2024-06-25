@@ -8,5 +8,7 @@ import FindNews from "./List/FindNews";
 import NewsItem from "./List/NewsItem";
 import NewsList from "./List/NewsList";
 import StockItem from "./List/StockItem";
+import Toggle from "./Toggle";
+import CheckBox from "./CheckBox";
 
-export { Button, Caption, Card, Dropdown, Input, Label, FindNews, NewsItem, NewsList, StockItem };
+export { Button, Caption, Card, Dropdown, Input, Label, FindNews, NewsItem, NewsList, StockItem, Toggle, CheckBox };

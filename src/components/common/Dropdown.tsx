@@ -12,7 +12,6 @@ import { Fragment } from "react";
 import { Field, Label, Listbox, ListboxButton, ListboxOption, ListboxOptions, Transition } from "@headlessui/react";
 
 import Image from "next/image";
-import ArrowIcon from "@/public/icons/arrow_icon.svg";
 
 import { cn } from "@/utils/cn";
 
@@ -62,7 +61,9 @@ export default function Dropdown({
               />
               <span className={cn("flex_row_center pointer-events-none absolute inset-y-0 right-[1.6rem] w-[5.4rem]")}>
                 <Image
-                  src={ArrowIcon}
+                  src={"/icons/arrow_icon.svg"}
+                  width={24}
+                  height={24}
                   alt={"화살표아이콘"}
                   className={cn(
                     `transform transition-transform duration-200 ${open ? "rotate-[-90deg]" : "rotate-90"}`,
