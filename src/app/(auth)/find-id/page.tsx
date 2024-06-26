@@ -32,7 +32,7 @@ export default function FindIdPage() {
               가입일 : <span className="ml-[.8rem]">2023. 06. 14</span>
             </p>
           </div>
-          <Button variant="textButton" size="lg" className="mt-[5.6rem]">
+          <Button size="lg" className="mt-[5.6rem]">
             <Link href={"/login"} className="text-white">
               로그인하기
             </Link>
