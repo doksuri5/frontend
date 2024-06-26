@@ -5,14 +5,13 @@ import { useState } from "react";
 import { Input } from "@/components/common";
 import SearchIcon from "@/public/icons/search_icon.svg?component";
 
-type TDiscoveryInputProps = {
-  param: string;
-};
-const DiscoveryInput = ({ param }: TDiscoveryInputProps) => {
+const DiscoveryInput = ({ param }: { param: string }) => {
   const router = useRouter();
-  const [value, setValue] = useState<string | "">(param);
+  const [value, setValue] = useState(param);
 
-  const moveLink = () => router.push(`/discovery?search=${value}`);
+  const moveLink = () => {
+    value === "" ? router.push(`/discovery`) : router.push(`/discovery?search=${value}`);
+  };
 
   return (
     <section className="relative h-[5.6rem] w-full">
