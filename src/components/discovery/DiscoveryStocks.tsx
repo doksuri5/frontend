@@ -1,4 +1,5 @@
 import { StockItem } from "../common";
+import DiscoverySection from "./DiscoverySection";
 import Apple_icon from "@/public/icons/Apple_icon.svg";
 
 type TStocksProps = {
@@ -69,12 +70,10 @@ const Stocks = ({ param }: TStocksProps) => {
     },
   ];
 
+  const subTag = <span className={`body_5 font-medium text-grayscale-600`}>{`(${stockList.length})`}</span>;
+
   return (
-    <section className="flex w-full flex-col gap-[.8rem]">
-      <div className="flex_row gap-[1.6rem]">
-        <h1 className="body_1 font-bold text-navy-900">주식</h1>
-        <span className="body_5 font-medium">({stockList.length})</span>
-      </div>
+    <DiscoverySection title="주식" subTag={subTag}>
       <div className="flex_col rounded-[1.6rem] bg-white p-[2.4rem]">
         <div className="grid w-full grid-cols-2 gap-x-[1.6rem] gap-y-[.8rem]">
           {stockList.map((stock) => (
@@ -93,7 +92,7 @@ const Stocks = ({ param }: TStocksProps) => {
         <hr className="mb-[1.6rem] mt-[1.8rem]" />
         <p className="body_4 w-full cursor-pointer px-[1rem] text-center font-medium text-grayscale-400">더보기</p>
       </div>
-    </section>
+    </DiscoverySection>
   );
 };
 

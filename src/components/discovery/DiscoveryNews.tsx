@@ -1,11 +1,8 @@
 import { FindNews } from "../common";
 import NewsImage from "@/public/icons/news.jpg";
+import DiscoverySection from "./DiscoverySection";
 
-type TNewsProps = {
-  param: string;
-};
-
-const News = ({ param }: TNewsProps) => {
+const News = ({ param }: { param: string }) => {
   const newsList = [
     {
       idx: 1,
@@ -51,12 +48,10 @@ const News = ({ param }: TNewsProps) => {
     },
   ];
 
+  const subTag = <span className={`body_5 font-medium text-grayscale-600`}>{`(${newsList.length})`}</span>;
+
   return (
-    <section className="flex w-full flex-col gap-[.8rem]">
-      <div className="flex_row gap-[1.6rem]">
-        <h1 className="body_1 font-bold text-navy-900">뉴스</h1>
-        <span className="body_5 font-medium">({newsList.length})</span>
-      </div>
+    <DiscoverySection title="뉴스" subTag={subTag}>
       <div className="flex_col h-vh gap-[1.6rem] rounded-[1.6rem] bg-white p-[2.4rem]">
         {newsList.map((news) => (
           <FindNews
@@ -70,7 +65,7 @@ const News = ({ param }: TNewsProps) => {
         <hr className="mb-[1.6rem] mt-[1.8rem]" />
         <p className="body_4 w-full cursor-pointer px-[1rem] text-center font-medium text-grayscale-400">더보기</p>
       </div>
-    </section>
+    </DiscoverySection>
   );
 };
 
