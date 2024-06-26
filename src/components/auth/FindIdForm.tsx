@@ -23,13 +23,7 @@ export default function FindIdForm() {
           inputClass="h-[5.6rem] [&+button]:top-[50%] [&+button]:translate-y-[-50%] placeholder:text-gray-400"
           caption="등록되지 않은 회원이거나 잘못된 회원정보입니다."
         />
-        <Button
-          variant="textButton"
-          size="lg"
-          disabled
-          bgColor="bg-grayscale-200"
-          className="mt-[5.6rem] text-gray-300"
-        >
+        <Button size="lg" disabled bgColor="bg-grayscale-200" className="mt-[5.6rem] text-gray-300">
           아이디 찾기
         </Button>
       </form>

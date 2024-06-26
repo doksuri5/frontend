@@ -21,9 +21,11 @@ export default function LoginForm() {
         <Input
           id="id"
           name="id"
+          variant="error"
           placeholder="아이디를 입력해주세요."
           labelClass="[&>div]:min-h-[5.6rem]"
           inputClass="h-[5.6rem] placeholder:text-gray-400"
+          caption="cation"
         />
         <Input
           id="password"
@@ -33,6 +35,7 @@ export default function LoginForm() {
           inputGroupClass="mt-[1.6rem]"
           labelClass="[&>div]:min-h-[5.6rem]"
           inputClass="h-[5.6rem] [&+button]:top-[50%] [&+button]:translate-y-[-50%] placeholder:text-gray-400"
+          caption="cation"
         />
         <div className="flex_row">
           <CheckBox label="자동로그인" checked={checked} setChecked={setChecked} />
@@ -45,7 +48,14 @@ export default function LoginForm() {
             </p>
           </div>
         </div>
-        <Button variant="textButton" size="lg" bgColor="bg-grayscale-200" className="w-[38.6rem] text-gray-300">
+        <Button
+          type="button"
+          variant="textButton"
+          size="lg"
+          bgColor="bg-grayscale-200"
+          className="w-[38.6rem] text-gray-300"
+          disabled
+        >
           로그인
         </Button>
       </form>
