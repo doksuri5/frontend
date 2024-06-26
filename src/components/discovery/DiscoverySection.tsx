@@ -4,7 +4,7 @@ type DiscoverySectionProps = {
   title: string;
   sectionStyle?: string;
   titleStyle?: string;
-  subTag: JSX.Element;
+  subTag?: JSX.Element;
   children: React.ReactNode;
 };
 const DiscoverySection = ({ title, sectionStyle, titleStyle, subTag, children }: DiscoverySectionProps) => {
