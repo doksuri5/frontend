@@ -21,21 +21,18 @@ export default function LoginForm() {
         <Input
           id="id"
           name="id"
-          variant="error"
+          variant="default"
           placeholder="아이디를 입력해주세요."
-          labelClass="[&>div]:min-h-[5.6rem]"
-          inputClass="h-[5.6rem] placeholder:text-gray-400"
-          caption="cation"
+          // caption="cation"
         />
         <Input
           id="password"
           name="password"
           type="password"
+          variant="default"
           placeholder="비밀번호를 입력해주세요."
           inputGroupClass="mt-[1.6rem]"
-          labelClass="[&>div]:min-h-[5.6rem]"
-          inputClass="h-[5.6rem] [&+button]:top-[50%] [&+button]:translate-y-[-50%] placeholder:text-gray-400"
-          caption="cation"
+          // caption="cation"
         />
         <div className="flex_row">
           <CheckBox label="자동로그인" checked={checked} setChecked={setChecked} />
