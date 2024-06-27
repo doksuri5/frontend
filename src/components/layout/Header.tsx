@@ -4,8 +4,8 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { Button } from "../common";
-import LightLogo from "@/public/icons/light_logo.svg";
-import DarkLogo from "@/public/icons/dark_logo.svg";
+import LightLogo from "@/public/icons/light_logo.svg?component";
+import DarkLogo from "@/public/icons/dark_logo.svg?component";
 
 const Header = () => {
   const router = usePathname();
