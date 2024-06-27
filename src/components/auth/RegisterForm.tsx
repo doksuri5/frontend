@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
+import Select, { components } from "react-select";
 
 import Image from "next/image";
 
@@ -69,6 +70,15 @@ export default function RegisterForm() {
     return "hidden";
   };
 
+  const options = [
+    { value: "tsla", label: "# 테슬라 ∙ TSLA" },
+    { value: "apple", label: "# 애플 ∙ APPL" },
+    { value: "amzn", label: "# 아마존 ∙ AMZN" },
+    { value: "maft", label: "# MS ∙ MSFT" },
+    { value: "googl", label: "# 구글 ∙ GOOGL" },
+    { value: "u", label: "# 유니티 ∙ U" },
+  ];
+
   return (
     <>
       {/* 약관동의  */}
@@ -115,6 +125,22 @@ export default function RegisterForm() {
           bgColor={`${agreedAll ? "bg-navy-900" : "bg-grayscale-200"}`}
           disabled={!agreedAll}
           className={`${agreedAll ? "text-grayscale-0" : "text-grayscale-300"} mt-[4rem]`}
+          onClick={() => nextPage("/verify-user")}
+        >
+          다음
+        </Button>
+      </div>
+
+      {/* 본인인증 */}
+      <div className={cn("flex flex-col gap-[1.6rem]", getVisibilityClass("/verify-user"))}>
+        <Input id="name" name="name" labelName="이름" placeholder="이름을 입력해주세요." />
+        <Input id="email" name="email" labelName="이메일 주소" placeholder="이메일 주소를 입력해주세요." />
+        <Button
+          type="button"
+          size="lg"
+          bgColor={`${agreedAll ? "bg-navy-900" : "bg-grayscale-200"}`}
+          disabled={!agreedAll}
+          className={`${agreedAll ? "text-grayscale-0" : "text-grayscale-300"} mt-[4rem]`}
           onClick={() => nextPage("/register")}
         >
           다음
@@ -128,7 +154,7 @@ export default function RegisterForm() {
             id="id"
             name="id"
             labelName="아이디"
-            placeholder="이메일 주소를 입력해주세요."
+            placeholder="아이디를 입력해주세요."
             caption="*  6~12자의 영문, 숫자, _,을 이용한 조합"
             captionClass="text-grayscale-700"
             suffix={
@@ -219,9 +245,44 @@ export default function RegisterForm() {
           placeholder="닉네임을 입력해주세요."
           labelClass="[&>div]:min-h-[5.6rem]"
           inputClass="h-[5.6rem] placeholder:text-gray-400"
+          suffix={
+            <Button variant="textButton" size="sm" bgColor="bg-navy-900" className="w-[12rem]">
+              중복 확인
+            </Button>
+          }
         />
+        <div className="mt-[1.6rem]">
+          <p className="body-4 text-navy-900">관심 종목</p>
+          <Select
+            instanceId={"tags"}
+            isMulti
+            name={"tags"}
+            options={options}
+            className="basic-multi-select"
+            classNamePrefix="tag"
+            placeholder="#관심 종목을 추가해주세요."
+            noOptionsMessage={() => "검색된 결과가 없습니다."}
+            components={{
+              IndicatorsContainer: () => null,
+              IndicatorSeparator: () => null,
+              Input: (props) => <components.Input {...props} aria-activedescendant={undefined} />,
+            }}
+          />
+        </div>
+        <div className="mt-[1.6rem]">
+          <p className="body-4 text-navy-900">성별</p>
+          <p className="flex_row gap-[.8rem]">
+            <Button type="button" variant="textButton" size="md" bgColor="bg-white">
+              남성
+            </Button>
+            <Button type="button" variant="textButton" size="md" bgColor="bg-navy-900" className="">
+              여성
+            </Button>
+          </p>
+        </div>
         <Button
           type="button"
+          variant="textButton"
           size="lg"
           bgColor="bg-navy-900"
           className="mt-[5.6rem]"
