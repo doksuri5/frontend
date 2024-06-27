@@ -16,10 +16,6 @@ const variantStyles = {
   noBorder: { border: "" },
 };
 
-const Divider = () => {
-  return <hr className="my-[32px] border border-solid border-grayscale-400" />;
-};
-
 export default function NewsList({ newsItems, lineClamp = "lineClamp-2", variant = "border", style }: TINewsListProps) {
   const selectedVariantStyles = variantStyles[variant];
 
@@ -36,7 +32,7 @@ export default function NewsList({ newsItems, lineClamp = "lineClamp-2", variant
             style={newsItem?.style}
             variant={lineClamp}
           />
-          {index < newsItems.length - 1 && <Divider />}
+          {index < newsItems.length - 1 && <hr />}
         </Fragment>
       ))}
     </div>

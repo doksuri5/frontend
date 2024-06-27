@@ -3,6 +3,7 @@ import Image from "next/image";
 
 type TIStockItemProps = {
   icon: string;
+  iconSize?: number;
   stockKorName: string;
   stockEngName: string;
   currentPrice: number;
@@ -14,9 +15,9 @@ type TIStockItemProps = {
 
 const variantStyles = {
   stock: {
-    weight: "w-[49.4rem]",
+    weight: "w-full",
     height: "h-32",
-    imageSize: "h-[6.4rem] w-[6.4rem]",
+    imageSize: "h-[6.4rem] w-[6.4rem] flex_row_center",
     stockKorName: "body_2 font-bold",
     stockEngName: "body_5 font-normal",
     currentPrice: "body_3 text-right font-medium",
@@ -35,6 +36,7 @@ const variantStyles = {
 
 export default function StockItem({
   icon,
+  iconSize = 50,
   stockKorName,
   stockEngName,
   currentPrice,
@@ -56,7 +58,7 @@ export default function StockItem({
     >
       <div className="flex items-center gap-[1.6rem]">
         <div className={selectedVariantStyles.imageSize}>
-          <Image src={icon} alt="icon" />
+          <Image src={icon} alt="icon" width={iconSize} height={iconSize} />
         </div>
         <div>
           <h3 className={selectedVariantStyles.stockKorName}>{stockKorName}</h3>
