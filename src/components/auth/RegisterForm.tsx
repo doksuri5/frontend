@@ -1,21 +1,26 @@
 "use client";
 
 import { useState } from "react";
-
-import { Button, CheckBox, Input } from "../common";
 import { usePathname, useRouter } from "next/navigation";
-import { cn } from "@/utils/cn";
+
+import Image from "next/image";
+
 import Terms from "./Terms";
 import Privacy from "./Privacy";
+import { Button, CheckBox, Input } from "../common";
+
+import { cn } from "@/utils/cn";
+
+import EditIcon from "@/public/icons/avatar_edit.svg?component";
 
 export default function RegisterForm() {
   const [agreedAll, setAgreedAll] = useState(false);
   const [terms, setTerms] = useState(false);
   const [privacy, setPrivacy] = useState(false);
   const router = useRouter();
+  const [file, setFile] = useState("/icons/avatar_default.svg");
 
   const pathname = usePathname();
-  console.log(pathname);
 
   const agreeAllChangeHandler = (checked: boolean) => {
     setAgreedAll(checked);
@@ -36,6 +41,22 @@ export default function RegisterForm() {
       } else if (setter === setPrivacy && terms) {
         setAgreedAll(true);
       }
+    }
+  };
+
+  const avatarChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { files } = e.target;
+
+    if (files && files.length === 1) {
+      const file = files[0];
+
+      if (file.size > 1024 * 1024 * 1) {
+        alert("최대 1MB까지 업로드 가능합니다.");
+        e.target.value = ""; // 동일한 파일할 경우
+        return;
+      }
+
+      setFile(URL.createObjectURL(file));
     }
   };
 
@@ -125,7 +146,6 @@ export default function RegisterForm() {
             inputClass="h-[5.6rem] placeholder:text-gray-400"
           />
         </div>
-
         <Input
           type="password"
           id="password"
@@ -184,6 +204,32 @@ export default function RegisterForm() {
       </div>
 
       {/* 프로필 */}
+      <div className={cn(getVisibilityClass("/profile-setup"))}>
+        <div className="flex_col_center relative mx-[auto] mb-[2.4rem] h-[12rem] w-[12rem]">
+          <Image src={file} width={100} height={100} alt="프로필 이미지" />
+          <input type="file" accept="image/*" id="file" name="file" className="hidden" onChange={avatarChangeHandler} />
+          <label htmlFor="file" className="absolute bottom-[0] right-0 h-[4rem] w-[4rem] cursor-pointer">
+            <EditIcon />
+          </label>
+        </div>
+        <Input
+          id="nickname"
+          name="nickname"
+          labelName="닉네임"
+          placeholder="닉네임을 입력해주세요."
+          labelClass="[&>div]:min-h-[5.6rem]"
+          inputClass="h-[5.6rem] placeholder:text-gray-400"
+        />
+        <Button
+          type="button"
+          size="lg"
+          bgColor="bg-navy-900"
+          className="mt-[5.6rem]"
+          onClick={() => nextPage("/register-complete")}
+        >
+          가입하기
+        </Button>
+      </div>
     </>
   );
 }
