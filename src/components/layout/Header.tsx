@@ -4,9 +4,9 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { Button } from "../common";
+import { DISCOVERY_PATH, MAIN_PATH, MY_PAGE_PATH, MY_STOCK_PATH, NEWS_PATH } from "@/routes/path";
 import LightLogo from "@/public/icons/light_logo.svg?component";
 import DarkLogo from "@/public/icons/dark_logo.svg?component";
-import { DISCOVERY_PATH, MAIN_PATH, MY_PAGE_PATH, MY_STOCK_PATH, NEWS_PATH } from "@/routes/path";
 
 const Header = () => {
   const router = usePathname();
@@ -20,7 +20,7 @@ const Header = () => {
   ];
 
   return (
-    <header className="h-[8rem] w-full px-[12rem] py-[1rem]">
+    <header className="fixed left-0 top-0 z-10 h-[8rem] w-full bg-white px-[12rem] py-[1rem]">
       <div className="flex_row h-full w-full justify-between">
         <div className="flex_row h-full">
           <Link href={MAIN_PATH}>{router === MAIN_PATH && !isLogin ? <LightLogo /> : <DarkLogo />}</Link>
