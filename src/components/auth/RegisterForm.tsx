@@ -71,10 +71,6 @@ export default function RegisterForm() {
 
   return (
     <>
-      {/* <Button variant="textButton" size="sm" bgColor="bg-navy-900" className="w-[12.6rem]">
-        버튼
-      </Button> */}
-
       {/* 약관동의  */}
       <div className={cn("flex flex-col gap-[1.6rem]", getVisibilityClass("/agree"))}>
         <div className="border-b-[.1rem] border-grayscale-300 pb-[1.6rem]">
@@ -129,14 +125,19 @@ export default function RegisterForm() {
       <div className={cn("flex flex-col gap-[1.6rem]", getVisibilityClass("/register"))}>
         <div>
           <Input
-            id="email"
-            name="email"
-            labelName="이메일 주소"
+            id="id"
+            name="id"
+            labelName="아이디"
             placeholder="이메일 주소를 입력해주세요."
-            labelClass="[&>div]:min-h-[5.6rem]"
-            inputClass="h-[5.6rem] placeholder:text-gray-400"
+            caption="*  6~12자의 영문, 숫자, _,을 이용한 조합"
+            captionClass="text-grayscale-700"
+            suffix={
+              <Button variant="textButton" size="sm" bgColor="bg-navy-900" className="w-[12rem]">
+                중복 확인
+              </Button>
+            }
           />
-          <Input
+          {/* <Input
             id="email_certification"
             name="email_certification"
             // labelName="인증 코드"
@@ -144,7 +145,7 @@ export default function RegisterForm() {
             inputGroupClass="mt-[0.8rem] hidden"
             labelClass="[&>div]:min-h-[5.6rem]"
             inputClass="h-[5.6rem] placeholder:text-gray-400"
-          />
+          /> */}
         </div>
         <Input
           type="password"
@@ -152,8 +153,7 @@ export default function RegisterForm() {
           name="password"
           labelName="비밀번호 입력"
           placeholder="비밀번호를 입력해주세요."
-          labelClass="[&>div]:min-h-[5.6rem]"
-          inputClass="h-[5.6rem] placeholder:text-gray-400"
+          captionClass="text-grayscale-700"
           caption="*  8-20자 이내 숫자, 특수문자, 영문자 중 2가지 이상을 조합"
         />
         <Input
@@ -174,7 +174,7 @@ export default function RegisterForm() {
             labelClass="[&>div]:min-h-[5.6rem]"
             inputClass="h-[5.6rem] placeholder:text-gray-400"
           />
-          <Input
+          {/* <Input
             id="phone_certification"
             name="phone_certification"
             // labelName="인증 코드"
@@ -182,7 +182,7 @@ export default function RegisterForm() {
             inputGroupClass="mt-[0.8rem] hidden"
             labelClass="[&>div]:min-h-[5.6rem]"
             inputClass="h-[5.6rem] placeholder:text-gray-400"
-          />
+          /> */}
         </div>
         <Input
           id="birth"
