@@ -6,23 +6,24 @@ import Link from "next/link";
 import { Button } from "../common";
 import LightLogo from "@/public/icons/light_logo.svg?component";
 import DarkLogo from "@/public/icons/dark_logo.svg?component";
+import { DISCOVERY_PATH, MAIN_PATH, MY_PAGE_PATH, MY_STOCK_PATH, NEWS_PATH } from "@/routes/path";
 
 const Header = () => {
   const router = usePathname();
   const [isLogin, setIsLogin] = useState(true); // 로그인 여부 로직 처리
 
   const buttonList = [
-    { text: "발견", url: "/discovery" },
-    { text: "뉴스", url: "/news" },
-    { text: "관심종목", url: "/mystock" },
-    { text: "마이페이지", url: "/mypage" },
+    { text: "발견", url: DISCOVERY_PATH },
+    { text: "뉴스", url: NEWS_PATH },
+    { text: "관심종목", url: MY_STOCK_PATH },
+    { text: "마이페이지", url: MY_PAGE_PATH },
   ];
 
   return (
     <header className="h-[8rem] w-full px-[12rem] py-[1rem]">
       <div className="flex_row h-full w-full justify-between">
         <div className="flex_row h-full">
-          <Link href="/">{router === "/" && !isLogin ? <LightLogo /> : <DarkLogo />}</Link>
+          <Link href={MAIN_PATH}>{router === MAIN_PATH && !isLogin ? <LightLogo /> : <DarkLogo />}</Link>
           {isLogin && (
             <nav className="flex_row_center ml-[2rem] h-full">
               {buttonList.map((item) => (
