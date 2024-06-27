@@ -9,6 +9,9 @@
   body {
     @apply text-[1.6rem];
   }
+  hr {
+    @apply my-[3.2rem] w-full border-t border-solid border-grayscale-300;
+  }
 }
 
 @layer utilities {
