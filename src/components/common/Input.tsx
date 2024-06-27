@@ -1,6 +1,15 @@
 "use client";
 
-import React, { ElementType, forwardRef, InputHTMLAttributes, useMemo, useState } from "react";
+import {
+  forwardRef,
+  ReactNode,
+  InputHTMLAttributes,
+  ReactElement,
+  cloneElement,
+  useMemo,
+  useState,
+  useCallback,
+} from "react";
 
 import { cn } from "@/utils/cn";
 import { cva } from "class-variance-authority";
@@ -9,12 +18,13 @@ import EyeHideIcon from "@/assets/icons/eye-hide-icon";
 import EyeShowIcon from "@/assets/icons/eye-show-icon";
 import Label from "./Label";
 import Caption from "./Caption";
+import { ButtonProps } from "./Button";
 
 export type VariantTypes = "default" | "error" | "success";
 
 export type TSizes = "default" | "sm" | "lg";
 
-export type InputProps = InputHTMLAttributes<HTMLInputElement> & {
+export type InputProps = Omit<InputHTMLAttributes<HTMLInputElement>, "size"> & {
   variant?: VariantTypes;
   labelName?: string;
   size?: TSizes;
@@ -24,8 +34,7 @@ export type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   labelClass?: string;
   inputClass?: string;
   captionClass?: string;
-  // suffix icon or button
-  suffix?: ElementType;
+  suffix?: ReactElement<ButtonProps>;
 };
 
 const inputVariants = cva(
@@ -43,8 +52,8 @@ const inputVariants = cva(
       },
       size: {
         default: "p-[1.6rem] body_4",
-        sm: "p-[0.8rem] body_5",
-        lg: "p-[2.4rem] body_3",
+        sm: "p-[1.3rem] body_5",
+        lg: "p-[2.2rem] body_3",
       },
     },
     defaultVariants: {
@@ -54,6 +63,19 @@ const inputVariants = cva(
   },
 );
 
+const suffixButtonVariants = cva("absolute max-w-[12rem] top-[50%] transform -translate-y-1/2", {
+  variants: {
+    size: {
+      default: "max-h-[2.4rem] right-[1.6rem]",
+      sm: "max-h-[2.4rem] right-[1.3rem]",
+      lg: "max-h-[4.2rem] right-[2rem]",
+    },
+  },
+  defaultVariants: {
+    size: "default",
+  },
+});
+
 const trailingButtonVariants = cva("absolute", {
   variants: {
     variant: {
@@ -62,9 +84,7 @@ const trailingButtonVariants = cva("absolute", {
       success: "text-success-100",
     },
     size: {
-      default: "right-[1.6rem] top-[1.6rem]",
-      sm: "right-[0.8rem] top-[0.8rem]",
-      lg: "right-[2.4rem] top-[2.4rem]",
+      default: "right-[1.2rem] top-[50%] transform -translate-y-1/2",
     },
   },
   defaultVariants: {
@@ -73,7 +93,7 @@ const trailingButtonVariants = cva("absolute", {
   },
 });
 
-const InputGroup = ({ className, children }: { className?: string; children: React.ReactNode }) => {
+const InputGroup = ({ className, children }: { className?: string; children: ReactNode }) => {
   return <div className={cn("flex flex-col", className)}>{children}</div>;
 };
 
@@ -89,7 +109,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       labelClass,
       inputClass,
       captionClass,
-      suffix: SuffixComp,
+      suffix,
       ...props
     },
     ref,
@@ -104,6 +124,13 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       [type, isPasswordVisible],
     );
 
+    const cloneSuffix = useMemo(() => {
+      if (!suffix) return null;
+      return cloneElement(suffix, {
+        className: cn(suffixButtonVariants({ size, className: suffix.props.className })),
+      });
+    }, [size, suffix]);
+
     return (
       <InputGroup className={inputGroupClass}>
         <Label labelName={labelName} htmlFor={props.id} variant={variant} size={size} labelClass={labelClass}>
@@ -117,7 +144,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           {type === "password" && (
             <button
               type="button"
-              className={cn(trailingButtonVariants({ variant, size }))}
+              className={cn(trailingButtonVariants({ variant, size: "default" }))}
               onClick={handlePasswordVisibility}
             >
               {isPasswordVisible ? (
@@ -127,7 +154,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
               )}
             </button>
           )}
-          {SuffixComp && <SuffixComp />}
+          {cloneSuffix}
         </Label>
         {caption && (
           <Caption variant={variant} captionClass={captionClass}>
