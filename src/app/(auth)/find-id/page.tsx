@@ -2,8 +2,8 @@ import Link from "next/link";
 
 import { Button } from "@/components/common";
 
-import CommonLayout from "@/components/auth/CommonLayout";
-import FindIdForm from "@/components/auth/FindIdForm";
+import CommonLayout from "../_components/CommonLayout";
+import FindIdForm from "../_components/FindIdForm";
 
 import Image from "next/image";
 

@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 
-import Link from "next/link";
+import { Button, CheckBox, Input } from "@/components/common";
 
-import { Button, CheckBox, Input } from "../common";
+import Link from "next/link";
 
 import { cn } from "@/utils/cn";
 

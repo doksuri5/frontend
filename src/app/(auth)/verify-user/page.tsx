@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-import CommonLayout from "@/components/auth/CommonLayout";
-import RegisterForm from "@/components/auth/RegisterForm";
+import CommonLayout from "../_components/CommonLayout";
+import RegisterForm from "../_components/RegisterForm";
 
 import { Button, Modal } from "@/components/common";
 

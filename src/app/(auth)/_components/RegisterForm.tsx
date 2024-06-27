@@ -8,7 +8,8 @@ import Image from "next/image";
 
 import Terms from "./Terms";
 import Privacy from "./Privacy";
-import { Button, CheckBox, Input } from "../common";
+
+import { Input, Button, CheckBox } from "@/components/common";
 
 import { cn } from "@/utils/cn";
 

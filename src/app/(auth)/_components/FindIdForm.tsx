@@ -1,4 +1,4 @@
-import { Button, Input } from "../common";
+import { Button, Input } from "@/components/common";
 
 export default function FindIdForm() {
   return (

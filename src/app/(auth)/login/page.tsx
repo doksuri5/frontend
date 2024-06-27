@@ -1,7 +1,7 @@
 import Link from "next/link";
 
-import CommonLayout from "@/components/auth/CommonLayout";
-import LoginForm from "@/components/auth/LoginForm";
+import CommonLayout from "../_components/CommonLayout";
+import LoginForm from "../_components/LoginForm";
 
 import { Button } from "@/components/common";
 

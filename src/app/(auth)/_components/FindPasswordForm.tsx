@@ -1,4 +1,4 @@
-import { Button, Input } from "../common";
+import { Input, Button } from "@/components/common";
 
 export default function FindPasswordForm() {
   return (

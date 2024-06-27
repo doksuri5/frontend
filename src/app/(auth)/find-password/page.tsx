@@ -1,9 +1,10 @@
 "use client";
+
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-import CommonLayout from "@/components/auth/CommonLayout";
-import FindPasswordForm from "@/components/auth/FindPasswordForm";
+import CommonLayout from "../_components/CommonLayout";
+import FindPasswordForm from "../_components/FindPasswordForm";
 
 import { Button, Modal } from "@/components/common";
 

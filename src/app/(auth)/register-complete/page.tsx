@@ -1,5 +1,6 @@
+import CommonLayout from "../_components/CommonLayout";
+
 import { Button } from "@/components/common";
-import CommonLayout from "@/components/auth/CommonLayout";
 
 export default function RegisterCompletePage() {
   return (
