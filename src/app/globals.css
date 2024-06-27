@@ -61,3 +61,13 @@
     @apply flex flex-col items-center justify-center;
   }
 }
+
+/* 스크롤바 숨기기 유틸리티 클래스 */
+.scrollbar-hidden {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, and Opera */
+}

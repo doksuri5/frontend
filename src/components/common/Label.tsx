@@ -22,6 +22,19 @@ const labelVariants = cva("peer flex flex-col has-[:disabled]:text-grayscale-300
   },
 });
 
+const containerVariants = cva("relative", {
+  variants: {
+    size: {
+      default: "min-h-[5.8rem]",
+      lg: "min-h-[7.4rem]",
+      sm: "min-h-[4.8rem]",
+    },
+  },
+  defaultVariants: {
+    size: "default",
+  },
+});
+
 const Label = ({
   labelName,
   children,
@@ -38,7 +51,7 @@ const Label = ({
 } & LabelHTMLAttributes<HTMLLabelElement>) => (
   <label className={cn(labelVariants({ variant, size, className: labelClass }))} {...props}>
     {labelName}
-    <div className="relative min-h-[5rem]">{children}</div>
+    <div className={cn(containerVariants({ size }))}>{children}</div>
   </label>
 );
 
