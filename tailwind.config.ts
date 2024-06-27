@@ -75,6 +75,8 @@ const config: Config = {
       fontFamily: {
         pretendard: ["var(--font-pretendard)"],
       },
+      //스크롤바 숨기기
+      scrollbar: ["hidden"],
     },
   },
   plugins: [utilsPlugin],
