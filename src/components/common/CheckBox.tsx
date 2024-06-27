@@ -17,6 +17,7 @@ type TCheckProps = {
   variants?: string;
   label?: string;
   className?: string;
+  labelClass?: string;
   checked: boolean;
   setChecked: (checked: boolean) => void;
 } & InputHTMLAttributes<HTMLInputElement>;
@@ -27,12 +28,13 @@ export default function CheckBox({
   checked,
   setChecked,
   className,
+  labelClass,
   ...props
 }: TCheckProps) {
   return (
     <Checkbox checked={checked} onChange={setChecked} className={cn("flex_row", className)}>
       {variants === "radio" && (
-        <label className={cn("body_3 text-grayscale-900")} htmlFor={props.id}>
+        <label className={cn("body_3 text-grayscale-900", labelClass)} htmlFor={props.id}>
           {label}
         </label>
       )}
