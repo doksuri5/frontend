@@ -39,7 +39,7 @@ export default function LanguageSetting() {
   };
 
   return (
-    <div className="flex flex-col gap-[2.4rem]">
+    <div className="flex w-[100%] flex-col gap-[2.4rem]">
       <div className="flex flex-col gap-[.8rem]">
         <div className="body_2 font-bold text-gray-900">언어 설정</div>
         <div>

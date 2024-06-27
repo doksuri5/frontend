@@ -14,10 +14,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
   return (
-    <div>
-      <div className="heading_4 pb-[2rem] pt-[5.6rem] font-bold text-gray-900">마이페이지</div>
-      <div className="flex flex-row gap-[2.7rem]">
-        <div className="h-[72rem] w-[28.5rem] rounded-[1.6rem] bg-grayscale-0">
+    <>
+      <header className="heading_4 pb-[2rem] pt-[5.6rem] font-bold text-gray-900">마이페이지</header>
+      <div className="flex flex-row gap-[2.7rem] pb-[11.2rem]">
+        <aside className="min-h-[72rem] min-w-[28.5rem] rounded-[1.6rem] bg-grayscale-0">
           <div className="mt-[2.4rem] flex flex-col gap-[.8rem]">
             <ul>
               {menuList.map((item) => (
@@ -32,9 +32,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               ))}
             </ul>
           </div>
-        </div>
-        <div className="h-[72rem] w-[88.8rem] rounded-[1.6rem] bg-grayscale-0 p-[3.2rem]">{children}</div>
+        </aside>
+        <main className="min-h-[72rem] flex-grow rounded-[1.6rem] bg-grayscale-0 p-[3.2rem]">{children}</main>
       </div>
-    </div>
+    </>
   );
 }
