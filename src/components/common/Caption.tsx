@@ -2,7 +2,7 @@ import { cn } from "@/utils/cn";
 import { TSizes, VariantTypes } from "./Input";
 import { cva } from "class-variance-authority";
 
-const captionVariants = cva("text-navy-900 peer-has-[:disabled]:text-grayscale-300", {
+const captionVariants = cva("caption text-navy-900 peer-has-[:disabled]:text-grayscale-300 pt-[0.4rem]", {
   variants: {
     variant: {
       default: "text-navy-900 peer-has-[:focus]:text-blue-500",

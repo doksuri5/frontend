@@ -15,6 +15,7 @@ import FindNewsSkeleton from "./skeleton/FindNewsSkeleton";
 import StockItemSkeleton from "./skeleton/StockItemSkeleton";
 import RecentSearchItemSkeleton from "./skeleton/RecentSearchItemSkeleton";
 import PopularSearchItemSkeleton from "./skeleton/PopularSearchItemSkeleton";
+import Modal from "./Modal";
 
 export {
   Button,
@@ -34,4 +35,5 @@ export {
   StockItemSkeleton,
   RecentSearchItemSkeleton,
   PopularSearchItemSkeleton,
+  Modal,
 };
