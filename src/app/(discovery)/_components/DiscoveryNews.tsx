@@ -1,4 +1,4 @@
-import { FindNews } from "../common";
+import { FindNews } from "@/components/common";
 import NewsImage from "@/public/icons/news.jpg";
 import DiscoverySection from "./DiscoverySection";
 

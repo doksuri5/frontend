@@ -1,4 +1,4 @@
-import { StockItem } from "../common";
+import { StockItem } from "@/components/common";
 import DiscoverySection from "./DiscoverySection";
 import Apple_icon from "@/public/icons/Apple_icon.svg";
 

@@ -1,10 +1,4 @@
-import {
-  DiscoveryInput,
-  DiscoveryNews,
-  PopularSearches,
-  RecentSearches,
-  DiscoveryStocks,
-} from "@/components/discovery";
+import { DiscoveryInput, DiscoveryNews, DiscoveryStocks, PopularSearches, RecentSearches } from "./_components";
 
 type TDiscoveryProps = {
   searchParams: {
