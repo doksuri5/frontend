@@ -45,7 +45,7 @@ const News = () => {
       <h2 className="heading_4 pb-[1.6rem] font-bold">스팩님을 위한 주식 뉴스</h2>
       <div className="flex flex-col rounded-lg bg-white p-[4rem]">
         <p className="pb-[1.6rem]">관심종목</p>
-        <ul className="scrollbar-hide flex gap-4 overflow-x-scroll" ref={ref} {...draggableOptions()}>
+        <ul className="scrollbar-hide flex gap-[1rem] overflow-x-scroll" ref={ref} {...draggableOptions()}>
           {news.map((item) => (
             <Card key={item.id} variant="iconCard" date={item.date} title={item.title} />
           ))}

@@ -1,4 +1,4 @@
-import { StockItem, Button, Card } from "@/components/common";
+import { StockItem, Button } from "@/components/common";
 import AIIcon from "@/public/icons/AI_icon.svg";
 import Image from "next/image";
 import News from "./news";
@@ -53,7 +53,7 @@ const dummyDataItems = [
 
 export default function Home() {
   return (
-    <main className="flex h-full flex-col gap-10 overflow-auto bg-background-100 pt-[8rem]">
+    <main className="flex h-full flex-col gap-10 bg-background-100 pt-[8rem]">
       <div className="flex gap-4">
         <h1 className="heading_4 font-bold">스팩님의 AI 리포트</h1>
         <Button variant="textButton" bgColor="bg-navy-900" className="h-[4rem] w-[8rem]">
