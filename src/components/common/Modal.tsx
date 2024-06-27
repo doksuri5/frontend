@@ -15,8 +15,9 @@
  *
  * children: 모달 내부에 들어갈 내용을 작성
  *
- * isIconBtn: true/false로 지정 가능. true로 설정하면, 모달 상단 오른쪽에 x 아이콘이 나타나고 이 아이콘 클릭으로 모달 close 가능, default는 false
+ * isIconBtn?: true/false로 지정 가능. true로 설정하면, 모달 상단 오른쪽에 x 아이콘이 나타나고 이 아이콘 클릭으로 모달 close 가능, default는 false
  *
+ * isBackdropClosable?: true/false 지정 가능. true 지정 시, 백드롭 클릭하면 모달이 닫히게 설정. default는 false
  */
 
 import { cn } from "@/utils/cn";
@@ -32,6 +33,7 @@ type TModalProps = {
   title?: string;
   children: ReactNode;
   closeIcon?: boolean;
+  isBackdropClosable?: boolean;
 };
 
 export default function Modal({
@@ -42,9 +44,21 @@ export default function Modal({
   title,
   children,
   closeIcon = false,
+  isBackdropClosable = false,
 }: TModalProps) {
   return (
-    <Dialog open={isOpen} as="div" className={cn(`relative z-10 focus:outline-none`)} onClose={() => {}}>
+    <Dialog
+      open={isOpen}
+      as="div"
+      className={cn(`relative z-10 focus:outline-none`)}
+      onClose={
+        isBackdropClosable
+          ? () => {
+              onClose();
+            }
+          : () => {}
+      }
+    >
       <TransitionChild
         as={Fragment}
         enter="duration-300 ease-out"
