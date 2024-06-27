@@ -105,16 +105,27 @@ export default function RegisterForm() {
       </div>
 
       {/* 회원가입 */}
-      <div className={cn(getVisibilityClass("/register"))}>
-        <Input
-          id="id"
-          name="id"
-          labelName="아이디"
-          placeholder="아이디를 입력해주세요."
-          labelClass="[&>div]:min-h-[5.6rem]"
-          inputClass="h-[5.6rem] placeholder:text-gray-400"
-          caption="*  6~12자의 영문, 숫자, ,_을 이용한 조합"
-        />
+      <div className={cn("flex flex-col gap-[1.6rem]", getVisibilityClass("/register"))}>
+        <div>
+          <Input
+            id="email"
+            name="email"
+            labelName="이메일 주소"
+            placeholder="이메일 주소를 입력해주세요."
+            labelClass="[&>div]:min-h-[5.6rem]"
+            inputClass="h-[5.6rem] placeholder:text-gray-400"
+          />
+          <Input
+            id="email_certification"
+            name="email_certification"
+            // labelName="인증 코드"
+            placeholder="인증 코드를 입력해주세요."
+            inputGroupClass="mt-[0.8rem] hidden"
+            labelClass="[&>div]:min-h-[5.6rem]"
+            inputClass="h-[5.6rem] placeholder:text-gray-400"
+          />
+        </div>
+
         <Input
           type="password"
           id="password"
@@ -134,14 +145,25 @@ export default function RegisterForm() {
           labelClass="[&>div]:min-h-[5.6rem]"
           inputClass="h-[5.6rem] placeholder:text-gray-400"
         />
-        <Input
-          id="phone"
-          name="phone"
-          labelName="휴대폰번호"
-          placeholder="-를 제외한 휴대폰번호를 입력해주세요."
-          labelClass="[&>div]:min-h-[5.6rem]"
-          inputClass="h-[5.6rem] placeholder:text-gray-400"
-        />
+        <div>
+          <Input
+            id="phone"
+            name="phone"
+            labelName="휴대폰번호"
+            placeholder="-를 제외한 휴대폰번호를 입력해주세요."
+            labelClass="[&>div]:min-h-[5.6rem]"
+            inputClass="h-[5.6rem] placeholder:text-gray-400"
+          />
+          <Input
+            id="phone_certification"
+            name="phone_certification"
+            // labelName="인증 코드"
+            placeholder="인증 코드를 입력해주세요."
+            inputGroupClass="mt-[0.8rem] hidden"
+            labelClass="[&>div]:min-h-[5.6rem]"
+            inputClass="h-[5.6rem] placeholder:text-gray-400"
+          />
+        </div>
         <Input
           id="birth"
           name="birth"
@@ -150,7 +172,13 @@ export default function RegisterForm() {
           labelClass="[&>div]:min-h-[5.6rem]"
           inputClass="h-[5.6rem] placeholder:text-gray-400"
         />
-        <Button size="lg" bgColor="bg-navy-900" className="">
+        <Button
+          type="button"
+          size="lg"
+          bgColor="bg-navy-900"
+          className="mt-[4rem]"
+          onClick={() => nextPage("/profile-setup")}
+        >
           다음
         </Button>
       </div>
