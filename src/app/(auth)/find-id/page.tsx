@@ -10,21 +10,23 @@ import Image from "next/image";
 export default function FindIdPage() {
   return (
     <>
-      <CommonLayout title="아이디 찾기" desc="휴대폰번호와 일치하는 아이디입니다.">
-        {/* <FindIdForm /> */}
+      {/* desc="휴대폰번호와 일치하는 아이디입니다." */}
+      <CommonLayout title="아이디 찾기">
+        <FindIdForm />
         {/* 아이디 찾기 완료 UI */}
+        {/*
         <div>
           <div className="flex_col border-text-grayscale-300 gap-[1.6rem] rounded-[.8rem] border py-[2.8rem]">
             <p className="flex_row body_4 text-grayscale-900">
               아이디 :
               <span className="ml-[.8rem] inline-flex">
-                {/* <Image
+                <Image
                   src={"/icons/icon_kakao.svg"}
                   alt={"간편 로그인 로고"}
                   width={20}
                   height={20}
                   className="mr-[.4rem]"
-                /> */}
+                />
                 sfacspaceid
               </span>
             </p>
@@ -38,6 +40,7 @@ export default function FindIdPage() {
             </Link>
           </Button>
         </div>
+        */}
       </CommonLayout>
     </>
   );
