@@ -1,3 +1,4 @@
 import { SearchDataType } from "./SearchDataType";
+import { StockDataType } from "./StockDataType";
 
-export { type SearchDataType };
+export { type SearchDataType, type StockDataType };
