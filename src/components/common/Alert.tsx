@@ -12,7 +12,7 @@ type TAlertBaseProps = {
 
 type TCheckButtonProps = TAlertBaseProps & { variant: "checkButton" };
 type TLinkButtonProps = TAlertBaseProps & { variant: "linkButton"; link: string };
-type TFnButtonProps = TAlertBaseProps & { variant: "fnButton"; onClick: () => void };
+type TFnButtonProps = TAlertBaseProps & { variant: "fnButton"; subButtonText: string; onClick: () => void };
 
 type TAlertProps = TCheckButtonProps | TLinkButtonProps | TFnButtonProps;
 
@@ -50,13 +50,13 @@ const Alert: React.FC<TAlertProps> = (props) => {
           </Button>
         </Link>
       )}
-      {variant === "fnButton" && "onClick" in props && (
+      {variant === "fnButton" && "subButtonText" in props && "onClick" in props && (
         <div className="flex_row_center gap-[.8rem]">
           <Button size="md" bgColor="bg-grayscale-200" className="mt-[3.2rem]" onClick={props.onClick}>
             {buttonText}
           </Button>
           <Button size="md" bgColor="bg-navy-900" className="mt-[3.2rem]" onClick={() => setIsOpen(false)}>
-            돌아가기
+            {props.subButtonText}
           </Button>
         </div>
       )}
