@@ -14,6 +14,7 @@ import Modal from "./Modal";
 import { Skeleton } from "./Skeleton";
 import FindNewsSkeleton from "./List/skeleton/FindNewsSkeleton";
 import StockItemSkeleton from "./List/skeleton/StockItemSkeleton";
+import Alert from "./Alert";
 
 export {
   Button,
@@ -32,4 +33,5 @@ export {
   Skeleton,
   FindNewsSkeleton,
   StockItemSkeleton,
+  Alert,
 };
