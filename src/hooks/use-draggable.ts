@@ -1,3 +1,5 @@
+"use client";
+
 import { useDrag } from "@use-gesture/react";
 import { RefObject } from "react";
 
