@@ -27,7 +27,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     `items-center" flex h-[6rem] w-[100%] border-l-[.8rem] px-[2.4rem] py-[1.6rem] ${pathname === item.url ? "border-grayscale-900 font-bold" : "border-grayscale-0"}`,
                   )}
                 >
-                  <Link href={item.url}>{item.key}</Link>
+                  <Link className="w-full" href={item.url}>
+                    {item.key}
+                  </Link>
                 </li>
               ))}
             </ul>

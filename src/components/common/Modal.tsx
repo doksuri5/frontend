@@ -1,25 +1,3 @@
-/**
- * 아래 두 줄의 코드를 사용하여 모달을 조작할 수 있습니다.
- * const [isOpen, setIsOpen] = useState(false); //현재 모달의 열림 여부
- * const closeModal = () => setIsOpen(false);  //모달 창 닫기 함수
- *
- * panelStyle?: 모달 패널의 스타일 지정. 패딩, 모서리 둥글기, 너비 등을 커스텀 가능
- *
- * titleStyle?: 타이틀 폰트 스타일 지정, default는 "heading_3". ex) titleStyle="heading_3"
- *
- * isOpen: 모달의 현재 상태(오픈) 여부. ex) isOpen={isOpen}
- *
- * onClose: 모달 닫기 함수 등록. ex) onClose={() => setIsOpen(false)}
- *
- * title?: 모달 제목, 경고메시지 등을 지정. ex) title="회원 탈퇴"
- *
- * children: 모달 내부에 들어갈 내용을 작성
- *
- * isIconBtn?: true/false로 지정 가능. true로 설정하면, 모달 상단 오른쪽에 x 아이콘이 나타나고 이 아이콘 클릭으로 모달 close 가능, default는 false
- *
- * isBackdropClosable?: true/false 지정 가능. true 지정 시, 백드롭 클릭하면 모달이 닫히게 설정. default는 false
- */
-
 import { cn } from "@/utils/cn";
 import { Dialog, DialogPanel, DialogTitle, TransitionChild } from "@headlessui/react";
 import { Fragment, ReactNode } from "react";
@@ -34,6 +12,7 @@ type TModalProps = {
   children: ReactNode;
   closeIcon?: boolean;
   isBackdropClosable?: boolean;
+  bodyStyle?: string;
 };
 
 export default function Modal({
@@ -45,12 +24,13 @@ export default function Modal({
   children,
   closeIcon = false,
   isBackdropClosable = false,
+  bodyStyle = "flex flex-col justify-center items-center",
 }: TModalProps) {
   return (
     <Dialog
       open={isOpen}
       as="div"
-      className={cn(`relative z-10 focus:outline-none`)}
+      className={cn(`relative z-[1050] focus:outline-none`)}
       onClose={
         isBackdropClosable
           ? () => {
@@ -68,10 +48,10 @@ export default function Modal({
         leaveFrom="opacity-100"
         leaveTo="opacity-0"
       >
-        <div className="fixed inset-0 bg-black bg-opacity-50" />
+        <div className="fixed inset-0 z-[1040] bg-black bg-opacity-50" />
       </TransitionChild>
 
-      <div className="fixed inset-0 z-10 w-screen">
+      <div className="fixed inset-0 z-[1050] w-screen">
         <div className="flex min-h-full items-center justify-center">
           <TransitionChild
             as={Fragment}
@@ -105,7 +85,7 @@ export default function Modal({
                   />
                 )}
               </div>
-              <div>{children}</div>
+              <div className={bodyStyle}>{children}</div>
             </DialogPanel>
           </TransitionChild>
         </div>

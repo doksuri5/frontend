@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { servicePolicyText } from "../_constants/servicePolicyText";
-import { privacyPolicyText } from "../_constants/privacyPolicyText";
 import { PolicyContent } from "../_components/PolicyContent";
+import { servicePolicyText } from "@/constants/servicePolicyText";
+import { privacyPolicyText } from "@/constants/privacyPolicyText";
 
 export default function Terms() {
   const [servicePolicy, setServicePolicy] = useState(false);
