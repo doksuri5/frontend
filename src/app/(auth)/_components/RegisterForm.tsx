@@ -15,6 +15,15 @@ import { cn } from "@/utils/cn";
 
 import EditIcon from "@/public/icons/avatar_edit.svg?component";
 
+const options = [
+  { value: "tsla", label: "# 테슬라 ∙ TSLA" },
+  { value: "apple", label: "# 애플 ∙ APPL" },
+  { value: "amzn", label: "# 아마존 ∙ AMZN" },
+  { value: "maft", label: "# MS ∙ MSFT" },
+  { value: "googl", label: "# 구글 ∙ GOOGL" },
+  { value: "u", label: "# 유니티 ∙ U" },
+];
+
 export default function RegisterForm() {
   const [agreedAll, setAgreedAll] = useState(false);
   const [terms, setTerms] = useState(false);
@@ -48,16 +57,13 @@ export default function RegisterForm() {
 
   const avatarChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target;
-
     if (files && files.length === 1) {
       const file = files[0];
-
       if (file.size > 1024 * 1024 * 1) {
         alert("최대 1MB까지 업로드 가능합니다.");
         e.target.value = ""; // 동일한 파일할 경우
         return;
       }
-
       setFile(URL.createObjectURL(file));
     }
   };
@@ -70,15 +76,6 @@ export default function RegisterForm() {
     if (pathname === targetPath) return "";
     return "hidden";
   };
-
-  const options = [
-    { value: "tsla", label: "# 테슬라 ∙ TSLA" },
-    { value: "apple", label: "# 애플 ∙ APPL" },
-    { value: "amzn", label: "# 아마존 ∙ AMZN" },
-    { value: "maft", label: "# MS ∙ MSFT" },
-    { value: "googl", label: "# 구글 ∙ GOOGL" },
-    { value: "u", label: "# 유니티 ∙ U" },
-  ];
 
   return (
     <>
