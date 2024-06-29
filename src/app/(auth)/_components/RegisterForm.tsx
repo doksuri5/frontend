@@ -8,12 +8,13 @@ import Image from "next/image";
 
 import Terms from "./Terms";
 import Privacy from "./Privacy";
-
 import { Input, Button, CheckBox } from "@/components/common";
 
 import { cn } from "@/utils/cn";
 
 import EditIcon from "@/public/icons/avatar_edit.svg?component";
+
+import { AGREE_PATH, PROFILE_SETUP_PATH, REGISTER_COMPLETE_PATH, REGISTER_PATH, VERIFY_USER_PATH } from "@/routes/path";
 
 const options = [
   { value: "tsla", label: "# 테슬라 ∙ TSLA" },
@@ -80,7 +81,7 @@ export default function RegisterForm() {
   return (
     <>
       {/* 약관동의  */}
-      <div className={cn("flex flex-col gap-[1.6rem]", getVisibilityClass("/agree"))}>
+      <div className={cn("auth_form_layout", getVisibilityClass(AGREE_PATH))}>
         <div className="border-b-[.1rem] border-grayscale-300 pb-[1.6rem]">
           <CheckBox
             checked={agreedAll}
@@ -123,14 +124,14 @@ export default function RegisterForm() {
           bgColor={`${agreedAll ? "bg-navy-900" : "bg-grayscale-200"}`}
           disabled={!agreedAll}
           className={`${agreedAll ? "text-grayscale-0" : "text-grayscale-300"} mt-[4rem]`}
-          onClick={() => nextPage("/verify-user")}
+          onClick={() => nextPage(VERIFY_USER_PATH)}
         >
           다음
         </Button>
       </div>
 
       {/* 본인인증 */}
-      <div className={cn("flex flex-col gap-[1.6rem]", getVisibilityClass("/verify-user"))}>
+      <div className={cn("auth_form_layout", getVisibilityClass(VERIFY_USER_PATH))}>
         <Input id="name" name="name" labelName="이름" placeholder="이름을 입력해주세요." />
         <Input id="email" name="email" labelName="이메일 주소" placeholder="이메일 주소를 입력해주세요." />
         <Button
@@ -139,14 +140,14 @@ export default function RegisterForm() {
           bgColor={`${agreedAll ? "bg-navy-900" : "bg-grayscale-200"}`}
           disabled={!agreedAll}
           className={`${agreedAll ? "text-grayscale-0" : "text-grayscale-300"} mt-[4rem]`}
-          onClick={() => nextPage("/register")}
+          onClick={() => nextPage(REGISTER_PATH)}
         >
           다음
         </Button>
       </div>
 
       {/* 회원가입 */}
-      <div className={cn("flex flex-col gap-[1.6rem]", getVisibilityClass("/register"))}>
+      <div className={cn("auth_form_layout", getVisibilityClass(REGISTER_PATH))}>
         <div>
           <Input
             id="id"
@@ -167,8 +168,6 @@ export default function RegisterForm() {
             // labelName="인증 코드"
             placeholder="인증 코드를 입력해주세요."
             inputGroupClass="mt-[0.8rem] hidden"
-            labelClass="[&>div]:min-h-[5.6rem]"
-            inputClass="h-[5.6rem] placeholder:text-gray-400"
           /> */}
         </div>
         <Input
@@ -195,8 +194,6 @@ export default function RegisterForm() {
             // labelName="인증 코드"
             placeholder="인증 코드를 입력해주세요."
             inputGroupClass="mt-[0.8rem] hidden"
-            labelClass="[&>div]:min-h-[5.6rem]"
-            inputClass="h-[5.6rem] placeholder:text-gray-400"
           /> */}
         </div>
         <Input
@@ -210,14 +207,14 @@ export default function RegisterForm() {
           size="lg"
           bgColor="bg-navy-900"
           className="mt-[4rem]"
-          onClick={() => nextPage("/profile-setup")}
+          onClick={() => nextPage(PROFILE_SETUP_PATH)}
         >
           다음
         </Button>
       </div>
 
       {/* 프로필 */}
-      <div className={cn(getVisibilityClass("/profile-setup"))}>
+      <div className={cn(getVisibilityClass(PROFILE_SETUP_PATH))}>
         <div className="flex_col_center relative mx-[auto] mb-[2.4rem] h-[12rem] w-[12rem]">
           <Image src={file} width={100} height={100} alt="프로필 이미지" />
           <input type="file" accept="image/*" id="file" name="file" className="hidden" onChange={avatarChangeHandler} />
@@ -271,7 +268,7 @@ export default function RegisterForm() {
           size="lg"
           bgColor="bg-navy-900"
           className="mt-[5.6rem]"
-          onClick={() => nextPage("/register-complete")}
+          onClick={() => nextPage(REGISTER_COMPLETE_PATH)}
         >
           가입하기
         </Button>
