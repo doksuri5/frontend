@@ -36,15 +36,14 @@ export default function LoginForm() {
         <Input
           id="email"
           type="email"
-          variant={errors.email ? "error" : "default"}
+          // variant={errors.email ? "error" : "default"}
           placeholder="이메일을 입력해주세요."
-          caption={errors.email?.message}
           {...control.register("email")}
         />
         <Input
           id="password"
           type="password"
-          variant={errors.password?.message ? "error" : "default"}
+          // variant={errors.password?.message ? "error" : "default"}
           placeholder="비밀번호를 입력해주세요."
           inputGroupClass="mt-[1.6rem]"
           {...control.register("password")}
