@@ -36,7 +36,7 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        textButton: "gap-1 rounded-[0.8rem] px-[1rem] py-[1.8rem]", // 텍스트 버튼
+        textButton: "gap-1 rounded-[0.8rem] px-[1rem] py-[1.8rem] font-medium", // 텍스트 버튼
         iconButton: "rounded-full", // 아이콘 버튼
         fabButton: "h-[8rem] w-[8rem] rounded-full drop-shadow-[0_0_3.75px_#BBEBFF]", // FAB 버튼
         langButton:
