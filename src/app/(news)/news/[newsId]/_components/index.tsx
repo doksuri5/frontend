@@ -55,7 +55,7 @@ const DUMMY_RELATED_NEWS = Array(4).fill({
 export default function NewsDetailPage() {
   return (
     <Fragment>
-      <div className="flex gap-[2rem] pt-[5.6rem]">
+      <div className="flex gap-[2rem] py-[4.1rem]">
         <NewsDetail newsData={DUMMY_NEWS_DETAIL} />
         <div className="flex flex-col gap-[2rem] rounded-[1.6rem]">
           <RelatedStocks stockData={DUMMY_STOCK} />
