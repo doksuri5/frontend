@@ -25,12 +25,7 @@ export default function ProfileEditModal({ isOpen, onClose }: TProfileEditModalP
       panelStyle="px-[10.2rem] py-[8rem] rounded-[3.2rem] w-[59rem] items-center justify-center"
     >
       <div className="mt-[4rem] flex w-full flex-col">
-        <UserProfileForm
-          page="mypage"
-          stockOptionList={stockList}
-          file="/icons/avatar_default.svg"
-          closeModal={onClose}
-        />
+        <UserProfileForm page="mypage" stockOptionList={stockList} closeModal={onClose} />
       </div>
     </Modal>
   );

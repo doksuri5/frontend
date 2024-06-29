@@ -18,7 +18,7 @@ export default function PWCheckModal({ isOpen, onClose }: TPWCheckModalProps) {
         <Input
           id=""
           name=""
-          value=""
+          // value=""
           labelName="현재 비밀번호 입력"
           type="password"
           placeholder="비밀번호를 입력해주세요"

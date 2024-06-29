@@ -3,12 +3,12 @@ import { cn } from "@/utils/cn";
 import { Input, Button } from "@/components/common";
 import React, { useState, useEffect } from "react";
 
-type TUserPrivacyForm = {
+type TUserPrivacyFormProps = {
   page: "auth" | "mypage";
   closeModal?: () => void;
 };
 
-export default function UserInfoForm({ page, closeModal }: TUserPrivacyForm) {
+export default function UserInfoForm({ page, closeModal }: TUserPrivacyFormProps) {
   const router = useRouter();
   //추후 데이터 타입 변경
   const [formData, setFormData] = useState<any>({});
@@ -39,7 +39,7 @@ export default function UserInfoForm({ page, closeModal }: TUserPrivacyForm) {
       nextPage("/profile-setup");
     } else if (page === "mypage") {
       // 정보 수정 처리 로직
-      console.log("수정된 데이터를 서버에 전송합니다:", formData);
+      console.log("수정된 회원정보 데이터:", formData);
       // 서버 요청 후 필요한 처리 로직
       closeModal && closeModal(); //모달 닫기
     }
@@ -65,7 +65,17 @@ export default function UserInfoForm({ page, closeModal }: TUserPrivacyForm) {
             ) : undefined
           }
         />
+        {/* <Input
+            id="email_certification"
+            name="email_certification"
+            // labelName="인증 코드"
+            placeholder="인증 코드를 입력해주세요."
+            inputGroupClass="mt-[0.8rem] hidden"
+            labelClass="[&>div]:min-h-[5.6rem]"
+            inputClass="h-[5.6rem] placeholder:text-gray-400"
+          /> */}
       </div>
+
       <Input
         type="password"
         id="password"
@@ -99,6 +109,15 @@ export default function UserInfoForm({ page, closeModal }: TUserPrivacyForm) {
           labelClass="[&>div]:min-h-[5.6rem]"
           inputClass="h-[5.6rem] placeholder:text-gray-400"
         />
+        {/* <Input
+            id="phone_certification"
+            name="phone_certification"
+            // labelName="인증 코드"
+            placeholder="인증 코드를 입력해주세요."
+            inputGroupClass="mt-[0.8rem] hidden"
+            labelClass="[&>div]:min-h-[5.6rem]"
+            inputClass="h-[5.6rem] placeholder:text-gray-400"
+          /> */}
       </div>
       <Input
         id="birth"
