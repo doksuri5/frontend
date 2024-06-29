@@ -37,7 +37,7 @@ export default function News({}) {
   const allNews = data?.pages.flatMap((page) => page.data);
 
   return (
-    <div className="flex flex-col gap-[4.8rem] pt-[5.6rem]">
+    <div className="flex flex-col gap-[4.8rem] pb-[8rem] pt-[5.6rem]">
       <div className="flex flex-col gap-[2.4rem]">
         <h2 className="heading_4 font-bold text-navy-900">오늘 인기있는 뉴스</h2>
         <div className="flex min-w-[120px] gap-[2rem]">
