@@ -1,7 +1,7 @@
 export interface SearchDataType {
-  id: string;
+  _id: string;
   user_id: string;
-  stock_name: string;
-  stock_code: string;
+  stockName: string;
+  symbolCode: string;
   created_at: string; // 추후에 date 값으로 변경 예정
 }

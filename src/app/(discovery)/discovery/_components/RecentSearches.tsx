@@ -16,13 +16,13 @@ const RecentSearches = () => {
   useEffect(() => {
     setTimeout(() => {
       setSearchList([
-        { id: "1", user_id: "", stock_name: "테슬라", stock_code: "", created_at: "06.14" },
-        { id: "2", user_id: "", stock_name: "테슬라", stock_code: "", created_at: "06.14" },
-        { id: "3", user_id: "", stock_name: "테슬라", stock_code: "", created_at: "06.14" },
-        { id: "4", user_id: "", stock_name: "테슬라", stock_code: "", created_at: "06.14" },
-        { id: "5", user_id: "", stock_name: "테슬라", stock_code: "", created_at: "06.14" },
-        { id: "6", user_id: "", stock_name: "테슬라", stock_code: "", created_at: "06.14" },
-        { id: "7", user_id: "", stock_name: "테슬라", stock_code: "", created_at: "06.14" },
+        { _id: "1", user_id: "", stockName: "테슬라", symbolCode: "", created_at: "06.14" },
+        { _id: "2", user_id: "", stockName: "테슬라", symbolCode: "", created_at: "06.14" },
+        { _id: "3", user_id: "", stockName: "테슬라", symbolCode: "", created_at: "06.14" },
+        { _id: "4", user_id: "", stockName: "테슬라", symbolCode: "", created_at: "06.14" },
+        { _id: "5", user_id: "", stockName: "테슬라", symbolCode: "", created_at: "06.14" },
+        { _id: "6", user_id: "", stockName: "테슬라", symbolCode: "", created_at: "06.14" },
+        { _id: "7", user_id: "", stockName: "테슬라", symbolCode: "", created_at: "06.14" },
       ]);
       setLoading(false);
     }, 2000);
@@ -55,10 +55,10 @@ const RecentSearches = () => {
             {searchList.length !== 0 ? (
               <ul className="w-full">
                 {searchList.map((search) => (
-                  <li key={search.id} className="flex_row h-[4rem] w-full justify-between">
+                  <li key={search._id} className="flex_row h-[4rem] w-full justify-between">
                     <div className="flex_row gap-[.8rem]">
                       <TimeIcon width={24} height={24} fill="text-navy-900" />
-                      <span className="body_4 font-medium text-grayscale-600">{search.stock_name}</span>
+                      <span className="body_4 font-medium text-grayscale-600">{search.stockName}</span>
                     </div>
                     <div className="flex_row gap-[.8rem]">
                       <span className="body_5 text-grayscale-400">{search.created_at}</span>
