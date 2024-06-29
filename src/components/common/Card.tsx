@@ -7,12 +7,14 @@
  * content: 뉴스 기사
  * publisher: 발행처
  * size: 카드 사이즈. fullImgCard에서만 사용되는 props. "large" | "small" 선택 가능, default는 "large"
+ * style: 상위 div컨테이너에 커스텀 스타일 지정
  */
 
 import Image from "next/image";
 import LargeRect from "@/public/icons/card3Rectangle_large.svg";
 import SmallRect from "@/public/icons/card3Rectangle_small.svg";
 import Rectangle from "@/public/icons/card2Rectangle.svg";
+import { cn } from "@/utils/cn";
 
 type TCardProps = {
   variant: "iconCard" | "halfMediaCard" | "fullMediaCard";
@@ -23,6 +25,7 @@ type TCardProps = {
   content?: string;
   publisher?: string;
   size?: "large" | "small";
+  style?: string;
 };
 
 export default function Card({
@@ -34,11 +37,16 @@ export default function Card({
   content,
   publisher,
   size = "large",
+  style,
 }: TCardProps) {
   switch (variant) {
     case "iconCard":
       return (
-        <div className="flex h-[10rem] w-[35.5rem] flex-row items-center justify-between gap-[.8rem] rounded-[2.4rem] border border-grayscale-200 bg-grayscale-0 px-[1.6rem] py-[2.4rem]">
+        <div
+          className={cn(
+            `flex h-[10rem] w-[35.5rem] flex-row items-center justify-between gap-[.8rem] rounded-[2.4rem] border border-grayscale-200 bg-grayscale-0 px-[1.6rem] py-[2.4rem] ${style}`,
+          )}
+        >
           <div className="body_5 flex h-[5.2rem] w-[24.3rem] flex-col justify-between gap-[.4rem] text-gray-400">
             <div>{date}</div>
             <div className="body_2 line-clamp-1 text-ellipsis font-bold text-gray-900">{title}</div>
@@ -57,17 +65,11 @@ export default function Card({
       );
     case "halfMediaCard":
       return (
-        <div className="flex h-[36rem] w-[38.8rem] flex-col overflow-hidden rounded-t-[1.6rem]">
-          <div className="h-[23.6rem]">
-            <Image
-              src={image || Rectangle}
-              alt="news-image"
-              width={388}
-              height={236}
-              className="w-fill h-fill object-cover"
-            />
+        <div className={cn(`flex min-h-[36rem] min-w-[38.8rem] flex-col overflow-hidden rounded-[1.6rem] ${style}`)}>
+          <div className="relative min-h-[23.6rem] w-[100%]">
+            <Image src={image || Rectangle} alt="news-image" style={{ width: "100%" }} />
           </div>
-          <div className="flex flex-col gap-[.8rem] bg-grayscale-0 px-[2.4rem] py-[1.6rem] font-medium">
+          <div className="flex w-full flex-col gap-[.8rem] rounded-b-[1.6rem] bg-grayscale-0 px-[2.4rem] py-[1.6rem] font-medium">
             <div className="body_3 line-clamp-2 h-[5.6rem] cursor-pointer text-ellipsis text-grayscale-900">
               {title}
             </div>
@@ -85,7 +87,9 @@ export default function Card({
     case "fullMediaCard":
       return (
         <div
-          className={`container relative flex ${size === "large" ? "h-[42rem]" : "h-[20rem]"} w-[59rem] flex-col overflow-hidden rounded-[1.6rem]`}
+          className={cn(
+            `container relative flex ${size === "large" ? "min-h-[42rem]" : "min-h-[20rem]"} min-w-[59rem] flex-col overflow-hidden rounded-[1.6rem] ${style}`,
+          )}
         >
           <div className="relative h-[100%] w-[100%]">
             <Image
