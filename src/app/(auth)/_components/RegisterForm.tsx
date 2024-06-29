@@ -186,18 +186,9 @@ export default function RegisterForm() {
           name="passwordChk"
           labelName="비밀번호 확인"
           placeholder="비밀번호를 다시 한번 입력해주세요."
-          labelClass="[&>div]:min-h-[5.6rem]"
-          inputClass="h-[5.6rem] placeholder:text-gray-400"
         />
         <div>
-          <Input
-            id="phone"
-            name="phone"
-            labelName="휴대폰번호"
-            placeholder="-를 제외한 휴대폰번호를 입력해주세요."
-            labelClass="[&>div]:min-h-[5.6rem]"
-            inputClass="h-[5.6rem] placeholder:text-gray-400"
-          />
+          <Input id="phone" name="phone" labelName="휴대폰번호" placeholder="-를 제외한 휴대폰번호를 입력해주세요." />
           {/* <Input
             id="phone_certification"
             name="phone_certification"
@@ -213,8 +204,6 @@ export default function RegisterForm() {
           name="birth"
           labelName="생년월일"
           placeholder="생년월일 6자리를 입력해주세요.(예시 : 991231)"
-          labelClass="[&>div]:min-h-[5.6rem]"
-          inputClass="h-[5.6rem] placeholder:text-gray-400"
         />
         <Button
           type="button"
@@ -241,8 +230,6 @@ export default function RegisterForm() {
           name="nickname"
           labelName="닉네임"
           placeholder="닉네임을 입력해주세요."
-          labelClass="[&>div]:min-h-[5.6rem]"
-          inputClass="h-[5.6rem] placeholder:text-gray-400"
           suffix={
             <Button variant="textButton" size="sm" bgColor="bg-navy-900" className="w-[12rem]">
               중복 확인

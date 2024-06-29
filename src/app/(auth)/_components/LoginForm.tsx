@@ -1,10 +1,14 @@
 "use client";
 
+import Link from "next/link";
+
 import { useState } from "react";
 
 import { Button, CheckBox, Input } from "@/components/common";
 
-import Link from "next/link";
+import useZodSchemaForm from "@/hooks/useZodSchemaForm";
+
+import { TLoginSchema, loginSchema } from "@/types/AuthType";
 
 import { cn } from "@/utils/cn";
 
@@ -15,27 +19,38 @@ const cssConfig = {
 
 export default function LoginForm() {
   const [checked, setChecked] = useState(false);
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useZodSchemaForm<TLoginSchema>(loginSchema);
+
+  const onLoginSubmit = (data: TLoginSchema) => {
+    // TODO : 로그인 로직
+  };
+
   return (
     <>
-      <form action="" className={cn("flex flex-col")}>
+      <form action="" className={cn("flex flex-col")} onSubmit={handleSubmit(onLoginSubmit)}>
         <Input
-          id="id"
-          name="id"
-          variant="default"
-          placeholder="아이디를 입력해주세요."
-          // caption="cation"
+          id="email"
+          type="email"
+          variant={errors.email ? "error" : "default"}
+          placeholder="이메일을 입력해주세요."
+          caption={errors.email?.message}
+          {...control.register("email")}
         />
         <Input
           id="password"
-          name="password"
           type="password"
-          variant="default"
+          variant={errors.password?.message ? "error" : "default"}
           placeholder="비밀번호를 입력해주세요."
           inputGroupClass="mt-[1.6rem]"
-          // caption="cation"
+          {...control.register("password")}
         />
         <div className="flex_row">
-          <CheckBox label="자동로그인" checked={checked} setChecked={setChecked} />
+          <CheckBox label="자동로그인" checked={checked} setChecked={setChecked} name="autoLogin" />
           <div className={cn("flex_row_center ml-auto")}>
             <p className={cn(cssConfig.link, "py-[1.6rem]")}>
               <Link href="/find-id">아이디 찾기</Link>
@@ -46,12 +61,10 @@ export default function LoginForm() {
           </div>
         </div>
         <Button
-          type="button"
-          variant="textButton"
           size="lg"
-          bgColor="bg-grayscale-200"
-          className="w-[38.6rem] text-gray-300"
-          disabled
+          bgColor={isValid ? "bg-navy-900" : "bg-grayscale-200"}
+          className={isValid ? "text-white" : "text-gray-300"}
+          disabled={!isValid}
         >
           로그인
         </Button>

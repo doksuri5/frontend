@@ -63,6 +63,9 @@
   .flex_col_center {
     @apply flex flex-col items-center  justify-center
   }
+  .auth_form_layout {
+    @apply flex flex-col gap-[1.6rem]
+  }
 }
 
 /* 스크롤바 숨기기 유틸리티 클래스 */
