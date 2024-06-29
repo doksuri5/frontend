@@ -45,7 +45,7 @@ export default function FindIdForm() {
             className={cn(`mt-[4rem] ${isValid ? "text-white" : "text-gray-300"}`)}
             disabled={!isValid}
           >
-            이메일 찾기
+            아이디 찾기
           </Button>
         </form>
       )}
