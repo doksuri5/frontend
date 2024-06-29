@@ -1,11 +1,11 @@
 import { Modal, Button, Input } from "@/components/common";
 
-type PWCheckModalProps = {
+type TPWCheckModalProps = {
   isOpen: boolean;
   onClose: () => void;
 };
 
-export default function PWCheckModal({ isOpen, onClose }: PWCheckModalProps) {
+export default function PWCheckModal({ isOpen, onClose }: TPWCheckModalProps) {
   return (
     <Modal
       isOpen={isOpen}

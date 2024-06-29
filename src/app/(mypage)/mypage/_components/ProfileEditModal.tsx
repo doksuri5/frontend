@@ -10,12 +10,12 @@ const stockList = [
   { value: "u", label: "#유니티" },
 ];
 
-type ProfileEditModalProps = {
+type TProfileEditModalProps = {
   isOpen: boolean;
   onClose: () => void;
 };
 
-export default function ProfileEditModal({ isOpen, onClose }: ProfileEditModalProps) {
+export default function ProfileEditModal({ isOpen, onClose }: TProfileEditModalProps) {
   return (
     <Modal
       isOpen={isOpen}

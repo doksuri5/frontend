@@ -9,12 +9,12 @@ const withdrawReasons = [
   { value: "other", text: "기타" },
 ];
 
-type WithdrawModalProps = {
+type TWithdrawModalProps = {
   isOpen: boolean;
   onClose: () => void;
 };
 
-export default function WithdrawModal({ isOpen, onClose }: WithdrawModalProps) {
+export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) {
   return (
     <Modal
       isOpen={isOpen}

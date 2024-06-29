@@ -1,13 +1,13 @@
 "use client";
 
+import { useState } from "react";
 import { Button } from "@/components/common";
+import { cn } from "@/utils/cn";
 import Korea from "@/public/icons/language_kr.svg?component";
 import USA from "@/public/icons/language_en.svg?component";
 import China from "@/public/icons/language_cn.svg?component";
 import Japan from "@/public/icons/language_jp.svg?component";
 import French from "@/public/icons/language_fr.svg?component";
-import { useState } from "react";
-import { cn } from "@/utils/cn";
 
 interface ILanguageInform {
   icon: JSX.Element;
