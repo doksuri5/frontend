@@ -1,4 +1,4 @@
-import { MyStockArea } from "./_components";
+import { MyStockHeader, MyStockBody, MyStockModalSection } from "@/app/(mystock)/mystock/_components";
 import { StockDataType } from "@/types";
 import Apple_icon from "@/public/icons/Apple_icon.svg";
 
@@ -72,7 +72,9 @@ export default function MyStockPage() {
 
   return (
     <>
-      <MyStockArea dataList={data} userName={userName} />
+      <MyStockHeader userName={userName} />
+      <MyStockBody dataList={data} />
+      <MyStockModalSection dataList={data} />
     </>
   );
 }
