@@ -60,6 +60,9 @@
   .flex_row_col {
     @apply flex flex-col items-center justify-center;
   }
+  .flex_col_center {
+    @apply flex flex-col items-center  justify-center
+  }
 }
 
 /* 스크롤바 숨기기 유틸리티 클래스 */
@@ -71,3 +74,57 @@
 .scrollbar-hidden::-webkit-scrollbar {
   display: none; /* Chrome, Safari, and Opera */
 }
+
+/* scrollbar style custom css  */
+.scrollbar_style::-webkit-scrollbar {
+  @apply w-[0.8rem]
+}
+.scrollbar_style::-webkit-scrollbar-thumb {
+  @apply bg-grayscale-300 rounded-[1rem] min-h-[5rem]
+}
+
+/* tag select css */
+.basic-multi-select .tag__control{
+  @apply min-h-[2.4rem] px-[1.6rem] py-[1.1rem] rounded-[0.5rem] border-grayscale-300
+}
+.basic-multi-select .tag__control:focus{
+  @apply border-blue-500 outline-blue-500
+}
+
+.basic-multi-select .tag__control:hover{
+  @apply border-grayscale-300 shadow-none 
+}
+
+.basic-multi-select .tag__control.tag__control--is-focused{
+  @apply border-blue-500 shadow-none outline-blue-500
+}
+
+.basic-multi-select .tag__control.tag__control.tag__control--menu-is-open{
+  @apply border-blue-500 outline-blue-500
+}
+
+.basic-multi-select .tag__placeholder{
+  @apply text-grayscale-400 body_4
+}
+
+.basic-multi-select .tag__value-container{
+  @apply p-[0]
+}
+
+.basic-multi-select .tag__menu{
+  @apply shadow-none border border-grayscale-300
+}
+
+.basic-multi-select .tag__multi-value{
+  @apply bg-transparent
+}
+
+.basic-multi-select .tag__multi-value__label {
+  @apply text-grayscale-900 body_4
+}
+
+.basic-multi-select .tag__multi-value__remove {
+  @apply w-[3rem] rounded-[100%] flex items-center justify-center
+}
+
+

@@ -50,7 +50,7 @@ export default function Modal({
     <Dialog
       open={isOpen}
       as="div"
-      className={cn(`relative z-10 focus:outline-none`)}
+      className={cn(`relative z-50 focus:outline-none`)}
       onClose={
         isBackdropClosable
           ? () => {
@@ -71,7 +71,7 @@ export default function Modal({
         <div className="fixed inset-0 bg-black bg-opacity-50" />
       </TransitionChild>
 
-      <div className="fixed inset-0 z-10 w-screen">
+      <div className="fixed inset-0 z-50 w-screen">
         <div className="flex min-h-full items-center justify-center">
           <TransitionChild
             as={Fragment}
@@ -85,12 +85,12 @@ export default function Modal({
             <DialogPanel
               transition
               className={cn(
-                `${panelStyle} scrollbar-hidden max-h-[92vh] transform items-center overflow-y-scroll bg-grayscale-0 transition-all duration-300 ease-out`,
+                `scrollbar-hidden max-h-[92vh] transform items-center overflow-y-scroll bg-grayscale-0 transition-all duration-300 ease-out ${panelStyle}`,
               )}
             >
               <div className="flex items-center justify-between">
                 <div className="flex-grow text-center">
-                  <DialogTitle as="h3" className={cn(`${titleStyle} font-bold text-grayscale-900`)}>
+                  <DialogTitle as="h3" className={cn(`font-bold text-grayscale-900 ${titleStyle}`)}>
                     {title}
                   </DialogTitle>
                 </div>
