@@ -80,7 +80,7 @@
 
 /* scrollbar style custom css  */
 .scrollbar_style::-webkit-scrollbar {
-  @apply w-[0.8rem]
+  @apply w-[0.6rem]
 }
 .scrollbar_style::-webkit-scrollbar-thumb {
   @apply bg-grayscale-300 rounded-[1rem] min-h-[5rem]
