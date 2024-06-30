@@ -1,23 +1,42 @@
-import React from "react";
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
-import { Button } from "@/components/common";
+import { Alert, Button } from "@/components/common";
 import { StockDataType } from "@/types";
+import {
+  getCompareToPreviousClosePriceColor,
+  getFluctuationsRatioColor,
+  getCompareToPreviousClosePriceArrow,
+  getCompareToPreviousClosePriceSign,
+  getFluctuationsRatioSign,
+} from "@/utils/stockPriceUtils";
 import graph from "@/public/icons/graph.png";
 
 type TMyStockItemProps = {
   data: StockDataType;
 };
 const MyStockItem = ({ data }: TMyStockItemProps) => {
+  const [showAlert, setShowAlert] = useState(false);
+
   const cashSymbol = new Map([
     ["USA", "$"],
     ["KOR", "₩"],
   ]);
-  const compareToPreviousClosePriceColor = data.compareToPreviousClosePrice < 0 ? "text-blue-600" : "text-warning-100";
-  const fluctuationsRatioColor = data.fluctuationsRatio < 0 ? "text-blue-600" : "text-warning-100";
-  const compareToPreviousClosePriceArrow = data.compareToPreviousClosePrice < 0 ? "▼" : "▲";
-  const compareToPreviousClosePriceSign =
-    data.compareToPreviousClosePrice < 0 ? data.compareToPreviousClosePrice * -1 : data.compareToPreviousClosePrice;
-  const fluctuationsRatioSign = data.fluctuationsRatio < 0 ? "" : "+";
+
+  const handleDeleteClick = () => {
+    setShowAlert(true);
+  };
+
+  const handleAlertConfirm = (id: string) => {
+    console.log(id, "삭제 완료");
+    // delete fetching 진행
+    setShowAlert(false);
+  };
+
+  const handleAlertClose = () => {
+    setShowAlert(false);
+  };
 
   return (
     <div className="flex_col rounded-[1.6rem] bg-white px-[3.2rem]">
@@ -30,11 +49,13 @@ const MyStockItem = ({ data }: TMyStockItemProps) => {
         </div>
         <div className="flex_row justify-start gap-[.8rem]">
           <span className="body_4 font-medium text-grayscale-900">{`${cashSymbol.get(data.nationType) || ""}${data.price}`}</span>
-          <span className={`${compareToPreviousClosePriceColor}`}>
-            {compareToPreviousClosePriceArrow}
-            {compareToPreviousClosePriceSign}
+          <span className={`${getCompareToPreviousClosePriceColor(data.compareToPreviousClosePrice)}`}>
+            {getCompareToPreviousClosePriceArrow(data.compareToPreviousClosePrice)}
+            {getCompareToPreviousClosePriceSign(data.compareToPreviousClosePrice)}
           </span>
-          <span className={`${fluctuationsRatioColor}`}>{fluctuationsRatioSign + data.fluctuationsRatio + "%"}</span>
+          <span className={`${getFluctuationsRatioColor(data.fluctuationsRatio)}`}>
+            {getFluctuationsRatioSign(data.fluctuationsRatio) + data.fluctuationsRatio + "%"}
+          </span>
         </div>
       </div>
 
@@ -46,13 +67,25 @@ const MyStockItem = ({ data }: TMyStockItemProps) => {
 
       {/* 버튼 */}
       <div className="flex_row my-[1.6rem] w-full gap-[.8rem]">
-        <Button variant="textButton" size="md" bgColor="bg-grayscale-200">
+        <Button variant="textButton" size="md" bgColor="bg-grayscale-200" onClick={handleDeleteClick}>
           삭제하기
         </Button>
         <Button variant="textButton" size="md" bgColor="bg-navy-900">
           자세히 보기
         </Button>
       </div>
+
+      {/* Alert 컴포넌트 */}
+      {showAlert && (
+        <Alert
+          variant="fnButton"
+          title="관심 종목을 삭제하시겠습니까?"
+          buttonText="삭제하기"
+          subButtonText="취소"
+          onClick={() => handleAlertConfirm(data._id)}
+          onClose={handleAlertClose}
+        />
+      )}
     </div>
   );
 };
