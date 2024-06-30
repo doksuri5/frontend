@@ -1,12 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import Select, { components } from "react-select";
 
 import Image from "next/image";
 
-import { Input, Button } from "@/components/common";
+import { Input, Button, Modal } from "@/components/common";
 
 import useZodSchemaForm from "@/hooks/useZodSchemaForm";
 
@@ -38,6 +38,8 @@ export default function RegisterForm() {
   const [isEmailVerified, setIsEmailVerified] = useState(false);
   const [isGender, setIsGender] = useState<undefined | "M" | "F">(undefined);
   const [file, setFile] = useState("/icons/avatar_default.svg");
+  const [isOpen, setIsOpen] = useState(false);
+  const closeModal = () => setIsOpen(false);
 
   const router = useRouter();
   const pathname = usePathname();
@@ -94,11 +96,16 @@ export default function RegisterForm() {
     const valid = await triggerVerify("email");
     if (valid) {
       setIsEmailVerified(true);
+      setIsOpen(true);
     }
   };
 
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
+
   return (
-    <>
+    <form onSubmit={handleSubmit}>
       {/* 본인인증 */}
       <div className={cn("flex flex-col gap-[1.6rem]", getVisibilityClass(VERIFY_USER_PATH))}>
         <Input id="name" labelName="이름" placeholder="이름을 입력해주세요." {...verifyControl.register("name")} />
@@ -112,6 +119,7 @@ export default function RegisterForm() {
             {...verifyControl.register("email")}
             suffix={
               <Button
+                type="button"
                 variant="textButton"
                 size="sm"
                 bgColor={!verifyErrors.email && watchVerify("email") ? "bg-navy-900" : "bg-grayscale-200"}
@@ -317,6 +325,22 @@ export default function RegisterForm() {
           가입하기
         </Button>
       </div>
-    </>
+
+      {isOpen && (
+        <Modal isOpen={isOpen} onClose={closeModal} panelStyle="w-[38.6rem] py-[1.6rem] px-[3.2rem] rounded-[2rem]">
+          <dl className="flex_col_center mb-[3.2rem]">
+            <dt className="body_2 my-[.8rem] font-bold text-navy-900">인증링크를 전송했습니다.</dt>
+            <dd className="text-center">
+              작성한 이메일주소로 인증메일을 전송했습니다.
+              <br />
+              메일 확인 후 회원가입을 계속 진행해주세요.
+            </dd>
+          </dl>
+          <Button type="button" variant="textButton" size="md" className="text-grayscale-0" onClick={closeModal}>
+            확인
+          </Button>
+        </Modal>
+      )}
+    </form>
   );
 }
