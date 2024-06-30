@@ -35,7 +35,7 @@ async function* asyncGeneratorFromResponse(response: Response) {
 export const POST = async (req: NextRequest) => {
   const body = (await req.json()) as { user_message: string; temperature?: number; top_p?: number };
 
-  const tokenRes = await fetch("http://localhost:3000/api/chat/token", {
+  const tokenRes = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/chat/token`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -49,7 +49,7 @@ export const POST = async (req: NextRequest) => {
   const data = await tokenRes.json();
   const chatToken = data.access_token;
 
-  const res = await fetch("http://43.203.238.76:8000/generate", {
+  const res = await fetch(`${process.env.LLAMA_CHAT_API_URL}/generate`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

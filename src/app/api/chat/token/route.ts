@@ -3,7 +3,7 @@ import { NextRequest } from "next/server";
 export const POST = async (req: NextRequest) => {
   const body = await req.json();
 
-  const res = await fetch("http://43.203.238.76:8000/auth/token", {
+  const res = await fetch(`${process.env.LLAMA_CHAT_API_URL}/auth/token`, {
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
