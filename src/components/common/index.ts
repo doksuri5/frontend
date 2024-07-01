@@ -16,6 +16,7 @@ import FindNewsSkeleton from "./List/skeleton/FindNewsSkeleton";
 import StockItemSkeleton from "./List/skeleton/StockItemSkeleton";
 import ChatBot from "./ChatBot";
 import Alert from "./Alert";
+import PopularNews from "./PoPularNews";
 
 export {
   Button,
@@ -36,4 +37,5 @@ export {
   FindNewsSkeleton,
   StockItemSkeleton,
   Alert,
+  PopularNews,
 };
