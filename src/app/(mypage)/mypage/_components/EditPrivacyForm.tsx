@@ -89,7 +89,7 @@ export default function EditPrivacyForm({ closeModal }: TEditPrivacyFormProps) {
               variant="textButton"
               size="sm"
               bgColor={!errors.id && !isIdAvailable ? "bg-navy-900" : "bg-grayscale-200"}
-              className={cn(`w-[12rem] ${!errors.id && watchRegister.id ? "text-white" : "text-gray-300"}`)}
+              className={cn(`w-[12rem] ${!errors.id && !isIdAvailable ? "text-white" : "text-gray-300"}`)}
               disabled={isIdAvailable}
               onClick={handleDuplicateCheck}
             >

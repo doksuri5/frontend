@@ -135,10 +135,8 @@ export default function EditProfileForm({ stockOptionList, closeModal }: TEditPr
             type="button"
             variant="textButton"
             size="sm"
-            bgColor={!errors.nickname && watch("nickname") && !isNameAvailable ? "bg-navy-900" : "bg-grayscale-200"}
-            className={cn(
-              `w-[12rem] ${!errors.nickname && watch("nickname") && !isNameAvailable ? "text-white" : "text-gray-300"}`,
-            )}
+            bgColor={!errors.nickname && !isNameAvailable ? "bg-navy-900" : "bg-grayscale-200"}
+            className={cn(`w-[12rem] ${!errors.nickname && !isNameAvailable ? "text-white" : "text-gray-300"}`)}
             disabled={isNameAvailable}
             onClick={handleDuplicateCheck}
           >
