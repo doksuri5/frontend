@@ -4,10 +4,6 @@ import { i18n } from "./i18n-config";
 import { match as matchLocale } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
 
-import { i18n } from "./i18n-config";
-import { match as matchLocale } from "@formatjs/intl-localematcher";
-import Negotiator from "negotiator";
-
 // 권한을 가진 사용자만 접근 가능한 경로
 const matchersForAuth = ["/", "/mypage/:path*"];
 // 권한이 없는 사용자만 접근 가능한 경로
@@ -61,8 +57,6 @@ export const config = {
   ],
 };
 
-
 function isMatch(pathname: string, urls: string[]) {
   return urls.some((url) => !!match(url)(pathname));
 }
-
