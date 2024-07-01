@@ -16,6 +16,7 @@ export default function AgreeForm() {
   const [agreedAll, setAgreedAll] = useState(false);
   const [terms, setTerms] = useState(false);
   const [privacy, setPrivacy] = useState(false);
+
   const router = useRouter();
 
   const agreeAllChangeHandler = (checked: boolean) => {
@@ -30,18 +31,14 @@ export default function AgreeForm() {
     if (!checked) {
       setAgreedAll(false);
     } else {
-      if (terms && privacy) {
-        setAgreedAll(true);
-      } else if (setter === setTerms && privacy) {
-        setAgreedAll(true);
-      } else if (setter === setPrivacy && terms) {
-        setAgreedAll(true);
-      }
+      setAgreedAll((setter === setTerms && privacy) || (setter === setPrivacy && terms) || (terms && privacy));
     }
   };
 
-  const nextPage = (targetPath: string) => {
-    router.push(targetPath);
+  const nextStepHandler = () => {
+    if (agreedAll) {
+      router.push(VERIFY_USER_PATH);
+    }
   };
 
   return (
@@ -90,7 +87,7 @@ export default function AgreeForm() {
           bgColor={`${agreedAll ? "bg-navy-900" : "bg-grayscale-200"}`}
           disabled={!agreedAll}
           className={`${agreedAll ? "text-grayscale-0" : "text-grayscale-300"} mt-[4rem]`}
-          onClick={() => nextPage(VERIFY_USER_PATH)}
+          onClick={nextStepHandler}
         >
           다음
         </Button>
