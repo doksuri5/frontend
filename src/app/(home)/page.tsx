@@ -1,7 +1,9 @@
-import { StockItem, Button, Input } from "@/components/common";
+import { StockItem, Button } from "@/components/common";
 import AIIcon from "@/public/icons/AI_icon.svg?component";
 import Image from "next/image";
 import News from "./news";
+import SimpleRadarChart from "@/components/common/SimpleRadarChart";
+import SimpleReportCard from "./_components/SimpleReportCard";
 
 const dummyDataItems = [
   {
@@ -54,7 +56,7 @@ const dummyDataItems = [
 export default function HomePage() {
   return (
     <main className="flex h-full flex-col gap-10 bg-background-100">
-      <div className="flex gap-4">
+      <div className="flex gap-4 pt-[4rem]">
         <h1 className="heading_4 font-bold">스팩님의 AI 리포트</h1>
         <Button variant="textButton" bgColor="bg-navy-900" className="h-[4rem] w-[8rem]">
           <AIIcon width={20} height={20} />
@@ -62,9 +64,18 @@ export default function HomePage() {
         </Button>
       </div>
       <section className="flex w-full gap-4">
-        <div className="h-[32rem] flex-1 rounded-lg bg-white"></div>
-        <div className="h-[32rem] flex-1 rounded-lg bg-white"></div>
-        <div className="h-[32rem] flex-1 rounded-lg bg-white"></div>
+        {dummyDataItems.slice(0, 3).map((stock) => (
+          <SimpleReportCard
+            report={{
+              companyName: stock.stockKorName,
+              stockCode: stock.stockEngName,
+              currentPrice: stock.currentPrice,
+              fluctuationPrice: stock.fluctuationPrice,
+              fluctuationRatio: stock.fluctuationRatio,
+            }}
+            key={stock.id}
+          />
+        ))}
       </section>
       <section className="flex w-full gap-4 pt-[4rem]">
         <div className="flex h-[30rem] flex-1 flex-col gap-4">
@@ -76,7 +87,7 @@ export default function HomePage() {
         </div>
         <div className="flex h-[30rem] flex-1 flex-col gap-4">
           <h2 className="heading_4 font-bold">관심 종목</h2>
-          <div className="scrollbar-hide flex-1 overflow-auto rounded-lg bg-white py-[1.2rem] pl-[2.4rem] pr-[3.2rem]">
+          <div className="flex-1 overflow-auto rounded-lg bg-white py-[1.2rem] pl-[2.4rem] pr-[3.2rem] scrollbar-hide">
             {dummyDataItems.map((stock) => (
               <StockItem
                 variant="stock"
