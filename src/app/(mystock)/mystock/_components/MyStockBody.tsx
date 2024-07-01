@@ -15,7 +15,7 @@ const MyStockBody = ({ dataList }: { dataList: StockDataType[] }) => {
   }, [dataList, setStockItemList]);
 
   return (
-    <article>
+    <article className="pb-[5.6rem] pt-[2.4rem]">
       {/* 스켈레톤 추가 */}
       {stockItemList.length === 0 ? (
         <div className="flex_row_col mt-[15rem] gap-2">
