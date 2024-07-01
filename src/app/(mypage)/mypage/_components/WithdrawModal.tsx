@@ -1,5 +1,8 @@
+"use client";
+
 import { Modal, Button, Dropdown, Input } from "@/components/common";
 import Link from "next/link";
+import { useState } from "react";
 
 const withdrawReasons = [
   { value: "inconvenient_service", text: "이용이 불편하고 장애가 많아서" },
@@ -15,6 +18,9 @@ type TWithdrawModalProps = {
 };
 
 export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) {
+  const [selectedReason, setSelectedReason] = useState(withdrawReasons[0]);
+  const [otherReason, setOtherReason] = useState("");
+
   return (
     <Modal
       isOpen={isOpen}
@@ -28,10 +34,20 @@ export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) 
           <Dropdown
             label="회원탈퇴 사유"
             placeholder="회원탈퇴 사유를 선택해주세요"
-            selected={withdrawReasons[0]}
-            setSelected={() => {}}
+            selected={selectedReason}
+            setSelected={setSelectedReason}
             options={withdrawReasons}
           />
+          {selectedReason.value === "other" && (
+            <div>
+              <label className="body_4 font-medium text-gray-900">탈퇴 사유</label>
+              <textarea
+                className="h-[10rem] w-full resize-none rounded-[0.8rem] border border-gray-300 p-[1.6rem] text-navy-900 focus:outline-blue-500"
+                value={""}
+                placeholder="기타 사유를 입력해주세요"
+              />
+            </div>
+          )}
           <div>
             <Input
               labelName="비밀번호 입력"
@@ -39,6 +55,7 @@ export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) 
               inputGroupClass="w-full h-[5.6rem]"
               inputClass="text-navy-900 h-[5.6rem] p-[1.6rem] rounded-[0.8rem]"
               placeholder="비밀번호를 입력해주세요"
+              labelClass="body_4 font-medium text-gray-900"
             />
           </div>
         </div>
