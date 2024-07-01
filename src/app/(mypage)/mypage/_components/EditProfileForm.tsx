@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Select, { MultiValue, components } from "react-select";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
@@ -16,7 +16,7 @@ type OptionType = {
 
 type TEditProfileFormProps = {
   stockOptionList: { value: string; label: string }[];
-  closeModal?: () => void;
+  closeModal: () => void;
 };
 
 type FormData = {
@@ -27,9 +27,13 @@ export default function EditProfileForm({ stockOptionList, closeModal }: TEditPr
   const {
     register,
     watch,
+    trigger,
+    setError,
+    clearErrors,
     formState: { errors },
     handleSubmit,
   } = useForm<FormData>();
+  const [isNameAvailable, setIsNameAvailable] = useState(false);
   const [selectedStocks, setSelectedStocks] = useState<OptionType[]>([]);
   const [gender, setGender] = useState<string>("");
   const [file, setFile] = useState<string | null>(null);
@@ -56,18 +60,47 @@ export default function EditProfileForm({ stockOptionList, closeModal }: TEditPr
     setGender(value);
   };
 
+  useEffect(() => {
+    const subscription = watch((value, { name }) => {
+      if (name === "nickname") {
+        setIsNameAvailable(false); //ID 입력 변경 시, ID 중복 재확인 필요
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, [watch, trigger]);
+
   const handleDuplicateCheck = () => {
-    // 중복 확인 로직
+    if (isNameAvailable) {
+      return;
+    }
+
+    const nickname = watch().nickname;
+    if (!nickname) {
+      setError("nickname", { type: "manual", message: "닉네임을 입력해주세요." });
+      return;
+    }
+
+    //중복 확인 API가 들어갈 자리
+    const isDuplicate = false;
+
+    if (isDuplicate) {
+      setError("nickname", { type: "manual", message: "이미 사용 중인 닉네임입니다." });
+      setIsNameAvailable(false);
+    } else {
+      clearErrors("nickname");
+      setIsNameAvailable(true);
+      alert("사용 가능한 닉네임입니다.");
+    }
   };
 
-  const onSubmit = (data: FormData) => {
+  const onSubmit = async (data: FormData) => {
     const formData = {
       ...data,
       selectedStocks,
       gender,
     };
     console.log("프로필 수정 데이터:", formData);
-    closeModal && closeModal();
+    closeModal();
   };
 
   const watchFields = watch();
@@ -99,11 +132,14 @@ export default function EditProfileForm({ stockOptionList, closeModal }: TEditPr
         {...register("nickname", { required: "닉네임을 입력해주세요." })}
         suffix={
           <Button
+            type="button"
             variant="textButton"
             size="sm"
-            bgColor={!errors.nickname && watch("nickname") ? "bg-navy-900" : "bg-grayscale-200"}
-            className={cn(`w-[12rem] ${!errors.nickname && watch("nickname") ? "text-white" : "text-gray-300"}`)}
-            disabled={!watch("nickname")}
+            bgColor={!errors.nickname && watch("nickname") && !isNameAvailable ? "bg-navy-900" : "bg-grayscale-200"}
+            className={cn(
+              `w-[12rem] ${!errors.nickname && watch("nickname") && !isNameAvailable ? "text-white" : "text-gray-300"}`,
+            )}
+            disabled={isNameAvailable}
             onClick={handleDuplicateCheck}
           >
             중복 확인
@@ -126,6 +162,7 @@ export default function EditProfileForm({ stockOptionList, closeModal }: TEditPr
           components={{
             IndicatorsContainer: () => null,
             IndicatorSeparator: () => null,
+            MultiValueRemove: () => null,
             Input: (props) => <components.Input {...props} aria-activedescendant={undefined} />,
           }}
         />

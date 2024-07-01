@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { PolicyContent } from "../_components/PolicyContent";
+import { PolicyContent } from "../_components/index";
 import { servicePolicyText } from "@/constants/servicePolicyText";
 import { privacyPolicyText } from "@/constants/privacyPolicyText";
 
