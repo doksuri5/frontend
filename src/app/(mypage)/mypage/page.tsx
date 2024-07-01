@@ -10,16 +10,20 @@ import WithdrawModal from "./_components/WithdrawModal";
 import useDisclosure from "@/hooks/use-disclosure";
 
 export default function MyPage() {
-  //프로필 수정 모달
+  // 프로필 수정 모달
   const profileModal = useDisclosure();
-  //패스워드 확인 모달
+  // 패스워드 확인 모달
   const pwCheckModal = useDisclosure();
-  //개인정보 수정 모달
+  // 개인정보 수정 모달
   const privacyModal = useDisclosure();
-  //회원탈퇴 모달
+  // 회원탈퇴 모달
   const withdrawModal = useDisclosure();
 
   const handlePWCheckModalClose = () => {
+    pwCheckModal.close();
+  };
+
+  const handleOpenPrivacyModal = () => {
     pwCheckModal.close();
     privacyModal.open();
   };
@@ -72,7 +76,7 @@ export default function MyPage() {
         <div className="body_3 w-[14.4rem] font-medium text-grayscale-900">생년월일</div>
         <div className="body_4 font-medium text-grayscale-600">991231</div>
       </div>
-      <PWCheckModal isOpen={pwCheckModal.isOpen} onClose={handlePWCheckModalClose} />
+      <PWCheckModal isOpen={pwCheckModal.isOpen} onClose={handlePWCheckModalClose} onEdit={handleOpenPrivacyModal} />
       <PrivacyEditModal
         isOpen={privacyModal.isOpen}
         onClose={privacyModal.close}
