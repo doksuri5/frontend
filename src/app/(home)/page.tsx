@@ -2,7 +2,6 @@ import { StockItem, Button } from "@/components/common";
 import AIIcon from "@/public/icons/AI_icon.svg?component";
 import Image from "next/image";
 import News from "./news";
-import SimpleRadarChart from "@/components/common/SimpleRadarChart";
 import SimpleReportCard from "./_components/SimpleReportCard";
 
 const dummyDataItems = [
@@ -55,7 +54,7 @@ const dummyDataItems = [
 
 export default function HomePage() {
   return (
-    <main className="flex h-full flex-col gap-10 bg-background-100">
+    <div className="flex h-full flex-col gap-10 bg-background-100">
       <div className="flex gap-4 pt-[4rem]">
         <h1 className="heading_4 font-bold">스팩님의 AI 리포트</h1>
         <Button variant="textButton" bgColor="bg-navy-900" className="h-[4rem] w-[8rem]">
@@ -104,6 +103,6 @@ export default function HomePage() {
         </div>
       </section>
       <News />
-    </main>
+    </div>
   );
 }
