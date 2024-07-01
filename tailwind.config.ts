@@ -21,6 +21,19 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      keyframes: {
+        changeColor: {
+          "0%": {
+            backgroundColor: "#18254C",
+          },
+          "50%": {
+            backgroundColor: "#C0C8D9",
+          },
+          "100%": {
+            backgroundColor: "#C0C8D9",
+          },
+        },
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
