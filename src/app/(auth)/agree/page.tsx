@@ -1,11 +1,11 @@
 import CommonLayout from "../_components/CommonLayout";
-import RegisterForm from "../_components/RegisterForm";
+import AgreeForm from "../_components/AgreeForm";
 
 export default function page() {
   return (
     <>
       <CommonLayout title="약관동의">
-        <RegisterForm />
+        <AgreeForm />
       </CommonLayout>
     </>
   );
