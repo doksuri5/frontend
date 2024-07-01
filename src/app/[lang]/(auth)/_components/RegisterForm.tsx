@@ -37,7 +37,7 @@ const options = [
 export default function RegisterForm() {
   const [isEmailVerified, setIsEmailVerified] = useState(false);
   const [isGender, setIsGender] = useState<undefined | "M" | "F">(undefined);
-  const [file, setFile] = useState("/icons/avatar_default.svg");
+  const [file, setFile] = useState<File | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const closeModal = () => setIsOpen(false);
 
@@ -53,7 +53,7 @@ export default function RegisterForm() {
         e.target.value = ""; // 동일한 파일할 경우
         return;
       }
-      setFile(URL.createObjectURL(file));
+      setFile(file);
     }
   };
 
@@ -140,21 +140,6 @@ export default function RegisterForm() {
               {...verifyControl.register("emailCertification")}
               inputGroupClass="mt-[.8rem]"
               variant={verifyErrors.emailCertification ? "error" : "default"}
-              // suffix={
-              //   <Button
-              //     variant="textButton"
-              //     size="sm"
-              //     bgColor={
-              //       !verifyErrors.emailCertification && watchVerify("emailCertification") ? "bg-navy-900" : "bg-grayscale-200"
-              //     }
-              //     className={cn(
-              //       `w-[12rem] ${!verifyErrors.emailCertification && watchVerify("emailCertification") ? "text-white" : "text-gray-300"}`,
-              //     )}
-              //     disabled={!watchVerify("emailCertification")}
-              //   >
-              //     확인
-              //   </Button>
-              // }
             />
           )}
         </div>
@@ -245,7 +230,13 @@ export default function RegisterForm() {
       {/* 프로필 */}
       <div className={cn(getVisibilityClass(PROFILE_SETUP_PATH))}>
         <div className="flex_col_center relative mx-[auto] mb-[2.4rem] h-[12rem] w-[12rem]">
-          <Image src={file} width={100} height={100} alt="프로필 이미지" priority />
+          <Image
+            src={file ? URL.createObjectURL(file) : "/icons/avatar_default.svg"}
+            width={100}
+            height={100}
+            alt="프로필 이미지"
+            priority
+          />
           <input type="file" accept="image/*" id="file" name="file" className="hidden" onChange={avatarChangeHandler} />
           <label htmlFor="file" className="absolute bottom-[0] right-0 h-[4rem] w-[4rem] cursor-pointer">
             <EditIcon />
@@ -314,7 +305,7 @@ export default function RegisterForm() {
           </p>
         </div>
         <Button
-          type="button"
+          type="submit"
           variant="textButton"
           size="lg"
           bgColor={isProfileValid ? "bg-navy-900" : "bg-grayscale-200"}
