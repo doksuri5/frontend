@@ -1,9 +1,12 @@
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+"use client";
+
+import React, { useState } from "react";
 import Select, { MultiValue, components } from "react-select";
 import Image from "next/image";
+import { useForm } from "react-hook-form";
 import { Input, Button } from "@/components/common";
-import EditIcon from "@/public/icons/avatar_edit.svg?component";
+import Avatar from "@/public/icons/avatar_default.svg";
+import EditIcon from "@/public/icons/avatar_edit.svg";
 import { cn } from "@/utils/cn";
 
 type OptionType = {
@@ -11,26 +14,27 @@ type OptionType = {
   label: string;
 };
 
-type TUserProfileFormProps = {
-  page: "auth" | "mypage";
+type TEditProfileFormProps = {
   stockOptionList: { value: string; label: string }[];
-  getVisibilityClass?: (targetPath: string) => "" | "hidden";
   closeModal?: () => void;
 };
 
-export default function UserProfileForm({
-  page,
-  stockOptionList,
-  getVisibilityClass,
-  closeModal,
-}: TUserProfileFormProps) {
-  const router = useRouter();
-  const [file, setFile] = useState<string>("/icons/avatar_default.svg");
-  const [nickname, setNickname] = useState<string>("");
+type FormData = {
+  nickname: string;
+};
+
+export default function EditProfileForm({ stockOptionList, closeModal }: TEditProfileFormProps) {
+  const {
+    register,
+    watch,
+    formState: { errors },
+    handleSubmit,
+  } = useForm<FormData>();
   const [selectedStocks, setSelectedStocks] = useState<OptionType[]>([]);
   const [gender, setGender] = useState<string>("");
+  const [file, setFile] = useState<string | null>(null);
+  const [isGender, setIsGender] = useState<undefined | "M" | "F">(undefined);
 
-  //프로필 이미지 변경
   const avatarChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -43,74 +47,70 @@ export default function UserProfileForm({
     }
   };
 
-  //관심 종목 선택
   const handleStocksChange = (selectedOptions: MultiValue<OptionType>) => {
     setSelectedStocks(selectedOptions as OptionType[]);
   };
 
-  //성별 선택
-  const handleGenderChange = (selectedGender: string) => {
-    setGender(selectedGender);
+  const handleGenderChange = (value: "M" | "F") => {
+    setIsGender(value);
+    setGender(value);
   };
 
-  //중복체크
-  const handleDuplicateCheck = () => {};
+  const handleDuplicateCheck = () => {
+    // 중복 확인 로직
+  };
 
-  //프로필 설정 / 프로필 수정 submit 함수
-  const handleSubmit = () => {
+  const onSubmit = (data: FormData) => {
     const formData = {
-      nickname,
+      ...data,
       selectedStocks,
       gender,
     };
-
-    if (page === "auth") {
-      //프로필 설정 로직
-      console.log("프로필 설정 데이터:", formData);
-      //데이터 처리 로직
-      nextPage("/register-complete");
-    } else if (page === "mypage") {
-      //프로필 수정 로직
-      console.log("프로필 수정 데이터:", formData);
-      //데이터 처리 로직
-      closeModal && closeModal();
-    }
+    console.log("프로필 수정 데이터:", formData);
+    closeModal && closeModal();
   };
 
-  const nextPage = (targetPath: string) => {
-    router.push(targetPath);
-  };
+  const watchFields = watch();
+  const isProfileValid = !Object.keys(errors).length && Object.keys(watchFields).length;
 
   return (
-    <div className={cn(getVisibilityClass && getVisibilityClass("/profile-setup"))}>
+    <form onSubmit={handleSubmit(onSubmit)} className={cn("flex flex-col gap-[1.6rem]")}>
       <div className="flex_col_center relative mx-[auto] mb-[2.4rem] h-[12rem] w-[12rem]">
-        <Image src={file} width={100} height={100} alt="프로필 이미지" />
-        <input type="file" accept="image/*" id="file" name="file" className="hidden" onChange={avatarChangeHandler} />
+        <div className="flex h-[12rem] w-[12rem] overflow-hidden rounded-[50%]">
+          <Image
+            src={file ? file : Avatar.src}
+            width={120}
+            height={120}
+            alt="프로필 이미지"
+            priority
+            className="flex items-center justify-center object-cover"
+          />
+          <input type="file" accept="image/*" id="file" name="file" className="hidden" onChange={avatarChangeHandler} />
+        </div>
+
         <label htmlFor="file" className="absolute bottom-[0] right-0 h-[4rem] w-[4rem] cursor-pointer">
-          <EditIcon />
+          <Image src={EditIcon.src} alt="Edit icon" width={40} height={40} />
         </label>
       </div>
       <Input
         id="nickname"
-        name="nickname"
         labelName="닉네임"
         placeholder="닉네임을 입력해주세요."
-        labelClass="[&>div]:min-h-[5.6rem]"
-        inputClass="h-[5.6rem] placeholder:text-gray-400"
-        value={nickname}
-        onChange={(e) => setNickname(e.target.value)}
+        {...register("nickname", { required: "닉네임을 입력해주세요." })}
         suffix={
           <Button
             variant="textButton"
             size="sm"
-            bgColor="bg-navy-900"
-            className="w-[12rem]"
+            bgColor={!errors.nickname && watch("nickname") ? "bg-navy-900" : "bg-grayscale-200"}
+            className={cn(`w-[12rem] ${!errors.nickname && watch("nickname") ? "text-white" : "text-gray-300"}`)}
+            disabled={!watch("nickname")}
             onClick={handleDuplicateCheck}
           >
             중복 확인
           </Button>
         }
       />
+      {errors.nickname && <span>{String(errors.nickname.message)}</span>}
       <div className="mt-[1.6rem]">
         <p className="body-4 text-navy-900">관심 종목</p>
         <Select
@@ -122,13 +122,12 @@ export default function UserProfileForm({
           classNamePrefix="tag"
           placeholder="#관심 종목을 추가해주세요."
           noOptionsMessage={() => "검색된 결과가 없습니다."}
+          onChange={handleStocksChange}
           components={{
             IndicatorsContainer: () => null,
             IndicatorSeparator: () => null,
             Input: (props) => <components.Input {...props} aria-activedescendant={undefined} />,
           }}
-          onChange={handleStocksChange}
-          value={selectedStocks}
         />
       </div>
       <div className="mt-[1.6rem]">
@@ -138,8 +137,9 @@ export default function UserProfileForm({
             type="button"
             variant="textButton"
             size="md"
-            bgColor={gender === "male" ? "bg-navy-900" : "bg-white"}
-            onClick={() => handleGenderChange("male")}
+            bgColor={isGender === "M" ? "bg-navy-900" : "bg-white"}
+            value="M"
+            onClick={() => handleGenderChange("M")}
           >
             남성
           </Button>
@@ -147,23 +147,24 @@ export default function UserProfileForm({
             type="button"
             variant="textButton"
             size="md"
-            bgColor={gender === "female" ? "bg-navy-900" : "bg-white"}
-            onClick={() => handleGenderChange("female")}
+            bgColor={isGender === "F" ? "bg-navy-900" : "bg-white"}
+            value="F"
+            onClick={() => handleGenderChange("F")}
           >
             여성
           </Button>
         </p>
       </div>
       <Button
-        type="button"
+        type="submit"
         variant="textButton"
         size="lg"
-        bgColor="bg-navy-900"
-        className="mt-[5.6rem]"
-        onClick={handleSubmit}
+        bgColor={isProfileValid ? "bg-navy-900" : "bg-grayscale-200"}
+        className={cn(`mt-[4rem] ${isProfileValid ? "text-white" : "text-gray-300"}`)}
+        disabled={!isProfileValid}
       >
-        {page === "auth" ? "가입하기" : "수정하기"}
+        수정하기
       </Button>
-    </div>
+    </form>
   );
 }

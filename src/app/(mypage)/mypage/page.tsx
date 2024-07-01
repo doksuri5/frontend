@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/common";
 import Image from "next/image";
-import Profile from "@/public/icons/profile_icon.svg";
+import Profile from "@/public/icons/avatar_default.svg";
 import ProfileEditModal from "./_components/ProfileEditModal";
 import PWCheckModal from "./_components/PWCheckModal";
 import PrivacyEditModal from "./_components/PrivacyEditModal";
