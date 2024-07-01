@@ -25,8 +25,8 @@ export default function LoginPage() {
         <LoginForm />
         <dl className={cn("flex_row justify-between")}>
           <dt className={cn("body_5 text-grayscale-900")}>아직 회원이 아니신가요?</dt>
-          <dd className={cn("py-[1.6rem]")}>
-            <Link href={"/agree"} className={cn("body_5 font-medium text-blue-600 underline")}>
+          <dd>
+            <Link href={"/agree"} className={cn("body_5 block py-[1.6rem] font-medium text-blue-600 underline")}>
               아잇나우 회원가입
             </Link>
           </dd>

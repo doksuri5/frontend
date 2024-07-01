@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 
-const TITLE = "마이페이지";
+const TITLE = "홈";
 
 export const metadata: Metadata = {
-  title: `거점 오피스 서비스 마일 - ${TITLE}`,
-  description: "마일은 거점 오피스 좌석 예약 서비스입니다.",
+  title: `아잇나우 - ${TITLE}`,
+  description: "아잇나우는 해외 주식 정보를 제공하는 서비스입니다.",
 };
 
 export default function HomeLayout({
