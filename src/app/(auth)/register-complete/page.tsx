@@ -1,6 +1,5 @@
 import CommonLayout from "../_components/CommonLayout";
-
-import { Button } from "@/components/common";
+import CommonLoginBtn from "../_components/CommonLoginBtn";
 
 export default function RegisterCompletePage() {
   return (
@@ -11,9 +10,7 @@ export default function RegisterCompletePage() {
           <br />
           로그인 후 이용해주세요!
         </p>
-        <Button size="lg" className="mt-[5.6rem] text-white">
-          로그인하기
-        </Button>
+        <CommonLoginBtn className="mt-[5.6rem]" />
       </CommonLayout>
     </>
   );

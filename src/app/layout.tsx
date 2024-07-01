@@ -2,6 +2,7 @@ import { pretendard } from "@/fonts";
 
 import "./globals.css";
 import Header from "@/components/layout/Header";
+import { ChatBot } from "@/components/common";
 
 export default function RootLayout({
   children,
@@ -13,6 +14,7 @@ export default function RootLayout({
       <body className="h-[calc(100vh-8rem)] bg-background-100">
         <Header />
         <main className="relative top-[8rem] m-auto min-h-full max-w-[120rem]">{children}</main>
+        <ChatBot />
       </body>
     </html>
   );

@@ -1,4 +1,11 @@
 import { cn } from "@/utils/cn";
+import {
+  getCompareToPreviousClosePriceColor,
+  getCompareToPreviousClosePriceArrow,
+  getCompareToPreviousClosePriceSign,
+  getFluctuationsRatioColor,
+  getFluctuationsRatioSign,
+} from "@/utils/stockPriceUtils";
 import Image from "next/image";
 
 type TIStockItemProps = {
@@ -45,8 +52,11 @@ export default function StockItem({
   style,
   variant = "stock",
 }: TIStockItemProps) {
-  const fluctuationColor = fluctuationRatio < 0 ? "text-blue-600" : "text-warning-100";
-  const fluctuationArrow = fluctuationRatio < 0 ? "▼" : "▲";
+  const fluctuationPriceColor = getCompareToPreviousClosePriceColor(fluctuationPrice);
+  const fluctuationRatioColor = getFluctuationsRatioColor(fluctuationRatio);
+  const fluctuationArrow = getCompareToPreviousClosePriceArrow(fluctuationPrice);
+  const fluctuationPriceSign = getCompareToPreviousClosePriceSign(fluctuationPrice);
+  const fluctuationRatioSign = getFluctuationsRatioSign(fluctuationRatio);
 
   const selectedVariantStyles = variantStyles[variant];
 
@@ -69,9 +79,9 @@ export default function StockItem({
         <div className={selectedVariantStyles.currentPrice}>
           <span>${currentPrice}</span>
         </div>
-        <div className={cn(`${fluctuationColor} ${selectedVariantStyles.fluctuation}`)}>
-          <span>{fluctuationArrow + fluctuationPrice}</span>
-          <span>{fluctuationRatio}%</span>
+        <div className={cn(`${selectedVariantStyles.fluctuation}`)}>
+          <span className={`${fluctuationPriceColor}`}>{fluctuationArrow + fluctuationPriceSign}</span>
+          <span className={`${fluctuationRatioColor}`}>{fluctuationRatioSign + fluctuationRatio}%</span>
         </div>
       </div>
     </div>

@@ -5,9 +5,7 @@ export default function RegisterPage() {
   return (
     <>
       <CommonLayout title="회원가입">
-        <form>
-          <RegisterForm />
-        </form>
+        <RegisterForm />
       </CommonLayout>
     </>
   );

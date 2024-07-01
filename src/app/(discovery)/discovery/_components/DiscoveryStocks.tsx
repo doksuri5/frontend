@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { StockItem, StockItemSkeleton } from "@/components/common";
+import { StockDataType } from "@/types";
 import DiscoverySection from "./DiscoverySection";
 import Apple_icon from "@/public/icons/Apple_icon.svg";
 
@@ -10,14 +11,24 @@ type TStocksProps = {
 };
 
 const Stocks = ({ param }: TStocksProps) => {
-  const [stockList, setStockList] = useState<any[]>([]);
+  const [stockList, setStockList] = useState<StockDataType[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setTimeout(() => {
       setStockList([
         {
-          idx: 1,
+          _id: "1",
+          icon: Apple_icon,
+          stockName: "애플",
+          symbolCode: "AAPL",
+          price: 0,
+          nationType: "USA",
+          compareToPreviousClosePrice: 1.75,
+          fluctuationsRatio: 0.82,
+        },
+        {
+          _id: "2",
           icon: Apple_icon,
           stockName: "애플",
           symbolCode: "AAPL",
@@ -27,7 +38,7 @@ const Stocks = ({ param }: TStocksProps) => {
           fluctuationsRatio: -0.82,
         },
         {
-          idx: 2,
+          _id: "3",
           icon: Apple_icon,
           stockName: "애플",
           symbolCode: "AAPL",
@@ -37,7 +48,7 @@ const Stocks = ({ param }: TStocksProps) => {
           fluctuationsRatio: -0.82,
         },
         {
-          idx: 3,
+          _id: "4",
           icon: Apple_icon,
           stockName: "애플",
           symbolCode: "AAPL",
@@ -47,7 +58,7 @@ const Stocks = ({ param }: TStocksProps) => {
           fluctuationsRatio: -0.82,
         },
         {
-          idx: 4,
+          _id: "5",
           icon: Apple_icon,
           stockName: "애플",
           symbolCode: "AAPL",
@@ -57,17 +68,7 @@ const Stocks = ({ param }: TStocksProps) => {
           fluctuationsRatio: -0.82,
         },
         {
-          idx: 5,
-          icon: Apple_icon,
-          stockName: "애플",
-          symbolCode: "AAPL",
-          price: 0,
-          nationType: "USA",
-          compareToPreviousClosePrice: -1.75,
-          fluctuationsRatio: -0.82,
-        },
-        {
-          idx: 6,
+          _id: "6",
           icon: Apple_icon,
           stockName: "애플",
           symbolCode: "AAPL",
@@ -97,7 +98,7 @@ const Stocks = ({ param }: TStocksProps) => {
             <>
               {stockList.map((stock) => (
                 <StockItem
-                  key={stock.idx}
+                  key={stock._id}
                   icon={stock.icon}
                   stockKorName={stock.stockName}
                   stockEngName={stock.symbolCode}
