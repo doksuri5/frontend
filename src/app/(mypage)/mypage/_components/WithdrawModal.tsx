@@ -43,7 +43,8 @@ export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) 
               <label className="body_4 font-medium text-gray-900">탈퇴 사유</label>
               <textarea
                 className="h-[10rem] w-full resize-none rounded-[0.8rem] border border-gray-300 p-[1.6rem] text-navy-900 focus:outline-blue-500"
-                value={""}
+                value={otherReason}
+                onChange={(e) => setOtherReason(e.target.value)}
                 placeholder="기타 사유를 입력해주세요"
               />
             </div>

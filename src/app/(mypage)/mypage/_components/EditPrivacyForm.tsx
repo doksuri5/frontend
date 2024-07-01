@@ -27,7 +27,7 @@ export default function EditPrivacyForm({ closeModal }: TEditPrivacyFormProps) {
 
   const watchRegister = watch();
   //실제 값이 입력된 필드만을 고려하여 폼의 유효성을 검사
-  const hasValues = Object.values(watchRegister).some((value) => value !== undefined && value !== "");
+  const hasValues = Object.values(watchRegister).every((value) => value !== undefined && value !== "");
   const isFormValid = !Object.keys(errors).length && hasValues && isIdAvailable;
 
   //Form 전송 함수
@@ -63,14 +63,12 @@ export default function EditPrivacyForm({ closeModal }: TEditPrivacyFormProps) {
     }
   };
 
-  //실시간 input 유효성 검사 트리거
   useEffect(() => {
     const subscription = watch((value, { name }) => {
-      if (name) {
-        trigger(name);
+      if (name === "id") {
+        setIsIdAvailable(false); //ID 입력 변경 시, ID 중복 재확인 필요
       }
-      //ID 입력 변경 시, ID 중복 재확인
-      setIsIdAvailable(false);
+      trigger(name); //실시간 유효성 검사 트리거
     });
     return () => subscription.unsubscribe();
   }, [watch, trigger]);
