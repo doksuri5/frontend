@@ -12,7 +12,12 @@ type TAlertBaseProps = {
 
 type TCheckButtonProps = TAlertBaseProps & { variant: "checkButton" };
 type TLinkButtonProps = TAlertBaseProps & { variant: "linkButton"; link: string };
-type TFnButtonProps = TAlertBaseProps & { variant: "fnButton"; subButtonText: string; onClick: () => void };
+type TFnButtonProps = TAlertBaseProps & {
+  variant: "fnButton";
+  subButtonText: string;
+  onClick: () => void;
+  onClose?: () => void;
+};
 
 type TAlertProps = TCheckButtonProps | TLinkButtonProps | TFnButtonProps;
 
@@ -33,6 +38,11 @@ const Alert: React.FC<TAlertProps> = (props) => {
   const [isOpen, setIsOpen] = useState(true);
 
   const { variant, title, subText, buttonText } = props;
+
+  const handleClose = (onClose?: () => void) => {
+    if (onClose) onClose();
+    setIsOpen(false);
+  };
 
   return (
     <Modal
@@ -55,7 +65,7 @@ const Alert: React.FC<TAlertProps> = (props) => {
           <Button size="md" bgColor="bg-grayscale-200" className="mt-[3.2rem]" onClick={props.onClick}>
             {buttonText}
           </Button>
-          <Button size="md" bgColor="bg-navy-900" className="mt-[3.2rem]" onClick={() => setIsOpen(false)}>
+          <Button size="md" bgColor="bg-navy-900" className="mt-[3.2rem]" onClick={() => handleClose(props.onClose)}>
             {props.subButtonText}
           </Button>
         </div>

@@ -7,10 +7,16 @@ import SearchIcon from "@/public/icons/search_icon.svg?component";
 
 const DiscoveryInput = ({ param }: { param: string }) => {
   const router = useRouter();
-  const [value, setValue] = useState(param);
+  const [value, setValue] = useState(param || "");
 
   const moveLink = () => {
-    value === "" ? router.push(`/discovery`) : router.push(`/discovery?search=${value}`);
+    if (value === "") {
+      router.push(`/discovery`);
+      setValue("");
+    } else {
+      router.push(`/discovery?search=${value}`);
+      setValue(value);
+    }
   };
 
   return (
