@@ -33,7 +33,7 @@ export default function AIAnalystReport({ data }: TAIAnalystReport) {
           <span>{fluctuationRatio}%</span>
         </div>
       </div>
-      <p>{aiReport}</p>
+      <p className="body_4 font-medium">{aiReport}</p>
       <div className="flex items-center gap-[0.8rem]"></div>
     </div>
   );
