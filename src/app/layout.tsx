@@ -10,14 +10,16 @@ import Image from "next/image";
 
 export default function RootLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode;
+  params: { lang: string };
 }>) {
   // TODO : 추후 해당 코드 변경 예정
   const isLoggedIn = true;
 
   return (
-    <html lang="ko" className={pretendard.className}>
+    <html lang={params.lang} className={pretendard.className}>
       <body
         className={`${isLoggedIn ? "bg-background-100" : "bg-[url('/images/intro_bg.png')] bg-cover bg-center bg-no-repeat"}`}
       >

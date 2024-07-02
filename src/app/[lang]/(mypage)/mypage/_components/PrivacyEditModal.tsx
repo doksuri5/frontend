@@ -1,5 +1,5 @@
 import { Modal, Button } from "@/components/common";
-import EditPrivacyForm from "@/app/(mypage)/mypage/_components/EditPrivacyForm";
+import EditPrivacyForm from "@/app/[lang]/(mypage)/mypage/_components/EditPrivacyForm";
 
 type TPrivacyEditModalProps = {
   isOpen: boolean;

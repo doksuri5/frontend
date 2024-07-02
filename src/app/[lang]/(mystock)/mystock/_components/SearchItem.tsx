@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { Button } from "@/components/common";
-import { useInterestStockStore } from "@/app/(mystock)/mystock/stores";
+import { useInterestStockStore } from "@/app/[lang]/(mystock)/mystock/stores";
 import { StockDataType } from "@/types";
 import {
   getCompareToPreviousClosePriceColor,

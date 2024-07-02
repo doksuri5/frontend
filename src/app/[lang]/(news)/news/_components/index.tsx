@@ -1,7 +1,7 @@
 "use client";
 
 import { Card } from "@/components/common";
-import NewsInfinityList from "@/app/(news)/news/_components/NewsInfinityList";
+import NewsInfinityList from "@/app/[lang]/(news)/news/_components/NewsInfinityList";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import PopularNews from "@/components/common/PopularNews";
