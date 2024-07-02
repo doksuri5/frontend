@@ -4,6 +4,7 @@ import { Card } from "@/components/common";
 import NewsInfinityList from "@/app/(news)/news/_components/NewsInfinityList";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useState } from "react";
+import PopularNews from "@/components/common/PopularNews";
 
 export default function News({}) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -38,37 +39,7 @@ export default function News({}) {
 
   return (
     <div className="flex flex-col gap-[4.8rem] pb-[8rem] pt-[5.6rem]">
-      <div className="flex flex-col gap-[2.4rem]">
-        <h2 className="heading_4 font-bold text-navy-900">오늘 인기있는 뉴스</h2>
-        <div className="flex min-w-[120px] gap-[2rem]">
-          <Card
-            variant="fullMediaCard"
-            title="엔비디아 또 신고가… 시총 2위 애플과 962억달러 차이"
-            content="엔비디아가 기존 주식을 10주로 쪼개는 액면분할을 3일 앞둔 4일(현지시간) 주당 신고가 기록을 다시 쓰며 고가 우려를 털어냈다. 차세대 인공지능(AI) GPU 발표..."
-            date="2024.06.05"
-            publisher="문화일보"
-            style="w-1/2"
-          />
-          <div className="flex w-1/2 flex-col gap-[2rem]">
-            <Card
-              variant="fullMediaCard"
-              title="엔비디아 또 신고가… 시총 2위 애플과 962억달러 차이"
-              content="엔비디아가 기존 주식을 10주로 쪼개는 액면분할을 3일 앞둔 4일(현지시간) 주당 신고가 기록을 다시 쓰며 고가 우려를 털어냈다. 차세대 인공지능(AI) GPU 발표..."
-              date="2024.06.05"
-              publisher="문화일보"
-              size="small"
-            />
-            <Card
-              variant="fullMediaCard"
-              title="엔비디아 또 신고가… 시총 2위 애플과 962억달러 차이"
-              content="엔비디아가 기존 주식을 10주로 쪼개는 액면분할을 3일 앞둔 4일(현지시간) 주당 신고가 기록을 다시 쓰며 고가 우려를 털어냈다. 차세대 인공지능(AI) GPU 발표..."
-              date="2024.06.05"
-              publisher="문화일보"
-              size="small"
-            />
-          </div>
-        </div>
-      </div>
+      <PopularNews />
       <div className="flex w-full flex-col gap-[2.4rem]">
         <h2 className="heading_4 font-bold text-navy-900">관심종목과 관련된 뉴스</h2>
         <div className="flex gap-[2rem]">{Array(3).fill(<Card variant="halfMediaCard" style="w-1/3" />)}</div>

@@ -67,7 +67,7 @@ export default function Card({
       return (
         <div className={cn(`flex min-h-[36rem] min-w-[38.8rem] flex-col overflow-hidden rounded-[1.6rem] ${style}`)}>
           <div className="relative min-h-[23.6rem] w-[100%]">
-            <Image src={image || Rectangle} alt="news-image" style={{ width: "100%" }} />
+            <Image src={image || Rectangle} alt="news-image" />
           </div>
           <div className="flex w-full flex-col gap-[.8rem] rounded-b-[1.6rem] bg-grayscale-0 px-[2.4rem] py-[1.6rem] font-medium">
             <div className="body_3 line-clamp-2 h-[5.6rem] cursor-pointer text-ellipsis text-grayscale-900">
@@ -93,10 +93,10 @@ export default function Card({
         >
           <div className="relative h-[100%] w-[100%]">
             <Image
-              layout="fill"
+              fill
               src={image || (size === "large" ? LargeRect : SmallRect)}
               alt="news-image"
-              className="object-cover"
+              sizes={`${size === "large" ? "minHeight: 26.25rem" : "minHeight: 12.5rem"} minWidth: 36.875rem`}
             />
           </div>
           <div className="absolute bottom-0 w-full bg-gradient-to-t from-black to-transparent p-[2.4rem]">

@@ -12,3 +12,4 @@ export const REGISTER_PATH = "/register";
 export const REGISTER_COMPLETE_PATH = "/register-complete";
 export const VERIFY_USER_PATH = "/verify-user";
 export const WITHDRAW_PATH = "/withdraw";
+export const REPORT_PATH = "/report";
