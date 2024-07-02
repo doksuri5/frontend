@@ -10,7 +10,7 @@ import Privacy from "./Privacy";
 
 import { cn } from "@/utils/cn";
 
-import { VERIFY_USER_PATH } from "@/routes/path";
+import { REGISTER_PATH } from "@/routes/path";
 
 export default function AgreeForm() {
   const [agreedAll, setAgreedAll] = useState(false);
@@ -37,7 +37,7 @@ export default function AgreeForm() {
 
   const nextStepHandler = () => {
     if (agreedAll) {
-      router.push(VERIFY_USER_PATH);
+      router.push(REGISTER_PATH);
     }
   };
 
