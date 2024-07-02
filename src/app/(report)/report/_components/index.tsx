@@ -1,12 +1,10 @@
-"use client";
-
 import AppleIcon from "@/public/icons/Apple_icon.svg";
-import RePortHeader from "./ReportHeader";
+import ReportHeader from "./ReportHeader";
 import StockDetail from "./StockDetail";
 import StockChartSection from "./StockChartSection";
 import AIAnalystReport from "./AIAnalystReport";
 import StockAIReport from "./StockAIReport";
-import PopularNews from "@/components/common/PoPularNews";
+import PopularNews from "@/components/common/PopularNews";
 
 const DUMMY_STCOK = {
   icon: AppleIcon,
@@ -24,18 +22,18 @@ const DUMMY_STCOK = {
 };
 
 const DUMMY_CHART = [
-  { name: "2024/04/1week", uv: 4000 },
-  { name: "2024/04/2week", uv: 3000 },
-  { name: "2024/04/3week", uv: 2000 },
-  { name: "2024/04/4week", uv: 2780 },
-  { name: "2024/05/1week", uv: 1890 },
-  { name: "2024/05/2week", uv: 2390 },
-  { name: "2024/05/3week", uv: 3490 },
-  { name: "2024/05/4week", uv: 2000 },
-  { name: "2024/06/1week", uv: 2780 },
-  { name: "2024/06/2week", uv: 1890 },
-  { name: "2024/06/3week", uv: 2390 },
-  { name: "2024/06/4week", uv: 3490 },
+  { period: "2024/04/1week", price: 4000 },
+  { period: "2024/04/2week", price: 3000 },
+  { period: "2024/04/3week", price: 2000 },
+  { period: "2024/04/4week", price: 2780 },
+  { period: "2024/05/1week", price: 1890 },
+  { period: "2024/05/2week", price: 2390 },
+  { period: "2024/05/3week", price: 3490 },
+  { period: "2024/05/4week", price: 2000 },
+  { period: "2024/06/1week", price: 2780 },
+  { period: "2024/06/2week", price: 1890 },
+  { period: "2024/06/3week", price: 2390 },
+  { period: "2024/06/4week", price: 3490 },
 ];
 
 export default function Report() {
@@ -52,10 +50,9 @@ export default function Report() {
     aiReport,
     score,
   } = DUMMY_STCOK;
-  // px-[12rem]
   return (
     <div className="flex flex-col gap-[2.4rem] pb-[12rem] pt-[4.7rem]">
-      <RePortHeader
+      <ReportHeader
         data={{
           icon,
           stockKorName,
