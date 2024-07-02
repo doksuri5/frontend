@@ -1,5 +1,7 @@
 import NewsItem, { TINewsItemProps } from "@/components/common/List/NewsItem";
+import { NEWS_PATH } from "@/routes/path";
 import { cn } from "@/utils/cn";
+import Link from "next/link";
 import { Fragment, useEffect, useRef } from "react";
 
 type TINewsListProps = {
@@ -67,8 +69,9 @@ export default function NewsInfinityList({
       className={cn(`flex w-full flex-col overflow-y-scroll scrollbar-hide ${selectedVariantStyles.border} ${style}`)}
     >
       {newsItems?.map((newsItem, index) => (
-        <Fragment key={index}>
+        <Link key={index} href={`${NEWS_PATH}/${newsItem.id}`}>
           <NewsItem
+            id={newsItem.id}
             image={newsItem.image}
             title={newsItem.title}
             description={newsItem.description}
@@ -79,7 +82,7 @@ export default function NewsInfinityList({
           />
           {index === newsItems.length - 1 && <div ref={lastNewsItemRef} />}
           {index < newsItems.length - 1 && <hr />}
-        </Fragment>
+        </Link>
       ))}
     </div>
   );

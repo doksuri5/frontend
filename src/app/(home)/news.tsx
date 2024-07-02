@@ -5,6 +5,8 @@ import NewsItem, { TINewsItemProps } from "@/components/common/List/NewsItem";
 import useDraggable from "@/hooks/use-draggable";
 import { useRef } from "react";
 import NewsImage from "@/public/icons/news.jpg";
+import Link from "next/link";
+import { NEWS_PATH } from "@/routes/path";
 
 const NEWS = [
   {
@@ -63,32 +65,38 @@ const News = () => {
         </ul>
         <p className="body_1 pb-[1.6rem] pt-[4.8rem]">주요 뉴스</p>
         <ul className="flex flex-col gap-[1.6rem] divide-y rounded-[1.6rem] border p-[4.8rem]">
-          <div key={DUMMY_NEWS_ITEMS[0].title} className="shadow-smhg pb-[3.2rem] pt-[1.6rem]">
-            <NewsItem
-              variant="lineClamp-4"
-              image={DUMMY_NEWS_ITEMS[0].image}
-              title={DUMMY_NEWS_ITEMS[0].title}
-              description={DUMMY_NEWS_ITEMS[0].description}
-              publishedTime={DUMMY_NEWS_ITEMS[0].publishedTime}
-              newspaperCompany={DUMMY_NEWS_ITEMS[0].newspaperCompany}
-              key={DUMMY_NEWS_ITEMS[0].title}
-            />
-          </div>
+          <Link href={`${NEWS_PATH}/${DUMMY_NEWS_ITEMS[0].id}`}>
+            <div key={DUMMY_NEWS_ITEMS[0].title} className="shadow-smhg pb-[3.2rem] pt-[1.6rem]">
+              <NewsItem
+                id={DUMMY_NEWS_ITEMS[0].id}
+                variant="lineClamp-4"
+                image={DUMMY_NEWS_ITEMS[0].image}
+                title={DUMMY_NEWS_ITEMS[0].title}
+                description={DUMMY_NEWS_ITEMS[0].description}
+                publishedTime={DUMMY_NEWS_ITEMS[0].publishedTime}
+                newspaperCompany={DUMMY_NEWS_ITEMS[0].newspaperCompany}
+                key={DUMMY_NEWS_ITEMS[0].title}
+              />
+            </div>
+          </Link>
         </ul>
         <p className="body_1 pb-[1.6rem] pt-[4.8rem]">최신 뉴스</p>
         <ul className="flex flex-col gap-[1.6rem] divide-y rounded-[1.6rem] border p-[4.8rem]">
           {DUMMY_NEWS_ITEMS.map((newsItem) => (
-            <div key={newsItem.title} className="shadow-smhg pb-[3.2rem] pt-[1.6rem]">
-              <NewsItem
-                image={newsItem.image}
-                title={newsItem.title}
-                description={newsItem.description}
-                publishedTime={newsItem.publishedTime}
-                newspaperCompany={newsItem.newspaperCompany}
-                variant={newsItem.variant}
-                key={newsItem.title}
-              />
-            </div>
+            <Link key={newsItem.title} href={`${NEWS_PATH}/${newsItem.id}`}>
+              <div className="shadow-smhg pb-[3.2rem] pt-[1.6rem]">
+                <NewsItem
+                  id={DUMMY_NEWS_ITEMS[0].id}
+                  image={newsItem.image}
+                  title={newsItem.title}
+                  description={newsItem.description}
+                  publishedTime={newsItem.publishedTime}
+                  newspaperCompany={newsItem.newspaperCompany}
+                  variant={newsItem.variant}
+                  key={newsItem.title}
+                />
+              </div>
+            </Link>
           ))}
         </ul>
       </div>
