@@ -3,9 +3,10 @@ import { Modal, Button, Input } from "@/components/common";
 type TPWCheckModalProps = {
   isOpen: boolean;
   onClose: () => void;
+  onEdit: () => void;
 };
 
-export default function PWCheckModal({ isOpen, onClose }: TPWCheckModalProps) {
+export default function PWCheckModal({ isOpen, onClose, onEdit }: TPWCheckModalProps) {
   return (
     <Modal
       isOpen={isOpen}
@@ -23,7 +24,7 @@ export default function PWCheckModal({ isOpen, onClose }: TPWCheckModalProps) {
           type="password"
           placeholder="비밀번호를 입력해주세요"
         />
-        <Button size="lg" className="mt-[5.6rem] text-grayscale-0" onClick={onClose}>
+        <Button size="lg" className="mt-[5.6rem] text-grayscale-0" onClick={onEdit}>
           수정하기
         </Button>
       </div>

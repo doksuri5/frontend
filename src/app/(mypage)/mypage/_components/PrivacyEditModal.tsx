@@ -1,5 +1,5 @@
 import { Modal, Button } from "@/components/common";
-import UserPrivacyForm from "@/components/common/User/UserPrivacyForm";
+import EditPrivacyForm from "@/app/(mypage)/mypage/_components/EditPrivacyForm";
 
 type TPrivacyEditModalProps = {
   isOpen: boolean;
@@ -17,7 +17,7 @@ export default function PrivacyEditModal({ isOpen, onClose, openWithdrawModal }:
       panelStyle="px-[10.2rem] py-[8rem] rounded-[3.2rem] w-[59rem]"
     >
       <div className="mt-[5.6rem] flex w-full flex-col items-center justify-center">
-        <UserPrivacyForm page="mypage" closeModal={onClose} />
+        <EditPrivacyForm closeModal={onClose} />
         <Button
           variant="textButton"
           size="sm"

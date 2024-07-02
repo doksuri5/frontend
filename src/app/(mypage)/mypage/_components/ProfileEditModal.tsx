@@ -1,5 +1,5 @@
 import { Modal } from "@/components/common";
-import UserProfileForm from "@/components/common/User/UserProfileForm";
+import EditProfileForm from "@/app/(mypage)/mypage/_components/EditProfileForm";
 
 const stockList = [
   { value: "tsla", label: "#테슬라" },
@@ -25,7 +25,7 @@ export default function ProfileEditModal({ isOpen, onClose }: TProfileEditModalP
       panelStyle="px-[10.2rem] py-[8rem] rounded-[3.2rem] w-[59rem] items-center justify-center"
     >
       <div className="mt-[4rem] flex w-full flex-col">
-        <UserProfileForm page="mypage" stockOptionList={stockList} closeModal={onClose} />
+        <EditProfileForm stockOptionList={stockList} closeModal={onClose} />
       </div>
     </Modal>
   );
