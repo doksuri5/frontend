@@ -1,4 +1,4 @@
-import SearchItem from "@/app/(mystock)/mystock/_components/SearchItem";
+import SearchItem from "@/app/[lang]/(mystock)/mystock/_components/SearchItem";
 import Apple_icon from "@/public/icons/Apple_icon.svg";
 
 type TMyStockSearchResultProps = {

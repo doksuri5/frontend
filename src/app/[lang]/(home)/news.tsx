@@ -7,10 +7,11 @@ import { useRef } from "react";
 import NewsImage from "@/public/icons/news.jpg";
 import Link from "next/link";
 import { NEWS_PATH } from "@/routes/path";
+import { nanoid } from "nanoid";
 
 const NEWS = [
   {
-    id: 1,
+    id: nanoid(),
     date: "2024.06.24",
     title: "中제외 배터리 시장, 중국업체들의...",
     stockCode: "AAPL",
@@ -20,7 +21,7 @@ const NEWS = [
     size: null,
   },
   {
-    id: 2,
+    id: nanoid(),
     date: "2024.06.24",
     title: "中제외 배터리 시장, 중국업체들의...",
     stockCode: "AAPL",
@@ -30,7 +31,7 @@ const NEWS = [
     size: null,
   },
   {
-    id: 3,
+    id: nanoid(),
     date: "2024.06.24",
     title: "中제외 배터리 시장, 중국업체들의...",
     stockCode: "AAPL",

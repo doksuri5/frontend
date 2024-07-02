@@ -2,7 +2,7 @@ import { cn } from "@/utils/cn";
 import Image, { StaticImageData } from "next/image";
 
 export type TINewsItemProps = {
-  id: number;
+  id?: number;
   image: StaticImageData;
   title: string;
   description: string;

@@ -6,7 +6,7 @@ import {
   MyStockSearchResult,
   MyStockPopularSearches,
   MyStockRecentSearches,
-} from "@/app/(mystock)/mystock/_components";
+} from "@/app/[lang]/(mystock)/mystock/_components";
 import { useModalStore, useRecentSearchStore } from "@/stores";
 import { SearchDetailDataType, StockDataType } from "@/types";
 import SearchIcon from "@/public/icons/search_icon.svg?component";

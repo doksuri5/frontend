@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect } from "react";
-import { MyStockItem } from "@/app/(mystock)/mystock/_components";
-import { useInterestStockStore } from "@/app/(mystock)/mystock/stores";
+import { MyStockItem } from "@/app/[lang]/(mystock)/mystock/_components";
+import { useInterestStockStore } from "@/app/[lang]/(mystock)/mystock/stores";
 import { StockDataType } from "@/types";
 import WarningIcon from "@/public/icons/warning_icon.svg?component";
 

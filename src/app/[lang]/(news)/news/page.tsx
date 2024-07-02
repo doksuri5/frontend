@@ -1,4 +1,4 @@
-import News from "@/app/(news)/news/_components";
+import News from "@/app/[lang]/(news)/news/_components";
 import { getDictionary } from "@/get-dictionary";
 import { Locale } from "@/i18n-config";
 

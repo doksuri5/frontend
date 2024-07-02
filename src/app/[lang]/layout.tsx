@@ -1,19 +1,23 @@
 import { pretendard } from "@/fonts";
 
-import "./globals.css";
+import "../globals.css";
 import Header from "@/components/layout/Header";
 import QueryProvider from "@/providers/QueryProvider";
-
+import { i18n, type Locale } from "../../i18n-config";
 import { Button, ChatBot } from "@/components/common";
 
 import Image from "next/image";
+
+export async function generateStaticParams() {
+  return i18n.locales.map((locale) => ({ lang: locale }));
+}
 
 export default function RootLayout({
   children,
   params,
 }: Readonly<{
   children: React.ReactNode;
-  params: { lang: string };
+  params: { lang: Locale };
 }>) {
   // TODO : 추후 해당 코드 변경 예정
   const isLoggedIn = true;

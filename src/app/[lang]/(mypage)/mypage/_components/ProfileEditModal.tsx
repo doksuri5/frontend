@@ -1,5 +1,5 @@
 import { Modal } from "@/components/common";
-import EditProfileForm from "@/app/(mypage)/mypage/_components/EditProfileForm";
+import EditProfileForm from "@/app/[lang]/(mypage)/mypage/_components/EditProfileForm";
 
 const stockList = [
   { value: "tsla", label: "#테슬라" },
