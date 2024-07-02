@@ -1,12 +1,17 @@
+"use client";
+
 import { Button } from "@/components/common";
 import Image from "next/image";
+import { useState } from "react";
 
 type TStockHeader = {
-  data: { icon: string; stockKorName: string; stockEngName: string };
+  data: { icon: string; stockKorName: string; stockEngName: string; isMyStock: boolean };
 };
 
 export default function ReportHeader({ data }: TStockHeader) {
-  const { icon, stockKorName, stockEngName } = data;
+  const { icon, stockKorName, stockEngName, isMyStock } = data;
+  const [isMyStockState, setIsMyStockState] = useState(isMyStock);
+
   return (
     <section className="flex_row justify-between">
       <div className="flex items-center gap-[1.4rem]">
@@ -19,9 +24,26 @@ export default function ReportHeader({ data }: TStockHeader) {
           <h1 className="body_2 font-normal">{stockEngName}</h1>
         </div>
       </div>
-      <Button variant="textButton" size="md" className="w-[18rem] text-white">
-        관심종목 추가
-      </Button>
+      {isMyStockState ? (
+        <Button
+          variant="textButton"
+          size="md"
+          className="w-[18rem] bg-transparent"
+          bgColor="bg-white"
+          onClick={() => setIsMyStockState(!isMyStockState)}
+        >
+          관심종목 해제
+        </Button>
+      ) : (
+        <Button
+          variant="textButton"
+          size="md"
+          className="w-[18rem] text-white"
+          onClick={() => setIsMyStockState(!isMyStockState)}
+        >
+          관심종목 추가
+        </Button>
+      )}
     </section>
   );
 }
