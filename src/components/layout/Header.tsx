@@ -4,11 +4,17 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { Button } from "../common";
+
 import { DISCOVERY_PATH, MAIN_PATH, MY_PAGE_PATH, MY_STOCK_PATH, NEWS_PATH } from "@/routes/path";
+
 import LightLogo from "@/public/icons/light_logo.svg?component";
 import DarkLogo from "@/public/icons/dark_logo.svg?component";
 
-const Header = () => {
+type THeaderProps = {
+  isLoggedIn: boolean;
+};
+
+const Header = ({ isLoggedIn }: THeaderProps) => {
   const router = usePathname();
   const [isLogin, setIsLogin] = useState(true); // 로그인 여부 로직 처리
 
@@ -20,7 +26,9 @@ const Header = () => {
   ];
 
   return (
-    <header className="flex_row_center fixed left-0 top-0 z-50 h-[8rem] w-full bg-white py-[1rem]">
+    <header
+      className={`flex_row_center fixed left-0 top-0 z-50 h-[8rem] w-full py-[1rem] ${isLoggedIn ? "bg-white" : "bg-transparent"}`}
+    >
       <div className="flex_row h-full w-[120rem] justify-between">
         <div className="flex_row h-full">
           <Link href={MAIN_PATH}>{router === MAIN_PATH && !isLogin ? <LightLogo /> : <DarkLogo />}</Link>
