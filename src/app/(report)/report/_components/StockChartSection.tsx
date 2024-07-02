@@ -14,7 +14,7 @@ type TChartData = {
 };
 
 export default function StockChartSection({ chartData }: TChartData) {
-  const [period, setPeriod] = useState("1일");
+  const [period, setPeriod] = useState("3개월");
   const chartButton = ["1일", "3개월", "1년", "3년", "10년"];
 
   return (
