@@ -1,4 +1,4 @@
-import { MyStockHeader, MyStockBody, MyStockModalSection } from "@/app/(mystock)/mystock/_components";
+import { MyStockHeader, MyStockBody, MyStockModalSection } from "@/app/[lang]/(mystock)/mystock/_components";
 import { SearchDetailDataType, StockDataType } from "@/types";
 import Apple_icon from "@/public/icons/Apple_icon.svg";
 
