@@ -8,8 +8,8 @@ import clsx from "clsx";
 
 type TChartData = {
   chartData: {
-    name: string;
-    uv: number;
+    period: string;
+    price: number;
   }[];
 };
 
@@ -37,7 +37,7 @@ export default function StockChartSection({ chartData }: TChartData) {
           ))}
         </div>
       </div>
-      <StockChart />
+      <StockChart chartData={chartData} />
     </div>
   );
 }
