@@ -19,7 +19,7 @@ export default function AIAnalystReport({ data }: TAIAnalystReport) {
   const fluctuationArrow = fluctuationRatio < 0 ? "▼" : "▲";
 
   return (
-    <div className="min-h-[29.5rem] min-w-[75rem] rounded-[1.6rem] bg-white p-[3.2rem]">
+    <section className="min-h-[29.5rem] min-w-[75rem] rounded-[1.6rem] bg-white p-[3.2rem]">
       <h2 className="body_1 pb-[5.5rem] font-bold text-navy-900">아잇나우 AI 애널리스트 리포트</h2>
       <div className="mb-[1.6rem] flex items-center gap-[0.8rem]">
         <Image src={icon} alt="icon" width={30} height={30} />
@@ -35,6 +35,6 @@ export default function AIAnalystReport({ data }: TAIAnalystReport) {
       </div>
       <p className="body_4 font-medium">{aiReport}</p>
       <div className="flex items-center gap-[0.8rem]"></div>
-    </div>
+    </section>
   );
 }

@@ -18,7 +18,7 @@ export default function StockChartSection({ chartData }: TChartData) {
   const chartButton = ["1일", "3개월", "1년", "3년", "10년"];
 
   return (
-    <div className="flex min-h-[25.6rem] min-w-[69.2rem] flex-col gap-[0.8rem] rounded-[1.6rem] bg-white p-[3.2rem]">
+    <section className="flex min-h-[25.6rem] min-w-[69.2rem] flex-col gap-[0.8rem] rounded-[1.6rem] bg-white p-[3.2rem]">
       <div className="flex flex-row justify-between gap-[0.8rem]">
         <h2 className="body_1 font-bold text-navy-900">주가차트</h2>
         <div className="flex">
@@ -38,6 +38,6 @@ export default function StockChartSection({ chartData }: TChartData) {
         </div>
       </div>
       <StockChart chartData={chartData} />
-    </div>
+    </section>
   );
 }

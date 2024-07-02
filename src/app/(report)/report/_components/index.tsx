@@ -50,6 +50,7 @@ export default function Report() {
     aiReport,
     score,
   } = DUMMY_STCOK;
+
   return (
     <div className="flex flex-col gap-[2.4rem] pb-[12rem] pt-[4.7rem]">
       <ReportHeader

@@ -36,7 +36,7 @@ export default function StockDetail({ stockDetail }: TStockDetail) {
   const viewStockName = currency ? stockEngName : stockKorName;
 
   return (
-    <div className="min-h-[25.6rem] min-w-[48.8rem] rounded-[1.6rem] bg-white p-[3.2rem]">
+    <section className="min-h-[25.6rem] min-w-[48.8rem] rounded-[1.6rem] bg-white p-[3.2rem]">
       <div className="flex flex-col gap-[3.2rem]">
         <div>
           <div className="flex_row justify-between">
@@ -59,6 +59,6 @@ export default function StockDetail({ stockDetail }: TStockDetail) {
         </div>
         <p>{description}</p>
       </div>
-    </div>
+    </section>
   );
 }
