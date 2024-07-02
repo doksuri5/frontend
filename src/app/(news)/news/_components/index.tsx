@@ -4,7 +4,7 @@ import { Card } from "@/components/common";
 import NewsInfinityList from "@/app/(news)/news/_components/NewsInfinityList";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import PopularNews from "@/components/common/PoPularNews";
+import PopularNews from "@/components/common/PopularNews";
 
 export default function News({}) {
   const [currentPage, setCurrentPage] = useState(1);
