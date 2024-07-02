@@ -1,7 +1,6 @@
 import { SimpleRadarChart } from "@/components/common";
 import { cn } from "@/utils/cn";
-import Image from "next/image";
-import { useCallback } from "react";
+import { getCompareToPreviousClosePriceArrow, getFluctuationsRatioColor } from "@/utils/stockPriceUtils";
 
 type StockAIReport = {
   data: {
@@ -13,12 +12,8 @@ type StockAIReport = {
 export default function StockAIReport({ data }: StockAIReport) {
   const { fluctuationRatio, score } = data;
 
-  const fluctuationColor = fluctuationRatio < 0 ? "text-blue-600" : "text-warning-100";
-  const fluctuationArrow = fluctuationRatio < 0 ? "▼" : "▲";
-
-  const changeArrow = useCallback((ratio: number) => {
-    return ratio < 0 ? "▼" : "▲";
-  }, []);
+  const fluctuationColor = getFluctuationsRatioColor(fluctuationRatio);
+  const fluctuationArrow = getCompareToPreviousClosePriceArrow(fluctuationRatio);
 
   return (
     <section className="min-h-[29.5rem] min-w-[43rem]">

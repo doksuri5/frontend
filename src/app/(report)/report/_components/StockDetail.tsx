@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Toggle } from "@/components/common";
 import { cn } from "@/utils/cn";
+import { getCompareToPreviousClosePriceArrow, getFluctuationsRatioColor } from "@/utils/stockPriceUtils";
 
 type TStockDetail = {
   stockDetail: {
@@ -28,8 +29,8 @@ export default function StockDetail({ stockDetail }: TStockDetail) {
     description,
   } = stockDetail;
 
-  const fluctuationColor = fluctuationRatio < 0 ? "text-blue-600" : "text-warning-100";
-  const fluctuationArrow = fluctuationRatio < 0 ? "▼" : "▲";
+  const fluctuationColor = getFluctuationsRatioColor(fluctuationRatio);
+  const fluctuationArrow = getCompareToPreviousClosePriceArrow(fluctuationRatio);
   const fluctuationSign = fluctuationRatio < 0 ? "-" : "+";
   const viewCurrency = currency ? `$${currentPriceUSD}` : `₩${currentPriceKRW}`;
   const viewStockName = currency ? stockEngName : stockKorName;
