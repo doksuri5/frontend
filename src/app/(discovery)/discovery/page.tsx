@@ -11,7 +11,7 @@ export default function page({ searchParams }: TDiscoveryProps) {
 
   return (
     <article className="flex_col m-auto max-w-[59rem] gap-[3.2rem] py-[5.6rem]">
-      <DiscoveryInput param={param} />
+      <DiscoveryInput />
       {param ? (
         <>
           <DiscoveryStocks param={param} />
