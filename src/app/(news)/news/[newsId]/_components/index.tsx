@@ -1,5 +1,3 @@
-import { Button } from "@/components/common";
-import FABIcon from "@/public/icons/fab_icon.svg?component";
 import NewsImage from "@/public/icons/news.jpg";
 import NewsDetail from "./NewsDetail";
 import RelatedStocks from "./RelatedStocks";
@@ -62,13 +60,6 @@ export default function NewsDetailPage() {
           <RelatedNews newsData={DUMMY_RELATED_NEWS} />
         </div>
       </div>
-      <Button
-        variant="fabButton"
-        hover={false}
-        className="fixed bottom-[4rem] right-[6.4rem] h-[8rem] w-[8rem] p-[1.8rem]"
-      >
-        {<FABIcon />}
-      </Button>
     </Fragment>
   );
 }
