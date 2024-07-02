@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import { Area, AreaChart, Tooltip, XAxis, YAxis } from "recharts";
 
 type TChartData = {
@@ -8,11 +11,20 @@ type TChartData = {
 };
 
 export default function StockChart({ chartData }: TChartData) {
-  const error = console.error;
-  console.error = (...args: any) => {
-    if (/defaultProps/.test(args[0])) return;
-    error(...args);
-  };
+  // Recharts컴포넌트 렌더링 시 클라이언트에서만 렌더링되도록 하기 위함
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    const error = console.error;
+
+    console.error = (...args: any) => {
+      if (/defaultProps/.test(args[0])) return;
+
+      error(...args);
+    };
+
+    setIsClient(true);
+  }, []);
 
   // 각 월의 중앙에 위치할 레이블의 인덱스 계산
   const monthTicks = [
@@ -20,6 +32,8 @@ export default function StockChart({ chartData }: TChartData) {
     chartData[5].period, // 2024/05
     chartData[9].period, // 2024/06
   ];
+
+  if (!isClient) return null;
 
   return (
     <AreaChart data={chartData} width={640} height={145} margin={{ top: 10 }}>
