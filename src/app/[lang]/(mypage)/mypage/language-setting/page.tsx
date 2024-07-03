@@ -19,7 +19,7 @@ interface ILanguageInform {
 const languageList = [
   { icon: <Korea />, label: "한국어", active: true, value: "ko" },
   { icon: <USA />, label: "영어", active: false, value: "en" },
-  { icon: <China />, label: "중국어", active: false, value: "cn" },
+  { icon: <China />, label: "중국어", active: false, value: "ch" },
   { icon: <Japan />, label: "일본어", active: false, value: "jp" },
   { icon: <French />, label: "프랑스어", active: false, value: "fr" },
 ];

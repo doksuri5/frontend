@@ -1,1 +1,42 @@
-{}
+{
+  "discovery": "발견",
+  "news": "뉴스",
+  "interestStocks": "관심종목",
+  "myPage": "마이페이지",
+  "login": "로그인",
+  "logout": "로그아웃",
+
+  "stockApple": "애플",
+  "stockMicroSoft": "마이크로소프트",
+  "stockAmazon": "아마존",
+  "stockUnity": "유니티",
+  "stockGoogle": "구글",
+  "stockTesla": "테슬라",
+
+  "todaysPopularNews": "오늘 인기있는 뉴스",
+  "newsRelatedInterestStock": "관심 종목과 관련된 뉴스",
+  "latestNews": "최신 뉴스",
+  "relatedStocks": "현재 뉴스와 관련된 주식",
+  "relatedArticles": "관련 기사",
+
+  "stock": "주식",
+  "addInterestStock": "관심종목 추가",
+  "unit": "$",
+  "stockPriceChart": "주가 차트",
+  "oneDay": "1일",
+  "threeMonths": "3개월",
+  "oneYear": "1년",
+  "threeYears": "3년",
+  "tenYears": "10년",
+  "stockAIReport": "종목 AI 리포트",
+  "aightNowAIAnalystReport": "아잇나우 AI 애널리스트 리포트",
+
+  "userInterestStocks": "님의 관심종목",
+  "stockPrice": "주가",
+  "investmentIndex": "투자지수",
+  "profitability": "수익성",
+  "growth": "성장성",
+  "interestLevel": "관심도",
+  "delete": "삭제하기",
+  "viewDetails": "자세히 보기"
+}

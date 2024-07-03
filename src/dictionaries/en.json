@@ -1,1 +1,42 @@
-{}
+{
+  "discovery": "Discovery",
+  "news": "News",
+  "interestStocks": "Interest Stocks",
+  "myPage": "My Page",
+  "login": "Login",
+  "logout": "Logout",
+
+  "stockApple": "Apple",
+  "stockMicroSoft": "Microsoft",
+  "stockAmazon": "Amazon",
+  "stockUnity": "Unity",
+  "stockGoogle": "Google",
+  "stockTesla": "Tesla",
+
+  "todaysPopularNews": "Today's Popular News",
+  "newsRelatedInterestStock": "News Related to Interest Stocks",
+  "latestNews": "Latest News",
+  "relatedStocks": "Stocks Related to Current News",
+  "relatedArticles": "Related Articles",
+
+  "stock": "Stock",
+  "addInterestStock": "Add Interest Stock",
+  "unit": "$",
+  "stockPriceChart": "Stock Price Chart",
+  "oneDay": "1 Day",
+  "threeMonths": "3 Months",
+  "oneYear": "1 Year",
+  "threeYears": "3 Years",
+  "tenYears": "10 Years",
+  "stockAIReport": "Stock AI Report",
+  "aightNowAIAnalystReport": "AightNow AI Analyst Report",
+
+  "userInterestStocks": "'s Interest Stocks",
+  "stockPrice": "Stock Price",
+  "investmentIndex": "Investment Index",
+  "profitability": "Profitability",
+  "growth": "Growth",
+  "interestLevel": "Interest Level",
+  "delete": "Delete",
+  "viewDetails": "View Details"
+}
