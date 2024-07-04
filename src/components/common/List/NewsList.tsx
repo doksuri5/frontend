@@ -1,9 +1,10 @@
 import { cn } from "@/utils/cn";
-import NewsItem, { TINewsItemProps } from "./NewsItem";
+import NewsItem from "./NewsItem";
 import { Fragment } from "react";
+import { NewsDetailType } from "@/types";
 
 type TINewsListProps = {
-  newsItems: TINewsItemProps[];
+  newsItems: NewsDetailType[];
   lineClamp?: "lineClamp-2" | "lineClamp-4";
   variant?: "border" | "noBorder";
   style?: string;
@@ -28,7 +29,7 @@ export default function NewsList({ newsItems, lineClamp = "lineClamp-2", variant
             title={newsItem.title}
             description={newsItem.description}
             publishedTime={newsItem.publishedTime}
-            newspaperCompany={newsItem.newspaperCompany}
+            publisher={newsItem.publisher}
             style={newsItem?.style}
             variant={lineClamp}
           />

@@ -17,4 +17,10 @@ export interface NewsItemType {
   description: string;
   publishedTime: string;
   publisher: string;
+  style?: string;
+}
+
+export interface NewsDetailType extends NewsItemType {
+  view: string;
+  aiSummary: string;
 }
