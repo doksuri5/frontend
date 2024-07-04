@@ -1,3 +1,5 @@
+"use client";
+
 import AppleIcon from "@/public/icons/Apple_icon.svg";
 import ReportHeader from "./ReportHeader";
 import StockDetail from "./StockDetail";
@@ -5,6 +7,7 @@ import StockChartSection from "./StockChartSection";
 import AIAnalystReport from "./AIAnalystReport";
 import StockAIReport from "./StockAIReport";
 import PopularNews from "@/components/common/PopularNews";
+import { DUMMY_POPULAR_NEWS_ITEMS } from "@/app/[lang]/(news)/news/_components";
 
 const DUMMY_STCOK = {
   icon: AppleIcon,
@@ -91,7 +94,7 @@ export default function Report() {
           }}
         />
       </div>
-      <PopularNews />
+      <PopularNews popularNewsData={DUMMY_POPULAR_NEWS_ITEMS} />
     </div>
   );
 }

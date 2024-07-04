@@ -20,7 +20,7 @@ const DUMMY_NEWS_ITEMS = Array(3).fill({
   date: "7시간전",
 });
 
-const DUMMY_POPULAR_NEWS_ITEMS = Array(3).fill({
+export const DUMMY_POPULAR_NEWS_ITEMS = Array(3).fill({
   _id: nanoid(),
   image: NewsImage,
   title: "엔비디아 또 신고가… 시총 2위 애플과 962억달러 차이",
