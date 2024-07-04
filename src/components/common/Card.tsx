@@ -20,7 +20,7 @@ import { NEWS_PATH } from "@/routes/path";
 
 type TCardProps = {
   variant: "iconCard" | "halfMediaCard" | "fullMediaCard";
-  id?: string;
+  _id?: string;
   date?: string;
   title?: string;
   stockCode?: string;
@@ -33,7 +33,7 @@ type TCardProps = {
 
 export default function Card({
   variant = "iconCard",
-  id,
+  _id,
   date,
   title,
   stockCode,
@@ -46,7 +46,7 @@ export default function Card({
   switch (variant) {
     case "iconCard":
       return (
-        <Link href={`${NEWS_PATH}/${id}`}>
+        <Link href={`${NEWS_PATH}/${_id}`}>
           <div
             className={cn(
               `flex h-[10rem] w-[35.5rem] flex-row items-center justify-between gap-[.8rem] rounded-[2.4rem] border border-grayscale-200 bg-grayscale-0 px-[1.6rem] py-[2.4rem] ${style}`,
@@ -71,7 +71,7 @@ export default function Card({
       );
     case "halfMediaCard":
       return (
-        <Link href={`${NEWS_PATH}/${id}`}>
+        <Link href={`${NEWS_PATH}/${_id}`}>
           <div className={cn(`flex min-h-[36rem] min-w-[38.8rem] flex-col overflow-hidden rounded-[1.6rem] ${style}`)}>
             <div className="relative min-h-[23.6rem] w-[100%]">
               <Image src={image || Rectangle} alt="news-image" fill />
@@ -94,7 +94,7 @@ export default function Card({
       );
     case "fullMediaCard":
       return (
-        <Link href={`${NEWS_PATH}/${id}`}>
+        <Link href={`${NEWS_PATH}/${_id}`}>
           <div
             className={cn(
               `container relative flex ${size === "large" ? "min-h-[42rem]" : "min-h-[20rem]"} min-w-[59rem] flex-col overflow-hidden rounded-[1.6rem] ${style}`,
