@@ -19,6 +19,7 @@ import EditIcon from "@/public/icons/avatar_edit.svg?component";
 import { TProfileSchema, profileSchema } from "@/types/AuthType";
 
 import { useRegisterStore } from "@/providers/RegisterProvider";
+import { LOGIN_PATH } from "@/routes/path";
 
 type TOption = {
   [key: string]: string;
@@ -64,12 +65,37 @@ export default function ProfileSetUpForm() {
     watch: watchProfile,
   } = useZodSchemaForm<TProfileSchema>(profileSchema);
 
-  const handleSubmit = (data: TProfileSchema) => {
+  const handleSubmit = async (data: TProfileSchema) => {
     // TODO : 데이터 form 통신
     console.log(form);
     console.log(data);
     console.log(file);
     console.log(isGender);
+
+    try {
+      const response = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          password: form.password,
+          phone: form.phone,
+          birth: form.birth,
+          nickname: data.nickname,
+          interest_stocks: data.tags,
+          gender: isGender,
+        }),
+      });
+
+      if (response.ok) {
+        router.push(LOGIN_PATH);
+      }
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (

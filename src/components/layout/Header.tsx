@@ -5,10 +5,12 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { Button } from "../common";
 
-import { DISCOVERY_PATH, MAIN_PATH, MY_PAGE_PATH, MY_STOCK_PATH, NEWS_PATH } from "@/routes/path";
+import { DISCOVERY_PATH, LOGIN_PATH, MAIN_PATH, MY_PAGE_PATH, MY_STOCK_PATH, NEWS_PATH } from "@/routes/path";
 
 import LightLogo from "@/public/icons/light_logo.svg?component";
 import DarkLogo from "@/public/icons/dark_logo.svg?component";
+
+import { signOut, useSession } from "next-auth/react";
 
 type THeaderProps = {
   isLoggedIn: boolean;
@@ -17,6 +19,12 @@ type THeaderProps = {
 const Header = ({ isLoggedIn }: THeaderProps) => {
   const router = usePathname();
   const [isLogin, setIsLogin] = useState(true); // 로그인 여부 로직 처리
+  const { data: session } = useSession();
+  console.log(session);
+
+  const handleLogOut = async () => {
+    await signOut({ redirect: true, callbackUrl: LOGIN_PATH });
+  };
 
   const buttonList = [
     { text: "발견", url: DISCOVERY_PATH },
@@ -32,7 +40,7 @@ const Header = ({ isLoggedIn }: THeaderProps) => {
       <div className="flex_row h-full w-[120rem] justify-between">
         <div className="flex_row h-full">
           <Link href={MAIN_PATH}>{router === MAIN_PATH && !isLogin ? <LightLogo /> : <DarkLogo />}</Link>
-          {isLogin && (
+          {session?.user.role === "user" && (
             <nav className="flex_row_center ml-[2rem] h-full">
               {buttonList.map((item) => (
                 <Link
@@ -46,8 +54,14 @@ const Header = ({ isLoggedIn }: THeaderProps) => {
             </nav>
           )}
         </div>
-        {isLogin && (
-          <Button variant="textButton" size="sm" bgColor="bg-white" className="body_5 w-[10.2rem] font-medium">
+        {session && (
+          <Button
+            variant="textButton"
+            size="sm"
+            bgColor="bg-white"
+            className="body_5 w-[10.2rem] font-medium"
+            onClick={handleLogOut}
+          >
             로그아웃
           </Button>
         )}

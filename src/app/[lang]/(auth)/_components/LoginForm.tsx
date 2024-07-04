@@ -1,8 +1,8 @@
 "use client";
 
+import { startTransition, useState, useTransition } from "react";
+import { Controller } from "react-hook-form";
 import Link from "next/link";
-
-import { useState } from "react";
 
 import { Button, CheckBox, Input } from "@/components/common";
 
@@ -12,6 +12,8 @@ import { TLoginSchema, loginSchema } from "@/types/AuthType";
 
 import { cn } from "@/utils/cn";
 
+import { loginAction } from "@/lib/authAction";
+
 const cssConfig = {
   link: "relative body_5",
   line: "before:absolute before:left-[-1.2rem] before:top-[50%] before:block before:text-grayscale-400 before:content-['|'] before:translate-y-[-50%]",
@@ -19,6 +21,7 @@ const cssConfig = {
 
 export default function LoginForm() {
   const [checked, setChecked] = useState(false);
+  const [error, setError] = useState<string | undefined>("");
 
   const {
     control,
@@ -26,30 +29,50 @@ export default function LoginForm() {
     formState: { errors, isValid },
   } = useZodSchemaForm<TLoginSchema>(loginSchema);
 
-  const onLoginSubmit = (data: TLoginSchema) => {
-    // TODO : 로그인 로직
+  const onLoginSubmit = (values: TLoginSchema) => {
+    if (isValid) {
+      // TODO : 로그인 로직
+      loginAction(values).then((data) => {
+        setError(data?.error);
+      });
+    }
   };
 
   return (
     <>
-      <form action="" className={cn("flex flex-col")} onSubmit={handleSubmit(onLoginSubmit)}>
+      <form className={cn("flex flex-col")} onSubmit={handleSubmit(onLoginSubmit)}>
         <Input
           id="email"
           type="email"
-          // variant={errors.email ? "error" : "default"}
           placeholder="이메일을 입력해주세요."
           {...control.register("email")}
+          variant={error ? "error" : "default"}
         />
         <Input
           id="password"
           type="password"
-          // variant={errors.password?.message ? "error" : "default"}
           placeholder="비밀번호를 입력해주세요."
           inputGroupClass="mt-[1.6rem]"
           {...control.register("password")}
+          variant={error ? "error" : "default"}
+          caption={error}
         />
         <div className="flex_row">
-          <CheckBox label="자동로그인" checked={checked} setChecked={setChecked} name="autoLogin" />
+          <Controller
+            name="authLogin"
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <CheckBox
+                label="자동로그인"
+                checked={!!value}
+                setChecked={(checked) => {
+                  setChecked(checked);
+                  onChange(checked);
+                }}
+                name="autoLogin"
+              />
+            )}
+          />
           <div className={cn("flex_row_center ml-auto")}>
             <p className={cn(cssConfig.link, "py-[1.6rem]")}>
               <Link href="/find-id">아이디 찾기</Link>
@@ -60,6 +83,7 @@ export default function LoginForm() {
           </div>
         </div>
         <Button
+          type="submit"
           size="lg"
           bgColor={isValid ? "bg-navy-900" : "bg-grayscale-200"}
           className={isValid ? "text-white" : "text-gray-300"}
