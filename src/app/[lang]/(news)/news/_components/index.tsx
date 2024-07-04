@@ -60,17 +60,17 @@ export default function News({}) {
         <h2 className="heading_4 font-bold text-navy-900">관심종목과 관련된 뉴스</h2>
         <div className="flex gap-[2rem]">
           {DUMMY_NEWS_ITEMS.map((news, index) => (
-            <Link key={index} href={`${NEWS_PATH}/${news.id}`}>
-              <Card
-                variant="halfMediaCard"
-                style="w-1/3"
-                date={news.date}
-                title={news.title}
-                image={news.image}
-                content={news.description}
-                publisher={news.newspaperCompany}
-              />
-            </Link>
+            <Card
+              key={news.id}
+              variant="halfMediaCard"
+              id={news.id}
+              style="w-1/3"
+              date={news.date}
+              title={news.title}
+              image={news.image}
+              content={news.description}
+              publisher={news.newspaperCompany}
+            />
           ))}
         </div>
       </div>
