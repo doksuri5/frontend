@@ -4,9 +4,9 @@ import "../globals.css";
 import Header from "@/components/layout/Header";
 import QueryProvider from "@/providers/QueryProvider";
 import { i18n, type Locale } from "../../i18n-config";
-import { Button, ChatBot } from "@/components/common";
 
 import Image from "next/image";
+import { Button, ChatBot } from "@/components/common";
 
 export async function generateStaticParams() {
   return i18n.locales.map((locale) => ({ lang: locale }));
