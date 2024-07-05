@@ -26,6 +26,7 @@ const Stocks = ({ param }: TStocksProps) => {
           nationType: "USA",
           compareToPreviousClosePrice: 1.75,
           fluctuationsRatio: 0.82,
+          reutersCode: "AAPL.O",
         },
         {
           _id: "2",
@@ -36,6 +37,7 @@ const Stocks = ({ param }: TStocksProps) => {
           nationType: "USA",
           compareToPreviousClosePrice: -1.75,
           fluctuationsRatio: -0.82,
+          reutersCode: "AAPL.O",
         },
         {
           _id: "3",
@@ -46,6 +48,7 @@ const Stocks = ({ param }: TStocksProps) => {
           nationType: "USA",
           compareToPreviousClosePrice: -1.75,
           fluctuationsRatio: -0.82,
+          reutersCode: "AAPL.O",
         },
         {
           _id: "4",
@@ -56,6 +59,7 @@ const Stocks = ({ param }: TStocksProps) => {
           nationType: "USA",
           compareToPreviousClosePrice: -1.75,
           fluctuationsRatio: -0.82,
+          reutersCode: "AAPL.O",
         },
         {
           _id: "5",
@@ -66,6 +70,7 @@ const Stocks = ({ param }: TStocksProps) => {
           nationType: "USA",
           compareToPreviousClosePrice: -1.75,
           fluctuationsRatio: -0.82,
+          reutersCode: "AAPL.O",
         },
         {
           _id: "6",
@@ -76,6 +81,7 @@ const Stocks = ({ param }: TStocksProps) => {
           nationType: "USA",
           compareToPreviousClosePrice: -1.75,
           fluctuationsRatio: -0.82,
+          reutersCode: "AAPL.O",
         },
       ]);
       setLoading(false);
@@ -107,6 +113,7 @@ const Stocks = ({ param }: TStocksProps) => {
                   compareToPreviousClosePrice={stock.compareToPreviousClosePrice}
                   fluctuationsRatio={stock.fluctuationsRatio}
                   nationType={stock.nationType}
+                  reutersCode={stock.reutersCode}
                   variant="findStock"
                 />
               ))}

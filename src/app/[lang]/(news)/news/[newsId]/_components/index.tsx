@@ -25,6 +25,7 @@ const DUMMY_STOCK = [
     fluctuationPrice: -1.75,
     fluctuationRatio: -1.15,
     nationType: "USA",
+    reutersCode: "AAPL.O",
   },
   {
     _id: nanoid(),
@@ -35,6 +36,7 @@ const DUMMY_STOCK = [
     fluctuationPrice: 2.5,
     fluctuationRatio: 1.72,
     nationType: "USA",
+    reutersCode: "AAPL.O",
   },
   {
     _id: nanoid(),
@@ -45,6 +47,7 @@ const DUMMY_STOCK = [
     fluctuationPrice: -0.75,
     fluctuationRatio: -0.48,
     nationType: "USA",
+    reutersCode: "AAPL.O",
   },
 ];
 

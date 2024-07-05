@@ -38,6 +38,8 @@ const MyStockRecentSearches = () => {
               price={stock.price}
               compareToPreviousClosePrice={stock.compareToPreviousClosePrice}
               fluctuationsRatio={stock.fluctuationsRatio}
+              reutersCode={stock.reutersCode}
+              nationType={stock.nationType}
               variant="findStock"
             />
           </div>

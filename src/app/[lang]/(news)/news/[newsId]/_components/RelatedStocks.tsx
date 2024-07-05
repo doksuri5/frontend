@@ -21,6 +21,7 @@ export default function RelatedStocks({ stockData }: TRelatedStocksProps) {
             compareToPreviousClosePrice={stock.fluctuationPrice}
             fluctuationsRatio={stock.fluctuationRatio}
             nationType={stock.nationType}
+            reutersCode={stock.reutersCode}
           />
         ))}
       </div>

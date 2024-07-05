@@ -1,3 +1,4 @@
+import { DISCOVERY_PATH, REPORT_PATH } from "@/routes/path";
 import { StockDataType } from "@/types";
 import { cn } from "@/utils/cn";
 import {
@@ -8,6 +9,7 @@ import {
   getFluctuationsRatioSign,
 } from "@/utils/stockPriceUtils";
 import Image from "next/image";
+import Link from "next/link";
 
 type TIStockItemProps = StockDataType & {
   iconSize?: number;
@@ -41,6 +43,7 @@ export default function StockItem({
   icon,
   iconSize = 50,
   stockName,
+  reutersCode,
   symbolCode,
   price,
   compareToPreviousClosePrice,
@@ -57,29 +60,32 @@ export default function StockItem({
   const selectedVariantStyles = variantStyles[variant];
 
   return (
-    <div
-      className={cn(
-        `flex items-center justify-between text-grayscale-900 ${selectedVariantStyles.weight} ${selectedVariantStyles.height} ${style}`,
-      )}
-    >
-      <div className="flex items-center gap-[1.6rem]">
-        <div className={selectedVariantStyles.imageSize}>
-          <Image src={icon} alt="icon" width={iconSize} height={iconSize} />
+    <Link href={`${REPORT_PATH}/${reutersCode}`}>
+      {/* <Link href={`${variant === "stock" ? `${REPORT_PATH}/${reutersCode}` : `${DISCOVERY_PATH}/${reutersCode}`}`}> */}
+      <div
+        className={cn(
+          `flex items-center justify-between text-grayscale-900 ${selectedVariantStyles.weight} ${selectedVariantStyles.height} ${style}`,
+        )}
+      >
+        <div className="flex items-center gap-[1.6rem]">
+          <div className={selectedVariantStyles.imageSize}>
+            <Image src={icon} alt="icon" width={iconSize} height={iconSize} />
+          </div>
+          <div>
+            <h3 className={selectedVariantStyles.stockKorName}>{stockName}</h3>
+            <h3 className={selectedVariantStyles.stockEngName}>{symbolCode}</h3>
+          </div>
         </div>
         <div>
-          <h3 className={selectedVariantStyles.stockKorName}>{stockName}</h3>
-          <h3 className={selectedVariantStyles.stockEngName}>{symbolCode}</h3>
+          <div className={selectedVariantStyles.currentPrice}>
+            <span>${price}</span>
+          </div>
+          <div className={cn(`${selectedVariantStyles.fluctuation}`)}>
+            <span className={`${fluctuationPriceColor}`}>{fluctuationArrow + fluctuationPriceSign}</span>
+            <span className={`${fluctuationRatioColor}`}>{fluctuationRatioSign + fluctuationsRatio}%</span>
+          </div>
         </div>
       </div>
-      <div>
-        <div className={selectedVariantStyles.currentPrice}>
-          <span>${price}</span>
-        </div>
-        <div className={cn(`${selectedVariantStyles.fluctuation}`)}>
-          <span className={`${fluctuationPriceColor}`}>{fluctuationArrow + fluctuationPriceSign}</span>
-          <span className={`${fluctuationRatioColor}`}>{fluctuationRatioSign + fluctuationsRatio}%</span>
-        </div>
-      </div>
-    </div>
+    </Link>
   );
 }
