@@ -13,6 +13,7 @@ export default function RelatedNews({ newsData }: TRelatedNewsProps) {
       {newsData.map((news, idx) => (
         <Fragment key={idx}>
           <FindNews
+            _id={news._id}
             image={news?.image}
             title={news.title}
             publishedTime={news.publishedTime}
