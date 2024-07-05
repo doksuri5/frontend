@@ -1,7 +1,8 @@
 import StockItem from "@/components/common/List/StockItem";
+import { StockDataType } from "@/types";
 
 type TRelatedStocksProps = {
-  stockData: any[];
+  stockData: StockDataType[];
 };
 
 export default function RelatedStocks({ stockData }: TRelatedStocksProps) {
@@ -12,14 +13,14 @@ export default function RelatedStocks({ stockData }: TRelatedStocksProps) {
         {stockData.map((stock) => (
           <StockItem
             variant="findStock"
-            key={stock.id}
-            _id={stock.id}
+            key={stock._id}
+            _id={stock._id}
             icon={stock.icon}
-            stockName={stock.stockKorName}
-            symbolCode={stock.stockEngName}
-            price={stock.currentPrice}
-            compareToPreviousClosePrice={stock.fluctuationPrice}
-            fluctuationsRatio={stock.fluctuationRatio}
+            stockName={stock.stockName}
+            symbolCode={stock.symbolCode}
+            price={stock.price}
+            compareToPreviousClosePrice={stock.compareToPreviousClosePrice}
+            fluctuationsRatio={stock.fluctuationsRatio}
             nationType={stock.nationType}
             reutersCode={stock.reutersCode}
           />
