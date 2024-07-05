@@ -43,7 +43,7 @@ export default function NewsItem({
           `relative h-[10rem] w-[17.2rem] flex-shrink-0 overflow-hidden rounded-2xl ${selectedVariantStyles.imageSize}`,
         )}
       >
-        <Image src={image} fill objectFit="cover" alt="news-image" />
+        <Image className="object-cover" src={image} fill alt="news-image" />
       </div>
       <div className="flex w-full flex-1 flex-col gap-[1.6rem]">
         <div className="flex items-center justify-between">

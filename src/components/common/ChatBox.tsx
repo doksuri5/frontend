@@ -1,37 +1,32 @@
-import { useRef, useState, useEffect } from "react";
+"use client";
+
+import { useRef, useEffect } from "react";
 import { Button } from "./Button";
 import { Input } from "./Input";
 import CloseIcon from "@/public/icons/close_icon.svg?component";
-import useChat from "@/hooks/use-chat";
-import { generateId } from "@/utils/generate-id";
+import { useChat } from "ai/react";
 import Image from "next/image";
+import { generateId } from "ai";
 
 type ChatBoxProps = {
   close: () => void;
 };
 
 export default function ChatBox({ close }: ChatBoxProps) {
-  const [userMessage, setUserMessage] = useState<string>("");
   const messagesContainerRef = useRef<HTMLDivElement>(null);
 
-  const { messages, setMessages, triggerChat } = useChat();
-
-  const sendMessage = () => {
-    if (userMessage.trim() === "") return;
-
-    setMessages((prevMessages) => [
-      ...prevMessages,
+  const { messages, input, handleInputChange, handleSubmit } = useChat({
+    initialMessages: [
       {
         id: generateId(),
-        sender: "user",
-        text: userMessage,
+        role: "assistant",
+        content: "안녕하세요! 나우챗봇입니다. 무엇을 도와드릴까요?",
       },
-    ]);
-
-    triggerChat(userMessage);
-
-    setUserMessage("");
-  };
+    ],
+    body: {
+      stop: ["<|eot_id|>"],
+    },
+  });
 
   useEffect(() => {
     if (messagesContainerRef.current) {
@@ -48,13 +43,13 @@ export default function ChatBox({ close }: ChatBoxProps) {
         </Button>
       </div>
       <div
-        className="scrollbar-hide mt-[1.6rem] h-full overflow-y-auto px-[1.6rem] pt-[3rem]"
+        className="mt-[1.6rem] h-full overflow-y-auto px-[1.6rem] pt-[3rem] scrollbar-hide"
         ref={messagesContainerRef}
       >
-        {messages.map((message) => (
-          <div key={message.id} className={`mb-2 ${message.sender === "user" ? "text-right" : "text-left"}`}>
-            <div className={`${message.sender === "bot" ? "flex" : null}`}>
-              {message.sender === "bot" && (
+        {messages?.map((message) => (
+          <div key={message.id} className={`mb-2 ${message.role === "user" ? "text-right" : "text-left"}`}>
+            <div className={`${message.role !== "user" ? "flex" : null}`}>
+              {message.role !== "user" && (
                 <Image
                   className="mr-[0.8rem] h-[4.4rem] w-[4.4rem] rounded-xl bg-navy-900 p-[1rem]"
                   src={"/icons/light_logo_base_icon.svg"}
@@ -64,27 +59,26 @@ export default function ChatBox({ close }: ChatBoxProps) {
                 />
               )}
               <div
-                className={`inline-block rounded-lg p-[0.8rem] ${message.sender === "user" ? "bg-grayscale-100 text-black" : "bg-gray-200 text-gray-800"}`}
+                className={`inline-block rounded-lg p-[0.8rem] ${message.role === "user" ? "bg-grayscale-100 text-black" : "bg-gray-200 text-gray-800"}`}
               >
-                {message.text}
+                {message.content}
               </div>
             </div>
           </div>
         ))}
       </div>
-      <div className="flex w-full gap-[1.6rem] self-end border-t p-[1.2rem]">
+      <form onSubmit={handleSubmit} className="flex w-full gap-[1.6rem] self-end border-t p-[1.2rem]">
         <Input
           inputGroupClass="w-full"
           inputClass="h-[5.3rem]"
           placeholder="나우챗봇에게 물어보세요"
-          value={userMessage}
-          onChange={(e) => setUserMessage(e.target.value)}
-          onKeyUp={(e) => e.key === "Enter" && sendMessage()}
+          value={input}
+          onChange={handleInputChange}
         />
-        <Button bgColor="bg-navy-900" className="h-[5.3rem] w-[6.3rem]" onClick={sendMessage}>
+        <Button bgColor="bg-navy-900" className="h-[5.3rem] w-[6.3rem]">
           전송
         </Button>
-      </div>
+      </form>
     </div>
   );
 }
