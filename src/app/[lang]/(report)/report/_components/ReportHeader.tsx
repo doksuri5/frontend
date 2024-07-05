@@ -5,11 +5,11 @@ import Image from "next/image";
 import { useState } from "react";
 
 type TStockHeader = {
-  data: { icon: string; stockKorName: string; stockEngName: string; isMyStock: boolean };
+  data: { icon: string; stockName: string; symbolCode: string; isMyStock: boolean };
 };
 
 export default function ReportHeader({ data }: TStockHeader) {
-  const { icon, stockKorName, stockEngName, isMyStock } = data;
+  const { icon, stockName, symbolCode, isMyStock } = data;
   const [isMyStockState, setIsMyStockState] = useState(isMyStock);
 
   return (
@@ -19,9 +19,9 @@ export default function ReportHeader({ data }: TStockHeader) {
           <Image src={icon} alt="stock-icon" style={{ width: "100%" }} />
         </div>
         <div className="flex_row gap-[0.8rem] text-navy-900">
-          <h1 className="heading_4 font-bold">{stockKorName}</h1>
+          <h1 className="heading_4 font-bold">{stockName}</h1>
           <h1 className="body_2 font-normal">∙</h1>
-          <h1 className="body_2 font-normal">{stockEngName}</h1>
+          <h1 className="body_2 font-normal">{symbolCode}</h1>
         </div>
       </div>
       {isMyStockState ? (

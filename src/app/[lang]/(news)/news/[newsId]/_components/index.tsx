@@ -3,6 +3,7 @@ import NewsDetail from "./NewsDetail";
 import RelatedStocks from "./RelatedStocks";
 import RelatedNews from "./RelatedNews";
 import { Fragment } from "react";
+import { nanoid } from "nanoid";
 
 const DUMMY_NEWS_DETAIL = {
   image: NewsImage,
@@ -16,7 +17,7 @@ const DUMMY_NEWS_DETAIL = {
 
 const DUMMY_STOCK = [
   {
-    id: 1,
+    _id: nanoid(),
     icon: "/icons/Apple_icon.svg",
     stockKorName: "애플",
     stockEngName: "AAPL",
@@ -25,7 +26,7 @@ const DUMMY_STOCK = [
     fluctuationRatio: -1.15,
   },
   {
-    id: 2,
+    _id: nanoid(),
     icon: "/icons/Apple_icon.svg",
     stockKorName: "애플",
     stockEngName: "AAPL",
@@ -34,7 +35,7 @@ const DUMMY_STOCK = [
     fluctuationRatio: 1.72,
   },
   {
-    id: 3,
+    _id: nanoid(),
     icon: "/icons/Apple_icon.svg",
     stockKorName: "애플",
     stockEngName: "AAPL",

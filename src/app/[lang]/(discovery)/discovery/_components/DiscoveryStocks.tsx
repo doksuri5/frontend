@@ -99,12 +99,13 @@ const Stocks = ({ param }: TStocksProps) => {
               {stockList.map((stock) => (
                 <StockItem
                   key={stock._id}
+                  _id={stock._id}
                   icon={stock.icon}
-                  stockKorName={stock.stockName}
-                  stockEngName={stock.symbolCode}
-                  currentPrice={stock.price}
-                  fluctuationPrice={stock.compareToPreviousClosePrice}
-                  fluctuationRatio={stock.fluctuationsRatio}
+                  stockName={stock.stockName}
+                  symbolCode={stock.symbolCode}
+                  price={stock.price}
+                  compareToPreviousClosePrice={stock.compareToPreviousClosePrice}
+                  fluctuationsRatio={stock.fluctuationsRatio}
                   variant="findStock"
                 />
               ))}

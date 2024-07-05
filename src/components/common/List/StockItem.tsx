@@ -1,3 +1,4 @@
+import { StockDataType } from "@/types";
 import { cn } from "@/utils/cn";
 import {
   getCompareToPreviousClosePriceColor,
@@ -8,14 +9,17 @@ import {
 } from "@/utils/stockPriceUtils";
 import Image from "next/image";
 
-type TIStockItemProps = {
-  icon: string;
+// _id: string;
+// icon: string;
+
+// stockName: string;
+// symbolCode: string;
+// price: number;
+// compareToPreviousClosePrice: number;
+// fluctuationsRatio: number;
+
+type TIStockItemProps = StockDataType & {
   iconSize?: number;
-  stockKorName: string;
-  stockEngName: string;
-  currentPrice: number;
-  fluctuationPrice: number;
-  fluctuationRatio: number;
   style?: string;
   variant?: "stock" | "findStock";
 };
@@ -42,21 +46,22 @@ const variantStyles = {
 };
 
 export default function StockItem({
+  _id,
   icon,
   iconSize = 50,
-  stockKorName,
-  stockEngName,
-  currentPrice,
-  fluctuationPrice,
-  fluctuationRatio,
+  stockName,
+  symbolCode,
+  price,
+  compareToPreviousClosePrice,
+  fluctuationsRatio,
   style,
   variant = "stock",
 }: TIStockItemProps) {
-  const fluctuationPriceColor = getCompareToPreviousClosePriceColor(fluctuationPrice);
-  const fluctuationRatioColor = getFluctuationsRatioColor(fluctuationRatio);
-  const fluctuationArrow = getCompareToPreviousClosePriceArrow(fluctuationPrice);
-  const fluctuationPriceSign = getCompareToPreviousClosePriceSign(fluctuationPrice);
-  const fluctuationRatioSign = getFluctuationsRatioSign(fluctuationRatio);
+  const fluctuationPriceColor = getCompareToPreviousClosePriceColor(compareToPreviousClosePrice);
+  const fluctuationRatioColor = getFluctuationsRatioColor(compareToPreviousClosePrice);
+  const fluctuationArrow = getCompareToPreviousClosePriceArrow(compareToPreviousClosePrice);
+  const fluctuationPriceSign = getCompareToPreviousClosePriceSign(compareToPreviousClosePrice);
+  const fluctuationRatioSign = getFluctuationsRatioSign(fluctuationsRatio);
 
   const selectedVariantStyles = variantStyles[variant];
 
@@ -71,17 +76,17 @@ export default function StockItem({
           <Image src={icon} alt="icon" width={iconSize} height={iconSize} />
         </div>
         <div>
-          <h3 className={selectedVariantStyles.stockKorName}>{stockKorName}</h3>
-          <h3 className={selectedVariantStyles.stockEngName}>{stockEngName}</h3>
+          <h3 className={selectedVariantStyles.stockKorName}>{stockName}</h3>
+          <h3 className={selectedVariantStyles.stockEngName}>{symbolCode}</h3>
         </div>
       </div>
       <div>
         <div className={selectedVariantStyles.currentPrice}>
-          <span>${currentPrice}</span>
+          <span>${price}</span>
         </div>
         <div className={cn(`${selectedVariantStyles.fluctuation}`)}>
           <span className={`${fluctuationPriceColor}`}>{fluctuationArrow + fluctuationPriceSign}</span>
-          <span className={`${fluctuationRatioColor}`}>{fluctuationRatioSign + fluctuationRatio}%</span>
+          <span className={`${fluctuationRatioColor}`}>{fluctuationRatioSign + fluctuationsRatio}%</span>
         </div>
       </div>
     </div>

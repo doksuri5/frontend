@@ -2,7 +2,6 @@ import { MyStockHeader, MyStockBody, MyStockModalSection } from "@/app/[lang]/(m
 import { SearchDetailDataType, StockDataType } from "@/types";
 import Apple_icon from "@/public/icons/Apple_icon.svg";
 
-//
 const stockList: StockDataType[] = [
   {
     _id: "1",

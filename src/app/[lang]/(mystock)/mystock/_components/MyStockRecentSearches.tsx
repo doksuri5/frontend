@@ -31,12 +31,13 @@ const MyStockRecentSearches = () => {
           <div key={stock._id} className="rounded-[1.6rem] border border-navy-100 px-[1.6rem] py-[2.4rem]">
             <StockItem
               style="h-[4.8rem]"
+              _id={stock._id}
               icon={stock.icon}
-              stockKorName={stock.stockName}
-              stockEngName={stock.symbolCode}
-              currentPrice={stock.price}
-              fluctuationPrice={stock.compareToPreviousClosePrice}
-              fluctuationRatio={stock.fluctuationsRatio}
+              stockName={stock.stockName}
+              symbolCode={stock.symbolCode}
+              price={stock.price}
+              compareToPreviousClosePrice={stock.compareToPreviousClosePrice}
+              fluctuationsRatio={stock.fluctuationsRatio}
               variant="findStock"
             />
           </div>

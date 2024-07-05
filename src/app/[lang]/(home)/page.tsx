@@ -3,10 +3,11 @@ import AIIcon from "@/public/icons/AI_icon.svg?component";
 import Image from "next/image";
 import News from "./news";
 import SimpleReportCard from "./_components/SimpleReportCard";
+import { nanoid } from "nanoid";
 
 const dummyDataItems = [
   {
-    id: 1,
+    id: nanoid(),
     icon: "./icons/Apple_icon.svg",
     stockKorName: "애플",
     stockEngName: "AAPL",
@@ -15,7 +16,7 @@ const dummyDataItems = [
     fluctuationRatio: -1.15,
   },
   {
-    id: 2,
+    id: nanoid(),
     icon: "/icons/Apple_icon.svg",
     stockKorName: "애플",
     stockEngName: "AAPL",
@@ -24,7 +25,7 @@ const dummyDataItems = [
     fluctuationRatio: 1.72,
   },
   {
-    id: 3,
+    id: nanoid(),
     icon: "/icons/Apple_icon.svg",
     stockKorName: "애플",
     stockEngName: "AAPL",
@@ -33,7 +34,7 @@ const dummyDataItems = [
     fluctuationRatio: -0.48,
   },
   {
-    id: 4,
+    id: nanoid(),
     icon: "/icons/Apple_icon.svg",
     stockKorName: "애플",
     stockEngName: "AAPL",
@@ -42,7 +43,7 @@ const dummyDataItems = [
     fluctuationRatio: 0.79,
   },
   {
-    id: 5,
+    id: nanoid(),
     icon: "/icons/Apple_icon.svg",
     stockKorName: "애플",
     stockEngName: "AAPL",
@@ -92,12 +93,13 @@ export default function HomePage() {
             {dummyDataItems.map((stock) => (
               <StockItem
                 variant="stock"
+                _id={stock.id}
                 icon={stock.icon}
-                stockKorName={stock.stockKorName}
-                stockEngName={stock.stockEngName}
-                currentPrice={stock.currentPrice}
-                fluctuationPrice={stock.fluctuationPrice}
-                fluctuationRatio={stock.fluctuationRatio}
+                stockName={stock.stockKorName}
+                symbolCode={stock.stockEngName}
+                price={stock.currentPrice}
+                compareToPreviousClosePrice={stock.fluctuationPrice}
+                fluctuationsRatio={stock.fluctuationRatio}
                 key={stock.id}
               />
             ))}
