@@ -3,11 +3,10 @@ import AIIcon from "@/public/icons/AI_icon.svg?component";
 import Image from "next/image";
 import News from "./news";
 import SimpleReportCard from "./_components/SimpleReportCard";
-import { nanoid } from "nanoid";
 
 const dummyDataItems = [
   {
-    id: nanoid(),
+    id: "1",
     icon: "./icons/Apple_icon.svg",
     stockKorName: "애플",
     stockEngName: "AAPL",
@@ -18,7 +17,7 @@ const dummyDataItems = [
     nationType: "USD",
   },
   {
-    id: nanoid(),
+    id: "2",
     icon: "/icons/Apple_icon.svg",
     stockKorName: "애플",
     stockEngName: "AAPL",
@@ -29,7 +28,7 @@ const dummyDataItems = [
     nationType: "USD",
   },
   {
-    id: nanoid(),
+    id: "3",
     icon: "/icons/Apple_icon.svg",
     stockKorName: "애플",
     stockEngName: "AAPL",
@@ -40,7 +39,7 @@ const dummyDataItems = [
     nationType: "USD",
   },
   {
-    id: nanoid(),
+    id: "4",
     icon: "/icons/Apple_icon.svg",
     stockKorName: "애플",
     stockEngName: "AAPL",
@@ -51,7 +50,7 @@ const dummyDataItems = [
     nationType: "USD",
   },
   {
-    id: nanoid(),
+    id: "5",
     icon: "/icons/Apple_icon.svg",
     stockKorName: "애플",
     stockEngName: "AAPL",
