@@ -11,6 +11,7 @@ type TAlertBaseProps = {
 };
 
 type TCheckButtonProps = TAlertBaseProps & { variant: "checkButton" };
+type TCheckCustomCloseButtonProps = TAlertBaseProps & { variant: "checkCustomCloseButton" } & { onClose?: () => void };
 type TLinkButtonProps = TAlertBaseProps & { variant: "linkButton"; link: string };
 type TFnButtonProps = TAlertBaseProps & {
   variant: "fnButton";
@@ -19,7 +20,7 @@ type TFnButtonProps = TAlertBaseProps & {
   onClose?: () => void;
 };
 
-type TAlertProps = TCheckButtonProps | TLinkButtonProps | TFnButtonProps;
+type TAlertProps = TCheckButtonProps | TCheckCustomCloseButtonProps | TLinkButtonProps | TFnButtonProps;
 
 const formatText = (text: string): JSX.Element => {
   return (
@@ -72,6 +73,11 @@ const Alert: React.FC<TAlertProps> = (props) => {
       )}
       {variant === "checkButton" && (
         <Button size="md" bgColor="bg-navy-900" className="mt-[3.2rem]" onClick={() => setIsOpen(false)}>
+          {buttonText}
+        </Button>
+      )}
+      {variant === "checkCustomCloseButton" && (
+        <Button size="md" bgColor="bg-navy-900" className="mt-[3.2rem]" onClick={() => handleClose(props.onClose)}>
           {buttonText}
         </Button>
       )}

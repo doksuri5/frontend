@@ -8,6 +8,7 @@ import USA from "@/public/icons/language_en.svg?component";
 import China from "@/public/icons/language_cn.svg?component";
 import Japan from "@/public/icons/language_jp.svg?component";
 import French from "@/public/icons/language_fr.svg?component";
+import Loading from "@/app/[lang]/loading";
 
 interface ILanguageInform {
   icon: JSX.Element;
@@ -25,15 +26,20 @@ const languageList = [
 ];
 
 export default function LanguageSetting() {
-  //추후 서버에 저장된 언어 설정으로 초기화하도록 수정
+  //사용자 설정 언어(확정)
   const [selectedLang, setSelectedLang] = useState<string>(languageList[0].value);
   const [langList, setLangList] = useState<ILanguageInform[]>(languageList);
+
+  const [openConfirmAlert, setOpenConfirmAlert] = useState(false);
   const [openErrorAlert, setOpenErrorAlert] = useState(false);
   const [openSuccessAlert, setOpenSuccessAlert] = useState(false);
 
+  //사용자가 선택한 언어(임시, API 전송이 성공해야 설정 언어가 확정됨)
+  const [pendingLang, setPendingLang] = useState<string | null>(null);
+
   const settingLanguage = async (lang: string) => {
     try {
-      const response = await fetch("/api/user/language", {
+      const response = await fetch("http://localhost:8080/api/user/language", {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -41,34 +47,46 @@ export default function LanguageSetting() {
         body: JSON.stringify({ language: lang }),
       });
 
+      console.log(response);
       if (!response.ok) {
         setOpenErrorAlert(true);
         return;
       }
 
       const result = await response.json();
+      console.log(result);
+
       setOpenSuccessAlert(true);
+      setSelectedLang(lang);
+
+      // 각 언어의 active 상태 업데이트
+      const updatedLangList = langList.map((langItem: ILanguageInform) => ({
+        ...langItem,
+        active: langItem.value === lang,
+      }));
+      setLangList(updatedLangList);
     } catch (err) {
       setOpenErrorAlert(true);
+      console.log(openErrorAlert);
     }
   };
 
-  const handleSelectLang = async (val: string) => {
-    setSelectedLang(val);
+  const handleSelectLang = (val: string) => {
+    setPendingLang(val);
+    setOpenConfirmAlert(true);
+  };
 
-    //각 언어의 active 상태 업데이트
-    const updatedLangList = langList.map((lang: ILanguageInform) => ({
-      ...lang,
-      active: lang.value === val,
-    }));
-    setLangList(updatedLangList);
-
-    // API 요청
-    try {
-      await settingLanguage(val);
-    } catch (err) {
-      setOpenErrorAlert(true);
+  const handleConfirmChange = async () => {
+    if (pendingLang) {
+      await settingLanguage(pendingLang);
     }
+    setOpenConfirmAlert(false);
+    setPendingLang(null);
+  };
+
+  const handleCancelChange = () => {
+    setOpenConfirmAlert(false);
+    setPendingLang(null);
   };
 
   return (
@@ -101,8 +119,32 @@ export default function LanguageSetting() {
         ))}
       </div>
 
-      {openErrorAlert && <Alert variant="checkButton" title="언어 변경에 실패했습니다." buttonText="닫기" />}
-      {openSuccessAlert && <Alert variant="checkButton" title="언어가 변경되었습니다." buttonText="닫기" />}
+      {openConfirmAlert && (
+        <Alert
+          variant="fnButton"
+          title="언어 설정을 변경하시겠습니까?"
+          buttonText="변경"
+          subButtonText="취소"
+          onClick={handleConfirmChange}
+          onClose={handleCancelChange}
+        />
+      )}
+      {openSuccessAlert && (
+        <Alert
+          variant="checkCustomCloseButton"
+          title="언어가 변경되었습니다."
+          buttonText="닫기"
+          onClose={() => setOpenSuccessAlert(false)}
+        />
+      )}
+      {openErrorAlert && (
+        <Alert
+          variant="checkCustomCloseButton"
+          title="언어 변경에 실패했습니다."
+          buttonText="닫기"
+          onClose={() => setOpenErrorAlert(false)}
+        />
+      )}
     </section>
   );
 }

@@ -12,6 +12,7 @@
     "postinstall": "patch-package"
   },
   "dependencies": {
+    "@ai-sdk/openai": "^0.0.34",
     "@formatjs/intl-localematcher": "^0.5.4",
     "@headlessui/react": "^2.1.0",
     "@hookform/resolvers": "^3.6.0",
