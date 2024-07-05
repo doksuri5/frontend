@@ -15,7 +15,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       select: false,
     },
-    authProviderId: { type: String },
+    sns_id: { type: String, required: true },
   },
   { timestamps: true },
 );

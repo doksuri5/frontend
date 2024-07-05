@@ -4,7 +4,7 @@ import { signIn } from "@/auth";
 
 import { loginSchema, TLoginSchema } from "@/types/AuthType";
 
-import { MAIN_PATH, REGISTER_PATH } from "@/routes/path";
+import { MAIN_PATH, PROFILE_SETUP_PATH, REGISTER_PATH } from "@/routes/path";
 
 import { AuthError } from "next-auth";
 import { redirect } from "next/navigation";
@@ -42,5 +42,5 @@ export async function KakaoLoginAction() {
 }
 
 export async function GoogelLoginAction() {
-  await signIn("google", { redirectTo: REGISTER_PATH });
+  await signIn("google", { redirectTo: PROFILE_SETUP_PATH });
 }

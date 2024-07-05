@@ -4,10 +4,12 @@ import { i18n } from "./i18n-config";
 import { match as matchLocale } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
 
+import { auth } from "./auth";
+
 // 권한을 가진 사용자만 접근 가능한 경로
 const matchersForAuth = ["/", "/mypage/:path*"];
 // 권한이 없는 사용자만 접근 가능한 경로
-const matchersForNoAuth = ["/login", "/signup"];
+const matchersForNoAuth = ["/login", "/account/:path*"];
 
 function getLocale(request: NextRequest): string | undefined {
   // Negotiator expects plain object so we need to transform headers
@@ -25,9 +27,10 @@ function getLocale(request: NextRequest): string | undefined {
   return locale;
 }
 
-export const middleware = (req: NextRequest) => {
+export const middleware = async (req: NextRequest) => {
   const pathname = req.nextUrl.pathname;
   const url = req.nextUrl.clone();
+  const session = await auth();
 
   // Check if there is any supported locale in the pathname
   const pathnameIsMissingLocale = i18n.locales.every(
@@ -57,6 +60,6 @@ export const config = {
   ],
 };
 
-function isMatch(pathname: string, urls: string[]) {
-  return urls.some((url) => !!match(url)(pathname));
-}
+// function isMatch(pathname: string, urls: string[]) {
+//   return urls.some((url) => !!match(url)(pathname));
+// }
