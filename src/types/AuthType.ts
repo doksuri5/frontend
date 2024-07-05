@@ -9,7 +9,7 @@ export const loginSchema = z.object({
 // 아이디 찾기
 export const findIdSchema = z.object({
   name: z.string().min(1),
-  phone: z.string().min(10).max(12).regex(/^\d+$/),
+  phone: z.string().regex(/^\d{10,12}$/),
 });
 
 // 비밀번호 찾기
@@ -23,24 +23,22 @@ export const findPasswordSchema = z.object({
 export const verifyUserSchema = z.object({
   name: z.string().min(1),
   email: z.string().email({ message: "올바른 이메일 형식이 아닙니다." }),
-  emailCertification: z.string().min(6).max(6).regex(/^\d+$/, { message: "인증코드가 일치하지 않습니다." }),
+  emailCertification: z.string().regex(/^\d{6}$/, { message: "인증코드가 일치하지 않습니다." }),
 });
 
 // 회원가입
 export const registerSchema = z
   .object({
-    id: z
-      .string()
-      .min(6, { message: "아이디는 최소 6자 이상이어야 합니다." })
-      .max(12, { message: "아이디는 최대 12자 이내여야 합니다." })
-      .regex(/^[a-zA-Z0-9_]+$/, { message: "아이디는 영문, 숫자, _, 만 사용할 수 있습니다." }),
+    name: z.string().min(1),
+    email: z.string().email({ message: "올바른 이메일 형식이 아닙니다." }),
+    emailCertification: z.string().regex(/^\d{6}$/, { message: "인증코드가 일치하지 않습니다." }),
     password: z.string().regex(/^(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+\[\]{};':",.<>\/?\-]).{8,20}$/, {
       message: "8-20자 이내 숫자, 특수문자, 영문자 중 2가지 이상을 조합",
     }),
     passwordChk: z.string().regex(/^(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+\[\]{};':",.<>\/?\-]).{8,20}$/, {
       message: "8-20자 이내 숫자, 특수문자, 영문자 중 2가지 이상을 조합",
     }),
-    phone: z.string().min(10).max(12).regex(/^\d+$/),
+    phone: z.string().regex(/^\d{10,12}$/),
     birth: z
       .string()
       .length(6, { message: "생년월일은 6자리여야 합니다." })
@@ -54,6 +52,14 @@ export const registerSchema = z
 // 프로필
 export const profileSchema = z.object({
   nickname: z.string().min(1),
+  tags: z
+    .array(
+      z.object({
+        value: z.string(),
+        label: z.string(),
+      }),
+    )
+    .min(1, "관심 종목을 최소 하나 선택해야 합니다."),
 });
 
 export type TLoginSchema = z.infer<typeof loginSchema>;

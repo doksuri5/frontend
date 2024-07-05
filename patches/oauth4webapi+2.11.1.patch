@@ -1,0 +1,31 @@
+diff --git a/node_modules/oauth4webapi/build/index.js b/node_modules/oauth4webapi/build/index.js
+index 4a178ba..f0c5f52 100644
+--- a/node_modules/oauth4webapi/build/index.js
++++ b/node_modules/oauth4webapi/build/index.js
+@@ -685,7 +685,7 @@ export async function processPushedAuthorizationResponse(as, client, response) {
+     if (!validateString(json.request_uri)) {
+         throw new OPE('"response" body "request_uri" property must be a non-empty string');
+     }
+-    if (typeof json.expires_in !== 'number' || json.expires_in <= 0) {
++    if (isNaN(Number(json.expires_in)) || json.expires_in <= 0) {
+         throw new OPE('"response" body "expires_in" property must be a positive number');
+     }
+     return json;
+@@ -971,7 +971,7 @@ async function processGenericAccessTokenResponse(as, client, response, ignoreIdT
+         throw new UnsupportedOperationError('unsupported `token_type` value');
+     }
+     if (json.expires_in !== undefined &&
+-        (typeof json.expires_in !== 'number' || json.expires_in <= 0)) {
++        (isNaN(Number(json.expires_in)) || json.expires_in <= 0)) {
+         throw new OPE('"response" body "expires_in" property must be a positive number');
+     }
+     if (!ignoreRefreshToken &&
+@@ -1771,7 +1771,7 @@ export async function processDeviceAuthorizationResponse(as, client, response) {
+     if (!validateString(json.verification_uri)) {
+         throw new OPE('"response" body "verification_uri" property must be a non-empty string');
+     }
+-    if (typeof json.expires_in !== 'number' || json.expires_in <= 0) {
++    if (isNaN(Number(json.expires_in)) || json.expires_in <= 0) {
+         throw new OPE('"response" body "expires_in" property must be a positive number');
+     }
+     if (json.verification_uri_complete !== undefined &&
