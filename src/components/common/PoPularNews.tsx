@@ -1,11 +1,16 @@
 import { NEWS_PATH } from "@/routes/path";
 import Card from "./Card";
 import Link from "next/link";
+import useDictionary from "@/hooks/useDictionary";
 
 const PopularNews = () => {
+  const { dictionary } = useDictionary();
+
   return (
     <div className="flex flex-col gap-[2.4rem]">
-      <h2 className="heading_4 font-bold text-navy-900">오늘 인기있는 뉴스</h2>
+      <h2 className="heading_4 font-bold text-navy-900">
+        {(dictionary && dictionary.todaysPopularNews) || "오늘 인기있는 뉴스"}
+      </h2>
       <div className="flex min-w-[120px] gap-[2rem]">
         <Link href={`${NEWS_PATH}/1`}>
           <Card
