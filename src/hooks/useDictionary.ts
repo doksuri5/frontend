@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { getDictionary } from "@/get-dictionary";
 import { Locale } from "@/i18n-config";
 
@@ -14,18 +14,21 @@ const useDictionary = () => {
   const pathname = usePathname();
   const [dictionary, setDictionary] = useState<any>(null);
 
-  useEffect(() => {
-    const fetchDictionary = async () => {
-      const langMatch = pathname.match(/^\/(en|ko|ch|jp|fr)/);
-      const lang = langMatch ? (langMatch[1] as Locale) : null;
-
-      if (lang) {
-        const dict = await getDictionary(lang);
-        setDictionary(dict);
-      }
-    };
-    fetchDictionary();
+  const lang = useMemo(() => {
+    const langMatch = pathname.match(/^\/(en|ko|ch|jp|fr)/);
+    return langMatch ? (langMatch[1] as Locale) : null;
   }, [pathname]);
+
+  useEffect(() => {
+    if (!lang) return;
+
+    const fetchDictionary = async () => {
+      const dict = await getDictionary(lang);
+      setDictionary(dict);
+    };
+
+    fetchDictionary();
+  }, [lang]);
 
   return { dictionary };
 };
