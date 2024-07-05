@@ -14,7 +14,7 @@ export type TIFindNewsProps = {
 
 export default function FindNews({ _id, image, title, publishedTime, newspaperCompany, style }: TIFindNewsProps) {
   return (
-    <Link href={`${NEWS_PATH}/{_id}`}>
+    <Link href={`${NEWS_PATH}/${_id}`}>
       <div className={cn(`flex h-[6.4rem] w-full gap-[2rem] ${style}`)}>
         {image && (
           <div className="relative h-[6.4rem] w-[12rem] flex-shrink-0 overflow-hidden rounded-2xl">
