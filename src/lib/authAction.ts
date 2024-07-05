@@ -2,7 +2,7 @@
 
 import { signIn } from "@/auth";
 
-import { loginSchema, TLoginSchema } from "@/types/AuthType";
+import { TLoginSchema } from "@/types/AuthType";
 
 import { MAIN_PATH, PROFILE_SETUP_PATH, REGISTER_PATH } from "@/routes/path";
 
@@ -12,10 +12,10 @@ import { redirect } from "next/navigation";
 export async function loginAction(data: TLoginSchema) {
   try {
     await signIn("credentials", {
+      redirectTo: MAIN_PATH,
       email: data.email,
       password: data.password,
       autoLogin: data.authLogin,
-      redirectTo: MAIN_PATH,
     });
   } catch (error) {
     if (error instanceof AuthError) {
@@ -34,7 +34,7 @@ export async function loginAction(data: TLoginSchema) {
 }
 
 export async function NaverLoginAction() {
-  await signIn("naver", { redirectTo: REGISTER_PATH });
+  await signIn("naver", { redirectTo: PROFILE_SETUP_PATH });
 }
 
 export async function KakaoLoginAction() {
@@ -42,5 +42,5 @@ export async function KakaoLoginAction() {
 }
 
 export async function GoogelLoginAction() {
-  await signIn("google", { redirectTo: PROFILE_SETUP_PATH });
+  await signIn("google", { redirectTo: REGISTER_PATH });
 }

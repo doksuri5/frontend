@@ -7,9 +7,38 @@ import Negotiator from "negotiator";
 import { auth } from "./auth";
 
 // 권한을 가진 사용자만 접근 가능한 경로
-const matchersForAuth = ["/", "/mypage/:path*"];
+const matchersForAuth = ["/home", "/mypage/:path*"];
 // 권한이 없는 사용자만 접근 가능한 경로
-const matchersForNoAuth = ["/login", "/account/:path*"];
+const matchersForNoAuth = [
+  "/",
+  "/*login",
+  "/*account",
+  "/*account/register",
+  "/*account/profile-setup",
+  "/*find-id",
+  "/*find-password",
+  "/*register-complete",
+  "/*withdraw",
+];
+
+// 로그인 세션 확인 여부 체크
+async function checkLogin() {
+  const session = await auth();
+  if (session?.user.role === "user") {
+    return true;
+  }
+  return false;
+}
+
+// 로그인이 필요한지에 대한 경로 체크
+function requiresAuth(pathname: string): boolean {
+  // 로그인이 필요 없는 경로라면 false 반환
+  if (matchersForNoAuth.some((pattern) => match(pattern)(pathname))) {
+    return false;
+  }
+  // 그 외의 경우 로그인 필요
+  return true;
+}
 
 function getLocale(request: NextRequest): string | undefined {
   // Negotiator expects plain object so we need to transform headers
@@ -30,20 +59,21 @@ function getLocale(request: NextRequest): string | undefined {
 export const middleware = async (req: NextRequest) => {
   const pathname = req.nextUrl.pathname;
   const url = req.nextUrl.clone();
-  const session = await auth();
 
   // Check if there is any supported locale in the pathname
+  const locale = getLocale(req) || i18n.defaultLocale;
   const pathnameIsMissingLocale = i18n.locales.every(
     (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`,
   );
 
   // Redirect if there is no locale
   if (pathnameIsMissingLocale) {
-    const locale = getLocale(req);
+    return NextResponse.redirect(new URL(`/${locale}${pathname}`, req.url));
+  }
 
-    // e.g. incoming request is /products
-    // The new URL is now /en-US/products
-    return NextResponse.redirect(new URL(`/${locale}${pathname.startsWith("/") ? "" : "/"}${pathname}`, req.url));
+  // 로그인 필요 여부 체크
+  if (requiresAuth(pathname) && !(await checkLogin())) {
+    return NextResponse.redirect(new URL(`/${locale}/login`, req.url)); // 로그인 페이지로 리다이렉트, 로케일이 있는 URL을 사용
   }
 };
 

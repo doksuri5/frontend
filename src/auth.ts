@@ -9,11 +9,12 @@ import connectDB from "./lib/db";
 import { User } from "./lib/schema";
 import { compare } from "bcryptjs";
 
-import { LOGIN_PATH } from "./routes/path";
+import { LOGIN_PATH, MAIN_PATH } from "./routes/path";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   pages: {
     signIn: LOGIN_PATH,
+    signOut: MAIN_PATH,
   },
   providers: [
     Credentials({
@@ -58,6 +59,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     NaverProvider({
       clientId: process.env.NAVER_CLIENT_ID,
       clientSecret: process.env.NAVER_CLIENT_SECRET,
+      async profile(profile) {
+        return {
+          name: profile.response.name,
+          email: profile.response.email,
+          phone: profile.response.mobile,
+          birth: profile.response.birthyear + profile.response.birthday,
+          role: "user",
+        };
+      },
     }),
     KakaoProvider({
       clientId: process.env.KAKAO_CLIENT_ID,
@@ -80,8 +90,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         },
       },
       async profile(profile) {
+        console.log("profile", profile);
         return {
-          ...profile,
+          name: profile.name,
+          email: profile.email,
+          email_verified: profile.email_verified,
           role: "user",
         };
       },
@@ -95,11 +108,34 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
   callbacks: {
     async signIn({ user, account, profile }) {
-      console.log("Credentials SignIn", user, account);
+      //console.log("Credentials SignIn", user, account);
 
       if (account?.provider === "naver") {
-        console.log("Naver signIn", user, account, profile);
+        //console.log("Naver signIn", user, account, profile);
 
+        try {
+          await connectDB();
+        } catch (error) {
+          console.error("Google DB 연결 오류:", error);
+          return false;
+        }
+
+        const existingUser = await User.findOne({
+          email: user.email,
+          sns_id: account.provider,
+          // sns_id: account.providerAccountId,
+          // login_type: account.provider,
+        });
+
+        if (!existingUser) {
+          user.role = account.provider;
+          user.phone = user.phone;
+          user.birth = user.birth;
+        } else {
+          user.role = "user";
+        }
+
+        user.id = account.providerAccountId;
         return true;
       } else if (account?.provider === "kakao") {
         console.log("Kakao signIn", user, account, profile);
@@ -118,23 +154,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         if (!existingUser) {
           user.role = account.provider;
-          //소셜 회원가입 - 추후 삭제 예정
-          // await new User({
-          //   name: user.name,
-          //   email: user.email,
-          //   sns_id: account.provider,
-          // }).save();
         } else {
           user.role = "user";
         }
 
-        const socialUser = await User.findOne({
-          name: user.name,
-          sns_id: account.provider,
-        });
-
-        user.id = socialUser?._id || null;
-
+        user.id = account.providerAccountId;
         return true;
       } else if (account?.provider === "google") {
         console.log("Googel signIn", user, account, profile);
@@ -147,54 +171,74 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           return false;
         }
         const existingUser = await User.findOne({
-          name: user.name,
           email: user.email,
           sns_id: account.provider,
+          // sns_id: account.providerAccountId,
+          // login_type: account.provider,
         });
 
         // 조회한 유저정보 통해, role check
         if (!existingUser) {
           user.role = account.provider;
-          // await new User({
-          //   name: user.name,
-          //   email: user.email,
-          //   sns_id: account.provider,
-          // }).save();
+          await new User({
+            name: user.name,
+            email: user.email,
+            sns_id: account.provider,
+          }).save();
         } else {
           user.role = "user";
         }
-
-        const socialUser = await User.findOne({
-          name: user.name,
-          sns_id: account.provider,
-        });
-
-        user.id = socialUser?._id || null;
-
+        user.id = account.providerAccountId;
         return true;
       } else {
+        try {
+          await connectDB();
+        } catch (error) {
+          console.error("Google DB 연결 오류:", error);
+          return false;
+        }
+
+        const existingUser = await User.findOne({
+          email: user.email,
+        });
+
+        if (!existingUser) {
+          return false;
+        }
+
         return true;
       }
     },
-    async jwt({ token, user, account }) {
+    async jwt({ token, user, account, profile }) {
       console.log("jwt", token, user);
 
-      if (!token.sub) return token;
-
-      if (user && account) {
+      if (user && account && profile) {
         token.sub = user.id;
         token.role = user.role;
-        // token.accessToken = account.access_token;
+        token.name = user.name;
+        token.email = user.email;
+        token.phone = user.phone;
+        token.birth = user.birth;
+
+        if (user.role === "naver" || user.role === "kakao" || user.role === "goole") {
+          token.sub = account.providerAccountId;
+          token.accessToken = account.id_token;
+        }
       }
 
       return token;
     },
     async session({ session, token }) {
-      console.log("session", session, token);
+      //console.log("session", session, token);
 
       if (token.sub && session.user) {
         session.user.id = token.sub;
+        session.user.name = token.name;
         session.user.role = token.role as string;
+        session.user.email = token.email as string;
+        session.user.phone = token.phone as string;
+        session.user.birth = token.birth as string;
+        session.accessToken = token.accessToken as string;
       }
       return session;
     },
