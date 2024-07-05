@@ -9,15 +9,6 @@ import {
 } from "@/utils/stockPriceUtils";
 import Image from "next/image";
 
-// _id: string;
-// icon: string;
-
-// stockName: string;
-// symbolCode: string;
-// price: number;
-// compareToPreviousClosePrice: number;
-// fluctuationsRatio: number;
-
 type TIStockItemProps = StockDataType & {
   iconSize?: number;
   style?: string;
