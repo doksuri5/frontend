@@ -61,7 +61,6 @@ export default function StockItem({
 
   return (
     <Link href={`${REPORT_PATH}/${reutersCode}`}>
-      {/* <Link href={`${variant === "stock" ? `${REPORT_PATH}/${reutersCode}` : `${DISCOVERY_PATH}/${reutersCode}`}`}> */}
       <div
         className={cn(
           `flex items-center justify-between text-grayscale-900 ${selectedVariantStyles.weight} ${selectedVariantStyles.height} ${style}`,
