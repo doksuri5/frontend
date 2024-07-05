@@ -21,6 +21,7 @@
 
   "stock": "股票",
   "addInterestStock": "添加关注股票",
+  "removeInterestStock": "取消关注股票",
   "unit": "元",
   "stockPriceChart": "股票价格图表",
   "oneDay": "1天",

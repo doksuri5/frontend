@@ -20,7 +20,8 @@
   "relatedArticles": "Related Articles",
 
   "stock": "Stock",
-  "addInterestStock": "Add Interest Stock",
+  "addInterestStock": "follow Stock",
+  "removeInterestStock": "unfollow Stock",
   "unit": "$",
   "stockPriceChart": "Stock Price Chart",
   "oneDay": "1 Day",

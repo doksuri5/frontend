@@ -21,7 +21,8 @@
 
   "stock": "주식",
   "addInterestStock": "관심종목 추가",
-  "unit": "$",
+  "removeInterestStock": "관심종목 해제",
+  "unit": "원",
   "stockPriceChart": "주가 차트",
   "oneDay": "1일",
   "threeMonths": "3개월",

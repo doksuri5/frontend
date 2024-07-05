@@ -21,6 +21,7 @@
 
   "stock": "株式",
   "addInterestStock": "関心銘柄を追加",
+  "removeInterestStock": "関心銘柄の解除",
   "unit": "円",
   "stockPriceChart": "株価チャート",
   "oneDay": "1日",

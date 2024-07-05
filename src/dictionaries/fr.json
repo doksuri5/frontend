@@ -21,6 +21,7 @@
 
   "stock": "Action",
   "addInterestStock": "Ajouter une action d'intérêt",
+  "removeInterestStock": "Supprimer l'action d'intérêt",
   "unit": "€",
   "stockPriceChart": "Graphique des prix des actions",
   "oneDay": "1 jour",
