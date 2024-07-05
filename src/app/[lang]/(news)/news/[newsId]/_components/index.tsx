@@ -24,6 +24,7 @@ const DUMMY_STOCK = [
     currentPrice: 150.25,
     fluctuationPrice: -1.75,
     fluctuationRatio: -1.15,
+    nationType: "USA",
   },
   {
     _id: nanoid(),
@@ -33,6 +34,7 @@ const DUMMY_STOCK = [
     currentPrice: 148.0,
     fluctuationPrice: 2.5,
     fluctuationRatio: 1.72,
+    nationType: "USA",
   },
   {
     _id: nanoid(),
@@ -42,6 +44,7 @@ const DUMMY_STOCK = [
     currentPrice: 155.1,
     fluctuationPrice: -0.75,
     fluctuationRatio: -0.48,
+    nationType: "USA",
   },
 ];
 

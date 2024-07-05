@@ -5,7 +5,7 @@ export interface StockDataType {
   reutersCode?: string;
   symbolCode: string;
   price: number;
-  nationType?: string;
+  nationType: string;
   compareToPreviousClosePrice: number;
   fluctuationsRatio: number;
 }

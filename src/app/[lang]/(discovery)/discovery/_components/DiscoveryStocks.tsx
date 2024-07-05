@@ -106,6 +106,7 @@ const Stocks = ({ param }: TStocksProps) => {
                   price={stock.price}
                   compareToPreviousClosePrice={stock.compareToPreviousClosePrice}
                   fluctuationsRatio={stock.fluctuationsRatio}
+                  nationType={stock.nationType}
                   variant="findStock"
                 />
               ))}

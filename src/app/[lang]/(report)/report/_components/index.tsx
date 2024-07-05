@@ -23,6 +23,7 @@ const DUMMY_STCOK = {
 테슬라의 멕시코 공장이 가동되면 전기차 제조 경쟁력 격차는 더 벌어질 것으로 예상된다.`,
   score: 70,
   isMyStock: false,
+  nationType: "USA",
 };
 
 const DUMMY_CHART = [
@@ -54,6 +55,7 @@ export default function Report() {
     aiReport,
     score,
     isMyStock,
+    nationType,
   } = DUMMY_STCOK;
 
   return (
@@ -76,6 +78,7 @@ export default function Report() {
             compareToPreviousClosePrice,
             fluctuationsRatio,
             description,
+            nationType,
           }}
         />
         <StockChartSection chartData={DUMMY_CHART} />

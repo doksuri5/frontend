@@ -12,6 +12,7 @@ export default function RelatedStocks({ stockData }: TRelatedStocksProps) {
         {stockData.map((stock) => (
           <StockItem
             variant="findStock"
+            key={stock.id}
             _id={stock.id}
             icon={stock.icon}
             stockName={stock.stockKorName}
@@ -19,7 +20,7 @@ export default function RelatedStocks({ stockData }: TRelatedStocksProps) {
             price={stock.currentPrice}
             compareToPreviousClosePrice={stock.fluctuationPrice}
             fluctuationsRatio={stock.fluctuationRatio}
-            key={stock.id}
+            nationType={stock.nationType}
           />
         ))}
       </div>
