@@ -1,17 +1,18 @@
 import Card from "./Card";
 import { CardNewsDataType } from "@/types";
-import useDictionary from "@/hooks/useDictionary";
+import { useTranslations } from "next-intl";
 
 type TPopularNewsType = {
   popularNewsData: CardNewsDataType[];
 };
 
 const PopularNews = ({ popularNewsData }: TPopularNewsType) => {
-  const dictionary = useDictionary();
+  const t = useTranslations();
+
   return (
     <div className="flex flex-col gap-[2.4rem]">
       <h2 className="heading_4 font-bold text-navy-900">
-        {(dictionary && dictionary.todaysPopularNews) || "오늘 인기있는 뉴스"}
+        {t("todaysPopularNews", { defaultMessage: "오늘 인기있는 뉴스" })}
       </h2>
       <div className="flex min-w-[120px] gap-[2rem]">
         <Card
