@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Alert, Button } from "@/components/common";
 import { cn } from "@/utils/cn";
 import Korea from "@/public/icons/language_kr.svg?component";
@@ -8,7 +8,8 @@ import USA from "@/public/icons/language_en.svg?component";
 import China from "@/public/icons/language_cn.svg?component";
 import Japan from "@/public/icons/language_jp.svg?component";
 import French from "@/public/icons/language_fr.svg?component";
-import Loading from "@/app/[lang]/loading";
+import { setLanguageCookie, getLanguageCookie } from "@/utils/cookies";
+import { usePathname } from "next/navigation";
 
 interface ILanguageInform {
   icon: JSX.Element;
@@ -18,7 +19,7 @@ interface ILanguageInform {
 }
 
 const languageList = [
-  { icon: <Korea />, label: "한국어", active: true, value: "ko" },
+  { icon: <Korea />, label: "한국어", active: false, value: "ko" },
   { icon: <USA />, label: "영어", active: false, value: "en" },
   { icon: <China />, label: "중국어", active: false, value: "ch" },
   { icon: <Japan />, label: "일본어", active: false, value: "jp" },
@@ -26,16 +27,29 @@ const languageList = [
 ];
 
 export default function LanguageSetting() {
-  //사용자 설정 언어(확정)
-  const [selectedLang, setSelectedLang] = useState<string>(languageList[0].value);
+  const [selectedLang, setSelectedLang] = useState<string>("");
   const [langList, setLangList] = useState<ILanguageInform[]>(languageList);
 
   const [openConfirmAlert, setOpenConfirmAlert] = useState(false);
   const [openErrorAlert, setOpenErrorAlert] = useState(false);
   const [openSuccessAlert, setOpenSuccessAlert] = useState(false);
 
-  //사용자가 선택한 언어(임시, API 전송이 성공해야 설정 언어가 확정됨)
   const [pendingLang, setPendingLang] = useState<string | null>(null);
+
+  const pathname = usePathname();
+
+  // TODO: reload 시 언어 설정 기본값에 대해 더 생각해 보기
+  useEffect(() => {
+    const cookieLocale = getLanguageCookie();
+    cookieLocale ? setSelectedLang(cookieLocale) : setSelectedLang("ko");
+  }, [selectedLang, pathname]);
+
+  const changeUrl = (lang: string) => {
+    const currentLocale = pathname.split("/")[1];
+    const basePath = pathname.replace(`/${currentLocale}`, "");
+    const newPathname = `/${lang}${basePath}`;
+    history.pushState(null, "", newPathname);
+  };
 
   const settingLanguage = async (lang: string) => {
     try {
@@ -47,24 +61,26 @@ export default function LanguageSetting() {
         body: JSON.stringify({ language: lang }),
       });
 
-      console.log(response);
       if (!response.ok) {
         setOpenErrorAlert(true);
         return;
       }
 
+      // 성공 후처리
       const result = await response.json();
-      console.log(result);
-
       setOpenSuccessAlert(true);
-      setSelectedLang(lang);
+      setSelectedLang(result.data.language);
 
       // 각 언어의 active 상태 업데이트
       const updatedLangList = langList.map((langItem: ILanguageInform) => ({
         ...langItem,
-        active: langItem.value === lang,
+        active: langItem.value === result.data.language,
       }));
       setLangList(updatedLangList);
+
+      // 쿠키에 언어 설정 후 페이지 링크 변경
+      setLanguageCookie(lang);
+      changeUrl(lang);
     } catch (err) {
       setOpenErrorAlert(true);
       console.log(openErrorAlert);
@@ -87,6 +103,11 @@ export default function LanguageSetting() {
   const handleCancelChange = () => {
     setOpenConfirmAlert(false);
     setPendingLang(null);
+  };
+
+  const handleSuccessAlertClose = () => {
+    setOpenSuccessAlert(false);
+    window.location.reload(); // 전체 페이지 언어변경을 위해 반드시 필요
   };
 
   return (
@@ -134,7 +155,7 @@ export default function LanguageSetting() {
           variant="checkCustomCloseButton"
           title="언어가 변경되었습니다."
           buttonText="닫기"
-          onClose={() => setOpenSuccessAlert(false)}
+          onClose={handleSuccessAlertClose}
         />
       )}
       {openErrorAlert && (

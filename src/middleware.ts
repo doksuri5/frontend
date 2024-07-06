@@ -3,13 +3,21 @@ import { NextRequest, NextResponse } from "next/server";
 import { i18n } from "./i18n-config";
 import { match as matchLocale } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
+import { getLanguageCookie } from "./utils/cookies";
 
 // 권한을 가진 사용자만 접근 가능한 경로
 const matchersForAuth = ["/", "/mypage/:path*"];
 // 권한이 없는 사용자만 접근 가능한 경로
 const matchersForNoAuth = ["/login", "/signup"];
 
-function getLocale(request: NextRequest): string | undefined {
+export function getLocale(request: NextRequest): string | undefined {
+  // 쿠키에서 사용자 언어 확인
+  const cookieLocale = getLanguageCookie(request);
+
+  if (cookieLocale) {
+    return cookieLocale;
+  }
+
   // Negotiator expects plain object so we need to transform headers
   const negotiatorHeaders: Record<string, string> = {};
   request.headers.forEach((value, key) => (negotiatorHeaders[key] = value));
