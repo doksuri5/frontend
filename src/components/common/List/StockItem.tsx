@@ -1,3 +1,5 @@
+import { DISCOVERY_PATH, REPORT_PATH } from "@/routes/path";
+import { StockDataType } from "@/types";
 import { cn } from "@/utils/cn";
 import {
   getCompareToPreviousClosePriceColor,
@@ -7,15 +9,10 @@ import {
   getFluctuationsRatioSign,
 } from "@/utils/stockPriceUtils";
 import Image from "next/image";
+import Link from "next/link";
 
-type TIStockItemProps = {
-  icon: string;
+type TIStockItemProps = StockDataType & {
   iconSize?: number;
-  stockKorName: string;
-  stockEngName: string;
-  currentPrice: number;
-  fluctuationPrice: number;
-  fluctuationRatio: number;
   style?: string;
   variant?: "stock" | "findStock";
 };
@@ -42,48 +39,52 @@ const variantStyles = {
 };
 
 export default function StockItem({
+  _id,
   icon,
   iconSize = 50,
-  stockKorName,
-  stockEngName,
-  currentPrice,
-  fluctuationPrice,
-  fluctuationRatio,
+  stockName,
+  reutersCode,
+  symbolCode,
+  price,
+  compareToPreviousClosePrice,
+  fluctuationsRatio,
   style,
   variant = "stock",
 }: TIStockItemProps) {
-  const fluctuationPriceColor = getCompareToPreviousClosePriceColor(fluctuationPrice);
-  const fluctuationRatioColor = getFluctuationsRatioColor(fluctuationRatio);
-  const fluctuationArrow = getCompareToPreviousClosePriceArrow(fluctuationPrice);
-  const fluctuationPriceSign = getCompareToPreviousClosePriceSign(fluctuationPrice);
-  const fluctuationRatioSign = getFluctuationsRatioSign(fluctuationRatio);
+  const fluctuationPriceColor = getCompareToPreviousClosePriceColor(compareToPreviousClosePrice);
+  const fluctuationRatioColor = getFluctuationsRatioColor(compareToPreviousClosePrice);
+  const fluctuationArrow = getCompareToPreviousClosePriceArrow(compareToPreviousClosePrice);
+  const fluctuationPriceSign = getCompareToPreviousClosePriceSign(compareToPreviousClosePrice);
+  const fluctuationRatioSign = getFluctuationsRatioSign(fluctuationsRatio);
 
   const selectedVariantStyles = variantStyles[variant];
 
   return (
-    <div
-      className={cn(
-        `flex items-center justify-between text-grayscale-900 ${selectedVariantStyles.weight} ${selectedVariantStyles.height} ${style}`,
-      )}
-    >
-      <div className="flex items-center gap-[1.6rem]">
-        <div className={selectedVariantStyles.imageSize}>
-          <Image src={icon} alt="icon" width={iconSize} height={iconSize} />
+    <Link href={`${REPORT_PATH}/${reutersCode}`}>
+      <div
+        className={cn(
+          `flex items-center justify-between text-grayscale-900 ${selectedVariantStyles.weight} ${selectedVariantStyles.height} ${style}`,
+        )}
+      >
+        <div className="flex items-center gap-[1.6rem]">
+          <div className={selectedVariantStyles.imageSize}>
+            <Image src={icon} alt="icon" width={iconSize} height={iconSize} />
+          </div>
+          <div>
+            <h3 className={selectedVariantStyles.stockKorName}>{stockName}</h3>
+            <h3 className={selectedVariantStyles.stockEngName}>{symbolCode}</h3>
+          </div>
         </div>
         <div>
-          <h3 className={selectedVariantStyles.stockKorName}>{stockKorName}</h3>
-          <h3 className={selectedVariantStyles.stockEngName}>{stockEngName}</h3>
+          <div className={selectedVariantStyles.currentPrice}>
+            <span>${price}</span>
+          </div>
+          <div className={cn(`${selectedVariantStyles.fluctuation}`)}>
+            <span className={`${fluctuationPriceColor}`}>{fluctuationArrow + fluctuationPriceSign}</span>
+            <span className={`${fluctuationRatioColor}`}>{fluctuationRatioSign + fluctuationsRatio}%</span>
+          </div>
         </div>
       </div>
-      <div>
-        <div className={selectedVariantStyles.currentPrice}>
-          <span>${currentPrice}</span>
-        </div>
-        <div className={cn(`${selectedVariantStyles.fluctuation}`)}>
-          <span className={`${fluctuationPriceColor}`}>{fluctuationArrow + fluctuationPriceSign}</span>
-          <span className={`${fluctuationRatioColor}`}>{fluctuationRatioSign + fluctuationRatio}%</span>
-        </div>
-      </div>
-    </div>
+    </Link>
   );
 }

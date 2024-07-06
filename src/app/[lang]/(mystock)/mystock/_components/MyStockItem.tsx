@@ -12,6 +12,8 @@ import {
   getFluctuationsRatioSign,
 } from "@/utils/stockPriceUtils";
 import graph from "@/public/icons/graph.png";
+import Link from "next/link";
+import { REPORT_PATH } from "@/routes/path";
 
 type TMyStockItemProps = {
   data: StockDataType;
@@ -70,9 +72,11 @@ const MyStockItem = ({ data }: TMyStockItemProps) => {
         <Button variant="textButton" size="md" bgColor="bg-grayscale-200" onClick={handleDeleteClick}>
           삭제하기
         </Button>
-        <Button variant="textButton" size="md" bgColor="bg-navy-900">
-          자세히 보기
-        </Button>
+        <Link href={`${REPORT_PATH}/${data.reutersCode}`}>
+          <Button variant="textButton" size="md" bgColor="bg-navy-900">
+            자세히 보기
+          </Button>
+        </Link>
       </div>
 
       {/* Alert 컴포넌트 */}

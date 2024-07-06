@@ -4,16 +4,16 @@ import { getCompareToPreviousClosePriceArrow, getFluctuationsRatioColor } from "
 
 type StockAIReport = {
   data: {
-    fluctuationRatio: number;
+    fluctuationsRatio: number;
     score: number;
   };
 };
 
 export default function StockAIReport({ data }: StockAIReport) {
-  const { fluctuationRatio, score } = data;
+  const { fluctuationsRatio, score } = data;
 
-  const fluctuationColor = getFluctuationsRatioColor(fluctuationRatio);
-  const fluctuationArrow = getCompareToPreviousClosePriceArrow(fluctuationRatio);
+  const fluctuationColor = getFluctuationsRatioColor(fluctuationsRatio);
+  const fluctuationArrow = getCompareToPreviousClosePriceArrow(fluctuationsRatio);
 
   return (
     <section className="min-h-[29.5rem] min-w-[43rem]">
@@ -30,31 +30,31 @@ export default function StockAIReport({ data }: StockAIReport) {
             <li className="flex justify-between">
               주가
               <div className={cn("flex gap-[0.8rem] font-normal", fluctuationColor)}>
-                <span>{fluctuationArrow + fluctuationRatio}%</span>
+                <span>{fluctuationArrow + fluctuationsRatio}%</span>
               </div>
             </li>
             <li className="flex justify-between">
               투자지수
               <div className={cn("flex gap-[0.8rem] font-normal", fluctuationColor)}>
-                <span>{fluctuationArrow + fluctuationRatio}%</span>
+                <span>{fluctuationArrow + fluctuationsRatio}%</span>
               </div>
             </li>
             <li className="flex justify-between">
               수익성
               <div className={cn("flex gap-[0.8rem] font-normal", fluctuationColor)}>
-                <span>{fluctuationArrow + fluctuationRatio}%</span>
+                <span>{fluctuationArrow + fluctuationsRatio}%</span>
               </div>
             </li>
             <li className="flex justify-between">
               성장성
               <div className={cn("flex gap-[0.8rem] font-normal", fluctuationColor)}>
-                <span>{fluctuationArrow + fluctuationRatio}%</span>
+                <span>{fluctuationArrow + fluctuationsRatio}%</span>
               </div>
             </li>
             <li className="flex justify-between">
               관심도
               <div className={cn("flex gap-[0.8rem] font-normal", fluctuationColor)}>
-                <span>{fluctuationArrow + fluctuationRatio}%</span>
+                <span>{fluctuationArrow + fluctuationsRatio}%</span>
               </div>
             </li>
           </ul>

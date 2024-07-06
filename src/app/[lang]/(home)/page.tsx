@@ -6,49 +6,59 @@ import SimpleReportCard from "./_components/SimpleReportCard";
 
 const dummyDataItems = [
   {
-    id: 1,
+    id: "1",
     icon: "./icons/Apple_icon.svg",
     stockKorName: "애플",
     stockEngName: "AAPL",
     currentPrice: 150.25,
     fluctuationPrice: -1.75,
     fluctuationRatio: -1.15,
+    reutersCode: "AAPL.O",
+    nationType: "USD",
   },
   {
-    id: 2,
+    id: "2",
     icon: "/icons/Apple_icon.svg",
     stockKorName: "애플",
     stockEngName: "AAPL",
     currentPrice: 148.0,
     fluctuationPrice: 2.5,
     fluctuationRatio: 1.72,
+    reutersCode: "AAPL.O",
+    nationType: "USD",
   },
   {
-    id: 3,
+    id: "3",
     icon: "/icons/Apple_icon.svg",
     stockKorName: "애플",
     stockEngName: "AAPL",
     currentPrice: 155.1,
     fluctuationPrice: -0.75,
     fluctuationRatio: -0.48,
+    reutersCode: "AAPL.O",
+    nationType: "USD",
   },
   {
-    id: 4,
+    id: "4",
     icon: "/icons/Apple_icon.svg",
     stockKorName: "애플",
     stockEngName: "AAPL",
     currentPrice: 152.3,
     fluctuationPrice: 1.2,
     fluctuationRatio: 0.79,
+    reutersCode: "AAPL.O",
+    nationType: "USD",
   },
   {
-    id: 5,
+    id: "5",
     icon: "/icons/Apple_icon.svg",
     stockKorName: "애플",
     stockEngName: "AAPL",
     currentPrice: 149.5,
     fluctuationPrice: -2.0,
     fluctuationRatio: -1.32,
+    reutersCode: "AAPL.O",
+    nationType: "USD",
   },
 ];
 
@@ -92,12 +102,15 @@ export default function HomePage() {
             {dummyDataItems.map((stock) => (
               <StockItem
                 variant="stock"
+                _id={stock.id}
                 icon={stock.icon}
-                stockKorName={stock.stockKorName}
-                stockEngName={stock.stockEngName}
-                currentPrice={stock.currentPrice}
-                fluctuationPrice={stock.fluctuationPrice}
-                fluctuationRatio={stock.fluctuationRatio}
+                stockName={stock.stockKorName}
+                symbolCode={stock.stockEngName}
+                price={stock.currentPrice}
+                compareToPreviousClosePrice={stock.fluctuationPrice}
+                fluctuationsRatio={stock.fluctuationRatio}
+                reutersCode={stock.reutersCode}
+                nationType={stock.nationType}
                 key={stock.id}
               />
             ))}
