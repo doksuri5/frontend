@@ -1,4 +1,4 @@
-import NextAuth, { Account, Profile } from "next-auth";
+import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 
 import NaverProvider from "next-auth/providers/naver";
@@ -8,6 +8,8 @@ import GoogleProvider from "next-auth/providers/google";
 import connectDB from "./lib/db";
 import { User } from "./lib/schema";
 import { compare } from "bcryptjs";
+
+import { getToken } from "next-auth/jwt";
 
 import { LOGIN_PATH, MAIN_PATH } from "./routes/path";
 
@@ -61,6 +63,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       clientSecret: process.env.NAVER_CLIENT_SECRET,
       async profile(profile) {
         return {
+          id: profile.response.id,
           name: profile.response.name,
           email: profile.response.email,
           phone: profile.response.mobile,
@@ -90,12 +93,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         },
       },
       async profile(profile) {
-        console.log("profile", profile);
         return {
           name: profile.name,
           email: profile.email,
           email_verified: profile.email_verified,
           role: "user",
+          id: profile.sub,
         };
       },
     }),
@@ -108,10 +111,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
   callbacks: {
     async signIn({ user, account, profile }) {
-      //console.log("Credentials SignIn", user, account);
+      // console.log("--------------------- Credentials signIn 영역 --------------------- ");
+      // console.log("user:", user, "account:", account, "profile:", profile);
 
       if (account?.provider === "naver") {
-        //console.log("Naver signIn", user, account, profile);
+        console.log("--------------------- 네이버 signIn 영역 --------------------- ");
+        console.log("user:", user, "account:", account, "profile:", profile);
 
         try {
           await connectDB();
@@ -122,9 +127,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         const existingUser = await User.findOne({
           email: user.email,
-          sns_id: account.provider,
-          // sns_id: account.providerAccountId,
-          // login_type: account.provider,
+          sns_id: user.id,
+          login_type: account.provider,
         });
 
         if (!existingUser) {
@@ -134,16 +138,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         } else {
           user.role = "user";
         }
-
-        user.id = account.providerAccountId;
         return true;
       } else if (account?.provider === "kakao") {
-        console.log("Kakao signIn", user, account, profile);
+        console.log("--------------------- 카카오 signIn 영역 --------------------- ");
+        console.log("user:", user, "account:", account, "profile:", profile);
 
         try {
           await connectDB();
         } catch (error) {
-          console.error("Google DB 연결 오류:", error);
+          console.error("Kakao DB 연결 오류:", error);
           return false;
         }
 
@@ -161,7 +164,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         user.id = account.providerAccountId;
         return true;
       } else if (account?.provider === "google") {
-        console.log("Googel signIn", user, account, profile);
+        console.log("--------------------- 구글 signIn 영역 --------------------- ");
+        console.log("user:", user, "account:", account, "profile:", profile);
 
         // DB에서 조회 유저정보 조회
         try {
@@ -180,39 +184,25 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         // 조회한 유저정보 통해, role check
         if (!existingUser) {
           user.role = account.provider;
-          await new User({
-            name: user.name,
-            email: user.email,
-            sns_id: account.provider,
-          }).save();
         } else {
           user.role = "user";
         }
-        user.id = account.providerAccountId;
+
+        user.id = user.id;
+
+        return true;
+      } else if (account?.provider === "credentials") {
+        user.role = "user";
         return true;
       } else {
-        try {
-          await connectDB();
-        } catch (error) {
-          console.error("Google DB 연결 오류:", error);
-          return false;
-        }
-
-        const existingUser = await User.findOne({
-          email: user.email,
-        });
-
-        if (!existingUser) {
-          return false;
-        }
-
         return true;
       }
     },
-    async jwt({ token, user, account, profile }) {
-      console.log("jwt", token, user);
+    async jwt({ token, user, account }) {
+      console.log("--------------------- 토큰 영역 --------------------- ");
+      console.log("JWT-token", token, "JWT-user", user);
 
-      if (user && account && profile) {
+      if (user && account) {
         token.sub = user.id;
         token.role = user.role;
         token.name = user.name;
@@ -220,16 +210,16 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         token.phone = user.phone;
         token.birth = user.birth;
 
-        if (user.role === "naver" || user.role === "kakao" || user.role === "goole") {
-          token.sub = account.providerAccountId;
-          token.accessToken = account.id_token;
-        }
+        // if (user.role === "goole") {
+        //   token.accessToken = account.id_token;
+        // }
       }
 
       return token;
     },
     async session({ session, token }) {
-      //console.log("session", session, token);
+      console.log("--------------------- 세션 영역 --------------------- ");
+      console.log("session-session", session, "session-token", token);
 
       if (token.sub && session.user) {
         session.user.id = token.sub;
@@ -238,8 +228,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         session.user.email = token.email as string;
         session.user.phone = token.phone as string;
         session.user.birth = token.birth as string;
-        session.accessToken = token.accessToken as string;
+        // session.accessToken = token.accessToken as string;
       }
+
       return session;
     },
   },

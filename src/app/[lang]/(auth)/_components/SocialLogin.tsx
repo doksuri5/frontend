@@ -8,7 +8,7 @@ import KakaoIcon from "@/public/icons/kakao_logo.svg?component";
 import NaverIcon from "@/public/icons/naver_logo.svg?component";
 import GoogleIcon from "@/public/icons/google_logo.svg?component";
 
-import { GoogelLoginAction, NaverLoginAction, KakaoLoginAction } from "@/lib/authAction";
+import { KakaoLoginAction, NaverLoginAction, GoogelLoginAction } from "@/lib/auth-action";
 
 const cssConfig = {
   lineBefore:

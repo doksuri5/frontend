@@ -16,6 +16,7 @@ const userSchema = new mongoose.Schema(
       select: false,
     },
     sns_id: { type: String, required: true },
+    login_type: { type: String, default: "local" },
   },
   { timestamps: true },
 );

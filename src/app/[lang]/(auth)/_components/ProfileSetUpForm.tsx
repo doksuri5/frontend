@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Select, { components, MultiValue } from "react-select";
 
@@ -19,7 +20,10 @@ import EditIcon from "@/public/icons/avatar_edit.svg?component";
 import { TProfileSchema, profileSchema } from "@/types/AuthType";
 
 import { useRegisterStore } from "@/providers/RegisterProvider";
+
 import { LOGIN_PATH } from "@/routes/path";
+
+import reduceImageSize from "@/utils/reduce-image-size";
 
 type TOption = {
   [key: string]: string;
@@ -36,25 +40,23 @@ const options = [
 
 export default function ProfileSetUpForm() {
   const form = useRegisterStore((state) => state.form);
-  const [isGender, setIsGender] = useState<undefined | "M" | "F">(undefined);
-  const [file, setFile] = useState<File | null>(null);
-
+  const [isGender, setIsGender] = useState<null | "M" | "F">(null);
+  const [avatar, setAvatar] = useState("/icons/avatar_default.svg");
   const router = useRouter();
+  const { data: session } = useSession();
 
   const avatarChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { files } = e.target;
-    if (files && files.length === 1) {
-      const file = files[0];
-      if (file.size > 1024 * 1024 * 1) {
-        alert("최대 1MB까지 업로드 가능합니다.");
-        e.target.value = ""; // 동일한 파일할 경우
-        return;
-      }
-      setFile(file);
+    if (avatar) {
+      URL.revokeObjectURL(avatar);
     }
+    const inputFile = e.target.files?.[0];
+    if (!inputFile) return;
+
+    const imgSrc = URL.createObjectURL(inputFile);
+    setAvatar(imgSrc);
   };
 
-  const isGenderActive = (value: undefined | "M" | "F") => {
+  const isGenderActive = (value: null | "M" | "F") => {
     setIsGender(value);
   };
 
@@ -65,31 +67,66 @@ export default function ProfileSetUpForm() {
     watch: watchProfile,
   } = useZodSchemaForm<TProfileSchema>(profileSchema);
 
+  function extractString(value: string | undefined) {
+    if (value) {
+      return value.replaceAll("-", "").slice(2);
+    }
+  }
+
+  const registerFormData = (): { [key: string]: string } => {
+    //console.log("zustand :", form);
+    const commonData = {
+      name: form.name || session?.user.name || "",
+      email: form.email || session?.user.email || "",
+      password: form.password || session?.user.id || "",
+      phone: form.phone || session?.user.phone?.replaceAll("-", "") || "-",
+      birth: form.birth || extractString(session?.user.birth) || "-",
+    };
+
+    if (session?.user.role) {
+      return {
+        ...commonData,
+        sns_id: session.user.id || "",
+        login_type: session.user.role,
+      };
+    }
+
+    return commonData;
+  };
+
   const handleSubmit = async (data: TProfileSchema) => {
     // TODO : 데이터 form 통신
-    console.log(form);
-    console.log(data);
-    console.log(file);
-    console.log(isGender);
+    console.log("registerFormData", registerFormData());
+    //console.log(data);
+    //console.log(file);
+    //console.log(isGender);
+
+    const jpeg = await reduceImageSize(avatar);
+    const file = new File([jpeg], new Date().toString(), { type: "image/jpeg" });
+
+    const formData = new FormData();
+    if (isGender) {
+      formData.append("gender", isGender);
+    }
+    formData.append("profile", file);
+    formData.append("nickname", data.nickname);
+    formData.append("interest_stocks", JSON.stringify(data.tags.map((item) => item.value)));
+
+    const additionalData = registerFormData();
+    for (const key in additionalData) {
+      if (additionalData.hasOwnProperty(key)) {
+        formData.append(key, String(additionalData[key]));
+      }
+    }
 
     try {
-      const response = await fetch("/api/auth/register", {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify({
-          name: form.name,
-          email: form.email,
-          password: form.password,
-          phone: form.phone,
-          birth: form.birth,
-          nickname: data.nickname,
-          interest_stocks: data.tags,
-          gender: isGender,
-        }),
-      });
-
+      const response = await (
+        await fetch(`http://localhost:8080/api/auth/register`, {
+          method: "POST",
+          body: formData,
+        })
+      ).json();
+      console.log(response);
       if (response.ok) {
         router.push(LOGIN_PATH);
       }
@@ -103,13 +140,7 @@ export default function ProfileSetUpForm() {
       {/* 프로필 이미지 */}
       <div className="flex_col_center relative mx-[auto] mb-[2.4rem] h-[12rem] w-[12rem]">
         <figure className="relative h-full w-full overflow-hidden rounded-[50%]">
-          <Image
-            src={file ? URL.createObjectURL(file) : "/icons/avatar_default.svg"}
-            fill
-            alt="프로필 이미지"
-            priority
-            className="object-cover"
-          />
+          <Image src={avatar} fill alt="프로필 이미지" priority className="object-cover" />
         </figure>
         <input type="file" accept="image/*" id="file" name="file" className="hidden" onChange={avatarChangeHandler} />
         <label htmlFor="file" className="absolute bottom-[0] right-0 z-[10] h-[4rem] w-[4rem] cursor-pointer">

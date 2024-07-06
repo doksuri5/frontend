@@ -12,7 +12,7 @@ import { TLoginSchema, loginSchema } from "@/types/AuthType";
 
 import { cn } from "@/utils/cn";
 
-import { loginAction } from "@/lib/authAction";
+import { loginAction } from "@/lib/auth-action";
 
 const cssConfig = {
   link: "relative body_5",

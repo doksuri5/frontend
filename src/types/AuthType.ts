@@ -24,7 +24,7 @@ export const findPasswordSchema = z.object({
 export const verifyUserSchema = z.object({
   name: z.string().min(1),
   email: z.string().email({ message: "올바른 이메일 형식이 아닙니다." }),
-  emailCertification: z.string().regex(/^\d{6}$/, { message: "인증코드가 일치하지 않습니다." }),
+  emailCertification: z.string().regex(/^\d{6}$/, { message: "인증코드 6자리 입력해주세요." }),
 });
 
 // 회원가입
@@ -69,3 +69,7 @@ export type TFindPasswordSchema = z.infer<typeof findPasswordSchema>;
 export type TVerifyUserSchema = z.infer<typeof verifyUserSchema>;
 export type TRegisterSchemaType = z.infer<typeof registerSchema>;
 export type TProfileSchema = z.infer<typeof profileSchema>;
+
+export type TRegisterFormData = {
+  [key: string]: string;
+};

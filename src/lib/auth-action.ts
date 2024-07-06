@@ -12,10 +12,10 @@ import { redirect } from "next/navigation";
 export async function loginAction(data: TLoginSchema) {
   try {
     await signIn("credentials", {
-      redirectTo: MAIN_PATH,
       email: data.email,
       password: data.password,
       autoLogin: data.authLogin,
+      redirectTo: MAIN_PATH,
     });
   } catch (error) {
     if (error instanceof AuthError) {
