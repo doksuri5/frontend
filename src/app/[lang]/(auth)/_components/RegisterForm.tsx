@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 import { Input, Button, Modal } from "@/components/common";
+import Timer from "./Timer";
 
 import useZodSchemaForm from "@/hooks/useZodSchemaForm";
 
@@ -24,8 +25,12 @@ export default function RegisterForm() {
   const router = useRouter();
   const { data: session } = useSession();
 
-  const [isEmailVerified, setIsEmailVerified] = useState(false);
-  const [isEmailCodeChk, setIsEmailCodeChk] = useState(false);
+  const [isEmailShow, setIsEmailShow] = useState(true);
+  const [isEmailCertificationShow, setIsEmailCertificationShow] = useState(false);
+  const [emailCodeChkComplete, setEmailCodeChkComplete] = useState(false);
+  const [timeCount, setTimeCount] = useState(0);
+  const [isRunning, setIsRunning] = useState(false);
+
   const [isOpen, setIsOpen] = useState(false);
   const closeModal = () => setIsOpen(false);
 
@@ -38,47 +43,80 @@ export default function RegisterForm() {
     setError,
   } = useZodSchemaForm<TRegisterSchemaType>(registerSchema);
 
+  // 이메일 인증 버튼 클릭시 실행되는 이벤트
   const emailVerificationHandler = async () => {
     const valid = await triggerRegister("email");
     const emailValue = watchRegister("email");
-
-    setIsEmailVerified(true);
+    setTimeCount(0); // 타이머 초기화
+    setIsRunning(false); // 타이머 시작 초기화
 
     if (valid) {
-      // console.log(emailValue);
-      setIsOpen(true);
-      setIsEmailVerified(true);
-      // try {
-      //   const response = await (
-      //     await fetch(`http://localhost:8080/api/auth/sendEmail`, {
-      //       method: "POST",
-      //       headers: {
-      //         "content-type": "application/json",
-      //       },
-      //       body: JSON.stringify({
-      //         email: emailValue,
-      //       }),
-      //     })
-      //   ).json();
-      //   console.log(response);
-      //   if (response.ok) {
-      //     setIsOpen(true);
-      //     setIsEmailVerified(true);
-      //   } else {
-      //     setError("email", { type: "manual", message: response.message });
-      //   }
-      // } catch (e) {
-      //   console.log(`Fetch Error:${e}`);
-      // }
+      setIsOpen(true); // 팝업 노출
+      try {
+        const response = await (
+          await fetch(`http://localhost:8080/api/auth/sendEmail`, {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify({
+              email: emailValue,
+            }),
+          })
+        ).json();
+        console.log(response);
+        if (response.ok) {
+          setTimeCount(180); // 타이머 시간
+          setIsRunning(true); // 타이머 시작
+          setIsEmailCertificationShow(true); // 이메일 인증 코드 필드 보여줌
+        } else {
+          setError("email", { type: "manual", message: response.message });
+        }
+      } catch (e) {
+        console.log(`Fetch Error:${e}`);
+      }
     }
   };
 
+  // 코드 인증 버튼 클릭시 실행되는 이벤트
   const emailCodeCheckHandler = async () => {
-    setIsEmailCodeChk(true);
+    const valid = await triggerRegister("emailCertification");
+    const emailCertificationValue = watchRegister("emailCertification");
+    const emailValue = watchRegister("email");
+
+    if (valid) {
+      // console.log(emailValue);
+      try {
+        const response = await (
+          await fetch(`http://localhost:8080/api/auth/verifyCode`, {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify({
+              email: emailValue,
+              code: emailCertificationValue,
+            }),
+          })
+        ).json();
+        console.log(response);
+
+        setEmailCodeChkComplete(response.ok); // 이매일 인증 코드 확인 결과
+
+        if (response.ok) {
+          setIsRunning(false); // 타이머 멈춤
+          setIsEmailShow(false); // 이메일 인증 버튼 숨김
+        } else {
+          setError("emailCertification", { type: "manual", message: response.message });
+        }
+      } catch (e) {
+        console.log(`Fetch Error:${e}`);
+      }
+    }
   };
 
   const handleSubmit = (data: TRegisterSchemaType) => {
-    if (isRegisterValid) {
+    if (isRegisterValid && emailCodeChkComplete) {
       const form = {
         name: data.name,
         email: data.email,
@@ -92,11 +130,16 @@ export default function RegisterForm() {
     }
   };
 
-  useEffect(() => {
-    if (session?.user.role === "google") {
-      setIsEmailVerified(true); // 이메일 인증 건너뛰기
-    }
-  }, [session]);
+  const handleTimeUp = () => {
+    setIsEmailShow(true);
+    setIsRunning(false);
+  };
+
+  // useEffect(() => {
+  //   if (session?.user.role === "google") {
+  //     setIsEmailCertificationShow(true); // 이메일 인증 건너뛰기
+  //   }
+  // }, [session]);
 
   return (
     <>
@@ -109,7 +152,7 @@ export default function RegisterForm() {
             placeholder="이름을 입력해주세요."
             {...registerControl.register("name")}
             defaultValue={session?.user?.role === "google" ? String(session.user.name) : ""}
-            readOnly={session?.user?.role === "google"}
+            disabled={session?.user?.role === "google"}
           />
           <div>
             <Input
@@ -120,7 +163,6 @@ export default function RegisterForm() {
               caption={registerErrors.email?.message}
               {...registerControl.register("email")}
               defaultValue={session?.user?.role === "google" ? String(session.user.email) : ""}
-              readOnly={session?.user?.role === "google"}
               suffix={
                 <Button
                   type="button"
@@ -129,41 +171,57 @@ export default function RegisterForm() {
                   bgColor={!registerErrors.email && watchRegister("email") ? "bg-navy-900" : "bg-grayscale-200"}
                   className={cn(
                     `w-[12rem] ${!registerErrors.email && watchRegister("email") ? "text-white" : "text-gray-300"}`,
+                    isEmailShow ? "visible" : "hidden",
                   )}
                   disabled={!watchRegister("email")}
                   onClick={emailVerificationHandler}
                 >
-                  이메일 인증 요청
+                  {isEmailCertificationShow ? "이메일 재요청" : "이메일 요청"}
                 </Button>
               }
             />
-            {isEmailVerified && (
-              <Input
-                id="emailCertification"
-                placeholder="이메일 인증 코드 6자리 입력"
-                {...registerControl.register("emailCertification")}
-                inputGroupClass="mt-[.8rem]"
-                variant={registerErrors.emailCertification ? "error" : "default"}
-                suffix={
-                  <Button
-                    type="button"
-                    variant="textButton"
-                    size="sm"
-                    bgColor={
-                      !registerErrors.emailCertification && watchRegister("emailCertification")
-                        ? "bg-navy-900"
-                        : "bg-grayscale-200"
-                    }
-                    className={cn(
-                      `w-[12rem] ${!registerErrors.emailCertification && watchRegister("emailCertification") ? "text-white" : "text-gray-300"}`,
-                    )}
-                    disabled={!watchRegister("emailCertification")}
-                    onClick={emailCodeCheckHandler}
-                  >
-                    코드 인증
-                  </Button>
-                }
-              />
+            {isEmailCertificationShow && (
+              <div className="relative">
+                <Input
+                  id="emailCertification"
+                  placeholder="이메일 인증 코드 6자리 입력"
+                  {...registerControl.register("emailCertification")}
+                  inputGroupClass="mt-[.8rem]"
+                  variant={
+                    registerErrors.emailCertification
+                      ? "error"
+                      : "default" || emailCodeChkComplete
+                        ? "success"
+                        : "default"
+                  }
+                  caption={
+                    emailCodeChkComplete
+                      ? "* 이메일 인증이 완료되었습니다."
+                      : registerErrors.emailCertification?.message
+                  }
+                  suffix={
+                    <Button
+                      type="button"
+                      variant="textButton"
+                      size="sm"
+                      bgColor={
+                        !registerErrors.emailCertification && watchRegister("emailCertification")
+                          ? "bg-navy-900"
+                          : "bg-grayscale-200"
+                      }
+                      className={cn(
+                        `w-[8rem] ${!registerErrors.emailCertification && watchRegister("emailCertification") ? "text-white" : "text-gray-300"}`,
+                        emailCodeChkComplete ? "hidden" : "visible",
+                      )}
+                      disabled={!watchRegister("emailCertification")}
+                      onClick={emailCodeCheckHandler}
+                    >
+                      코드 인증
+                    </Button>
+                  }
+                />
+                {isRunning && <Timer initialTime={timeCount} onTimeUp={handleTimeUp} isRunning={isRunning} />}
+              </div>
             )}
           </div>
           <Input
@@ -199,6 +257,7 @@ export default function RegisterForm() {
             placeholder="생년월일 6자리를 입력해주세요.(예시 : 991231)"
             {...registerControl.register("birth")}
             variant={registerErrors.birth ? "error" : "default"}
+            caption={registerErrors.birth?.message}
           />
           <Button
             type="submit"
