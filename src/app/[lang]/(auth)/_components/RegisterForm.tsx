@@ -36,6 +36,7 @@ export default function RegisterForm() {
 
   const socialGoogle = session?.user.role !== "google";
   const socialKakao = session?.user.role !== "kakao";
+  // const validationSchema = registerSchema(socialKakao || socialGoogle);
 
   const {
     control: registerControl,
@@ -118,7 +119,7 @@ export default function RegisterForm() {
     }
   };
 
-  const handleSubmit = (data: TRegisterSchemaType) => {
+  const onSubmit = (data: TRegisterSchemaType) => {
     if (isRegisterValid && emailCodeChkComplete) {
       const form = {
         name: data.name,
@@ -138,145 +139,142 @@ export default function RegisterForm() {
     setIsRunning(false);
   };
 
-  // useEffect(() => {
-  //   if (session?.user.role === "google") {
-  //     setIsEmailCertificationShow(true); // 이메일 인증 건너뛰기
-  //   }
-  // }, [session]);
-
   return (
     <>
-      <form onSubmit={handleRegisterSubmit(handleSubmit)}>
-        {/* 회원가입 */}
-        <div className={cn("flex flex-col gap-[1.6rem]")}>
+      <form onSubmit={handleRegisterSubmit(onSubmit)} className={cn("flex flex-col gap-[1.6rem]")}>
+        {/* 이름 */}
+        <Input
+          id="name"
+          labelName="이름"
+          placeholder="이름을 입력해주세요."
+          {...registerControl.register("name")}
+          defaultValue={session?.user?.role === "google" ? String(session.user.name) : ""}
+          disabled={session?.user?.role === "google"}
+        />
+        <div>
+          {/* 이메일 인증 */}
           <Input
-            id="name"
-            labelName="이름"
-            placeholder="이름을 입력해주세요."
-            {...registerControl.register("name")}
-            defaultValue={session?.user?.role === "google" ? String(session.user.name) : ""}
+            id="email"
+            labelName="이메일 주소"
+            placeholder="이메일 주소를 입력해주세요."
+            variant={registerErrors.email ? "error" : "default"}
+            caption={registerErrors.email?.message}
+            {...registerControl.register("email")}
+            defaultValue={session?.user?.role === "google" ? String(session.user.email) : ""}
             disabled={session?.user?.role === "google"}
+            suffix={
+              <Button
+                type="button"
+                variant="textButton"
+                size="sm"
+                bgColor={!registerErrors.email && watchRegister("email") ? "bg-navy-900" : "bg-grayscale-200"}
+                className={cn(
+                  `w-[12rem] ${!registerErrors.email && watchRegister("email") ? "text-white" : "text-gray-300"}`,
+                  isEmailShow ? "" : "hidden",
+                  session?.user?.role === "google" ? "hidden" : "",
+                )}
+                disabled={!watchRegister("email")}
+                onClick={emailVerificationHandler}
+              >
+                {isEmailCertificationShow ? "이메일 재요청" : "이메일 요청"}
+              </Button>
+            }
           />
-          <div>
-            <Input
-              id="email"
-              labelName="이메일 주소"
-              placeholder="이메일 주소를 입력해주세요."
-              variant={registerErrors.email ? "error" : "default"}
-              caption={registerErrors.email?.message}
-              {...registerControl.register("email")}
-              defaultValue={session?.user?.role === "google" ? String(session.user.email) : ""}
-              suffix={
-                <Button
-                  type="button"
-                  variant="textButton"
-                  size="sm"
-                  bgColor={!registerErrors.email && watchRegister("email") ? "bg-navy-900" : "bg-grayscale-200"}
-                  className={cn(
-                    `w-[12rem] ${!registerErrors.email && watchRegister("email") ? "text-white" : "text-gray-300"}`,
-                    isEmailShow ? "" : "hidden",
-                  )}
-                  disabled={!watchRegister("email")}
-                  onClick={emailVerificationHandler}
-                >
-                  {isEmailCertificationShow ? "이메일 재요청" : "이메일 요청"}
-                </Button>
-              }
-            />
-            {isEmailCertificationShow && (
-              <div className="relative">
-                <Input
-                  id="emailCertification"
-                  placeholder="이메일 인증 코드 6자리 입력"
-                  {...registerControl.register("emailCertification")}
-                  inputGroupClass="mt-[.8rem]"
-                  variant={
-                    registerErrors.emailCertification
-                      ? "error"
-                      : "default" || emailCodeChkComplete
-                        ? "success"
-                        : "default"
-                  }
-                  caption={
-                    emailCodeChkComplete
-                      ? "* 이메일 인증이 완료되었습니다."
-                      : registerErrors.emailCertification?.message
-                  }
-                  suffix={
-                    <Button
-                      type="button"
-                      variant="textButton"
-                      size="sm"
-                      bgColor={
-                        !registerErrors.emailCertification && watchRegister("emailCertification")
-                          ? "bg-navy-900"
-                          : "bg-grayscale-200"
-                      }
-                      className={cn(
-                        `w-[8rem] ${!registerErrors.emailCertification && watchRegister("emailCertification") ? "text-white" : "text-gray-300"}`,
-                        emailCodeChkComplete ? "hidden" : "",
-                      )}
-                      disabled={!watchRegister("emailCertification")}
-                      onClick={emailCodeCheckHandler}
-                    >
-                      코드 인증
-                    </Button>
-                  }
-                />
-                {isRunning && <Timer initialTime={timeCount} onTimeUp={handleTimeUp} isRunning={isRunning} />}
-              </div>
-            )}
-          </div>
-          {!socialGoogle && !socialKakao && (
-            <>
+          {/* 이메일 인증 코드 */}
+          {isEmailCertificationShow && (
+            <div className="relative">
               <Input
-                type="password"
-                id="password"
-                labelName="비밀번호 입력"
-                placeholder="비밀번호를 입력해주세요."
-                caption="*  8-20자 이내 숫자, 특수문자, 영문자 중 2가지 이상을 조합"
-                {...registerControl.register("password")}
-                variant={registerErrors.password ? "error" : "default"}
+                id="emailCertification"
+                placeholder="이메일 인증 코드 6자리 입력"
+                {...registerControl.register("emailCertification")}
+                inputGroupClass="mt-[.8rem]"
+                variant={
+                  registerErrors.emailCertification
+                    ? "error"
+                    : "default" || emailCodeChkComplete
+                      ? "success"
+                      : "default"
+                }
+                caption={
+                  emailCodeChkComplete ? "* 이메일 인증이 완료되었습니다." : registerErrors.emailCertification?.message
+                }
+                suffix={
+                  <Button
+                    type="button"
+                    variant="textButton"
+                    size="sm"
+                    bgColor={
+                      !registerErrors.emailCertification && watchRegister("emailCertification")
+                        ? "bg-navy-900"
+                        : "bg-grayscale-200"
+                    }
+                    className={cn(
+                      `w-[8rem] ${!registerErrors.emailCertification && watchRegister("emailCertification") ? "text-white" : "text-gray-300"}`,
+                      emailCodeChkComplete ? "hidden" : "",
+                    )}
+                    disabled={!watchRegister("emailCertification")}
+                    onClick={emailCodeCheckHandler}
+                  >
+                    코드 인증
+                  </Button>
+                }
               />
-              <Input
-                type="password"
-                id="passwordChk"
-                labelName="비밀번호 확인"
-                placeholder="비밀번호를 다시 한번 입력해주세요."
-                {...registerControl.register("passwordChk")}
-                variant={registerErrors.passwordChk ? "error" : "default"}
-                caption={registerErrors.passwordChk?.message}
-              />
-            </>
+              {isRunning && <Timer initialTime={timeCount} onTimeUp={handleTimeUp} isRunning={isRunning} />}
+            </div>
           )}
-          <div>
-            <Input
-              id="phone"
-              labelName="휴대폰번호"
-              placeholder="-를 제외한 휴대폰번호를 입력해주세요."
-              {...registerControl.register("phone")}
-              variant={registerErrors.phone ? "error" : "default"}
-            />
-          </div>
-          <Input
-            id="birth"
-            labelName="생년월일"
-            placeholder="생년월일 6자리를 입력해주세요.(예시 : 991231)"
-            {...registerControl.register("birth")}
-            variant={registerErrors.birth ? "error" : "default"}
-            caption={registerErrors.birth?.message}
-          />
-          <Button
-            type="submit"
-            size="lg"
-            bgColor={isRegisterValid ? "bg-navy-900" : "bg-grayscale-200"}
-            className={cn(`mt-[4rem] ${isRegisterValid ? "text-white" : "text-gray-300"}`)}
-            disabled={!isRegisterValid}
-          >
-            다음
-          </Button>
         </div>
+        {/* 비밀번호 & 비밀번호 확인 */}
+        {socialGoogle && socialKakao && (
+          <>
+            <Input
+              type="password"
+              id="password"
+              labelName="비밀번호 입력"
+              placeholder="비밀번호를 입력해주세요."
+              caption="*  8-20자 이내 숫자, 특수문자, 영문자 중 2가지 이상을 조합"
+              {...registerControl.register("password")}
+              variant={registerErrors.password ? "error" : "default"}
+            />
+            <Input
+              type="password"
+              id="passwordChk"
+              labelName="비밀번호 확인"
+              placeholder="비밀번호를 다시 한번 입력해주세요."
+              {...registerControl.register("passwordChk")}
+              variant={registerErrors.passwordChk ? "error" : "default"}
+              caption={registerErrors.passwordChk?.message}
+            />
+          </>
+        )}
+        {/* 휴대폰번호 */}
+        <Input
+          id="phone"
+          labelName="휴대폰번호"
+          placeholder="-를 제외한 휴대폰번호를 입력해주세요."
+          {...registerControl.register("phone")}
+          variant={registerErrors.phone ? "error" : "default"}
+        />
+        {/* 생년월일 */}
+        <Input
+          id="birth"
+          labelName="생년월일"
+          placeholder="생년월일 6자리를 입력해주세요.(예시 : 991231)"
+          {...registerControl.register("birth")}
+          variant={registerErrors.birth ? "error" : "default"}
+          caption={registerErrors.birth?.message}
+        />
+        {/* 페이지 이동 버튼 */}
+        <Button
+          type="submit"
+          size="lg"
+          bgColor={isRegisterValid ? "bg-navy-900" : "bg-grayscale-200"}
+          className={cn(`mt-[4rem] ${isRegisterValid ? "text-white" : "text-gray-300"}`)}
+          disabled={!isRegisterValid && !socialGoogle}
+        >
+          다음
+        </Button>
       </form>
+      {/* 이메일 인증 안내 팝업 */}
       {isOpen && (
         <Modal isOpen={isOpen} onClose={closeModal} panelStyle="w-[38.6rem] py-[1.6rem] px-[3.2rem] rounded-[2rem]">
           <dl className="flex_col_center mb-[3.2rem]">

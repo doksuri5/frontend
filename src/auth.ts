@@ -60,6 +60,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       clientId: process.env.NAVER_CLIENT_ID,
       clientSecret: process.env.NAVER_CLIENT_SECRET,
       async profile(profile) {
+        console.log("--------------------- 네이버 profile 영역 --------------------- ");
+        console.log("profile:", profile);
         return {
           id: profile.response.id,
           name: profile.response.name,
@@ -123,19 +125,33 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           return false;
         }
 
+        // DB에서 고유한 이메일 확인
         const existingUser = await User.findOne({
           email: user.email,
-          sns_id: user.id,
+        });
+
+        // // 동일한 이메일이 있다면 소셜로그인 실패 안내페이지 이동
+        // if (existingUser) {
+        //   return "/exist";
+        // }
+
+        const socialUser = await User.findOne({
+          email: user.email,
+          sns_id: account.providerAccountId,
           login_type: account.provider,
         });
 
-        if (!existingUser) {
+        if (!socialUser) {
+          if (existingUser) {
+            return "/exist";
+          }
           user.role = account.provider;
           user.phone = user.phone;
           user.birth = user.birth;
         } else {
           user.role = "user";
         }
+        user.id = account.providerAccountId;
         return true;
       } else if (account?.provider === "kakao") {
         console.log("--------------------- 카카오 signIn 영역 --------------------- ");
@@ -218,10 +234,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         token.email = user.email;
         token.phone = user.phone;
         token.birth = user.birth;
-
-        // if (user.role === "goole") {
-        //   token.accessToken = account.id_token;
-        // }
       }
 
       return token;

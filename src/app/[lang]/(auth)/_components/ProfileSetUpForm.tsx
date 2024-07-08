@@ -133,15 +133,17 @@ export default function ProfileSetUpForm() {
   };
 
   const handleSubmit = async (data: TProfileSchema) => {
-    //console.log("registerFormData", registerFormData());
+    console.log("registerFormData", registerFormData());
 
     const jpeg = await reduceImageSize(avatar);
     const file = new File([jpeg], new Date().toString(), { type: "image/jpeg" });
 
     const formData = new FormData();
+
     if (isGender) {
       formData.append("gender", isGender);
     }
+
     if (file) {
       formData.append("profile", file);
     }

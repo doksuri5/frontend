@@ -50,7 +50,7 @@ const birthDateSchema = z
     { message: "유효하지 않은 날짜입니다." },
   );
 
-// 회원가입
+//회원가입
 export const registerSchema = z
   .object({
     name: z.string().min(1),
