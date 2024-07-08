@@ -1,13 +1,36 @@
 "use client";
 
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { PolicyContent } from "../_components/index";
-import { servicePolicyText } from "@/constants/servicePolicyText";
-import { privacyPolicyText } from "@/constants/privacyPolicyText";
+import { formatTextWithLineBreaks } from "@/utils/textUtils";
 
 export default function Terms() {
   const [servicePolicy, setServicePolicy] = useState(false);
   const [privacyPolicy, setPrivacyPolicy] = useState(false);
+
+  const [servicePolicyText, setServicePolicyText] = useState("");
+  const [privacyPolicyText, setPrivacyPolicyText] = useState("");
+
+  useEffect(() => {
+    const fetchTerms = async () => {
+      try {
+        // TODO: 백엔드 도메인 상수화
+        const response = await (await fetch("http://localhost:8080/api/terms/getTerms")).json();
+
+        if (response.ok) {
+          setServicePolicyText(response.data.terms_of_service.content);
+          setPrivacyPolicyText(response.data.privacy_policy.content);
+          return;
+        }
+        // TODO: API 호출 실패 시, Alert 처리 (혹은 프론트엔드 약관 파일로 대체)
+        console.log("이용약관을 불러오지 못했습니다.", response);
+      } catch (err) {
+        console.error("이용약관을 불러오지 못했습니다.", err);
+      }
+    };
+
+    fetchTerms();
+  }, []);
 
   const handleToggleExpand = (id: string) => {
     if (id === "service") {
@@ -22,13 +45,13 @@ export default function Terms() {
       <PolicyContent
         policyType="service"
         handleToggleExpand={handleToggleExpand}
-        policyText={servicePolicyText}
+        policyText={formatTextWithLineBreaks(servicePolicyText)}
         expanded={servicePolicy}
       />
       <PolicyContent
         policyType="privacy"
         handleToggleExpand={handleToggleExpand}
-        policyText={privacyPolicyText}
+        policyText={formatTextWithLineBreaks(privacyPolicyText)}
         expanded={privacyPolicy}
       />
     </section>
