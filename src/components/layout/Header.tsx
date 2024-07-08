@@ -20,7 +20,6 @@ const Header = ({ isLoggedIn }: THeaderProps) => {
   const router = usePathname();
   const [isLogin, setIsLogin] = useState(true); // 로그인 여부 로직 처리
   const { data: session } = useSession();
-  console.log(session);
 
   const handleLogOut = async () => {
     await signOut({ redirect: true, callbackUrl: LOGIN_PATH });
@@ -54,7 +53,7 @@ const Header = ({ isLoggedIn }: THeaderProps) => {
             </nav>
           )}
         </div>
-        {session && (
+        {session?.user.role === "user" && (
           <Button
             variant="textButton"
             size="sm"
