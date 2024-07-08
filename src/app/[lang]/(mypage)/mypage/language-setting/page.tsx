@@ -9,7 +9,7 @@ import China from "@/public/icons/language_cn.svg?component";
 import Japan from "@/public/icons/language_jp.svg?component";
 import French from "@/public/icons/language_fr.svg?component";
 import { setLanguageCookie, getLanguageCookie } from "@/utils/cookies";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 interface ILanguageInform {
   icon: JSX.Element;
@@ -27,18 +27,17 @@ const languageList = [
 ];
 
 export default function LanguageSetting() {
-  const [selectedLang, setSelectedLang] = useState<string>("");
+  const [selectedLang, setSelectedLang] = useState<string>("ko");
   const [langList, setLangList] = useState<ILanguageInform[]>(languageList);
+  const [pendingLang, setPendingLang] = useState<string | null>(null);
 
   const [openConfirmAlert, setOpenConfirmAlert] = useState(false);
   const [openErrorAlert, setOpenErrorAlert] = useState(false);
   const [openSuccessAlert, setOpenSuccessAlert] = useState(false);
 
-  const [pendingLang, setPendingLang] = useState<string | null>(null);
-
   const pathname = usePathname();
+  const router = useRouter();
 
-  // TODO: reload 시 언어 설정 기본값에 대해 더 생각해 보기
   useEffect(() => {
     const cookieLocale = getLanguageCookie();
     cookieLocale ? setSelectedLang(cookieLocale) : setSelectedLang("ko");
@@ -67,14 +66,14 @@ export default function LanguageSetting() {
       }
 
       // 성공 후처리
-      const result = await response.json();
+      await response.json();
       setOpenSuccessAlert(true);
-      setSelectedLang(result.data.language);
+      setSelectedLang(lang);
 
       // 각 언어의 active 상태 업데이트
       const updatedLangList = langList.map((langItem: ILanguageInform) => ({
         ...langItem,
-        active: langItem.value === result.data.language,
+        active: langItem.value === lang,
       }));
       setLangList(updatedLangList);
 
@@ -83,7 +82,6 @@ export default function LanguageSetting() {
       changeUrl(lang);
     } catch (err) {
       setOpenErrorAlert(true);
-      console.log(openErrorAlert);
     }
   };
 
@@ -107,7 +105,7 @@ export default function LanguageSetting() {
 
   const handleSuccessAlertClose = () => {
     setOpenSuccessAlert(false);
-    window.location.reload(); // 전체 페이지 언어변경을 위해 반드시 필요
+    router.refresh(); // 전체 페이지 언어변경을 위해 반드시 필요
   };
 
   return (
@@ -140,6 +138,7 @@ export default function LanguageSetting() {
         ))}
       </div>
 
+      {/* Alert 창 */}
       {openConfirmAlert && (
         <Alert
           variant="fnButton"
