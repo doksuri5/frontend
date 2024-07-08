@@ -234,6 +234,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         token.email = user.email;
         token.phone = user.phone;
         token.birth = user.birth;
+        token.accessToken = account.access_token;
       }
 
       return token;
@@ -249,7 +250,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         session.user.email = token.email as string;
         session.user.phone = token.phone as string;
         session.user.birth = token.birth as string;
-        // session.accessToken = token.accessToken as string;
+        session.accessToken = token.accessToken as string;
       }
 
       return session;
