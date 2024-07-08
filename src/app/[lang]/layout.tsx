@@ -3,7 +3,7 @@ import { pretendard } from "@/fonts";
 import "../globals.css";
 import Header from "@/components/layout/Header";
 import QueryProvider from "@/providers/QueryProvider";
-import { i18n, type Locale } from "../../i18n-config";
+import { i18n, type Locale } from "../../i18n";
 import { NextIntlClientProvider } from "next-intl";
 
 import Image from "next/image";

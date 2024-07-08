@@ -11,3 +11,11 @@ export default getRequestConfig(async () => {
     messages: (await import(`../src/dictionaries/${locale}.json`)).default,
   };
 });
+
+// i18n-config
+export const i18n = {
+  defaultLocale: "ko",
+  locales: ["ko", "en", "ch", "jp", "fr"],
+} as const;
+
+export type Locale = (typeof i18n)["locales"][number];
