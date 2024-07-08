@@ -6,8 +6,9 @@ import { useSession } from "next-auth/react";
 
 import CommonLayout from "../../_components/CommonLayout";
 import RegisterForm from "../../_components/RegisterForm";
+import Loading from "../../_components/Loading";
 
-import { MAIN_PATH, REGISTER_PATH } from "@/routes/path";
+import { MAIN_PATH } from "@/routes/path";
 
 export default function RegisterPage() {
   const { data: session, status } = useSession();
@@ -20,11 +21,13 @@ export default function RegisterPage() {
     if (session?.user) {
       if (session.user.role === "user") {
         router.push(MAIN_PATH);
-      } else {
-        router.push(REGISTER_PATH);
       }
     }
   }, [session, status, router]);
+
+  if (status === "loading") {
+    return <Loading />;
+  }
 
   return (
     <>

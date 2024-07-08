@@ -6,8 +6,9 @@ import { useSession } from "next-auth/react";
 
 import CommonLayout from "../../_components/CommonLayout";
 import ProfileSetUpForm from "../../_components/ProfileSetUpForm";
+import Loading from "../../_components/Loading";
 
-import { MAIN_PATH, PROFILE_SETUP_PATH } from "@/routes/path";
+import { MAIN_PATH } from "@/routes/path";
 
 export default function ProfileSetup() {
   const { data: session, status } = useSession();
@@ -17,14 +18,17 @@ export default function ProfileSetup() {
   useEffect(() => {
     if (status === "loading") return;
 
-    if (session?.user) {
+    if (session) {
       if (session.user.role === "user") {
         router.push(MAIN_PATH);
-      } else {
-        router.push(PROFILE_SETUP_PATH);
       }
     }
   }, [session, status, router]);
+
+  if (status === "loading") {
+    return <Loading />;
+  }
+
   return (
     <>
       <CommonLayout title="프로필 설정">

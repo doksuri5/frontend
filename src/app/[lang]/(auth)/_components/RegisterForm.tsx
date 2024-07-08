@@ -34,9 +34,10 @@ export default function RegisterForm() {
   const [isOpen, setIsOpen] = useState(false);
   const closeModal = () => setIsOpen(false);
 
-  const socialGoogle = session?.user.role !== "google";
-  const socialKakao = session?.user.role !== "kakao";
-  // const validationSchema = registerSchema(socialKakao || socialGoogle);
+  const socialGoogle = session?.user.role === "google";
+  const socialKakao = session?.user.role === "kakao";
+  const isSocialLogin = socialGoogle ? "google" : socialKakao ? "kakao" : "regular";
+  const validationSchema = registerSchema(isSocialLogin);
 
   const {
     control: registerControl,
@@ -45,7 +46,7 @@ export default function RegisterForm() {
     trigger: triggerRegister,
     watch: watchRegister,
     setError,
-  } = useZodSchemaForm<TRegisterSchemaType>(registerSchema);
+  } = useZodSchemaForm<TRegisterSchemaType>(validationSchema);
 
   // 이메일 인증 버튼 클릭시 실행되는 이벤트
   const emailVerificationHandler = async () => {
@@ -55,7 +56,6 @@ export default function RegisterForm() {
     setIsRunning(false); // 타이머 시작 초기화
 
     if (valid) {
-      setIsOpen(true); // 팝업 노출
       try {
         const response = await (
           await fetch(`http://localhost:8080/api/auth/sendEmail`, {
@@ -70,6 +70,7 @@ export default function RegisterForm() {
         ).json();
         console.log(response);
         if (response.ok) {
+          setIsOpen(true); // 팝업 노출
           setTimeCount(180); // 타이머 시간
           setIsRunning(true); // 타이머 시작
           setIsEmailCertificationShow(true); // 이메일 인증 코드 필드 보여줌
@@ -89,7 +90,6 @@ export default function RegisterForm() {
     const emailValue = watchRegister("email");
 
     if (valid) {
-      // console.log(emailValue);
       try {
         const response = await (
           await fetch(`http://localhost:8080/api/auth/verifyCode`, {
@@ -104,9 +104,7 @@ export default function RegisterForm() {
           })
         ).json();
         console.log(response);
-
         setEmailCodeChkComplete(response.ok); // 이매일 인증 코드 확인 결과
-
         if (response.ok) {
           setIsRunning(false); // 타이머 멈춤
           setIsEmailShow(false); // 이메일 인증 버튼 숨김
@@ -122,14 +120,13 @@ export default function RegisterForm() {
   const onSubmit = (data: TRegisterSchemaType) => {
     if (isRegisterValid && emailCodeChkComplete) {
       const form = {
-        name: data.name,
-        email: data.email,
-        password: data.password,
+        name: data.name ?? "",
+        email: data.email ?? "",
+        password: data.password ?? "",
         birth: data.birth,
         phone: data.phone,
       };
       setForm({ form });
-      // console.log(form);
       router.push(PROFILE_SETUP_PATH);
     }
   };
@@ -138,6 +135,14 @@ export default function RegisterForm() {
     setIsEmailShow(true);
     setIsRunning(false);
   };
+
+  useEffect(() => {
+    if (socialGoogle) {
+      setIsEmailCertificationShow(false);
+      setEmailCodeChkComplete(true);
+      setIsEmailShow(true);
+    }
+  }, [socialGoogle]);
 
   return (
     <>
@@ -148,8 +153,8 @@ export default function RegisterForm() {
           labelName="이름"
           placeholder="이름을 입력해주세요."
           {...registerControl.register("name")}
-          defaultValue={session?.user?.role === "google" ? String(session.user.name) : ""}
-          disabled={session?.user?.role === "google"}
+          defaultValue={socialGoogle ? String(session?.user.name) : ""}
+          disabled={socialGoogle}
         />
         <div>
           {/* 이메일 인증 */}
@@ -160,8 +165,8 @@ export default function RegisterForm() {
             variant={registerErrors.email ? "error" : "default"}
             caption={registerErrors.email?.message}
             {...registerControl.register("email")}
-            defaultValue={session?.user?.role === "google" ? String(session.user.email) : ""}
-            disabled={session?.user?.role === "google"}
+            defaultValue={socialGoogle ? String(session?.user.email) : ""}
+            disabled={socialGoogle}
             suffix={
               <Button
                 type="button"
@@ -171,7 +176,7 @@ export default function RegisterForm() {
                 className={cn(
                   `w-[12rem] ${!registerErrors.email && watchRegister("email") ? "text-white" : "text-gray-300"}`,
                   isEmailShow ? "" : "hidden",
-                  session?.user?.role === "google" ? "hidden" : "",
+                  socialGoogle ? "hidden" : "",
                 )}
                 disabled={!watchRegister("email")}
                 onClick={emailVerificationHandler}
@@ -224,7 +229,7 @@ export default function RegisterForm() {
           )}
         </div>
         {/* 비밀번호 & 비밀번호 확인 */}
-        {socialGoogle && socialKakao && (
+        {isSocialLogin === "regular" && (
           <>
             <Input
               type="password"

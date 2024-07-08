@@ -130,11 +130,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           email: user.email,
         });
 
-        // // 동일한 이메일이 있다면 소셜로그인 실패 안내페이지 이동
-        // if (existingUser) {
-        //   return "/exist";
-        // }
-
         const socialUser = await User.findOne({
           email: user.email,
           sns_id: account.providerAccountId,
@@ -164,12 +159,20 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           return false;
         }
 
+        // DB에서 고유한 이메일 확인
         const existingUser = await User.findOne({
-          name: user.name,
-          sns_id: account.provider,
+          email: user.email,
         });
 
-        if (!existingUser) {
+        const socialUser = await User.findOne({
+          sns_id: account.providerAccountId,
+          login_type: account.provider,
+        });
+
+        if (!socialUser) {
+          if (existingUser) {
+            return "/exist";
+          }
           user.role = account.provider;
         } else {
           user.role = "user";
@@ -194,27 +197,24 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           email: user.email,
         });
 
-        // 동일한 이메일이 있다면 소셜로그인 실패 안내페이지 이동
-        if (existingUser) {
-          return "/exist";
-        }
-
         const socialUser = await User.findOne({
+          name: user.name,
           email: user.email,
           login_type: account.provider,
           sns_id: account.providerAccountId,
-          // login_type: account.provider,
         });
 
         // 조회한 유저정보 통해, role check
         if (!socialUser) {
+          if (existingUser) {
+            return "/exist";
+          }
           user.role = account.provider;
         } else {
           user.role = "user";
         }
 
-        user.id = user.id;
-
+        user.id = account.providerAccountId;
         return true;
       } else if (account?.provider === "credentials") {
         user.role = "user";

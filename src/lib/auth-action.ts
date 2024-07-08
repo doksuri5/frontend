@@ -4,10 +4,9 @@ import { auth, signIn } from "@/auth";
 
 import { TLoginSchema } from "@/types/AuthType";
 
-import { MAIN_PATH, PROFILE_SETUP_PATH, REGISTER_PATH } from "@/routes/path";
+import { MAIN_PATH } from "@/routes/path";
 
 import { AuthError } from "next-auth";
-import { redirect } from "next/navigation";
 
 export async function loginAction(data: TLoginSchema) {
   try {
@@ -33,14 +32,6 @@ export async function loginAction(data: TLoginSchema) {
   }
 }
 
-export async function NaverLoginAction() {
-  await signIn("naver", { redirectTo: PROFILE_SETUP_PATH });
-}
-
-export async function KakaoLoginAction() {
-  await signIn("kakao", { redirectTo: REGISTER_PATH });
-}
-
-export async function GoogelLoginAction() {
-  await signIn("google", { redirectTo: REGISTER_PATH });
+export async function SocialLoginAction(provider: string, redirectTo: string) {
+  await signIn(provider, { redirectTo });
 }
