@@ -27,6 +27,7 @@ export const verifyUserSchema = z.object({
   emailCertification: z.string().regex(/^\d{6}$/, { message: "인증코드 6자리 입력해주세요." }),
 });
 
+// 생일
 const birthDateSchema = z
   .string()
   .regex(/^\d{6}$/, { message: "생년월일은 6자리여야 합니다." })

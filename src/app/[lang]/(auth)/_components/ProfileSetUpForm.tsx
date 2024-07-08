@@ -133,7 +133,7 @@ export default function ProfileSetUpForm() {
   };
 
   const handleSubmit = async (data: TProfileSchema) => {
-    console.log("registerFormData", registerFormData());
+    //console.log("registerFormData", registerFormData());
 
     const jpeg = await reduceImageSize(avatar);
     const file = new File([jpeg], new Date().toString(), { type: "image/jpeg" });
@@ -145,8 +145,12 @@ export default function ProfileSetUpForm() {
     if (file) {
       formData.append("profile", file);
     }
+
+    if (data.tags) {
+      formData.append("interest_stocks", JSON.stringify(data.tags.map((item) => item.value)));
+    }
+
     formData.append("nickname", data.nickname);
-    //formData.append("interest_stocks", JSON.stringify(data.tags.map((item) => item.value)));
 
     const additionalData = registerFormData();
     for (const key in additionalData) {

@@ -1,6 +1,6 @@
 "use server";
 
-import { signIn } from "@/auth";
+import { auth, signIn } from "@/auth";
 
 import { TLoginSchema } from "@/types/AuthType";
 

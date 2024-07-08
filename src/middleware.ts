@@ -19,6 +19,7 @@ const matchersForNoAuth = [
   "/*find-password",
   "/*register-complete",
   "/*withdraw",
+  "/*exist",
 ];
 
 // 로그인 세션 확인 여부 체크

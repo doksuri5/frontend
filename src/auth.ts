@@ -9,8 +9,6 @@ import connectDB from "./lib/db";
 import { User } from "./lib/schema";
 import { compare } from "bcryptjs";
 
-import { getToken } from "next-auth/jwt";
-
 import { LOGIN_PATH, MAIN_PATH } from "./routes/path";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
@@ -174,15 +172,26 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           console.error("Google DB 연결 오류:", error);
           return false;
         }
+
+        // DB에서 고유한 이메일 확인
         const existingUser = await User.findOne({
           email: user.email,
-          sns_id: account.provider,
-          // sns_id: account.providerAccountId,
+        });
+
+        // 동일한 이메일이 있다면 소셜로그인 실패 안내페이지 이동
+        if (existingUser) {
+          return "/exist";
+        }
+
+        const socialUser = await User.findOne({
+          email: user.email,
+          login_type: account.provider,
+          sns_id: account.providerAccountId,
           // login_type: account.provider,
         });
 
         // 조회한 유저정보 통해, role check
-        if (!existingUser) {
+        if (!socialUser) {
           user.role = account.provider;
         } else {
           user.role = "user";

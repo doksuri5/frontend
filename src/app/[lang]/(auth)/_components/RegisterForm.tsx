@@ -34,6 +34,9 @@ export default function RegisterForm() {
   const [isOpen, setIsOpen] = useState(false);
   const closeModal = () => setIsOpen(false);
 
+  const socialGoogle = session?.user.role !== "google";
+  const socialKakao = session?.user.role !== "kakao";
+
   const {
     control: registerControl,
     handleSubmit: handleRegisterSubmit,
@@ -171,7 +174,7 @@ export default function RegisterForm() {
                   bgColor={!registerErrors.email && watchRegister("email") ? "bg-navy-900" : "bg-grayscale-200"}
                   className={cn(
                     `w-[12rem] ${!registerErrors.email && watchRegister("email") ? "text-white" : "text-gray-300"}`,
-                    isEmailShow ? "visible" : "hidden",
+                    isEmailShow ? "" : "hidden",
                   )}
                   disabled={!watchRegister("email")}
                   onClick={emailVerificationHandler}
@@ -211,7 +214,7 @@ export default function RegisterForm() {
                       }
                       className={cn(
                         `w-[8rem] ${!registerErrors.emailCertification && watchRegister("emailCertification") ? "text-white" : "text-gray-300"}`,
-                        emailCodeChkComplete ? "hidden" : "visible",
+                        emailCodeChkComplete ? "hidden" : "",
                       )}
                       disabled={!watchRegister("emailCertification")}
                       onClick={emailCodeCheckHandler}
@@ -224,24 +227,28 @@ export default function RegisterForm() {
               </div>
             )}
           </div>
-          <Input
-            type="password"
-            id="password"
-            labelName="비밀번호 입력"
-            placeholder="비밀번호를 입력해주세요."
-            caption="*  8-20자 이내 숫자, 특수문자, 영문자 중 2가지 이상을 조합"
-            {...registerControl.register("password")}
-            variant={registerErrors.password ? "error" : "default"}
-          />
-          <Input
-            type="password"
-            id="passwordChk"
-            labelName="비밀번호 확인"
-            placeholder="비밀번호를 다시 한번 입력해주세요."
-            {...registerControl.register("passwordChk")}
-            variant={registerErrors.passwordChk ? "error" : "default"}
-            caption={registerErrors.passwordChk?.message}
-          />
+          {!socialGoogle && !socialKakao && (
+            <>
+              <Input
+                type="password"
+                id="password"
+                labelName="비밀번호 입력"
+                placeholder="비밀번호를 입력해주세요."
+                caption="*  8-20자 이내 숫자, 특수문자, 영문자 중 2가지 이상을 조합"
+                {...registerControl.register("password")}
+                variant={registerErrors.password ? "error" : "default"}
+              />
+              <Input
+                type="password"
+                id="passwordChk"
+                labelName="비밀번호 확인"
+                placeholder="비밀번호를 다시 한번 입력해주세요."
+                {...registerControl.register("passwordChk")}
+                variant={registerErrors.passwordChk ? "error" : "default"}
+                caption={registerErrors.passwordChk?.message}
+              />
+            </>
+          )}
           <div>
             <Input
               id="phone"
