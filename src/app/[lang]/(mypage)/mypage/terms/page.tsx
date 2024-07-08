@@ -14,8 +14,7 @@ export default function Terms() {
   useEffect(() => {
     const fetchTerms = async () => {
       try {
-        // TODO: 백엔드 도메인 상수화
-        const response = await (await fetch("http://localhost:8080/api/terms/getTerms")).json();
+        const response = await (await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/terms/getTerms`)).json();
 
         if (response.ok) {
           setServicePolicyText(response.data.terms_of_service.content);
@@ -25,7 +24,7 @@ export default function Terms() {
         // TODO: API 호출 실패 시, Alert 처리 (혹은 프론트엔드 약관 파일로 대체)
         console.log("이용약관을 불러오지 못했습니다.", response);
       } catch (err) {
-        console.error("이용약관을 불러오지 못했습니다.", err);
+        console.log("이용약관을 불러오지 못했습니다.", err);
       }
     };
 
