@@ -9,7 +9,7 @@ import connectDB from "./lib/db";
 import { User } from "./lib/schema";
 import { compare } from "bcryptjs";
 
-import { LOGIN_PATH, MAIN_PATH } from "./routes/path";
+import { EXIST_PATH, LOGIN_PATH, MAIN_PATH } from "./routes/path";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   pages: {
@@ -105,9 +105,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   ],
   secret: process.env.AUTH_SECRET,
   session: {
-    strategy: "jwt", // JWT 세션 전략 사용
-    maxAge: 24 * 60 * 60, // 기본 세션 만료 시간 1일
-    updateAge: 24 * 60 * 60, // 매일 세션 갱신
+    // strategy: "jwt", // JWT 세션 전략 사용
+    //maxAge: 24 * 60 * 60, // 기본 세션 만료 시간 1일
+    // updateAge: 24 * 60 * 60, // 매일 세션 갱신
   },
   callbacks: {
     async signIn({ user, account, profile }) {
@@ -138,7 +138,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         if (!socialUser) {
           if (existingUser) {
-            return "/exist";
+            return EXIST_PATH;
           }
           user.role = account.provider;
           user.phone = user.phone;
@@ -171,7 +171,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         if (!socialUser) {
           if (existingUser) {
-            return "/exist";
+            return EXIST_PATH;
           }
           user.role = account.provider;
         } else {
@@ -207,7 +207,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         // 조회한 유저정보 통해, role check
         if (!socialUser) {
           if (existingUser) {
-            return "/exist";
+            return EXIST_PATH;
           }
           user.role = account.provider;
         } else {
