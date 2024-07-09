@@ -35,7 +35,6 @@ export default function AIAnalystReport({ data }: TAIAnalystReport) {
         </div>
       </div>
       <p className="body_4 font-medium">{aiReport}</p>
-      <div className="flex items-center gap-[0.8rem]"></div>
     </section>
   );
 }
