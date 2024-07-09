@@ -8,22 +8,35 @@ import { Input, Button } from "@/components/common";
 import Avatar from "@/public/icons/avatar_default.svg";
 import EditIcon from "@/public/icons/avatar_edit.svg";
 import { cn } from "@/utils/cn";
+import { stockList } from "../_constants/stock";
+import { mapInterestStocksToInitialValue } from "../_utils/profileUtils";
 
-type OptionType = {
+export interface IOption {
   value: string;
   label: string;
-};
+}
 
 type TEditProfileFormProps = {
-  stockOptionList: { value: string; label: string }[];
   closeModal: () => void;
 };
-
-type FormData = {
+interface FormData {
   nickname: string;
+  interest_stocks: string[];
+  gender: "M" | "F";
+}
+
+const userDummy: FormData = {
+  nickname: "김스팩",
+  interest_stocks: ["appl", "maft"],
+  gender: "M",
 };
 
-export default function EditProfileForm({ stockOptionList, closeModal }: TEditProfileFormProps) {
+const imageUrl =
+  "https://doksuri5-s3.s3.ap-northeast-2.amazonaws.com/profile/cde1277b-df87-4feb-b86f-e9a5415010cf.jpeg";
+
+const initialStockOption = mapInterestStocksToInitialValue(userDummy.interest_stocks, stockList);
+
+export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
   const {
     register,
     watch,
@@ -34,10 +47,10 @@ export default function EditProfileForm({ stockOptionList, closeModal }: TEditPr
     handleSubmit,
   } = useForm<FormData>();
   const [isNameAvailable, setIsNameAvailable] = useState(false);
-  const [selectedStocks, setSelectedStocks] = useState<OptionType[]>([]);
+  const [selectedStocks, setSelectedStocks] = useState<IOption[]>(initialStockOption);
   const [gender, setGender] = useState<string>("");
-  const [file, setFile] = useState<string | null>(null);
-  const [isGender, setIsGender] = useState<undefined | "M" | "F">(undefined);
+  const [previewImg, setPreviewImg] = useState<string | null>(null);
+  const [isGender, setIsGender] = useState<undefined | "M" | "F">(userDummy.gender);
 
   const avatarChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -46,13 +59,13 @@ export default function EditProfileForm({ stockOptionList, closeModal }: TEditPr
         alert("최대 1MB까지 업로드 가능합니다.");
         e.target.value = "";
       } else {
-        setFile(URL.createObjectURL(file));
+        setPreviewImg(URL.createObjectURL(file));
       }
     }
   };
 
-  const handleStocksChange = (selectedOptions: MultiValue<OptionType>) => {
-    setSelectedStocks(selectedOptions as OptionType[]);
+  const handleStocksChange = (selectedOptions: MultiValue<IOption>) => {
+    setSelectedStocks(selectedOptions as IOption[]);
   };
 
   const handleGenderChange = (value: "M" | "F") => {
@@ -111,7 +124,7 @@ export default function EditProfileForm({ stockOptionList, closeModal }: TEditPr
       <div className="flex_col_center relative mx-[auto] mb-[2.4rem] h-[12rem] w-[12rem]">
         <div className="flex h-[12rem] w-[12rem] overflow-hidden rounded-[50%]">
           <Image
-            src={file ? file : Avatar.src}
+            src={previewImg || (imageUrl ? imageUrl : Avatar)}
             width={120}
             height={120}
             alt="프로필 이미지"
@@ -122,12 +135,13 @@ export default function EditProfileForm({ stockOptionList, closeModal }: TEditPr
         </div>
 
         <label htmlFor="file" className="absolute bottom-[0] right-0 h-[4rem] w-[4rem] cursor-pointer">
-          <Image src={EditIcon.src} alt="Edit icon" width={40} height={40} />
+          <Image src={EditIcon} alt="Edit icon" width={40} height={40} />
         </label>
       </div>
       <Input
         id="nickname"
         labelName="닉네임"
+        value={userDummy.nickname}
         placeholder="닉네임을 입력해주세요."
         {...register("nickname", { required: "닉네임을 입력해주세요." })}
         suffix={
@@ -151,7 +165,8 @@ export default function EditProfileForm({ stockOptionList, closeModal }: TEditPr
           instanceId={"tags"}
           isMulti
           name={"tags"}
-          options={stockOptionList}
+          value={selectedStocks}
+          options={stockList}
           className="basic-multi-select"
           classNamePrefix="tag"
           placeholder="#관심 종목을 추가해주세요."
