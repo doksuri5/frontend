@@ -30,7 +30,9 @@ export const PolicyContent = ({ policyType, handleToggleExpand, policyText, expa
           `rounded-[1.6rem] border border-gray-100 px-[1.4rem] py-[2.4rem] scrollbar-hide ${expanded ? "h-[100%]" : "h-[25rem] overflow-hidden overflow-y-scroll"}`,
         )}
       >
-        <div className="body_4 text-wrap text-grayscale-900">{policyText}</div>
+        <div className="body_4 text-wrap text-grayscale-900">
+          <pre className="font-pretendard">{policyText}</pre>
+        </div>
       </div>
     </article>
   );

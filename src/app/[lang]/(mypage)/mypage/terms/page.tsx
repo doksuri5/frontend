@@ -3,6 +3,8 @@
 import React, { useEffect, useState } from "react";
 import { PolicyContent } from "../_components/index";
 import { formatTextWithLineBreaks } from "@/utils/textUtils";
+import { servicePolicyText as frontServicePolicyText } from "@/constants/servicePolicyText";
+import { privacyPolicyText as frontPrivacyPolicyText } from "@/constants/privacyPolicyText";
 
 export default function Terms() {
   const [servicePolicy, setServicePolicy] = useState(false);
@@ -19,13 +21,12 @@ export default function Terms() {
         if (response.ok) {
           setServicePolicyText(response.data.terms_of_service.content);
           setPrivacyPolicyText(response.data.privacy_policy.content);
-          return;
         }
-        // TODO: API 호출 실패 시, Alert 처리 (혹은 프론트엔드 약관 파일로 대체)
-        console.log("이용약관을 불러오지 못했습니다.", response);
       } catch (err) {
-        console.log("이용약관을 불러오지 못했습니다.", err);
+        console.error("이용약관 로드에 실패했습니다.", err);
       }
+      setServicePolicyText(frontServicePolicyText);
+      setPrivacyPolicyText(frontPrivacyPolicyText);
     };
 
     fetchTerms();
