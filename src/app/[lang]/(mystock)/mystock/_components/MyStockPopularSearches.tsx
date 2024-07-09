@@ -1,12 +1,6 @@
 import Image from "next/image";
 import { PopularDetailDataType } from "@/types";
-import {
-  getCompareToPreviousClosePriceColor,
-  getFluctuationsRatioColor,
-  getCompareToPreviousClosePriceArrow,
-  getAbsoluteCompareToPreviousClosePrice,
-  getFluctuationsRatioSign,
-} from "@/utils/stockPriceUtils";
+import { formatValueWithIndicator, formatValueWithSign, getTextColor } from "@/utils/stockPriceUtils";
 import Apple_icon from "@/public/icons/Apple_icon.svg";
 
 const popularList: PopularDetailDataType[] = [
@@ -85,12 +79,11 @@ const MyStockPopularSearches = () => {
               <span className="body_4 w-full truncate font-medium text-grayscale-600">{popular.stockName}</span>
             </div>
             <div>
-              <span className={`${getCompareToPreviousClosePriceColor(popular.compareToPreviousClosePrice)}`}>
-                {getCompareToPreviousClosePriceArrow(popular.compareToPreviousClosePrice)}
-                {getAbsoluteCompareToPreviousClosePrice(popular.compareToPreviousClosePrice)}
+              <span className={`${getTextColor(popular.compareToPreviousClosePrice)}`}>
+                {formatValueWithIndicator(popular.compareToPreviousClosePrice)}
               </span>
-              <span className={`${getFluctuationsRatioColor(popular.fluctuationsRatio)}`}>
-                {getFluctuationsRatioSign(popular.fluctuationsRatio) + popular.fluctuationsRatio + "%"}
+              <span className={`${getTextColor(popular.fluctuationsRatio)}`}>
+                {formatValueWithSign(popular.fluctuationsRatio) + "%"}
               </span>
             </div>
           </div>

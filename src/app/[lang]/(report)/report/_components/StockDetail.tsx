@@ -3,13 +3,8 @@
 import { useState } from "react";
 import { Toggle } from "@/components/common";
 import { cn } from "@/utils/cn";
-import {
-  getAbsoluteCompareToPreviousClosePrice,
-  getCompareToPreviousClosePriceArrow,
-  getFluctuationsRatioColor,
-  getFluctuationsRatioSign,
-} from "@/utils/stockPriceUtils";
 import { StockDetailDataType } from "@/types";
+import { formatValueWithIndicator, formatValueWithSign, getTextColor } from "@/utils/stockPriceUtils";
 
 type TStockDetail = {
   stockDetail: Omit<StockDetailDataType, "_id" | "icon" | "score" | "stockCode" | "isMyStock" | "aiReport">;
@@ -19,11 +14,6 @@ export default function StockDetail({ stockDetail }: TStockDetail) {
   const [currency, setCurrency] = useState(false);
   const { priceUSD, price, symbolCode, stockName, compareToPreviousClosePrice, fluctuationsRatio, description } =
     stockDetail;
-
-  const fluctuationColor = getFluctuationsRatioColor(fluctuationsRatio);
-  const fluctuationSign = getFluctuationsRatioSign(fluctuationsRatio);
-  const compareToPreviousClosePriceValue = getAbsoluteCompareToPreviousClosePrice(compareToPreviousClosePrice);
-  const compareToPreviousClosePriceArrow = getCompareToPreviousClosePriceArrow(compareToPreviousClosePrice);
 
   const viewCurrency = currency ? `$${priceUSD}` : `₩${price}`;
   const viewStockName = currency ? symbolCode : stockName;
@@ -39,12 +29,9 @@ export default function StockDetail({ stockDetail }: TStockDetail) {
                 <span className="body_1 font-bold">∙</span>
                 <span className="body_2 font-normal">{viewStockName}</span>
               </div>
-              <div className={cn(`flex_row body_2 gap-[0.8rem] font-normal ${fluctuationColor}`)}>
-                <span>{compareToPreviousClosePriceArrow + compareToPreviousClosePriceValue}</span>
-                <span>
-                  {fluctuationSign}
-                  {fluctuationsRatio}%
-                </span>
+              <div className={cn(`flex_row body_2 gap-[0.8rem] font-normal ${getTextColor(fluctuationsRatio)}`)}>
+                <span>{formatValueWithIndicator(compareToPreviousClosePrice)}</span>
+                <span>{formatValueWithSign(fluctuationsRatio)}%</span>
               </div>
             </div>
             <Toggle checked={currency} setChecked={setCurrency} />
