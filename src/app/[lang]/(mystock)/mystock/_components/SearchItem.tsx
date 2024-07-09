@@ -7,7 +7,7 @@ import { StockDataType } from "@/types";
 import {
   getCompareToPreviousClosePriceColor,
   getCompareToPreviousClosePriceArrow,
-  getCompareToPreviousClosePriceSign,
+  getAbsoluteCompareToPreviousClosePrice,
   getFluctuationsRatioColor,
   getFluctuationsRatioSign,
 } from "@/utils/stockPriceUtils";
@@ -53,7 +53,7 @@ const SearchItem = ({ data }: TSearchItemProps) => {
           <span className="body_4 font-medium text-grayscale-900">{`${cashSymbol.get(data.nationType) || ""}${data.price}`}</span>
           <span className={`${getCompareToPreviousClosePriceColor(data.compareToPreviousClosePrice)}`}>
             {getCompareToPreviousClosePriceArrow(data.compareToPreviousClosePrice)}
-            {getCompareToPreviousClosePriceSign(data.compareToPreviousClosePrice)}
+            {getAbsoluteCompareToPreviousClosePrice(data.compareToPreviousClosePrice)}
           </span>
           <span className={`${getFluctuationsRatioColor(data.fluctuationsRatio)}`}>
             {getFluctuationsRatioSign(data.fluctuationsRatio) + data.fluctuationsRatio + "%"}

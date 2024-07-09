@@ -8,7 +8,7 @@ import {
   getCompareToPreviousClosePriceColor,
   getFluctuationsRatioColor,
   getCompareToPreviousClosePriceArrow,
-  getCompareToPreviousClosePriceSign,
+  getAbsoluteCompareToPreviousClosePrice,
   getFluctuationsRatioSign,
 } from "@/utils/stockPriceUtils";
 import graph from "@/public/icons/graph.png";
@@ -53,7 +53,7 @@ const MyStockItem = ({ data }: TMyStockItemProps) => {
           <span className="body_4 font-medium text-grayscale-900">{`${cashSymbol.get(data.nationType) || ""}${data.price}`}</span>
           <span className={`${getCompareToPreviousClosePriceColor(data.compareToPreviousClosePrice)}`}>
             {getCompareToPreviousClosePriceArrow(data.compareToPreviousClosePrice)}
-            {getCompareToPreviousClosePriceSign(data.compareToPreviousClosePrice)}
+            {getAbsoluteCompareToPreviousClosePrice(data.compareToPreviousClosePrice)}
           </span>
           <span className={`${getFluctuationsRatioColor(data.fluctuationsRatio)}`}>
             {getFluctuationsRatioSign(data.fluctuationsRatio) + data.fluctuationsRatio + "%"}

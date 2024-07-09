@@ -4,7 +4,7 @@ import {
   getCompareToPreviousClosePriceColor,
   getFluctuationsRatioColor,
   getCompareToPreviousClosePriceArrow,
-  getCompareToPreviousClosePriceSign,
+  getAbsoluteCompareToPreviousClosePrice,
   getFluctuationsRatioSign,
 } from "@/utils/stockPriceUtils";
 import Apple_icon from "@/public/icons/Apple_icon.svg";
@@ -87,7 +87,7 @@ const MyStockPopularSearches = () => {
             <div>
               <span className={`${getCompareToPreviousClosePriceColor(popular.compareToPreviousClosePrice)}`}>
                 {getCompareToPreviousClosePriceArrow(popular.compareToPreviousClosePrice)}
-                {getCompareToPreviousClosePriceSign(popular.compareToPreviousClosePrice)}
+                {getAbsoluteCompareToPreviousClosePrice(popular.compareToPreviousClosePrice)}
               </span>
               <span className={`${getFluctuationsRatioColor(popular.fluctuationsRatio)}`}>
                 {getFluctuationsRatioSign(popular.fluctuationsRatio) + popular.fluctuationsRatio + "%"}

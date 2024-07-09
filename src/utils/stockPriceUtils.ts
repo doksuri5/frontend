@@ -12,9 +12,9 @@ export const getCompareToPreviousClosePriceArrow = (data: number) => {
   else return "▲";
 };
 
-// 이전 종가 대비 가격 변화를 +, -가 아닌 화살표 기호를 사용하기 때문에 "-" 부호를 없애는 용도
-export const getCompareToPreviousClosePriceSign = (data: number) => {
-  return data < 0 ? data * -1 : data;
+// 이전 종가 대비 가격 변화를 부호 없이 숫자만 반환
+export const getAbsoluteCompareToPreviousClosePrice = (data: number) => {
+  return Math.abs(data);
 };
 
 // 변동률 색상을 반환 (+ : 빨간색, - : 파란색)

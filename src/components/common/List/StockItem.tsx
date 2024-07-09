@@ -4,7 +4,7 @@ import { cn } from "@/utils/cn";
 import {
   getCompareToPreviousClosePriceColor,
   getCompareToPreviousClosePriceArrow,
-  getCompareToPreviousClosePriceSign,
+  getAbsoluteCompareToPreviousClosePrice,
   getFluctuationsRatioColor,
   getFluctuationsRatioSign,
 } from "@/utils/stockPriceUtils";
@@ -54,7 +54,7 @@ export default function StockItem({
   const fluctuationPriceColor = getCompareToPreviousClosePriceColor(compareToPreviousClosePrice);
   const fluctuationRatioColor = getFluctuationsRatioColor(compareToPreviousClosePrice);
   const fluctuationArrow = getCompareToPreviousClosePriceArrow(compareToPreviousClosePrice);
-  const fluctuationPriceSign = getCompareToPreviousClosePriceSign(compareToPreviousClosePrice);
+  const fluctuationPriceSign = getAbsoluteCompareToPreviousClosePrice(compareToPreviousClosePrice);
   const fluctuationRatioSign = getFluctuationsRatioSign(fluctuationsRatio);
 
   const selectedVariantStyles = variantStyles[variant];
