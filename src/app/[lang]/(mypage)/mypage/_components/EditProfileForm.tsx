@@ -9,8 +9,7 @@ import Avatar from "@/public/icons/avatar_default.svg";
 import EditIcon from "@/public/icons/avatar_edit.svg";
 import { cn } from "@/utils/cn";
 import { stockList } from "../_constants/stock";
-import { mapInterestStocksToInitialValue } from "../_utils/profileUtils";
-
+import { getStockCodesFromOptions, mapInterestStocksToInitialValue } from "../_utils/profileUtils";
 export interface IOption {
   value: string;
   label: string;
@@ -33,7 +32,6 @@ const userDummy: FormData = {
 
 const imageUrl =
   "https://doksuri5-s3.s3.ap-northeast-2.amazonaws.com/profile/cde1277b-df87-4feb-b86f-e9a5415010cf.jpeg";
-
 const initialStockOption = mapInterestStocksToInitialValue(userDummy.interest_stocks, stockList);
 
 export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
@@ -41,18 +39,26 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
     register,
     watch,
     trigger,
+    setValue,
     setError,
     clearErrors,
     formState: { errors },
     handleSubmit,
-  } = useForm<FormData>();
+  } = useForm<FormData>({
+    mode: "onChange",
+    defaultValues: {
+      nickname: userDummy.nickname,
+      gender: userDummy.gender,
+    },
+  });
+  const nickname = watch("nickname");
+  const gender = watch("gender");
+
+  const [previewImg, setPreviewImg] = useState<string | null>(null);
   const [isNameAvailable, setIsNameAvailable] = useState(false);
   const [selectedStocks, setSelectedStocks] = useState<IOption[]>(initialStockOption);
-  const [gender, setGender] = useState<string>("");
-  const [previewImg, setPreviewImg] = useState<string | null>(null);
-  const [isGender, setIsGender] = useState<undefined | "M" | "F">(userDummy.gender);
 
-  const avatarChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       if (file.size > 1024 * 1024 * 1) {
@@ -68,11 +74,6 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
     setSelectedStocks(selectedOptions as IOption[]);
   };
 
-  const handleGenderChange = (value: "M" | "F") => {
-    setIsGender(value);
-    setGender(value);
-  };
-
   useEffect(() => {
     const subscription = watch((value, { name }) => {
       if (name === "nickname") {
@@ -82,12 +83,12 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
     return () => subscription.unsubscribe();
   }, [watch, trigger]);
 
+  // 닉네임 중복 체크 함수
   const handleDuplicateCheck = () => {
     if (isNameAvailable) {
       return;
     }
 
-    const nickname = watch().nickname;
     if (!nickname) {
       setError("nickname", { type: "manual", message: "닉네임을 입력해주세요." });
       return;
@@ -106,12 +107,30 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
     }
   };
 
+  // 폼 전송 함수
   const onSubmit = async (data: FormData) => {
     const formData = {
       ...data,
-      selectedStocks,
+      interest_stocks: getStockCodesFromOptions(selectedStocks),
       gender,
     };
+
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/user/updateUserProfile`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      const result = await response.json();
+      if (result.ok) {
+        alert("회원정보가 수정되었습니다.");
+        closeModal();
+      } else {
+        alert(result.message);
+      }
+    } catch (err) {
+      alert("프로필 업데이트 실패:" + err);
+    }
     console.log("프로필 수정 데이터:", formData);
     closeModal();
   };
@@ -122,6 +141,7 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={cn("flex flex-col gap-[1.6rem]")}>
       <div className="flex_col_center relative mx-[auto] mb-[2.4rem] h-[12rem] w-[12rem]">
+        {/* 프로필 이미지 */}
         <div className="flex h-[12rem] w-[12rem] overflow-hidden rounded-[50%]">
           <Image
             src={previewImg || (imageUrl ? imageUrl : Avatar)}
@@ -131,34 +151,40 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
             priority
             className="flex items-center justify-center object-cover"
           />
-          <input type="file" accept="image/*" id="file" name="file" className="hidden" onChange={avatarChangeHandler} />
+          <input type="file" accept="image/*" id="file" name="file" className="hidden" onChange={handleImageChange} />
         </div>
-
         <label htmlFor="file" className="absolute bottom-[0] right-0 h-[4rem] w-[4rem] cursor-pointer">
           <Image src={EditIcon} alt="Edit icon" width={40} height={40} />
         </label>
       </div>
-      <Input
-        id="nickname"
-        labelName="닉네임"
-        value={userDummy.nickname}
-        placeholder="닉네임을 입력해주세요."
-        {...register("nickname", { required: "닉네임을 입력해주세요." })}
-        suffix={
-          <Button
-            type="button"
-            variant="textButton"
-            size="sm"
-            bgColor={!errors.nickname && !isNameAvailable ? "bg-navy-900" : "bg-grayscale-200"}
-            className={cn(`w-[12rem] ${!errors.nickname && !isNameAvailable ? "text-white" : "text-gray-300"}`)}
-            disabled={isNameAvailable}
-            onClick={handleDuplicateCheck}
-          >
-            중복 확인
-          </Button>
-        }
-      />
-      {errors.nickname && <span>{String(errors.nickname.message)}</span>}
+
+      {/* 닉네임 */}
+      <div>
+        <Input
+          id="nickname"
+          labelName="닉네임"
+          variant={errors.nickname ? "error" : "default"}
+          value={nickname}
+          placeholder="닉네임을 입력해주세요."
+          {...register("nickname", { required: "닉네임을 입력해주세요." })}
+          suffix={
+            <Button
+              type="button"
+              variant="textButton"
+              size="sm"
+              bgColor={!errors.nickname && !isNameAvailable ? "bg-navy-900" : "bg-grayscale-200"}
+              className={cn(`w-[12rem] ${!errors.nickname && !isNameAvailable ? "text-white" : "text-gray-300"}`)}
+              disabled={isNameAvailable}
+              onClick={handleDuplicateCheck}
+            >
+              중복 확인
+            </Button>
+          }
+        />
+        {/* {errors.nickname && <span className="text-warning-100">{errors.nickname.message}</span>} */}
+      </div>
+
+      {/* 관심 종목 */}
       <div className="mt-[1.6rem]">
         <p className="body-4 text-navy-900">관심 종목</p>
         <Select
@@ -180,6 +206,8 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
           }}
         />
       </div>
+
+      {/* 성별 */}
       <div className="mt-[1.6rem]">
         <p className="body-4 text-navy-900">성별</p>
         <p className="flex_row gap-[.8rem]">
@@ -187,9 +215,8 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
             type="button"
             variant="textButton"
             size="md"
-            bgColor={isGender === "M" ? "bg-navy-900" : "bg-white"}
-            value="M"
-            onClick={() => handleGenderChange("M")}
+            bgColor={gender === "M" ? "bg-navy-900" : "bg-white"}
+            onClick={() => setValue("gender", "M")}
           >
             남성
           </Button>
@@ -197,14 +224,15 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
             type="button"
             variant="textButton"
             size="md"
-            bgColor={isGender === "F" ? "bg-navy-900" : "bg-white"}
-            value="F"
-            onClick={() => handleGenderChange("F")}
+            bgColor={gender === "F" ? "bg-navy-900" : "bg-white"}
+            onClick={() => setValue("gender", "F")}
           >
             여성
           </Button>
         </p>
       </div>
+
+      {/* 폼 전송 버튼 */}
       <Button
         type="submit"
         variant="textButton"
