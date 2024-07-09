@@ -3,7 +3,12 @@
 import { useState } from "react";
 import { Toggle } from "@/components/common";
 import { cn } from "@/utils/cn";
-import { getCompareToPreviousClosePriceArrow, getFluctuationsRatioColor } from "@/utils/stockPriceUtils";
+import {
+  getAbsoluteCompareToPreviousClosePrice,
+  getCompareToPreviousClosePriceArrow,
+  getFluctuationsRatioColor,
+  getFluctuationsRatioSign,
+} from "@/utils/stockPriceUtils";
 import { StockDetailDataType } from "@/types";
 
 type TStockDetail = {
@@ -16,8 +21,10 @@ export default function StockDetail({ stockDetail }: TStockDetail) {
     stockDetail;
 
   const fluctuationColor = getFluctuationsRatioColor(fluctuationsRatio);
-  const fluctuationArrow = getCompareToPreviousClosePriceArrow(fluctuationsRatio);
-  const fluctuationSign = fluctuationsRatio < 0 ? "-" : "+";
+  const fluctuationSign = getFluctuationsRatioSign(fluctuationsRatio);
+  const compareToPreviousClosePriceValue = getAbsoluteCompareToPreviousClosePrice(compareToPreviousClosePrice);
+  const compareToPreviousClosePriceArrow = getCompareToPreviousClosePriceArrow(compareToPreviousClosePrice);
+
   const viewCurrency = currency ? `$${priceUSD}` : `₩${price}`;
   const viewStockName = currency ? symbolCode : stockName;
 
@@ -33,7 +40,7 @@ export default function StockDetail({ stockDetail }: TStockDetail) {
                 <span className="body_2 font-normal">{viewStockName}</span>
               </div>
               <div className={cn(`flex_row body_2 gap-[0.8rem] font-normal ${fluctuationColor}`)}>
-                <span>{fluctuationArrow + compareToPreviousClosePrice}</span>
+                <span>{compareToPreviousClosePriceArrow + compareToPreviousClosePriceValue}</span>
                 <span>
                   {fluctuationSign}
                   {fluctuationsRatio}%
