@@ -16,7 +16,7 @@ type THeaderProps = {
 
 const Header = ({ isLoggedIn }: THeaderProps) => {
   const router = usePathname();
-  const [isLogin, setIsLogin] = useState(true); // 로그인 여부 로직 처리
+  const [isLogin, setIsLogin] = useState(isLoggedIn); // 로그인 여부 로직 처리
 
   const buttonList = [
     { text: "발견", url: DISCOVERY_PATH },
