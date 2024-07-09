@@ -26,16 +26,18 @@ import { REGISTER_COMPLETE_PATH } from "@/routes/path";
 import reduceImageSize from "@/utils/reduce-image-size";
 
 type TOption = {
-  [key: string]: string;
+  value: string;
+  label: string;
+  isFixed?: boolean;
 };
 
 const options = [
-  { value: "tsla", label: "# 테슬라 ∙ TSLA" },
-  { value: "apple", label: "# 애플 ∙ APPL" },
-  { value: "amzn", label: "# 아마존 ∙ AMZN" },
-  { value: "maft", label: "# MS ∙ MSFT" },
-  { value: "googl", label: "# 구글 ∙ GOOGL" },
-  { value: "u", label: "# 유니티 ∙ U" },
+  { value: "tsla", label: "# 테슬라 ∙ TSLA", isFixed: false },
+  { value: "appl", label: "# 애플 ∙ APPL", isFixed: false },
+  { value: "amzn", label: "# 아마존 ∙ AMZN", isFixed: false },
+  { value: "msft", label: "# MS ∙ MSFT", isFixed: false },
+  { value: "googl", label: "# 구글 ∙ GOOGL", isFixed: false },
+  { value: "u", label: "# 유니티 ∙ U", isFixed: false },
 ];
 
 export default function ProfileSetUpForm() {
