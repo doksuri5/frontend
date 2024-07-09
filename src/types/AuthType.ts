@@ -10,14 +10,13 @@ export const loginSchema = z.object({
 // 아이디 찾기
 export const findIdSchema = z.object({
   name: z.string().min(1),
-  phone: z.string().regex(/^\d{10,12}$/),
+  phone: z.string().regex(/^\d{10,12}$/, { message: "유효한 휴대폰 번호를 입력해주세요." }),
 });
 
 // 비밀번호 찾기
 export const findPasswordSchema = z.object({
   name: z.string().min(1),
-  id: z.string().min(1),
-  email: z.string().email({ message: "* 올바른 이메일 형식이 아닙니다." }),
+  email: z.string().email({ message: "올바른 이메일 형식이 아닙니다." }),
 });
 
 // 본인인증

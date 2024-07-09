@@ -1,5 +1,12 @@
 import mongoose from "mongoose";
 
+const getKoreanTime = () => {
+  const now = new Date();
+  const koreanOffset = 9 * 60 * 60 * 1000; // 한국 시간은 UTC+9
+  const koreanTime = new Date(now.getTime() + koreanOffset);
+  return koreanTime;
+};
+
 const userSchema = new mongoose.Schema({
   sns_id: { type: String, required: true }, // 소셜 로그인은 반환 값 저장, 로컬 로그인은 uuidv4로 저장
   name: { type: String, required: true }, // required: true일 경우 필수 입력 값
@@ -13,6 +20,7 @@ const userSchema = new mongoose.Schema({
   language: { type: String, default: "ko", enum: ["ko", "en", "ch", "jp", "fr"] }, // default: 기본 값 설정
   login_type: { type: String, required: true, default: "local" },
   is_delete: { type: Boolean, default: false },
+  created_at: { type: Date, default: () => getKoreanTime() }, // 생성한 날짜
 });
 
 export const User = mongoose.models?.User || mongoose.model("User", userSchema);

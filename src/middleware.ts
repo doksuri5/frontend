@@ -15,7 +15,7 @@ const matchersForNoAuth = [
   "/*account",
   "/*account/register",
   "/*account/profile-setup",
-  "/*find-id",
+  "/*find-email",
   "/*find-password",
   "/*register-complete",
   "/*withdraw",

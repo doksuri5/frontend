@@ -18,12 +18,39 @@ export default function FindPasswordForm() {
   const {
     control,
     handleSubmit,
+    watch,
+    setError,
+    trigger,
     formState: { errors, isValid },
   } = useZodSchemaForm<TFindPasswordSchema>(findPasswordSchema);
 
-  const onFindPasswordSubmit = (data: TFindPasswordSchema) => {
-    //console.log(data);
-    setIsOpen(true);
+  const onFindPasswordSubmit = async (data: TFindPasswordSchema) => {
+    const valid = await trigger(["email", "name"]);
+    const name = watch("name");
+    const email = watch("email");
+    if (valid) {
+      try {
+        const response = await (
+          await fetch(`http://localhost:8080/api/auth/findPassword`, {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify({
+              name,
+              email,
+            }),
+          })
+        ).json();
+        if (response.ok) {
+          setIsOpen(true);
+        } else {
+          setError("email", { type: "manual", message: response.message });
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    }
   };
 
   return (
@@ -35,13 +62,6 @@ export default function FindPasswordForm() {
           placeholder="이름을 입력해주세요."
           variant={errors.name ? "error" : "default"}
           {...control.register("name")}
-        />
-        <Input
-          id="id"
-          labelName="아이디"
-          placeholder="아이디를 입력해주세요."
-          variant={errors.id ? "error" : "default"}
-          {...control.register("id")}
         />
         <Input
           id="email"
