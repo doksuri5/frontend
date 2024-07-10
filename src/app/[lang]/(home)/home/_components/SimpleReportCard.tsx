@@ -30,11 +30,6 @@ const SimpleReportCard = ({ report }: { report: TReport }) => {
   const { companyName, stockCode, currentPrice, fluctuationPrice, fluctuationRatio } = report;
 
   const fluctuationColor = getTextColor(fluctuationRatio);
-  //const fluctuationArrow = fluctuationRatio < 0 ? "▼" : "▲";
-
-  const changeArrow = useCallback((ratio: number) => {
-    return ratio < 0 ? "▼" : "▲";
-  }, []);
 
   return (
     <section className="h-[28rem] flex-1 rounded-[1.6rem] bg-white p-[3.2rem]">
