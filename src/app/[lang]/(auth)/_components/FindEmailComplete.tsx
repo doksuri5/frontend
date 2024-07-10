@@ -29,33 +29,19 @@ export default function FindEmailComplete({ responseData }: TFindEmailCompletePr
         <div className="flex_col border-text-grayscale-300 gap-[1.6rem] rounded-[.8rem] border py-[2.8rem]">
           {loginTypeChk && (
             <p className="flex_row body_4 text-grayscale-900">
-              <span className="ml-[.8rem] inline-flex">
+              <span className="inline-flex">
                 <Image
                   src={`/icons/icon_${login_type}.svg`}
                   alt={"간편 로그인 로고"}
                   width={20}
-                  height={24}
+                  height={20}
                   className="mr-[.4rem]"
                 />
               </span>
-              소셜 로그인
+              SNS 로그인
             </p>
           )}
-          <p className="flex_row body_4 text-grayscale-900">
-            이메일 :
-            <span className="ml-[.8rem] inline-flex">
-              {/* {loginTypeChk && (
-                <Image
-                  src={`/icons/icon_${login_type}.svg`}
-                  alt={"간편 로그인 로고"}
-                  width={20}
-                  height={24}
-                  className="mr-[.4rem]"
-                />
-              )} */}
-              {email}
-            </span>
-          </p>
+          <p className="flex_row body_4 text-grayscale-900">이메일 : {email}</p>
           <p className="flex_row body_4 text-grayscale-900">
             가입일 : <span className="ml-[.8rem]">{dateFormat(created_at)}</span>
           </p>

@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import { Button, Input } from "@/components/common";
+
 import FindEmailComplete from "./FindEmailComplete";
 
 import useZodSchemaForm from "@/hooks/useZodSchemaForm";
@@ -29,8 +30,6 @@ export default function FindEmailForm() {
 
   const onFindEmailSubmit = async (data: TFindEmailSchema) => {
     const valid = await trigger(["phone", "name"]);
-    const name = watch("name");
-    const phone = watch("phone");
 
     if (valid) {
       try {
@@ -41,9 +40,10 @@ export default function FindEmailForm() {
               "content-type": "application/json",
             },
             body: JSON.stringify({
-              name,
-              phone,
+              name: data.name,
+              phone: data.phone,
             }),
+            cache: "no-store",
           })
         ).json();
 
