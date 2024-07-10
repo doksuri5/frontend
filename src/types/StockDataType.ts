@@ -9,7 +9,6 @@ export interface StockDataType {
   compareToPreviousClosePrice: number;
   fluctuationsRatio: number;
 }
-
 export interface StockDetailDataType extends StockDataType {
   stockCode: string;
   priceUSD: number;
@@ -17,4 +16,19 @@ export interface StockDetailDataType extends StockDataType {
   score: number;
   isMyStock: boolean;
   aiReport: string;
+}
+export interface StockAIReportDataType {
+  investmentIndex: number;
+  profitability: number;
+  growthPercentage: number;
+  interestPercentage: number;
+  metrics: {
+    companyName: string;
+    ROE: number;
+    PER: number;
+    forwardPER: number;
+    dividendYield: number;
+    currentPriceRatio: number;
+    currentPrice: number;
+  };
 }
