@@ -5,8 +5,35 @@ import Image from "next/image";
 import Profile from "@/public/icons/avatar_default.svg";
 import { ProfileEditModal, PWCheckModal, PrivacyEditModal, WithdrawModal } from "./_components/index";
 import useDisclosure from "@/hooks/use-disclosure";
+import { useEffect, useState } from "react";
+import { createProfileImgURL } from "./_utils/profileUtils";
+
+const email = "abcde@test.com";
+interface IUserData {
+  _id: string;
+  name: string;
+  email: string;
+  birth: string;
+  phone: string;
+  gender: "M" | "F" | null;
+  profile: string;
+  nickname: string;
+  login_type: string;
+}
 
 export default function MyPage() {
+  const [userData, setUserData] = useState<IUserData>({
+    _id: "",
+    name: "",
+    email: "",
+    birth: "",
+    phone: "",
+    gender: null,
+    profile: "",
+    nickname: "",
+    login_type: "",
+  });
+
   // 프로필 수정 모달
   const profileModal = useDisclosure();
   // 패스워드 확인 모달
@@ -30,6 +57,21 @@ export default function MyPage() {
     withdrawModal.open();
   };
 
+  useEffect(() => {
+    const getUserData = async () => {
+      try {
+        const response = await (await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/getUser/${email}`)).json();
+
+        if (response.ok) {
+          console.log(response.data);
+          setUserData(response.data);
+        }
+      } catch (err) {}
+    };
+
+    getUserData();
+  }, []);
+
   return (
     <main className="flex flex-col gap-[3.2rem]">
       {/* 프로필 수정 */}
@@ -45,8 +87,13 @@ export default function MyPage() {
       <section className="flex flex-row gap-[12.2rem]">
         <h3 className="body_4 font-medium text-black">프로필</h3>
         <div className="flex flex-row items-center gap-[1.6rem]">
-          <Image alt="profile" src={Profile} width={50} height={50} />
-          <div className="body_4 font-medium text-black">김스팩</div>
+          <Image
+            alt="profile"
+            src={userData.profile ? createProfileImgURL(userData.profile) : Profile}
+            width={50}
+            height={50}
+          />
+          <div className="body_4 font-medium text-black">{userData.nickname}</div>
         </div>
       </section>
       <ProfileEditModal isOpen={profileModal.isOpen} onClose={profileModal.close} />
@@ -63,15 +110,15 @@ export default function MyPage() {
       </section>
       <div className="flex flex-row items-center">
         <div className="body_3 w-[14.4rem] font-medium text-grayscale-900">아이디</div>
-        <div className="body_4 font-medium text-grayscale-600">sfacspaceid</div>
+        <div className="body_4 font-medium text-grayscale-600">{userData._id}</div>
       </div>
       <div className="flex flex-row items-center">
         <div className="body_3 w-[14.4rem] font-medium text-grayscale-900">이름</div>
-        <div className="body_4 font-medium text-grayscale-600">김스팩</div>
+        <div className="body_4 font-medium text-grayscale-600">{userData.name}</div>
       </div>
       <div className="flex flex-row items-center">
         <div className="body_3 w-[14.4rem] font-medium text-grayscale-900">생년월일</div>
-        <div className="body_4 font-medium text-grayscale-600">991231</div>
+        <div className="body_4 font-medium text-grayscale-600">{userData.birth}</div>
       </div>
       <PWCheckModal isOpen={pwCheckModal.isOpen} onClose={handlePWCheckModalClose} onEdit={handleOpenPrivacyModal} />
       <PrivacyEditModal
