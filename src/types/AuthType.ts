@@ -96,8 +96,7 @@ export const profileSchema = z.object({
         label: z.string(),
       }),
     )
-    .min(1, "관심 종목을 최소 하나 선택해야 합니다.")
-    .optional(),
+    .min(1, "관심 종목을 최소 하나 선택해야 합니다."),
 });
 
 export type TLoginSchema = z.infer<typeof loginSchema>;

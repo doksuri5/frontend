@@ -4,10 +4,9 @@ import { signIn } from "@/auth";
 
 import { TLoginSchema } from "@/types/AuthType";
 
-import { MAIN_PATH } from "@/routes/path";
+import { HOME_PATH } from "@/routes/path";
 
 import { AuthError } from "next-auth";
-import { revalidatePath } from "next/cache";
 
 export async function loginAction(data: TLoginSchema) {
   try {
@@ -15,7 +14,7 @@ export async function loginAction(data: TLoginSchema) {
       email: data.email,
       password: data.password,
       autoLogin: data.authLogin,
-      redirectTo: MAIN_PATH,
+      redirectTo: HOME_PATH,
     });
   } catch (error) {
     if (error instanceof AuthError) {

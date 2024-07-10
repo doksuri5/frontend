@@ -60,8 +60,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       clientId: process.env.NAVER_CLIENT_ID,
       clientSecret: process.env.NAVER_CLIENT_SECRET,
       async profile(profile) {
-        console.log("--------------------- 네이버 profile 영역 --------------------- ");
-        console.log("profile:", profile);
         return {
           id: profile.response.id,
           name: profile.response.name,
@@ -106,7 +104,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   secret: process.env.AUTH_SECRET,
   session: {
     // strategy: "jwt", // JWT 세션 전략 사용
-    //maxAge: 24 * 60 * 60, // 기본 세션 만료 시간 1일
+    // maxAge: 24 * 60 * 60, // 기본 세션 만료 시간 1일
     // updateAge: 24 * 60 * 60, // 매일 세션 갱신
   },
   callbacks: {

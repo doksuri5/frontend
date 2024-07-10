@@ -8,7 +8,7 @@ import CommonLayout from "../../_components/CommonLayout";
 import ProfileSetUpForm from "../../_components/ProfileSetUpForm";
 import Loading from "../../_components/Loading";
 
-import { MAIN_PATH } from "@/routes/path";
+import { HOME_PATH, PROFILE_SETUP_PATH } from "@/routes/path";
 
 export default function ProfileSetup() {
   const { data: session, status } = useSession();
@@ -16,11 +16,13 @@ export default function ProfileSetup() {
   const router = useRouter();
 
   useEffect(() => {
-    if (status === "loading") return;
+    //if (status === "loading") return;
 
     if (session) {
       if (session.user.role === "user") {
-        router.push(MAIN_PATH);
+        router.push(HOME_PATH);
+      } else {
+        router.push(PROFILE_SETUP_PATH);
       }
     }
   }, [session, status, router]);
