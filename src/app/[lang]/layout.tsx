@@ -25,11 +25,13 @@ export default function RootLayout({
   return (
     <html lang={params.lang} className={pretendard.className}>
       <body className="bg-background-100">
-        <Header isLoggedIn={isLoggedIn} />
-        <main className="relative m-auto max-w-[120rem] pt-[8rem]">
-          <QueryProvider>{children}</QueryProvider>
-        </main>
-        <ChatBot />
+        <AuthSession>
+          <Header isLoggedIn={isLoggedIn} />
+          <main className="relative m-auto max-w-[120rem] pt-[8rem]">
+            <QueryProvider>{children}</QueryProvider>
+          </main>
+          <ChatBot />
+        </AuthSession>
       </body>
     </html>
   );
