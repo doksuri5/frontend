@@ -19,13 +19,6 @@ export const findPasswordSchema = z.object({
   email: z.string().email({ message: "올바른 이메일 형식이 아닙니다." }),
 });
 
-// 본인인증
-export const verifyUserSchema = z.object({
-  name: z.string().min(1),
-  email: z.string().email({ message: "올바른 이메일 형식이 아닙니다." }),
-  emailCertification: z.string().regex(/^\d{6}$/, { message: "인증코드 6자리 입력해주세요." }),
-});
-
 // 생일
 const birthDateSchema = z
   .string()
@@ -50,25 +43,6 @@ const birthDateSchema = z
   );
 
 //회원가입
-// export const registerSchema = z
-//   .object({
-//     name: z.string().min(1),
-//     email: z.string().email({ message: "올바른 이메일 형식이 아닙니다." }),
-//     emailCertification: z.string().regex(/^\d{6}$/, { message: "인증코드 6자리 입력해주세요." }),
-//     password: z.string().regex(/^(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+\[\]{};':",.<>\/?\-]).{8,20}$/, {
-//       message: "8-20자 이내 숫자, 특수문자, 영문자 중 2가지 이상을 조합",
-//     }),
-//     passwordChk: z.string().regex(/^(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+\[\]{};':",.<>\/?\-]).{8,20}$/, {
-//       message: "8-20자 이내 숫자, 특수문자, 영문자 중 2가지 이상을 조합",
-//     }),
-//     phone: z.string().regex(/^\d{10,12}$/),
-//     birth: birthDateSchema,
-//   })
-//   .refine((data) => data.password === data.passwordChk, {
-//     message: "동일한 비밀번호가 아닙니다. 다시 확인 후 입력해주세요.",
-//     path: ["passwordChk"],
-//   });
-
 const baseRegisterSchema = z.object({
   phone: z.string().regex(/^\d{10,12}$/, { message: "유효한 휴대폰 번호를 입력해주세요." }),
   birth: birthDateSchema,
@@ -129,7 +103,6 @@ export const profileSchema = z.object({
 export type TLoginSchema = z.infer<typeof loginSchema>;
 export type TFindEmailSchema = z.infer<typeof findIdSchema>;
 export type TFindPasswordSchema = z.infer<typeof findPasswordSchema>;
-export type TVerifyUserSchema = z.infer<typeof verifyUserSchema>;
 
 export type TBaseRegisterSchema = z.infer<typeof baseRegisterSchema>;
 export type TGoogleRegisterSchema = z.infer<typeof googleRegisterSchema>;
