@@ -43,7 +43,7 @@ const options = [
 export default function ProfileSetUpForm() {
   const form = useRegisterStore((state) => state.form);
   const [isGender, setIsGender] = useState<null | "M" | "F">(null);
-  const [avatar, setAvatar] = useState("/icons/avatar_default.svg");
+  const [avatar, setAvatar] = useState("");
   const [isNicknameChk, setIsNicknameChk] = useState(false);
   const [nicknameValidated, setNicknameValidated] = useState(false);
 
@@ -104,6 +104,7 @@ export default function ProfileSetUpForm() {
     };
   };
 
+  // 닉네임 중복 확인 버튼 클릭시 실행되는 이벤트
   const nicknameChkHandler = async () => {
     const valid = await triggerProfile("nickname");
     const nickname = watchProfile("nickname");
@@ -119,6 +120,7 @@ export default function ProfileSetUpForm() {
             body: JSON.stringify({
               nickname,
             }),
+            cache: "no-store",
           })
         ).json();
 
@@ -134,11 +136,9 @@ export default function ProfileSetUpForm() {
     }
   };
 
-  const handleSubmit = async (data: TProfileSchema) => {
-    console.log("registerFormData", registerFormData());
-
-    const jpeg = await reduceImageSize(avatar);
-    const file = new File([jpeg], new Date().toString(), { type: "image/jpeg" });
+  // 가입하기 버튼 클릭시 실행되는 이벤트
+  const onProfileSetUpSubmit = async (data: TProfileSchema) => {
+    //console.log("registerFormData", registerFormData());
 
     const formData = new FormData();
 
@@ -146,7 +146,9 @@ export default function ProfileSetUpForm() {
       formData.append("gender", isGender);
     }
 
-    if (file) {
+    if (avatar) {
+      const jpeg = await reduceImageSize(avatar);
+      const file = new File([jpeg], new Date().toString(), { type: "image/jpeg" });
       formData.append("profile", file);
     }
 
@@ -165,19 +167,21 @@ export default function ProfileSetUpForm() {
 
     const PATH = session?.user.role ? "registerSocial" : "register";
 
-    try {
-      const response = await (
-        await fetch(`http://localhost:8080/api/auth/${PATH}`, {
-          method: "POST",
-          body: formData,
-        })
-      ).json();
-      console.log(response);
-      if (response.ok) {
-        router.push(REGISTER_COMPLETE_PATH);
+    if (isProfileValid && isNicknameChk) {
+      try {
+        const response = await (
+          await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/${PATH}`, {
+            method: "POST",
+            body: formData,
+            cache: "no-store",
+          })
+        ).json();
+        if (response.ok) {
+          router.push(REGISTER_COMPLETE_PATH);
+        }
+      } catch (e) {
+        console.log(e);
       }
-    } catch (e) {
-      console.log(e);
     }
   };
 
@@ -187,7 +191,7 @@ export default function ProfileSetUpForm() {
   }, [isFormFilled]);
 
   return (
-    <form onSubmit={handleProfileSubmit(handleSubmit)}>
+    <form onSubmit={handleProfileSubmit(onProfileSetUpSubmit)}>
       {/* 프로필 이미지 */}
       <div className="flex_col_center relative mx-[auto] mb-[2.4rem] h-[12rem] w-[12rem]">
         <figure className="relative h-full w-full overflow-hidden rounded-[50%]">

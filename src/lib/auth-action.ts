@@ -1,12 +1,13 @@
 "use server";
 
-import { auth, signIn } from "@/auth";
+import { signIn } from "@/auth";
 
 import { TLoginSchema } from "@/types/AuthType";
 
 import { MAIN_PATH } from "@/routes/path";
 
 import { AuthError } from "next-auth";
+import { revalidatePath } from "next/cache";
 
 export async function loginAction(data: TLoginSchema) {
   try {

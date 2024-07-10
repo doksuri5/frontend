@@ -58,7 +58,7 @@ export default function RegisterForm() {
     if (valid) {
       try {
         const response = await (
-          await fetch(`http://localhost:8080/api/auth/sendEmail`, {
+          await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/sendEmail`, {
             method: "POST",
             headers: {
               "content-type": "application/json",
@@ -66,6 +66,7 @@ export default function RegisterForm() {
             body: JSON.stringify({
               email: emailValue,
             }),
+            cache: "no-store",
           })
         ).json();
         console.log(response);
@@ -92,7 +93,7 @@ export default function RegisterForm() {
     if (valid) {
       try {
         const response = await (
-          await fetch(`http://localhost:8080/api/auth/verifyCode`, {
+          await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/verifyCode`, {
             method: "POST",
             headers: {
               "content-type": "application/json",
@@ -101,6 +102,7 @@ export default function RegisterForm() {
               email: emailValue,
               code: emailCertificationValue,
             }),
+            cache: "no-store",
           })
         ).json();
         console.log(response);
@@ -117,7 +119,8 @@ export default function RegisterForm() {
     }
   };
 
-  const onSubmit = (data: TRegisterSchemaType) => {
+  // 다음 버튼 클릭시 실행되는 이벤트
+  const onRegisterFormSubmit = (data: TRegisterSchemaType) => {
     if (isRegisterValid && emailCodeChkComplete) {
       const form = {
         name: data.name ?? "",
@@ -146,7 +149,7 @@ export default function RegisterForm() {
 
   return (
     <>
-      <form onSubmit={handleRegisterSubmit(onSubmit)} className={cn("flex flex-col gap-[1.6rem]")}>
+      <form onSubmit={handleRegisterSubmit(onRegisterFormSubmit)} className={cn("flex flex-col gap-[1.6rem]")}>
         {/* 이름 */}
         <Input
           id="name"
