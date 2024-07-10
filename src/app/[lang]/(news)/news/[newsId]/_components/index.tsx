@@ -15,10 +15,10 @@ const DUMMY_NEWS_DETAIL = {
   aiSummary: `바이오 연구의 첨단,인공 유전자로 인간 피부 재생 가능성 바이오 연구의 첨단,인공 유전자로 인간 피부 재생 가능성바이오 연구의 첨단,인공 유전자로 인간 피부 재생 가능성바이오 연구의 첨단,인공 유전자로 인간 피부 재생 가능성바이오 연구의 첨단,인공 유전자로 인간 피부 재생 가능성바이오 연구의 첨단,인공 유전자로 인간 피부 재생 가능성바이오 연구의 첨단,인공 유전자로 인간 피부 재생 가능성바이오 연구의 첨단,인공 유전자로 인간 피부 재생 가능성바이오 연구의 첨단,인공 유전자로 인간 피부 재생 가능성`,
 };
 
-const PopularNewsComponent = lazy(
+const NewsDetailComponent = lazy(
   () =>
     new Promise<{ default: React.ComponentType<any> }>((resolve) =>
-      setTimeout(() => resolve(import("./NewsDetail")), 2000),
+      setTimeout(() => resolve(import("./NewsDetail")), 3000),
     ),
 );
 
@@ -26,7 +26,7 @@ export default function NewsDetailPage() {
   return (
     <div className="flex gap-[2rem] py-[4.1rem]">
       <Suspense fallback={<NewsDetailSkeleton />}>
-        <NewsDetail newsData={DUMMY_NEWS_DETAIL} />
+        <NewsDetailComponent newsData={DUMMY_NEWS_DETAIL} />
       </Suspense>
       <div className="flex flex-col gap-[2rem] rounded-[1.6rem]">
         <RelatedStocks />
