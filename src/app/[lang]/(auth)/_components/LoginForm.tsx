@@ -1,6 +1,6 @@
 "use client";
 
-import { startTransition, useState, useTransition } from "react";
+import { useState } from "react";
 import { Controller } from "react-hook-form";
 import Link from "next/link";
 
@@ -13,6 +13,7 @@ import { TLoginSchema, loginSchema } from "@/types/AuthType";
 import { cn } from "@/utils/cn";
 
 import { loginAction } from "@/lib/auth-action";
+
 import { FIND_EMAIL_PATH, FIND_PASSWORD_PATH } from "@/routes/path";
 
 const cssConfig = {
@@ -32,7 +33,6 @@ export default function LoginForm() {
 
   const onLoginSubmit = (values: TLoginSchema) => {
     if (isValid) {
-      // TODO : 로그인 로직
       loginAction(values).then((data) => {
         setError(data?.error);
       });
