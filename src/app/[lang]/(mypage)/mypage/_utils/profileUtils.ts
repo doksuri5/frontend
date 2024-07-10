@@ -16,3 +16,10 @@ export const mapInterestStocksToInitialValue = (interestStocks: string[], stockL
 export const getStockCodesFromOptions = (stockList: IOption[]): string[] => {
   return stockList.map((stock) => stock.value);
 };
+
+// 프로필 URL에 랜덤한 숫자를 추가하여 캐시를 우회하도록 하는 함수
+export const createProfileImgURL = (url: string): string => {
+  const randomValue = Math.floor(Math.random() * 1e8).toString();
+  const imageUrl = `https://doksuri5-s3.s3.ap-northeast-2.amazonaws.com/${url}` + "?" + randomValue;
+  return imageUrl;
+};

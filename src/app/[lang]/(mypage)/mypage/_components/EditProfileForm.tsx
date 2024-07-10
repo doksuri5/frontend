@@ -161,9 +161,9 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
     }
 
     console.log("프로필 수정 데이터:", formData.keys);
-    for (let key of formData.keys()) {
-      console.log(key, ":", formData.get(key));
-    }
+    // for (let key of formData.keys()) {
+    //   console.log(key, ":", formData.get(key));
+    // }
     closeModal();
   };
 
