@@ -31,6 +31,8 @@ export default function RegisterForm() {
   const [timeCount, setTimeCount] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
 
+  const [passwordError, setPasswordError] = useState("");
+
   const [isOpen, setIsOpen] = useState(false);
   const closeModal = () => setIsOpen(false);
 
@@ -47,6 +49,9 @@ export default function RegisterForm() {
     watch: watchRegister,
     setError,
   } = useZodSchemaForm<TRegisterSchemaType>(validationSchema);
+
+  const password = watchRegister("password");
+  const passwordChk = watchRegister("passwordChk");
 
   // 이메일 인증 버튼 클릭시 실행되는 이벤트
   const emailVerificationHandler = async () => {
@@ -105,8 +110,8 @@ export default function RegisterForm() {
             cache: "no-store",
           })
         ).json();
-        console.log(response);
-        setEmailCodeChkComplete(response.ok); // 이매일 인증 코드 확인 결과
+        //console.log(response);
+        setEmailCodeChkComplete(response.ok); // 이메일 인증 코드 확인 결과
         if (response.ok) {
           setIsRunning(false); // 타이머 멈춤
           setIsEmailShow(false); // 이메일 인증 버튼 숨김
@@ -146,6 +151,14 @@ export default function RegisterForm() {
       setIsEmailShow(true);
     }
   }, [socialGoogle]);
+
+  useEffect(() => {
+    if (password && passwordChk && password !== passwordChk) {
+      setPasswordError("동일한 비밀번호가 아닙니다. 다시 확인 후 입력해주세요.");
+    } else {
+      setPasswordError("");
+    }
+  }, [password, passwordChk]);
 
   return (
     <>
@@ -249,8 +262,8 @@ export default function RegisterForm() {
               labelName="비밀번호 확인"
               placeholder="비밀번호를 다시 한번 입력해주세요."
               {...registerControl.register("passwordChk")}
-              variant={registerErrors.passwordChk ? "error" : "default"}
-              caption={registerErrors.passwordChk?.message}
+              variant={registerErrors.passwordChk || passwordError ? "error" : "default"}
+              caption={registerErrors.passwordChk?.message || passwordError}
             />
           </>
         )}
@@ -275,9 +288,9 @@ export default function RegisterForm() {
         <Button
           type="submit"
           size="lg"
-          bgColor={isRegisterValid ? "bg-navy-900" : "bg-grayscale-200"}
-          className={cn(`mt-[4rem] ${isRegisterValid ? "text-white" : "text-gray-300"}`)}
-          disabled={!isRegisterValid && !socialGoogle}
+          bgColor={isRegisterValid && emailCodeChkComplete ? "bg-navy-900" : "bg-grayscale-200"}
+          className={cn(`mt-[4rem] ${isRegisterValid && emailCodeChkComplete ? "text-white" : "text-gray-300"}`)}
+          disabled={!isRegisterValid && !socialGoogle && !emailCodeChkComplete}
         >
           다음
         </Button>
