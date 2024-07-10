@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Select, { MultiValue, components } from "react-select";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
@@ -10,6 +10,8 @@ import EditIcon from "@/public/icons/avatar_edit.svg";
 import { cn } from "@/utils/cn";
 import { stockList } from "../_constants/stock";
 import { getStockCodesFromOptions, mapInterestStocksToInitialValue } from "../_utils/profileUtils";
+import reduceImageSize from "@/utils/imageUtils";
+
 export interface IOption {
   value: string;
   label: string;
@@ -26,12 +28,10 @@ interface FormData {
 
 const userDummy: FormData = {
   nickname: "김스팩",
-  interest_stocks: ["appl", "maft"],
+  interest_stocks: ["appl", "msft"],
   gender: "M",
 };
 
-const imageUrl =
-  "https://doksuri5-s3.s3.ap-northeast-2.amazonaws.com/profile/cde1277b-df87-4feb-b86f-e9a5415010cf.jpeg";
 const initialStockOption = mapInterestStocksToInitialValue(userDummy.interest_stocks, stockList);
 
 export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
@@ -51,22 +51,39 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
       gender: userDummy.gender,
     },
   });
+
+  const timestamp = useRef(new Date().getTime()).current;
+  const imageUrlDummy =
+    "https://doksuri5-s3.s3.ap-northeast-2.amazonaws.com/profile/51845d71-25ff-4494-936c-d2b2a0111ed0.jpeg" +
+    "?" +
+    timestamp;
+
   const nickname = watch("nickname");
   const gender = watch("gender");
 
   const [previewImg, setPreviewImg] = useState<string | null>(null);
+  const [imageUrl, setImageUrl] = useState(imageUrlDummy);
+  const [isImgChange, setIsImgChange] = useState(false);
+
   const [isNameAvailable, setIsNameAvailable] = useState(false);
   const [selectedStocks, setSelectedStocks] = useState<IOption[]>(initialStockOption);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // input 이미지 파일 초기화
+    if (imageUrl) {
+      URL.revokeObjectURL(imageUrl);
+    }
+
     const file = e.target.files?.[0];
-    if (file) {
-      if (file.size > 1024 * 1024 * 1) {
-        alert("최대 1MB까지 업로드 가능합니다.");
-        e.target.value = "";
-      } else {
-        setPreviewImg(URL.createObjectURL(file));
-      }
+    if (!file) return;
+
+    if (file.size > 1024 * 1024 * 1) {
+      alert("최대 1MB까지 업로드 가능합니다.");
+      e.target.value = "";
+    } else {
+      setPreviewImg(URL.createObjectURL(file));
+      setImageUrl(URL.createObjectURL(file));
+      setIsImgChange(true);
     }
   };
 
@@ -109,29 +126,44 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
 
   // 폼 전송 함수
   const onSubmit = async (data: FormData) => {
-    const formData = {
-      ...data,
-      interest_stocks: getStockCodesFromOptions(selectedStocks),
-      gender,
-    };
+    const formData = new FormData();
+
+    // 이미지 폼
+    if (isImgChange && imageUrl) {
+      try {
+        const jpeg = await reduceImageSize(imageUrl);
+        const file = new File([jpeg], new Date().toString(), { type: "image/jpeg" });
+        formData.append("profile", file);
+      } catch (err) {
+        alert("이미지 처리 실패");
+        return;
+      }
+    }
+
+    // 기타 프로필 데이터 폼
+    formData.append("nickname", data.nickname);
+    formData.append("interest_stocks", JSON.stringify(getStockCodesFromOptions(selectedStocks)));
+    formData.append("gender", data.gender);
 
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/user/updateUserProfile`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: formData,
       });
       const result = await response.json();
-      if (result.ok) {
+      if (response.ok) {
         alert("회원정보가 수정되었습니다.");
-        closeModal();
       } else {
-        alert(result.message);
+        alert("프로필 업데이트 실패: " + result.message);
       }
     } catch (err) {
-      alert("프로필 업데이트 실패:" + err);
+      alert("프로필 업데이트 실패: " + err);
     }
-    console.log("프로필 수정 데이터:", formData);
+
+    console.log("프로필 수정 데이터:", formData.keys);
+    for (let key of formData.keys()) {
+      console.log(key, ":", formData.get(key));
+    }
     closeModal();
   };
 
