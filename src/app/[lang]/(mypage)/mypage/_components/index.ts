@@ -3,7 +3,7 @@ import EditPrivacyForm from "@/app/[lang]/(mypage)/mypage/_components/EditPrivac
 import { PolicyContent } from "@/app/[lang]/(mypage)/mypage/_components/PolicyContent";
 import PrivacyEditModal from "@/app/[lang]/(mypage)/mypage/_components/PrivacyEditModal";
 import ProfileEditModal from "@/app/[lang]/(mypage)/mypage/_components/ProfileEditModal";
-import PWCheckModal from "@/app/[lang]/(mypage)/mypage/_components/PWCheckModal";
+import VerifyModal from "@/app/[lang]/(mypage)/mypage/_components/VerifyModal";
 import WithdrawModal from "@/app/[lang]/(mypage)/mypage/_components/WithdrawModal";
 
 export {
@@ -12,6 +12,6 @@ export {
   PolicyContent,
   PrivacyEditModal,
   ProfileEditModal,
-  PWCheckModal,
+  VerifyModal,
   WithdrawModal,
 };
