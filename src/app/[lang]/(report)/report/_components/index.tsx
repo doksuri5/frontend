@@ -8,6 +8,13 @@ import AIAnalystReport from "./AIAnalystReport";
 import StockAIReport from "./StockAIReport";
 import PopularNews from "@/components/common/PopularNews";
 import { DUMMY_POPULAR_NEWS_ITEMS } from "@/app/[lang]/(news)/news/_components";
+import ReportHeaderSkeleton from "./skeleton/ReportHeaderSkeleton";
+import StockDetailSkeleton from "./skeleton/StockDetailSkeleton";
+import StockChartSectionSkeleton from "./skeleton/StockChartSectionSkeleton";
+import StockAIReportSkeleton from "./skeleton/StockAIReportSkeleton";
+import AIAnalystReportSkeleton from "./skeleton/AIAnalystReportSkeleton";
+import { lazy, Suspense, useEffect, useState } from "react";
+import PopularNewsSkeleton from "@/components/common/PopularNewsSkeleton";
 
 const DUMMY_STCOK = {
   icon: AppleIcon,
@@ -41,63 +48,84 @@ const DUMMY_CHART = [
   { period: "2024/06/4week", price: 3490 },
 ];
 
+const PopularNewsComponent = lazy(
+  () =>
+    new Promise<{ default: React.ComponentType<any> }>((resolve) =>
+      setTimeout(() => resolve(import("@/components/common/PopularNews")), 2000),
+    ),
+);
+
 export default function Report() {
-  const {
-    icon,
-    stockCode,
-    stockName,
-    symbolCode,
-    priceUSD,
-    price,
-    compareToPreviousClosePrice,
-    fluctuationsRatio,
-    description,
-    aiReport,
-    score,
-    isMyStock,
-    nationType,
-  } = DUMMY_STCOK;
+  const [reportData, setReportData] = useState<any>();
+  const [chartData, setChartData] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setReportData(DUMMY_STCOK);
+      setChartData(DUMMY_CHART);
+      setLoading(false);
+    }, 2000);
+  }, []);
 
   return (
     <div className="flex flex-col gap-[2.4rem] pb-[12rem] pt-[4.7rem]">
-      <ReportHeader
-        data={{
-          icon,
-          stockName,
-          symbolCode,
-          isMyStock,
-        }}
-      />
-      <div className="flex gap-[2.1rem]">
-        <StockDetail
-          stockDetail={{
-            priceUSD,
-            price,
-            symbolCode,
-            stockName,
-            compareToPreviousClosePrice,
-            fluctuationsRatio,
-            description,
-            nationType,
+      {loading ? (
+        <ReportHeaderSkeleton />
+      ) : (
+        <ReportHeader
+          data={{
+            icon: reportData.icon,
+            stockName: reportData.stockName,
+            symbolCode: reportData.symbolCode,
+            isMyStock: reportData.isMyStock,
           }}
         />
-        <StockChartSection chartData={DUMMY_CHART} />
+      )}
+      <div className="flex gap-[2.1rem]">
+        {loading ? (
+          <StockDetailSkeleton />
+        ) : (
+          <StockDetail
+            stockDetail={{
+              priceUSD: reportData.priceUSD,
+              price: reportData.price,
+              symbolCode: reportData.symbolCode,
+              stockName: reportData.stockName,
+              compareToPreviousClosePrice: reportData.compareToPreviousClosePrice,
+              fluctuationsRatio: reportData.fluctuationsRatio,
+              description: reportData.description,
+              nationType: reportData.nationType,
+            }}
+          />
+        )}
+        {loading ? <StockChartSectionSkeleton /> : <StockChartSection chartData={chartData} />}
       </div>
       <div className="flex flex-row gap-[2.1rem]">
-        <StockAIReport data={{ fluctuationsRatio, score }} />
-        <AIAnalystReport
-          data={{
-            icon,
-            stockName,
-            symbolCode,
-            priceUSD,
-            aiReport,
-            fluctuationsRatio,
-            compareToPreviousClosePrice,
-          }}
-        />
+        {loading ? (
+          <StockAIReportSkeleton />
+        ) : (
+          <StockAIReport data={{ fluctuationsRatio: reportData.fluctuationsRatio, score: reportData.score }} />
+        )}
+        {loading ? (
+          <AIAnalystReportSkeleton />
+        ) : (
+          <AIAnalystReport
+            data={{
+              icon: reportData.icon,
+              stockName: reportData.stockName,
+              stockCode: reportData.stockCode,
+              priceUSD: reportData.priceUSD,
+              aiReport: reportData.aiReport,
+              fluctuationsRatio: reportData.fluctuationsRatio,
+              compareToPreviousClosePrice: reportData.compareToPreviousClosePrice,
+            }}
+          />
+        )}
       </div>
-      <PopularNews popularNewsData={DUMMY_POPULAR_NEWS_ITEMS} />
+      <Suspense fallback={<PopularNewsSkeleton />}>
+        <PopularNewsComponent popularNewsData={DUMMY_POPULAR_NEWS_ITEMS} />
+      </Suspense>
     </div>
   );
 }
