@@ -2,8 +2,8 @@ import NewsImage from "@/public/icons/news.jpg";
 import NewsDetail from "./NewsDetail";
 import RelatedStocks from "./RelatedStocks";
 import RelatedNews from "./RelatedNews";
-import { lazy, Suspense } from "react";
-import NewsDetailSkeleton from "./skeleton/NewsDetailSkeleton";
+import { Fragment } from "react";
+import { nanoid } from "nanoid";
 
 const DUMMY_NEWS_DETAIL = {
   image: NewsImage,
@@ -15,23 +15,58 @@ const DUMMY_NEWS_DETAIL = {
   aiSummary: `바이오 연구의 첨단,인공 유전자로 인간 피부 재생 가능성 바이오 연구의 첨단,인공 유전자로 인간 피부 재생 가능성바이오 연구의 첨단,인공 유전자로 인간 피부 재생 가능성바이오 연구의 첨단,인공 유전자로 인간 피부 재생 가능성바이오 연구의 첨단,인공 유전자로 인간 피부 재생 가능성바이오 연구의 첨단,인공 유전자로 인간 피부 재생 가능성바이오 연구의 첨단,인공 유전자로 인간 피부 재생 가능성바이오 연구의 첨단,인공 유전자로 인간 피부 재생 가능성바이오 연구의 첨단,인공 유전자로 인간 피부 재생 가능성`,
 };
 
-const NewsDetailComponent = lazy(
-  () =>
-    new Promise<{ default: React.ComponentType<any> }>((resolve) =>
-      setTimeout(() => resolve(import("./NewsDetail")), 3000),
-    ),
-);
+const DUMMY_STOCK = [
+  {
+    _id: nanoid(),
+    icon: "/icons/Apple_icon.svg",
+    stockName: "애플",
+    symbolCode: "AAPL",
+    price: 150.25,
+    compareToPreviousClosePrice: -1.75,
+    fluctuationsRatio: -1.15,
+    nationType: "USA",
+    reutersCode: "AAPL.O",
+  },
+  {
+    _id: nanoid(),
+    icon: "/icons/Apple_icon.svg",
+    stockName: "애플",
+    symbolCode: "AAPL",
+    price: 148.0,
+    compareToPreviousClosePrice: 2.5,
+    fluctuationsRatio: 1.72,
+    nationType: "USA",
+    reutersCode: "AAPL.O",
+  },
+  {
+    _id: nanoid(),
+    icon: "/icons/Apple_icon.svg",
+    stockName: "애플",
+    symbolCode: "AAPL",
+    price: 155.1,
+    compareToPreviousClosePrice: -0.75,
+    fluctuationsRatio: -0.48,
+    nationType: "USA",
+    reutersCode: "AAPL.O",
+  },
+];
+
+const DUMMY_RELATED_NEWS = Array(4).fill({
+  title: `일본, '빅테크 규제법' 내년 시행…"사실상 애플·구글 규제"`,
+  publishedTime: "n",
+  newspaperCompany: "문화일보",
+});
 
 export default function NewsDetailPage() {
   return (
-    <div className="flex gap-[2rem] py-[4.1rem]">
-      <Suspense fallback={<NewsDetailSkeleton />}>
-        <NewsDetailComponent newsData={DUMMY_NEWS_DETAIL} />
-      </Suspense>
-      <div className="flex flex-col gap-[2rem] rounded-[1.6rem]">
-        <RelatedStocks />
-        <RelatedNews />
+    <Fragment>
+      <div className="flex gap-[2rem] py-[4.1rem]">
+        <NewsDetail newsData={DUMMY_NEWS_DETAIL} />
+        <div className="flex flex-col gap-[2rem] rounded-[1.6rem]">
+          <RelatedStocks stockData={DUMMY_STOCK} />
+          <RelatedNews newsData={DUMMY_RELATED_NEWS} />
+        </div>
       </div>
-    </div>
+    </Fragment>
   );
 }
