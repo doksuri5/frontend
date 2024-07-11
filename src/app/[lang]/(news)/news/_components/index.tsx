@@ -1,13 +1,11 @@
 "use client";
 
-import { Card } from "@/components/common";
+import { Card, CardSkeleton, PopularNewsSkeleton } from "@/components/common";
 import NewsInfinityList from "@/app/[lang]/(news)/news/_components/NewsInfinityList";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { lazy, Suspense, useState } from "react";
 import NewsImage from "@/public/icons/news.jpg";
 import { nanoid } from "nanoid";
-import PopularNewsSkeleton from "@/components/common/PopularNewsSkeleton";
-import CardSkeleton from "@/components/common/CardSkeleton";
 
 const DUMMY_NEWS_ITEMS = Array(3).fill({
   _id: nanoid(),

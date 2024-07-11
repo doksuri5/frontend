@@ -1,5 +1,5 @@
 import { cn } from "@/utils/cn";
-import { Skeleton } from "./Skeleton";
+import { Skeleton } from "@/components/common";
 
 export default function CardSkeleton({
   variant,

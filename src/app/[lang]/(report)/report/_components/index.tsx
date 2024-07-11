@@ -14,7 +14,7 @@ import StockChartSectionSkeleton from "./skeleton/StockChartSectionSkeleton";
 import StockAIReportSkeleton from "./skeleton/StockAIReportSkeleton";
 import AIAnalystReportSkeleton from "./skeleton/AIAnalystReportSkeleton";
 import { lazy, Suspense, useEffect, useState } from "react";
-import PopularNewsSkeleton from "@/components/common/PopularNewsSkeleton";
+import PopularNewsSkeleton from "@/components/common/skeleton/PopularNewsSkeleton";
 
 const DUMMY_STCOK = {
   icon: AppleIcon,
