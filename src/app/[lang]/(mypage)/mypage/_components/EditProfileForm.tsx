@@ -10,9 +10,9 @@ import EditIcon from "@/public/icons/avatar_edit.svg";
 import { cn } from "@/utils/cn";
 import { stockList } from "../_constants/stock";
 import { createProfileImgURL, getStockCodesFromOptions, mapInterestStocksToInitialValue } from "../_utils/profileUtils";
-import reduceImageSize from "@/utils/imageUtils";
 import { useRouter } from "next/navigation";
 import useUserStore from "@/stores/useUserStore";
+import reduceImageSize from "@/utils/reduce-image-size";
 
 export interface IOption {
   value: string;
