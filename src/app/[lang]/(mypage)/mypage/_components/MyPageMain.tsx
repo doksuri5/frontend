@@ -22,15 +22,14 @@ export default function MyPageMain({ userData }: TMyPageMainProps) {
   const privacyModal = useDisclosure();
   const withdrawModal = useDisclosure();
 
-  // 패스워드 확인 모달을 닫는 함수
-  const handleVerifyModalClose = () => {
-    verifyModal.close();
-  };
-
   // 개인정보 수정 모달을 여는 함수
-  const handleOpenPrivacyModal = () => {
+  const handleOpenPrivacyWithdrawModal = () => {
     verifyModal.close();
-    privacyModal.open();
+    if (userData.login_type === "local") {
+      privacyModal.open();
+    } else {
+      withdrawModal.open();
+    }
   };
 
   // 회원 탈퇴 모달을 여는 함수
@@ -98,8 +97,8 @@ export default function MyPageMain({ userData }: TMyPageMainProps) {
       </div>
       <VerifyModal
         isOpen={verifyModal.isOpen}
-        onClose={handleVerifyModalClose}
-        onEdit={handleOpenPrivacyModal}
+        onClose={() => verifyModal.close()}
+        onEdit={handleOpenPrivacyWithdrawModal}
         loginType={userData?.login_type}
       />
       <PrivacyEditModal

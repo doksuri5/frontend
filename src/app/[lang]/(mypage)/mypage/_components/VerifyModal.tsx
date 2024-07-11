@@ -19,8 +19,8 @@ export default function VerifyModal({ isOpen, onClose, onEdit, loginType }: TVer
       <div className="mt-[4rem] flex w-full flex-col">
         {loginType === "local" ? (
           <Input
-            id=""
-            name=""
+            id="password"
+            name="password"
             // value=""
             labelName="현재 비밀번호 입력"
             type="password"
@@ -28,15 +28,15 @@ export default function VerifyModal({ isOpen, onClose, onEdit, loginType }: TVer
           />
         ) : (
           <Input
-            id=""
-            name=""
+            id="email"
+            name="email"
             // value=""
             labelName="이메일 입력"
             placeholder="이메일을 입력해주세요"
           />
         )}
         <Button size="lg" className="mt-[5.6rem] text-grayscale-0" onClick={onEdit}>
-          수정하기
+          {loginType === "local" ? "수정하기" : "회원탈퇴"}
         </Button>
       </div>
     </Modal>
