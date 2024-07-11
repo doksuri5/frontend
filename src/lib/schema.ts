@@ -21,6 +21,8 @@ const userSchema = new mongoose.Schema({
   login_type: { type: String, required: true, default: "local" },
   is_delete: { type: Boolean, default: false },
   created_at: { type: Date, default: () => getKoreanTime() }, // 생성한 날짜
+  updated_at: { type: Date, default: null }, // 업데이트한 날짜
+  deleted_at: { type: Date, default: null }, // 회원 탈퇴한 날짜
 });
 
 export const User = mongoose.models?.User || mongoose.model("User", userSchema);
