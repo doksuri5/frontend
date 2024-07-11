@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Select, { MultiValue, components } from "react-select";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
@@ -9,8 +9,10 @@ import Avatar from "@/public/icons/avatar_default.svg";
 import EditIcon from "@/public/icons/avatar_edit.svg";
 import { cn } from "@/utils/cn";
 import { stockList } from "../_constants/stock";
-import { getStockCodesFromOptions, mapInterestStocksToInitialValue } from "../_utils/profileUtils";
+import { createProfileImgURL, getStockCodesFromOptions, mapInterestStocksToInitialValue } from "../_utils/profileUtils";
 import reduceImageSize from "@/utils/imageUtils";
+import { useRouter } from "next/navigation";
+import useUserStore from "@/stores/useUserStore";
 
 export interface IOption {
   value: string;
@@ -26,15 +28,9 @@ interface FormData {
   gender: "M" | "F";
 }
 
-const userDummy: FormData = {
-  nickname: "김스팩",
-  interest_stocks: ["appl", "msft"],
-  gender: "M",
-};
-
-const initialStockOption = mapInterestStocksToInitialValue(userDummy.interest_stocks, stockList);
-
 export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
+  const { userStoreData } = useUserStore();
+  const router = useRouter();
   const {
     register,
     watch,
@@ -47,26 +43,18 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
   } = useForm<FormData>({
     mode: "onChange",
     defaultValues: {
-      nickname: userDummy.nickname,
-      gender: userDummy.gender,
+      nickname: userStoreData?.nickname,
+      gender: userStoreData?.gender,
     },
   });
 
-  const timestamp = useRef(new Date().getTime()).current;
-  const imageUrlDummy =
-    "https://doksuri5-s3.s3.ap-northeast-2.amazonaws.com/profile/51845d71-25ff-4494-936c-d2b2a0111ed0.jpeg" +
-    "?" +
-    timestamp;
-
   const nickname = watch("nickname");
+  const interestStocks = mapInterestStocksToInitialValue(userStoreData!.interest_stocks as string[], stockList);
   const gender = watch("gender");
 
-  const [previewImg, setPreviewImg] = useState<string | null>(null);
-  const [imageUrl, setImageUrl] = useState(imageUrlDummy);
-  const [isImgChange, setIsImgChange] = useState(false);
-
+  const [imageUrl, setImageUrl] = useState(createProfileImgURL(userStoreData!.profile as string, false));
   const [isNameAvailable, setIsNameAvailable] = useState(false);
-  const [selectedStocks, setSelectedStocks] = useState<IOption[]>(initialStockOption);
+  const [selectedStocks, setSelectedStocks] = useState<IOption[]>(interestStocks);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     // input 이미지 파일 초기화
@@ -81,9 +69,7 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
       alert("최대 1MB까지 업로드 가능합니다.");
       e.target.value = "";
     } else {
-      setPreviewImg(URL.createObjectURL(file));
       setImageUrl(URL.createObjectURL(file));
-      setIsImgChange(true);
     }
   };
 
@@ -127,9 +113,9 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
   // 폼 전송 함수
   const onSubmit = async (data: FormData) => {
     const formData = new FormData();
-
+    console.log(userStoreData);
     // 이미지 폼
-    if (isImgChange && imageUrl) {
+    if (imageUrl) {
       try {
         const jpeg = await reduceImageSize(imageUrl);
         const file = new File([jpeg], new Date().toString(), { type: "image/jpeg" });
@@ -159,11 +145,7 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
     } catch (err) {
       alert("프로필 업데이트 실패: " + err);
     }
-
-    console.log("프로필 수정 데이터:", formData.keys);
-    // for (let key of formData.keys()) {
-    //   console.log(key, ":", formData.get(key));
-    // }
+    router.refresh();
     closeModal();
   };
 
@@ -176,7 +158,7 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
         {/* 프로필 이미지 */}
         <div className="flex h-[12rem] w-[12rem] overflow-hidden rounded-[50%]">
           <Image
-            src={previewImg || (imageUrl ? imageUrl : Avatar)}
+            src={imageUrl ? imageUrl : Avatar}
             width={120}
             height={120}
             alt="프로필 이미지"
