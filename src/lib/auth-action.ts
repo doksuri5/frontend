@@ -1,21 +1,30 @@
 "use server";
 
-import { signIn } from "@/auth";
+import { AuthError } from "next-auth";
+import { cookies, headers } from "next/headers";
+
+import { signIn, signOut } from "@/auth";
 
 import { TLoginSchema } from "@/types/AuthType";
 
-import { HOME_PATH } from "@/routes/path";
-
-import { AuthError } from "next-auth";
+function getBasePath(path: string) {
+  const regex = /^(\/[^\/]+)(\/.*)/;
+  const match = path.match(regex);
+  if (match) {
+    return match[1];
+  }
+  return null;
+}
 
 export async function loginAction(data: TLoginSchema) {
   try {
-    await signIn("credentials", {
+    const response = await signIn("credentials", {
       email: data.email,
       password: data.password,
       autoLogin: data.authLogin,
-      redirectTo: HOME_PATH,
+      redirect: false,
     });
+    return response;
   } catch (error) {
     if (error instanceof AuthError) {
       switch (error.type) {
@@ -34,4 +43,31 @@ export async function loginAction(data: TLoginSchema) {
 
 export async function SocialLoginAction(provider: string, redirectTo: string) {
   await signIn(provider, { redirectTo });
+}
+
+export async function logoutAction() {
+  const headersList = headers();
+  const headerPathname = headersList.get("x-pathname") || "";
+
+  const url = getBasePath(headerPathname) + "";
+
+  const cookieStore = cookies();
+  const connectCookie = cookieStore.get("connect.sid");
+
+  if (connectCookie !== undefined) {
+    const fetchResponse = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/logout`, {
+      method: "GET",
+      headers: {
+        Cookie: `connect.sid=${connectCookie}`,
+        credentials: "include",
+      },
+    });
+
+    const response = await fetchResponse.json();
+
+    if (response.ok) {
+      cookieStore.delete("connect.sid");
+      await signOut({ redirectTo: url, redirect: true });
+    }
+  }
 }
