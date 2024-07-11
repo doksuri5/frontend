@@ -1,36 +1,27 @@
-"use client";
-
-import { useState } from "react";
-import { PolicyContent } from "../_components/index";
+import React from "react";
+import TermsMain from "../_components/PolicyMain";
 import { servicePolicyText } from "@/constants/servicePolicyText";
 import { privacyPolicyText } from "@/constants/privacyPolicyText";
 
-export default function Terms() {
-  const [servicePolicy, setServicePolicy] = useState(false);
-  const [privacyPolicy, setPrivacyPolicy] = useState(false);
+const getTerms = async () => {
+  try {
+    const response = await (await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/terms/getTerms`)).json();
 
-  const handleToggleExpand = (id: string) => {
-    if (id === "service") {
-      setServicePolicy((prev) => !prev);
-    } else if (id === "privacy") {
-      setPrivacyPolicy((prev) => !prev);
+    if (response.ok) {
+      return response.data;
     }
-  };
+  } catch (err) {
+    console.error("이용약관을 가져오는 데 실패했습니다.");
+    return null;
+  }
+};
 
+export default async function Terms() {
+  const policyText = await getTerms();
   return (
-    <section className="flex w-[100%] flex-col gap-[5.4rem]">
-      <PolicyContent
-        policyType="service"
-        handleToggleExpand={handleToggleExpand}
-        policyText={servicePolicyText}
-        expanded={servicePolicy}
-      />
-      <PolicyContent
-        policyType="privacy"
-        handleToggleExpand={handleToggleExpand}
-        policyText={privacyPolicyText}
-        expanded={privacyPolicy}
-      />
-    </section>
+    <TermsMain
+      serviceText={policyText ? policyText.terms_of_service.content : servicePolicyText}
+      privacyText={policyText ? policyText.privacy_policy.content : privacyPolicyText}
+    />
   );
 }
