@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Select, { components, MultiValue } from "react-select";
 
@@ -20,65 +21,182 @@ import { TProfileSchema, profileSchema } from "@/types/AuthType";
 
 import { useRegisterStore } from "@/providers/RegisterProvider";
 
+import { REGISTER_COMPLETE_PATH } from "@/routes/path";
+
+import reduceImageSize from "@/utils/reduce-image-size";
+
 type TOption = {
-  [key: string]: string;
+  value: string;
+  label: string;
+  isFixed?: boolean;
 };
 
 const options = [
-  { value: "tsla", label: "# 테슬라 ∙ TSLA" },
-  { value: "apple", label: "# 애플 ∙ APPL" },
-  { value: "amzn", label: "# 아마존 ∙ AMZN" },
-  { value: "maft", label: "# MS ∙ MSFT" },
-  { value: "googl", label: "# 구글 ∙ GOOGL" },
-  { value: "u", label: "# 유니티 ∙ U" },
+  { value: "tsla", label: "# 테슬라 ∙ TSLA", isFixed: false },
+  { value: "appl", label: "# 애플 ∙ APPL", isFixed: false },
+  { value: "amzn", label: "# 아마존 ∙ AMZN", isFixed: false },
+  { value: "msft", label: "# MS ∙ MSFT", isFixed: false },
+  { value: "googl", label: "# 구글 ∙ GOOGL", isFixed: false },
+  { value: "u", label: "# 유니티 ∙ U", isFixed: false },
 ];
 
 export default function ProfileSetUpForm() {
   const form = useRegisterStore((state) => state.form);
-  const [isGender, setIsGender] = useState<undefined | "M" | "F">(undefined);
-  const [file, setFile] = useState<File | null>(null);
+  const [isGender, setIsGender] = useState<null | "M" | "F">(null);
+  const [avatar, setAvatar] = useState("");
+  const [isNicknameChk, setIsNicknameChk] = useState(false);
+  const [nicknameValidated, setNicknameValidated] = useState(false);
 
   const router = useRouter();
-
-  const avatarChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { files } = e.target;
-    if (files && files.length === 1) {
-      const file = files[0];
-      if (file.size > 1024 * 1024 * 1) {
-        alert("최대 1MB까지 업로드 가능합니다.");
-        e.target.value = ""; // 동일한 파일할 경우
-        return;
-      }
-      setFile(file);
-    }
-  };
-
-  const isGenderActive = (value: undefined | "M" | "F") => {
-    setIsGender(value);
-  };
+  const { data: session } = useSession();
 
   const {
     control: profileControl,
     handleSubmit: handleProfileSubmit,
     formState: { errors: profileErrors, isValid: isProfileValid },
+    trigger: triggerProfile,
     watch: watchProfile,
+    setError,
   } = useZodSchemaForm<TProfileSchema>(profileSchema);
 
-  const handleSubmit = (data: TProfileSchema) => {
-    // TODO : 데이터 form 통신
-    console.log(form);
-    console.log(data);
-    console.log(file);
-    console.log(isGender);
+  const isFormFilled = watchProfile("nickname");
+
+  const avatarChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (avatar) {
+      URL.revokeObjectURL(avatar);
+    }
+    const inputFile = e.target.files?.[0];
+    if (!inputFile) return;
+
+    const imgSrc = URL.createObjectURL(inputFile);
+    setAvatar(imgSrc);
   };
 
+  const isGenderActive = (value: null | "M" | "F") => {
+    setIsGender(value);
+  };
+
+  const extractString = (value: string | undefined) => {
+    if (value) {
+      return value.replaceAll("-", "").slice(2);
+    }
+  };
+
+  const registerFormData = (): { [key: string]: string | undefined | null } => {
+    const commonData = {
+      name: form.name || session?.user.name,
+      email: form.email || session?.user.email,
+      phone: form.phone || session?.user.phone?.replaceAll("-", ""),
+      birth: form.birth || extractString(session?.user.birth),
+    };
+
+    if (session?.user.role) {
+      return {
+        ...commonData,
+        sns_id: session.user.id || "",
+        login_type: session.user.role,
+      };
+    }
+
+    return {
+      ...commonData,
+      password: form.password,
+    };
+  };
+
+  // 닉네임 중복 확인 버튼 클릭시 실행되는 이벤트
+  const nicknameChkHandler = async () => {
+    const valid = await triggerProfile("nickname");
+    const nickname = watchProfile("nickname");
+
+    if (valid) {
+      try {
+        const response = await (
+          await fetch(`/api/auth/nickname`, {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify({
+              nickname,
+            }),
+            cache: "no-store",
+          })
+        ).json();
+
+        if (response.ok) {
+          setIsNicknameChk(true);
+          setNicknameValidated(true);
+        } else {
+          setError("nickname", { type: "manual", message: response.message });
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  };
+
+  // 가입하기 버튼 클릭시 실행되는 이벤트
+  const onProfileSetUpSubmit = async (data: TProfileSchema) => {
+    //console.log("registerFormData", registerFormData());
+
+    const formData = new FormData();
+
+    if (isGender) {
+      formData.append("gender", isGender);
+    }
+
+    if (avatar) {
+      const jpeg = await reduceImageSize(avatar);
+      const file = new File([jpeg], new Date().toString(), { type: "image/jpeg" });
+      formData.append("profile", file);
+    }
+
+    if (data.tags) {
+      formData.append("interest_stocks", JSON.stringify(data.tags.map((item) => item.value)));
+    }
+
+    formData.append("nickname", data.nickname);
+
+    const additionalData = registerFormData();
+    for (const key in additionalData) {
+      if (additionalData.hasOwnProperty(key)) {
+        formData.append(key, String(additionalData[key]));
+      }
+    }
+
+    const PATH = session?.user.role ? "registerSocial" : "register";
+
+    if (isProfileValid && isNicknameChk) {
+      try {
+        const response = await (
+          await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/${PATH}`, {
+            method: "POST",
+            body: formData,
+            cache: "no-store",
+          })
+        ).json();
+        if (response.ok) {
+          router.push(REGISTER_COMPLETE_PATH);
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  };
+
+  useEffect(() => {
+    setIsNicknameChk(false);
+    setNicknameValidated(false);
+  }, [isFormFilled]);
+
   return (
-    <form onSubmit={handleProfileSubmit(handleSubmit)}>
+    <form onSubmit={handleProfileSubmit(onProfileSetUpSubmit)}>
       {/* 프로필 이미지 */}
       <div className="flex_col_center relative mx-[auto] mb-[2.4rem] h-[12rem] w-[12rem]">
         <figure className="relative h-full w-full overflow-hidden rounded-[50%]">
           <Image
-            src={file ? URL.createObjectURL(file) : "/icons/avatar_default.svg"}
+            src={avatar ? avatar : "/icons/avatar_default.svg"}
             fill
             alt="프로필 이미지"
             priority
@@ -96,8 +214,11 @@ export default function ProfileSetUpForm() {
         labelName="닉네임"
         placeholder="닉네임을 입력해주세요."
         {...profileControl.register("nickname")}
+        variant={profileErrors.nickname ? "error" : "default" || isNicknameChk ? "success" : "default"}
+        caption={nicknameValidated ? "* 사용가능한 닉네임 입니다." : profileErrors.nickname?.message}
         suffix={
           <Button
+            type="button"
             variant="textButton"
             size="sm"
             bgColor={!profileErrors.nickname && watchProfile("nickname") ? "bg-navy-900" : "bg-grayscale-200"}
@@ -105,6 +226,7 @@ export default function ProfileSetUpForm() {
               `w-[12rem] ${!profileErrors.nickname && watchProfile("nickname") ? "text-white" : "text-gray-300"}`,
             )}
             disabled={!watchProfile("nickname")}
+            onClick={nicknameChkHandler}
           >
             중복 확인
           </Button>

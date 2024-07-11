@@ -1,10 +1,11 @@
 export const MAIN_PATH = "/";
+export const HOME_PATH = "/home";
 export const NEWS_PATH = "/news";
 export const DISCOVERY_PATH = "/discovery";
 export const MY_STOCK_PATH = "/mystock";
 export const MY_PAGE_PATH = "/mypage";
 export const ACCOUNT_PATH = "/account";
-export const FIND_ID_PATH = "/find-id";
+export const FIND_EMAIL_PATH = "/find-email";
 export const FIND_PASSWORD_PATH = "/find-password";
 export const LOGIN_PATH = "/login";
 export const PROFILE_SETUP_PATH = "/account/profile-setup";
@@ -13,3 +14,4 @@ export const REGISTER_COMPLETE_PATH = "/register-complete";
 export const VERIFY_USER_PATH = "/account/verify-user";
 export const WITHDRAW_PATH = "/withdraw";
 export const REPORT_PATH = "/report";
+export const EXIST_PATH = "/exist";
