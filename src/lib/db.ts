@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
 
 // 환경 변수 확인
-if (!process.env.MONGODB_URL) {
-  throw new Error('Invalid/Missing environment variable: "MONGODB_URL"');
+if (!process.env.MONGODB_URI) {
+  throw new Error('Invalid/Missing environment variable: "MONGODB_URI"');
 }
 
-const uri = process.env.MONGODB_URL;
+const uri = process.env.MONGODB_URI;
 
 // 글로벌 환경 변수 설정
 let cached = global as typeof globalThis & {
