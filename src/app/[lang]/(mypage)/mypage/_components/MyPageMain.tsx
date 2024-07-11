@@ -97,7 +97,7 @@ export default function MyPageMain({ userData }: TMyPageMainProps) {
           {/* 프로필 이미지 */}
           <div className="flex h-[5.6rem] w-[5.6rem] overflow-hidden rounded-[50%]">
             <Image
-              src={userData.profile ? createProfileImgURL(userData.profile, false) : Profile}
+              src={userData?.profile ? createProfileImgURL(userData.profile, false) : Profile}
               width={120}
               height={120}
               alt="프로필 이미지"
@@ -105,7 +105,7 @@ export default function MyPageMain({ userData }: TMyPageMainProps) {
               className="flex items-center justify-center object-cover"
             />
           </div>
-          <div className="body_4 font-medium text-black">{userData.nickname}</div>
+          <div className="body_4 font-medium text-black">{userData?.nickname}</div>
         </div>
       </section>
       <ProfileEditModal isOpen={profileModal.isOpen} onClose={profileModal.close} />
@@ -122,15 +122,15 @@ export default function MyPageMain({ userData }: TMyPageMainProps) {
       </section>
       <div className="flex flex-row items-center">
         <div className="body_3 w-[14.4rem] font-medium text-grayscale-900">아이디</div>
-        <div className="body_4 font-medium text-grayscale-600">{userData!._id}</div>
+        <div className="body_4 font-medium text-grayscale-600">{userData?._id}</div>
       </div>
       <div className="flex flex-row items-center">
         <div className="body_3 w-[14.4rem] font-medium text-grayscale-900">이름</div>
-        <div className="body_4 font-medium text-grayscale-600">{userData!.name}</div>
+        <div className="body_4 font-medium text-grayscale-600">{userData?.name}</div>
       </div>
       <div className="flex flex-row items-center">
         <div className="body_3 w-[14.4rem] font-medium text-grayscale-900">생년월일</div>
-        <div className="body_4 font-medium text-grayscale-600">{userData!.birth}</div>
+        <div className="body_4 font-medium text-grayscale-600">{userData?.birth}</div>
       </div>
       <PWCheckModal isOpen={pwCheckModal.isOpen} onClose={handlePWCheckModalClose} onEdit={handleOpenPrivacyModal} />
       <PrivacyEditModal
