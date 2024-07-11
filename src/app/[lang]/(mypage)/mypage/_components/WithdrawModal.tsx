@@ -1,7 +1,9 @@
 "use client";
 
 import { Modal, Button, Dropdown, Input } from "@/components/common";
-import Link from "next/link";
+import useUserStore from "@/stores/useUserStore";
+import { cn } from "@/utils/cn";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const withdrawReasons = [
@@ -17,9 +19,36 @@ type TWithdrawModalProps = {
   onClose: () => void;
 };
 
+// TODO: 추후 실제 유저 이메일 가져오도록 로직 수정 예정
+const email = "abcde@test.com";
+
 export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) {
+  const { userStoreData } = useUserStore();
+  const router = useRouter();
+
   const [selectedReason, setSelectedReason] = useState(withdrawReasons[0]);
   const [otherReason, setOtherReason] = useState("");
+
+  const handleWithdraw = async () => {
+    try {
+      const formData = { email, reason: selectedReason.text, reason_other: otherReason === "" ? null : otherReason };
+      const response = await (
+        await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/user/withdraw`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        })
+      ).json();
+
+      if (response.ok) {
+        router.push("/withdraw");
+      }
+    } catch (err) {
+      alert("회원탈퇴 실패: " + err);
+    }
+  };
 
   return (
     <Modal
@@ -42,7 +71,9 @@ export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) 
             <div>
               <label className="body_4 font-medium text-gray-900">탈퇴 사유</label>
               <textarea
-                className="h-[10rem] w-full resize-none rounded-[0.8rem] border border-gray-300 p-[1.6rem] text-navy-900 focus:outline-blue-500"
+                className={cn(
+                  `${userStoreData?.login_type === "local" ? "h-[10rem]" : "h-[15rem]"} w-full resize-none rounded-[0.8rem] border border-gray-300 p-[1.6rem] text-navy-900 focus:outline-blue-500`,
+                )}
                 value={otherReason}
                 onChange={(e) => setOtherReason(e.target.value)}
                 placeholder="기타 사유를 입력해주세요"
@@ -50,21 +81,23 @@ export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) 
             </div>
           )}
           <div>
-            <Input
-              labelName="비밀번호 입력"
-              type="password"
-              inputGroupClass="w-full h-[5.6rem]"
-              inputClass="text-navy-900 h-[5.6rem] p-[1.6rem] rounded-[0.8rem]"
-              placeholder="비밀번호를 입력해주세요"
-              labelClass="body_4 font-medium text-gray-900"
-            />
+            {userStoreData?.login_type === "local" ? (
+              <Input
+                labelName="비밀번호 입력"
+                type="password"
+                inputGroupClass="w-full h-[5.6rem]"
+                inputClass="text-navy-900 h-[5.6rem] p-[1.6rem] rounded-[0.8rem]"
+                placeholder="비밀번호를 입력해주세요"
+                labelClass="body_4 font-medium text-gray-900"
+              />
+            ) : (
+              <div className="h-[3rem]" />
+            )}
           </div>
         </div>
-        <Link href="/withdraw">
-          <Button size="lg" className="text-grayscale-0">
-            회원탈퇴
-          </Button>
-        </Link>
+        <Button size="lg" className="text-grayscale-0" onClick={handleWithdraw}>
+          회원탈퇴
+        </Button>
       </div>
     </Modal>
   );
