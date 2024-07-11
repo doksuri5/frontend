@@ -89,7 +89,7 @@ export default function Report() {
           data={{
             icon,
             stockName,
-            stockCode,
+            symbolCode,
             priceUSD,
             aiReport,
             fluctuationsRatio,
