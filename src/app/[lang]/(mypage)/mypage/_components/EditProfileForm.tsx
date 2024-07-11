@@ -50,8 +50,6 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
     },
   });
 
-  console.log(userStoreData);
-
   const nickname = watch("nickname");
   const interestStocks = mapInterestStocksToInitialValue(userStoreData?.interest_stocks as string[], stockList);
   const gender = watch("gender");
@@ -85,8 +83,6 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
   const handleStocksChange = (selectedOptions: MultiValue<IOption>) => {
     const value = getStockCodesFromOptions(Array.from(selectedOptions));
     setValue("interest_stocks", value, { shouldDirty: true });
-    console.log(selectedOptions);
-    console.log(value);
     setSelectedStocks(selectedOptions as IOption[]);
   };
 
@@ -167,10 +163,6 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
     formData.append("nickname", data.nickname);
     formData.append("interest_stocks", JSON.stringify(getStockCodesFromOptions(selectedStocks)));
     formData.append("gender", data.gender);
-
-    // for (let value of formData.values()) {
-    //   console.log(value);
-    // }
 
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/user/updateUserProfile`, {

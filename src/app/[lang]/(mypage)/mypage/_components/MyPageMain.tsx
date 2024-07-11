@@ -6,10 +6,8 @@ import Profile from "@/public/icons/avatar_default.svg";
 import { ProfileEditModal, PWCheckModal, PrivacyEditModal, WithdrawModal } from "./index";
 import useDisclosure from "@/hooks/use-disclosure";
 import { createProfileImgURL } from "../_utils/profileUtils";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import useUserStore, { IUserData } from "@/stores/useUserStore";
-
-const email = "abcde@test.com";
 
 type TMyPageMainProps = {
   userData: IUserData;
@@ -17,18 +15,6 @@ type TMyPageMainProps = {
 
 export default function MyPageMain({ userData }: TMyPageMainProps) {
   const { setUserStoreData } = useUserStore();
-  //   const [userData, setUserData] = useState<IUserData>({
-  //     _id: "",
-  //     name: "",
-  //     email: "",
-  //     birth: "",
-  //     phone: "",
-  //     gender: "M",
-  //     profile: "",
-  //     interest_stocks: [""],
-  //     nickname: "",
-  //     login_type: "",
-  //   });
 
   // 모달 관련 상태 관리
   const profileModal = useDisclosure();
@@ -54,29 +40,8 @@ export default function MyPageMain({ userData }: TMyPageMainProps) {
   };
 
   useEffect(() => {
-    setUserStoreData(userData); // 컴포넌트 마운트 시 Zustand 스토어에 데이터 설정
+    setUserStoreData(userData);
   }, [userData, setUserStoreData]);
-
-  // 사용자 데이터를 서버에서 불러오는 효과
-  //   useEffect(() => {
-  //     const getUserData = async () => {
-  //       try {
-  //         const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/getUser/${email}`);
-  //         const data = await response.json();
-
-  //         if (response.ok) {
-  //           // console.log(data.data);
-  //           setUserData(data.data);
-  //           setUserStoreData(data.data); // Zustand 스토어에 데이터 설정
-  //           console.log(userStoreData);
-  //         }
-  //       } catch (err) {
-  //         console.error("Failed to fetch user data:", err);
-  //       }
-  //     };
-
-  //     getUserData();
-  //   }, []);
 
   return (
     <main className="flex flex-col gap-[3.2rem]">

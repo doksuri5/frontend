@@ -1,6 +1,7 @@
 import React from "react";
 import MyPageMain from "./_components/MyPageMain";
 
+// TODO: 추후 실제 유저 이메일 가져오도록 로직 수정 예정
 const email = "abcde@test.com";
 
 const fetchUserData = async () => {
@@ -10,7 +11,6 @@ const fetchUserData = async () => {
     ).json();
 
     if (response.ok) {
-      console.log(response.data);
       return response.data;
     }
   } catch (err) {
