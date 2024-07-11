@@ -16,7 +16,6 @@ type TMyPageMainProps = {
 };
 
 export default function MyPageMain({ userData }: TMyPageMainProps) {
-  // Zustand 스토어에서 사용자 데이터와 설정 함수를 가져옵니다.
   const { setUserStoreData } = useUserStore();
   //   const [userData, setUserData] = useState<IUserData>({
   //     _id: "",
@@ -55,7 +54,7 @@ export default function MyPageMain({ userData }: TMyPageMainProps) {
   };
 
   useEffect(() => {
-    setUserStoreData({ ...userData, interest_stocks: ["appl", "msft"] }); // 컴포넌트 마운트 시 Zustand 스토어에 데이터 설정
+    setUserStoreData(userData); // 컴포넌트 마운트 시 Zustand 스토어에 데이터 설정
   }, [userData, setUserStoreData]);
 
   // 사용자 데이터를 서버에서 불러오는 효과
