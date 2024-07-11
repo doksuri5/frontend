@@ -50,6 +50,8 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
     },
   });
 
+  console.log(userStoreData);
+
   const nickname = watch("nickname");
   const interestStocks = mapInterestStocksToInitialValue(userStoreData?.interest_stocks as string[], stockList);
   const gender = watch("gender");
@@ -130,7 +132,7 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
       if (result.ok === true) {
         clearErrors("nickname");
         setIsNameAvailable(true);
-        setActiveDuplicateBtn(false); 
+        setActiveDuplicateBtn(false);
         setLastCheckedNickname(nickname);
         alert("사용 가능한 닉네임입니다.");
       } else {
