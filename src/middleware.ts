@@ -1,44 +1,20 @@
 import { match } from "path-to-regexp";
 import { NextRequest, NextResponse } from "next/server";
+import { cookies } from "next/headers";
 import { i18n } from "./i18n-config";
 import { match as matchLocale } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
 
-import { auth } from "./auth";
-
-// 권한을 가진 사용자만 접근 가능한 경로
-const matchersForAuth = ["/home", "/mypage/:path*"];
-// 권한이 없는 사용자만 접근 가능한 경로
-const matchersForNoAuth = [
-  "/",
-  "/*login",
-  "/*account",
-  "/*account/register",
-  "/*account/profile-setup",
-  "/*find-email",
-  "/*find-password",
-  "/*register-complete",
-  "/*withdraw",
-  "/*exist",
-];
-
 // 로그인 세션 확인 여부 체크
 async function checkLogin() {
-  const session = await auth();
-  if (session?.user.role === "user") {
-    return true;
-  }
-  return false;
+  const cookieStore = cookies();
+  const session = cookieStore.get("connect.sid")?.value;
+  return !!session; // 세션이 있으면 true, 없으면 false 반환
 }
 
-// 로그인이 필요한지에 대한 경로 체크
-function requiresAuth(pathname: string): boolean {
-  // 로그인이 필요 없는 경로라면 false 반환
-  if (matchersForNoAuth.some((pattern) => match(pattern)(pathname))) {
-    return false;
-  }
-  // 그 외의 경우 로그인 필요
-  return true;
+// 로그인이 필요한 경로인지 체크
+function requiresAuth(pathname: string, urls: string[]) {
+  return urls.some((url) => !!match(url)(pathname));
 }
 
 function getLocale(request: NextRequest): string | undefined {
@@ -72,25 +48,38 @@ export const middleware = async (req: NextRequest) => {
     return NextResponse.redirect(new URL(`/${locale}${pathname}`, req.url));
   }
 
-  // 로그인 필요 여부 체크
-  if (requiresAuth(pathname) && !(await checkLogin())) {
-    return NextResponse.redirect(new URL(`/${locale}/login`, req.url)); // 로그인 페이지로 리다이렉트, 로케일이 있는 URL을 사용
+  const isAuthenticated = await checkLogin();
+
+  const isAuthPath = requiresAuth(pathname, [
+    `/${locale}`,
+    `/${locale}/login`,
+    `/${locale}/account`,
+    `/${locale}/account/register`,
+    `/${locale}/account/profile-setup`,
+    `/${locale}/account/verify-user`,
+    `/${locale}/register-complete`,
+    `/${locale}/find-email`,
+    `/${locale}/find-password`,
+    `/${locale}/exist`,
+  ]);
+
+  // 로그인이 필요한 경로이고 유저가 로그인 하지 않은 경우 로그인 페이지로 넘기기
+  if (!isAuthPath && !isAuthenticated) {
+    const cookieStore = cookies();
+    cookieStore.delete("auth-session-token"); // 이렇게 하면 지워지나???
+    return NextResponse.redirect(new URL(`/${locale}/login`, req.url));
   }
+
+  // header에 pathname 추가
+  const requestHeaders = new Headers(req.headers);
+  requestHeaders.set("x-pathname", pathname);
+  return NextResponse.next({
+    request: {
+      headers: requestHeaders,
+    },
+  });
 };
 
 export const config = {
-  matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - api (API routes)
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     */
-    "/((?!api|_next/static|_next/image|favicon.ico|icons/.*|images/.*).*)",
-  ],
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|icons/.*|images/.*).*)"],
 };
-
-// function isMatch(pathname: string, urls: string[]) {
-//   return urls.some((url) => !!match(url)(pathname));
-// }
