@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { Button, Input } from "@/components/common";
 import { cn } from "@/utils/cn";
 import useUserStore from "@/stores/useUserStore";
+import { useRouter } from "next/navigation";
 
 type TEditPrivacyFormProps = {
   closeModal: () => void;
@@ -19,7 +20,8 @@ interface FormData {
 
 export default function EditPrivacyForm({ closeModal }: TEditPrivacyFormProps) {
   const { userStoreData } = useUserStore();
-  const [isIdAvailable, setIsIdAvailable] = useState(false);
+  const router = useRouter();
+  const [formValid, setFormValid] = useState(false);
   const {
     register,
     handleSubmit,
@@ -41,29 +43,42 @@ export default function EditPrivacyForm({ closeModal }: TEditPrivacyFormProps) {
   const watchRegister = watch();
   //실제 값이 입력된 필드만을 고려하여 폼의 유효성을 검사
   const hasValues = Object.values(watchRegister).every((value) => value !== undefined && value !== "");
-  const isFormValid = !Object.keys(errors).length && hasValues && isIdAvailable;
+  const isFormValid = !Object.keys(errors).length && hasValues && formValid;
 
   //Form 전송 함수
   const onSubmit = async (data: FormData) => {
-    if (isValid && isDirty) {
-      console.log(data);
-      //유저 정보 수정 API
-      closeModal();
+    if (!isValid || !isDirty) return;
+    console.log(data);
+
+    const formData = {
+      email: data.email,
+      password: data.password,
+      phone: data.phone,
+      birth: data.birth,
+    };
+
+    try {
+      const response = await (
+        await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/user/updateUserInfo`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        })
+      ).json();
+
+      if (response.ok) {
+        alert("회원정보가 수정되었습니다.");
+        closeModal();
+        router.refresh();
+      }
+    } catch (err) {
+      alert("프로필 업데이트 실패: " + err);
     }
   };
 
   const password = watch("password");
-  const passwordChk = watch("passwordChk");
-  const phone = watch("phone");
-  const birth = watch("birth");
-
-  useEffect(() => {
-    if (password !== passwordChk) {
-      setError("passwordChk", { type: "manual", message: "비밀번호가 일치하지 않습니다." });
-    } else {
-      clearErrors("passwordChk");
-    }
-  }, [password, passwordChk, setError, clearErrors]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={cn("flex w-full flex-col gap-[1.6rem]")}>
@@ -80,6 +95,10 @@ export default function EditPrivacyForm({ closeModal }: TEditPrivacyFormProps) {
               value: 8,
               message: "비밀번호는 최소 8자리 이상이어야 합니다.",
             },
+            maxLength: {
+              value: 16,
+              message: "비밀번호는 최대 16자리까지 입력 가능합니다.",
+            },
             pattern: {
               value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
               message: "숫자, 영문자, 특수문자를 포함해야 합니다.",
@@ -90,7 +109,6 @@ export default function EditPrivacyForm({ closeModal }: TEditPrivacyFormProps) {
             errors.password ? errors.password.message : "* 8-20자 이내 숫자, 특수문자, 영문자 중 2가지 이상을 조합"
           }
         />
-        {errors.password && <span className="text-warning-100">{errors.password.message}</span>}
       </div>
 
       <div>
@@ -101,10 +119,11 @@ export default function EditPrivacyForm({ closeModal }: TEditPrivacyFormProps) {
           placeholder="비밀번호를 다시 한번 입력해주세요."
           {...register("passwordChk", {
             required: "비밀번호 확인을 입력해주세요.",
+            validate: (value) => value === password || "비밀번호가 일치하지 않습니다.",
           })}
           variant={errors.passwordChk ? "error" : "default"}
+          caption={errors.passwordChk ? errors.passwordChk.message : ""}
         />
-        {errors.passwordChk && <span className="text-warning-100">{errors.passwordChk.message}</span>}
       </div>
 
       <div>
@@ -120,8 +139,8 @@ export default function EditPrivacyForm({ closeModal }: TEditPrivacyFormProps) {
             },
           })}
           variant={errors.phone ? "error" : "default"}
+          caption={errors.phone ? errors.phone.message : ""}
         />
-        {errors.phone && <span className="text-warning-100">{errors.phone.message}</span>}
       </div>
 
       <div>
@@ -137,8 +156,8 @@ export default function EditPrivacyForm({ closeModal }: TEditPrivacyFormProps) {
             },
           })}
           variant={errors.birth ? "error" : "default"}
+          caption={errors.birth ? errors.birth.message : ""}
         />
-        {errors.birth && <span className="text-warning-100">{errors.birth.message}</span>}
       </div>
 
       <Button
