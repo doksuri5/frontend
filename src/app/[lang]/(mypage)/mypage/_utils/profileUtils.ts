@@ -4,11 +4,7 @@ import { IOption } from "../_components/EditProfileForm";
 export const mapInterestStocksToInitialValue = (interestStocks: string[], stockList: IOption[]): IOption[] => {
   return interestStocks.map((stockCode) => {
     const stock = stockList.find((s) => s.value === stockCode);
-    if (stock) {
-      return stock;
-    } else {
-      return { value: stockCode, label: `#${stockCode.toLowerCase()}` };
-    }
+    return stock || { value: stockCode, label: `#${stockCode}` };
   });
 };
 
