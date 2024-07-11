@@ -5,6 +5,7 @@ const reduceImageSize = (objUrl: string) => {
     const maxSize = MAX_IMAGE_SIZE_MB * 1024 * 1024;
     const img = new Image();
     img.src = objUrl;
+    img.crossOrigin = "anonymous"; // CORS 정책 준수
     img.onload = () => {
       const canvas = document.createElement("canvas");
       const ctx = canvas.getContext("2d");
