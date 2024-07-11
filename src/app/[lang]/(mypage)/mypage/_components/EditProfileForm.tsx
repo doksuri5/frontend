@@ -23,6 +23,7 @@ type TEditProfileFormProps = {
   closeModal: () => void;
 };
 interface FormData {
+  profile: File | string;
   nickname: string;
   interest_stocks: string[];
   gender: "M" | "F";
@@ -38,21 +39,24 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
     setValue,
     setError,
     clearErrors,
-    formState: { errors },
+    formState: { errors, isDirty },
     handleSubmit,
   } = useForm<FormData>({
     mode: "onChange",
     defaultValues: {
+      profile: userStoreData?.profile,
       nickname: userStoreData?.nickname,
+      interest_stocks: userStoreData?.interest_stocks,
       gender: userStoreData?.gender,
     },
   });
+  const isProfileValid = isDirty && !Object.keys(errors).length && Object.keys(watch()).length;
 
   const nickname = watch("nickname");
-  const interestStocks = mapInterestStocksToInitialValue(userStoreData!.interest_stocks as string[], stockList);
+  const interestStocks = mapInterestStocksToInitialValue(userStoreData?.interest_stocks as string[], stockList);
   const gender = watch("gender");
 
-  const [imageUrl, setImageUrl] = useState(createProfileImgURL(userStoreData!.profile as string, false));
+  const [imageUrl, setImageUrl] = useState(createProfileImgURL(userStoreData?.profile as string, false));
   const [isNameAvailable, setIsNameAvailable] = useState(false);
   const [selectedStocks, setSelectedStocks] = useState<IOption[]>(interestStocks);
 
@@ -70,10 +74,15 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
       e.target.value = "";
     } else {
       setImageUrl(URL.createObjectURL(file));
+      setValue("profile", file, { shouldDirty: true });
     }
   };
 
   const handleStocksChange = (selectedOptions: MultiValue<IOption>) => {
+    const value = getStockCodesFromOptions(Array.from(selectedOptions));
+    setValue("interest_stocks", value, { shouldDirty: true });
+    console.log(selectedOptions);
+    console.log(value);
     setSelectedStocks(selectedOptions as IOption[]);
   };
 
@@ -112,8 +121,10 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
 
   // 폼 전송 함수
   const onSubmit = async (data: FormData) => {
+    if (!isProfileValid) return;
+
     const formData = new FormData();
-    console.log(userStoreData);
+
     // 이미지 폼
     if (imageUrl) {
       try {
@@ -130,6 +141,10 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
     formData.append("nickname", data.nickname);
     formData.append("interest_stocks", JSON.stringify(getStockCodesFromOptions(selectedStocks)));
     formData.append("gender", data.gender);
+
+    // for (let value of formData.values()) {
+    //   console.log(value);
+    // }
 
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/user/updateUserProfile`, {
@@ -149,9 +164,6 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
     closeModal();
   };
 
-  const watchFields = watch();
-  const isProfileValid = !Object.keys(errors).length && Object.keys(watchFields).length;
-
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={cn("flex flex-col gap-[1.6rem]")}>
       <div className="flex_col_center relative mx-[auto] mb-[2.4rem] h-[12rem] w-[12rem]">
@@ -165,9 +177,16 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
             priority
             className="flex items-center justify-center object-cover"
           />
-          <input type="file" accept="image/*" id="file" name="file" className="hidden" onChange={handleImageChange} />
+          <input
+            type="file"
+            accept="image/*"
+            id="profile"
+            className="hidden"
+            {...register("profile")}
+            onChange={handleImageChange}
+          />
         </div>
-        <label htmlFor="file" className="absolute bottom-[0] right-0 h-[4rem] w-[4rem] cursor-pointer">
+        <label htmlFor="profile" className="absolute bottom-[0] right-0 h-[4rem] w-[4rem] cursor-pointer">
           <Image src={EditIcon} alt="Edit icon" width={40} height={40} />
         </label>
       </div>
@@ -230,7 +249,7 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
             variant="textButton"
             size="md"
             bgColor={gender === "M" ? "bg-navy-900" : "bg-white"}
-            onClick={() => setValue("gender", "M")}
+            onClick={() => setValue("gender", "M", { shouldDirty: true })}
           >
             남성
           </Button>
@@ -239,7 +258,7 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
             variant="textButton"
             size="md"
             bgColor={gender === "F" ? "bg-navy-900" : "bg-white"}
-            onClick={() => setValue("gender", "F")}
+            onClick={() => setValue("gender", "F", { shouldDirty: true })}
           >
             여성
           </Button>
@@ -252,7 +271,7 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
         variant="textButton"
         size="lg"
         bgColor={isProfileValid ? "bg-navy-900" : "bg-grayscale-200"}
-        className={cn(`mt-[4rem] ${isProfileValid ? "text-white" : "text-gray-300"}`)}
+        className={`mt-[4rem] ${isProfileValid ? "text-white" : "text-gray-300"}`}
         disabled={!isProfileValid}
       >
         수정하기
