@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/common";
 
@@ -13,9 +14,11 @@ export default function HomeRootPage() {
           <br /> AI 애널리스트가 알려주는 어려운 해외주식 리포트
         </dd>
         <dd>
-          <Button variant="textButton" size="lg" bgColor="bg-navy-900" className="w-[38.6rem]">
-            로그인
-          </Button>
+          <Link href="/login" className="block h-full">
+            <Button variant="textButton" size="lg" bgColor="bg-navy-900" className="w-[38.6rem]">
+              로그인
+            </Button>
+          </Link>
         </dd>
       </dl>
       <Image src={"/images/intro_content.png"} alt="아잇나우" width={1038} height={526} />
