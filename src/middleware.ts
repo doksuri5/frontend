@@ -65,9 +65,10 @@ export const middleware = async (req: NextRequest) => {
 
   // 로그인이 필요한 경로이고 유저가 로그인 하지 않은 경우 로그인 페이지로 넘기기
   if (!isAuthPath && !isAuthenticated) {
-    const cookieStore = cookies();
-    cookieStore.delete("auth-session-token"); // 이렇게 하면 지워지나???
-    return NextResponse.redirect(new URL(`/${locale}/login`, req.url));
+    const response = NextResponse.redirect(new URL(`/${locale}/login`, req.url));
+    response.cookies.delete("authjs.session-token");
+
+    return response;
   }
 
   // header에 pathname 추가
