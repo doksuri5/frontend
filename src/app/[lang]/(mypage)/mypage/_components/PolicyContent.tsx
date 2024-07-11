@@ -31,7 +31,7 @@ export const PolicyContent = ({ policyType, handleToggleExpand, policyText, expa
         )}
       >
         <div className="body_4 text-wrap text-grayscale-900">
-          <pre className="font-pretendard">{policyText}</pre>
+          <pre className="text-wrap font-pretendard">{policyText}</pre>
         </div>
       </div>
     </article>
