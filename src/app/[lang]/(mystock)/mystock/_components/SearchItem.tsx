@@ -4,13 +4,7 @@ import Image from "next/image";
 import { Button } from "@/components/common";
 import { useInterestStockStore } from "@/app/[lang]/(mystock)/mystock/stores";
 import { StockDataType } from "@/types";
-import {
-  getCompareToPreviousClosePriceColor,
-  getCompareToPreviousClosePriceArrow,
-  getCompareToPreviousClosePriceSign,
-  getFluctuationsRatioColor,
-  getFluctuationsRatioSign,
-} from "@/utils/stockPriceUtils";
+import { formatValueWithIndicator, formatValueWithSign, getTextColor } from "@/utils/stockPriceUtils";
 
 type TSearchItemProps = {
   data: StockDataType;
@@ -51,12 +45,11 @@ const SearchItem = ({ data }: TSearchItemProps) => {
       <div className="flex_row gap-[2rem]">
         <div className="flex_row gap-[.8rem]">
           <span className="body_4 font-medium text-grayscale-900">{`${cashSymbol.get(data.nationType) || ""}${data.price}`}</span>
-          <span className={`${getCompareToPreviousClosePriceColor(data.compareToPreviousClosePrice)}`}>
-            {getCompareToPreviousClosePriceArrow(data.compareToPreviousClosePrice)}
-            {getCompareToPreviousClosePriceSign(data.compareToPreviousClosePrice)}
+          <span className={`${getTextColor(data.compareToPreviousClosePrice)}`}>
+            {formatValueWithIndicator(data.compareToPreviousClosePrice)}
           </span>
-          <span className={`${getFluctuationsRatioColor(data.fluctuationsRatio)}`}>
-            {getFluctuationsRatioSign(data.fluctuationsRatio) + data.fluctuationsRatio + "%"}
+          <span className={`${getTextColor(data.fluctuationsRatio)}`}>
+            {formatValueWithSign(data.fluctuationsRatio) + "%"}
           </span>
         </div>
         {isStockItemListContainsData ? (
