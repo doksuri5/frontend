@@ -1,17 +1,17 @@
-import { StockDataType } from "./StockDataType";
+import { z } from "zod";
 
-export interface SearchDataType {
-  _id: string;
-  user_id: string;
-  stockName: string;
-  symbolCode: string;
-  created_at: string; // 추후에 date 값으로 변경 예정
-}
+export const RecentSearchSchema = z
+  .object({
+    user_snsId: z.string(),
+    user_email: z.string().email("Invalid email format"),
+    is_delete: z.boolean().default(false),
+    stock_name: z.string().min(1, "stock_name is required"),
+    search_date: z.date(),
+  })
+  .required({
+    user_snsId: true,
+    stock_name: true,
+    search_date: true,
+  });
 
-export interface SearchDetailDataType extends StockDataType {
-  _id: string;
-  user_id: string;
-  stockName: string;
-  symbolCode: string;
-  created_at: string; // 추후에 date 값으로 변경 예정
-}
+export type SearchDetailType = z.infer<typeof RecentSearchSchema>;
