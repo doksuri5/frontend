@@ -12,12 +12,14 @@ import Toggle from "./Toggle";
 import CheckBox from "./CheckBox";
 import Modal from "./Modal";
 import { Skeleton } from "./Skeleton";
-import FindNewsSkeleton from "./List/skeleton/FindNewsSkeleton";
-import StockItemSkeleton from "./List/skeleton/StockItemSkeleton";
+import FindNewsSkeleton from "./skeleton/FindNewsSkeleton";
+import StockItemSkeleton from "./skeleton/StockItemSkeleton";
 import ChatBot from "./ChatBot";
 import Alert from "./Alert";
 import PopularNews from "./PopularNews";
 import SimpleRadarChart from "./SimpleRadarChart";
+import CardSkeleton from "./skeleton/CardSkeleton";
+import PopularNewsSkeleton from "./skeleton/PopularNewsSkeleton";
 
 export {
   Button,
@@ -40,4 +42,6 @@ export {
   Alert,
   SimpleRadarChart,
   PopularNews,
+  CardSkeleton,
+  PopularNewsSkeleton,
 };
