@@ -21,7 +21,7 @@ export default function CommonLoginBtn({ className }: TCommonLoginBtnProps) {
 
   return (
     <Button type="button" size="lg" className={cn("text-white", className)} onClick={onClickHandler}>
-      로그인하기
+      로그인
     </Button>
   );
 }
