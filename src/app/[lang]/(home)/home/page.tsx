@@ -2,12 +2,12 @@ import { StockItem, Button } from "@/components/common";
 import AIIcon from "@/public/icons/AI_icon.svg?component";
 import Image from "next/image";
 import News from "./news";
-import SimpleReportCard from "./_components/SimpleReportCard";
+import SimpleReportCard from "@/components/common/SimpleReportCard";
 
 const dummyDataItems = [
   {
     id: "1",
-    icon: "./icons/Apple_icon.svg",
+    icon: "/icons/Apple_icon.svg",
     stockKorName: "애플",
     stockEngName: "AAPL",
     currentPrice: 150.25,

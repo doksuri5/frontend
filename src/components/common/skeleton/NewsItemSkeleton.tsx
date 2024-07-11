@@ -1,5 +1,5 @@
 import { cn } from "@/utils/cn";
-import { Skeleton } from "../../Skeleton";
+import { Skeleton } from "@/components/common";
 
 const variantStyles = {
   "lineClamp-2": {
