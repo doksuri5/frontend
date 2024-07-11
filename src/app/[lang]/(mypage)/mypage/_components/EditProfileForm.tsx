@@ -35,7 +35,6 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
   const {
     register,
     watch,
-    trigger,
     setValue,
     setError,
     clearErrors,
@@ -50,15 +49,18 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
       gender: userStoreData?.gender,
     },
   });
-  const isProfileValid = isDirty && !Object.keys(errors).length && Object.keys(watch()).length;
 
   const nickname = watch("nickname");
   const interestStocks = mapInterestStocksToInitialValue(userStoreData?.interest_stocks as string[], stockList);
   const gender = watch("gender");
 
   const [imageUrl, setImageUrl] = useState(createProfileImgURL(userStoreData?.profile as string, false));
-  const [isNameAvailable, setIsNameAvailable] = useState(false);
+  const [isNameAvailable, setIsNameAvailable] = useState(true);
   const [selectedStocks, setSelectedStocks] = useState<IOption[]>(interestStocks);
+
+  const [lastCheckedNickname, setLastCheckedNickname] = useState(nickname);
+  const [activeDuplicateBtn, setActiveDuplicateBtn] = useState(false);
+  const [formValid, setFormValid] = useState(false);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     // input 이미지 파일 초기화
@@ -86,42 +88,64 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
     setSelectedStocks(selectedOptions as IOption[]);
   };
 
+  // 닉네임 입력 감시
   useEffect(() => {
-    const subscription = watch((value, { name }) => {
-      if (name === "nickname") {
-        setIsNameAvailable(false); //ID 입력 변경 시, ID 중복 재확인 필요
-      }
-    });
-    return () => subscription.unsubscribe();
-  }, [watch, trigger]);
+    if (nickname && nickname !== lastCheckedNickname) {
+      setActiveDuplicateBtn(true);
+      setIsNameAvailable(false); // 아직 중복 확인이 완료되지 않았으므로 false
+    } else {
+      setActiveDuplicateBtn(false); // 입력값이 없거나 이전에 확인된 값과 동일할 경우 비활성화
+    }
+  }, [nickname, lastCheckedNickname]);
+
+  // 폼 전송 버튼 활성화 (폼이 수정되었고, 중복 확인이 완료된 경우)
+  useEffect(() => {
+    const formModified = isDirty && Object.keys(errors).length === 0 && isNameAvailable;
+    setFormValid(formModified);
+  }, [isDirty, errors, isNameAvailable]);
 
   // 닉네임 중복 체크 함수
-  const handleDuplicateCheck = () => {
-    if (isNameAvailable) {
-      return;
-    }
-
+  const handleDuplicateCheck = async () => {
     if (!nickname) {
       setError("nickname", { type: "manual", message: "닉네임을 입력해주세요." });
+      setActiveDuplicateBtn(false);
       return;
     }
 
-    //중복 확인 API가 들어갈 자리
-    const isDuplicate = false;
+    try {
+      const response = await fetch("/api/auth/nickname", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ nickname }),
+      });
 
-    if (isDuplicate) {
-      setError("nickname", { type: "manual", message: "이미 사용 중인 닉네임입니다." });
-      setIsNameAvailable(false);
-    } else {
-      clearErrors("nickname");
-      setIsNameAvailable(true);
-      alert("사용 가능한 닉네임입니다.");
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message || "닉네임 중복 체크 실패");
+      }
+
+      if (result.ok === true) {
+        clearErrors("nickname");
+        setIsNameAvailable(true);
+        setActiveDuplicateBtn(false); 
+        setLastCheckedNickname(nickname);
+        alert("사용 가능한 닉네임입니다.");
+      } else {
+        setError("nickname", { type: "manual", message: "사용할 수 없는 닉네임입니다." });
+        setIsNameAvailable(false);
+        alert("사용할 수 없는 닉네임입니다.");
+      }
+    } catch (err) {
+      throw new Error("닉네임 중복 체크에 실패했습니다.");
     }
   };
 
   // 폼 전송 함수
   const onSubmit = async (data: FormData) => {
-    if (!isProfileValid) return;
+    if (!formValid) return;
 
     const formData = new FormData();
 
@@ -205,16 +229,18 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
               type="button"
               variant="textButton"
               size="sm"
-              bgColor={!errors.nickname && !isNameAvailable ? "bg-navy-900" : "bg-grayscale-200"}
-              className={cn(`w-[12rem] ${!errors.nickname && !isNameAvailable ? "text-white" : "text-gray-300"}`)}
-              disabled={isNameAvailable}
+              bgColor={!errors.nickname && !isNameAvailable && activeDuplicateBtn ? "bg-navy-900" : "bg-grayscale-200"}
+              className={cn(
+                `w-[12rem] ${!errors.nickname && !isNameAvailable && activeDuplicateBtn ? "text-white" : "text-gray-300"}`,
+              )}
+              disabled={isNameAvailable && activeDuplicateBtn}
               onClick={handleDuplicateCheck}
             >
               중복 확인
             </Button>
           }
         />
-        {/* {errors.nickname && <span className="text-warning-100">{errors.nickname.message}</span>} */}
+        {errors.nickname && <span className="text-warning-100">{errors.nickname.message}</span>}
       </div>
 
       {/* 관심 종목 */}
@@ -270,9 +296,9 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
         type="submit"
         variant="textButton"
         size="lg"
-        bgColor={isProfileValid ? "bg-navy-900" : "bg-grayscale-200"}
-        className={`mt-[4rem] ${isProfileValid ? "text-white" : "text-gray-300"}`}
-        disabled={!isProfileValid}
+        bgColor={formValid ? "bg-navy-900" : "bg-grayscale-200"}
+        className={`mt-[4rem] ${formValid ? "text-white" : "text-gray-300"}`}
+        disabled={!formValid}
       >
         수정하기
       </Button>
