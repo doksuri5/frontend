@@ -24,13 +24,7 @@ const connectDB = async () => {
   }
 
   if (!cached.mongoose!.promise) {
-    const options = {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      bufferCommands: false,
-    };
-
-    cached.mongoose!.promise = mongoose.connect(uri, options).then((mongoose) => {
+    cached.mongoose!.promise = mongoose.connect(uri).then((mongoose) => {
       return mongoose;
     });
   }
@@ -46,4 +40,14 @@ const connectDB = async () => {
   }
 };
 
-export default connectDB;
+const disconnectDB = async () => {
+  console.log("Disconnecting MongoDB");
+  if (cached.mongoose!.conn) {
+    await mongoose.disconnect();
+    cached.mongoose!.conn = null;
+    cached.mongoose!.promise = null;
+    console.log("MongoDB Disconnected");
+  }
+};
+
+export { connectDB, disconnectDB };

@@ -1,13 +1,7 @@
 import { DISCOVERY_PATH, REPORT_PATH } from "@/routes/path";
 import { StockDataType } from "@/types";
 import { cn } from "@/utils/cn";
-import {
-  getCompareToPreviousClosePriceColor,
-  getCompareToPreviousClosePriceArrow,
-  getCompareToPreviousClosePriceSign,
-  getFluctuationsRatioColor,
-  getFluctuationsRatioSign,
-} from "@/utils/stockPriceUtils";
+import { formatValueWithIndicator, formatValueWithSign, getTextColor } from "@/utils/stockPriceUtils";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -51,11 +45,7 @@ export default function StockItem({
   style,
   variant = "stock",
 }: TIStockItemProps) {
-  const fluctuationPriceColor = getCompareToPreviousClosePriceColor(compareToPreviousClosePrice);
-  const fluctuationRatioColor = getFluctuationsRatioColor(compareToPreviousClosePrice);
-  const fluctuationArrow = getCompareToPreviousClosePriceArrow(compareToPreviousClosePrice);
-  const fluctuationPriceSign = getCompareToPreviousClosePriceSign(compareToPreviousClosePrice);
-  const fluctuationRatioSign = getFluctuationsRatioSign(fluctuationsRatio);
+  const fluctuationPriceColor = getTextColor(compareToPreviousClosePrice);
 
   const selectedVariantStyles = variantStyles[variant];
 
@@ -80,8 +70,8 @@ export default function StockItem({
             <span>${price}</span>
           </div>
           <div className={cn(`${selectedVariantStyles.fluctuation}`)}>
-            <span className={`${fluctuationPriceColor}`}>{fluctuationArrow + fluctuationPriceSign}</span>
-            <span className={`${fluctuationRatioColor}`}>{fluctuationRatioSign + fluctuationsRatio}%</span>
+            <span className={`${fluctuationPriceColor}`}>{formatValueWithIndicator(compareToPreviousClosePrice)}</span>
+            <span className={`${fluctuationPriceColor}`}>{formatValueWithSign(fluctuationsRatio)}%</span>
           </div>
         </div>
       </div>

@@ -1,5 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  logging: {
+    fetches: {
+      fullUrl: true,
+    },
+  },
+  experimental: {
+    instrumentationHook: true,
+  },
   images: {
     remotePatterns: [{ protocol: "https", hostname: "imgnews.pstatic.net" }],
   },

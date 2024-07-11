@@ -1,12 +1,10 @@
 "use client";
 
-import { Card } from "@/components/common";
+import { Card, CardSkeleton, PopularNewsSkeleton } from "@/components/common";
 import NewsInfinityList from "@/app/[lang]/(news)/news/_components/NewsInfinityList";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { useState } from "react";
-import PopularNews from "@/components/common/PopularNews";
+import { lazy, Suspense, useState } from "react";
 import NewsImage from "@/public/icons/news.jpg";
-import Loading from "@/app/[lang]/loading";
 import { nanoid } from "nanoid";
 
 const DUMMY_NEWS_ITEMS = Array(3).fill({
@@ -30,6 +28,40 @@ export const DUMMY_POPULAR_NEWS_ITEMS = Array(3).fill({
   date: "2024.06.05",
 });
 
+const PopularNewsComponent = lazy(
+  () =>
+    new Promise<{ default: React.ComponentType<any> }>((resolve) =>
+      setTimeout(() => resolve(import("@/components/common/PopularNews")), 2000),
+    ),
+);
+
+const CardListComponent = lazy(
+  () =>
+    new Promise<{ default: React.ComponentType<any> }>((resolve) =>
+      setTimeout(
+        () =>
+          resolve({
+            default: () => (
+              <>
+                {DUMMY_NEWS_ITEMS.map((news) => (
+                  <Card
+                    key={news._id}
+                    variant="halfMediaCard"
+                    style="w-1/3"
+                    date={news.date}
+                    title={news.title}
+                    image={news.image}
+                    content={news.description}
+                    publisher={news.newspaperCompany}
+                  />
+                ))}
+              </>
+            ),
+          }),
+        2000,
+      ),
+    ),
+);
 export default function News({}) {
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -56,30 +88,25 @@ export default function News({}) {
     }
   };
 
-  if (status === "pending") {
-    return <Loading />;
-  }
   const allNews = data?.pages.flatMap((page) => page.data);
 
   return (
     <div className="flex flex-col gap-[4.8rem] pb-[8rem] pt-[5.6rem]">
-      <PopularNews popularNewsData={DUMMY_POPULAR_NEWS_ITEMS} />
+      <Suspense fallback={<PopularNewsSkeleton />}>
+        <PopularNewsComponent popularNewsData={DUMMY_POPULAR_NEWS_ITEMS} />
+      </Suspense>
       <div className="flex w-full flex-col gap-[2.4rem]">
         <h2 className="heading_4 font-bold text-navy-900">관심종목과 관련된 뉴스</h2>
         <div className="flex gap-[2rem]">
-          {DUMMY_NEWS_ITEMS.map((news) => (
-            <Card
-              key={news.id}
-              variant="halfMediaCard"
-              _id={news._id}
-              style="w-1/3"
-              date={news.date}
-              title={news.title}
-              image={news.image}
-              content={news.description}
-              publisher={news.newspaperCompany}
-            />
-          ))}
+          <Suspense
+            fallback={Array(3)
+              .fill(0)
+              .map((_, index) => (
+                <CardSkeleton key={index} variant="halfMediaCard" style="w-1/3" />
+              ))}
+          >
+            <CardListComponent />
+          </Suspense>
         </div>
       </div>
       <div className="flex w-full flex-col gap-[2.4rem]">
