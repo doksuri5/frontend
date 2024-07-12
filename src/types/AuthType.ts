@@ -2,8 +2,8 @@ import { z } from "zod";
 
 // 로그인
 export const loginSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(1),
+  email: z.string().email({ message: "올바른 이메일 형식이 아닙니다." }),
+  password: z.string().min(1, { message: "비밀번호를 입력해주세요." }),
   authLogin: z.boolean().optional(),
 });
 
