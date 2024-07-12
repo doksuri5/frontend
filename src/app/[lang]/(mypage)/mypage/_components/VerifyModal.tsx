@@ -1,6 +1,7 @@
 import { Modal, Button, Input } from "@/components/common";
 import { useState } from "react";
 import { passwordCert } from "../_api/privacyApi";
+import { useSession } from "next-auth/react";
 
 type TVerifyModalProps = {
   isOpen: boolean;
@@ -9,15 +10,14 @@ type TVerifyModalProps = {
   loginType: string;
 };
 
-const userEmail = "abcde@test.com";
-
 export default function VerifyModal({ isOpen, onClose, onEdit, loginType }: TVerifyModalProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { data: session } = useSession();
 
   const verify = async () => {
-    if (loginType === "local") {
-      const response = await passwordCert(userEmail, password);
+    if (loginType === "local" && session?.user?.email) {
+      const response = await passwordCert(session.user.email, password);
       if (response.ok) {
         alert(response.message);
         onEdit();
