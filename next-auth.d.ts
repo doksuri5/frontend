@@ -6,6 +6,8 @@ export type ExtendedUser = DefaultSession["user"] & {
   role: string;
   phone?: string;
   birth?: string;
+  language: "ko" | "en" | "ch" | "jp" | "fr";
+  login_type: "local" | "naver" | "kakao" | "google";
 };
 
 export declare module "next-auth/jwt" {
@@ -18,6 +20,8 @@ export declare module "next-auth/jwt" {
     role: string;
     phone?: string;
     birth?: string;
+    language: "ko" | "en" | "ch" | "jp" | "fr";
+    login_type: "local" | "naver" | "kakao" | "google";
   }
 }
 
@@ -31,5 +35,7 @@ declare module "next-auth" {
     role: string;
     phone?: string;
     birth?: string;
+    language: "ko" | "en" | "ch" | "jp" | "fr";
+    login_type: "local" | "naver" | "kakao" | "google";
   }
 }
