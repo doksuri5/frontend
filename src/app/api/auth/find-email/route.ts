@@ -33,7 +33,10 @@ export const POST = async (request: Request) => {
     });
   }
 
-  const user: IUser | null = await User.findOne({ name, phone });
+  const user: IUser | null = await User.findOne(
+    { name, phone, is_delete: false },
+    { email: 1, login_type: 1, created_at: 1 },
+  );
 
   if (user) {
     return new NextResponse(

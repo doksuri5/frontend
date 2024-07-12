@@ -26,38 +26,38 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         autoLogin: { label: "AutoLogin", type: "checkbox" },
       },
       async authorize(credentials) {
-        console.log("credentials", credentials);
-
         const { email, password, autoLogin } = credentials;
 
         try {
           await connectDB();
+          const user = await User.findOne({ email, is_delete: false }).select("+password");
+
+          if (!user) {
+            console.log("Credentials Login Fail : 가입되지 않은 회원");
+            return null;
+          }
+
+          const isMatched = await compare(String(password), user.password);
+          if (!isMatched) {
+            console.log("Credentials Login Fail : 비밀번호 불일치");
+            return null;
+          }
+
+          const autoLoginCheck = autoLogin === "true" ? true : false;
+          await loginCookie(user.sns_id, user.email, autoLoginCheck, "local"); // 로그인 시 쿠키 발급
+
+          return {
+            id: user._id,
+            name: user.name,
+            email: user.email,
+            role: "user",
+            language: user.language,
+            login_type: user.login_type,
+          };
         } catch (error) {
-          console.log("DB 연결 오류:", error);
+          console.log("Credentials DB 연결 오류:", error);
           return null;
         }
-
-        const user = await User.findOne({ email }).select("+password");
-        if (!user) {
-          console.log("Login Fail : 가입되지 않은 회원");
-          return null;
-        }
-
-        const isMatched = await compare(String(password), user.password);
-        if (!isMatched) {
-          console.log("Login Fail : 비밀번호 불일치");
-          return null;
-        }
-
-        const autoLoginCheck = autoLogin === "true" ? true : false;
-        await loginCookie(user.sns_id, user.email, autoLoginCheck, "local"); // 로그인 시 쿠키 발급
-
-        return {
-          name: user.name,
-          email: user.email,
-          id: user._id,
-          role: "user",
-        };
       },
     }),
     NaverProvider({
@@ -71,6 +71,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           phone: profile.response.mobile,
           birth: profile.response.birthyear + profile.response.birthday,
           role: "user",
+          language: "ko",
+          login_type: "naver",
         };
       },
     }),
@@ -81,6 +83,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         return {
           ...profile,
           role: "user",
+          language: "ko",
+          login_type: "kakao",
         };
       },
     }),
@@ -101,6 +105,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           email_verified: profile.email_verified,
           role: "user",
           id: profile.sub,
+          language: "ko",
+          login_type: "google",
         };
       },
     }),
@@ -113,132 +119,60 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
   callbacks: {
     async signIn({ user, account, profile }) {
-      // console.log("--------------------- Credentials signIn 영역 --------------------- ");
-      // console.log("user:", user, "account:", account, "profile:", profile);
+      try {
+        await connectDB();
 
-      if (account?.provider === "naver") {
-        // console.log("--------------------- 네이버 signIn 영역 --------------------- ");
-        // console.log("user:", user, "account:", account, "profile:", profile);
+        let socialUserOption;
 
-        try {
-          await connectDB();
-        } catch (error) {
-          console.error("Google DB 연결 오류:", error);
-          return false;
+        if (account?.provider === "credentials") {
+          user.role = "user";
+        } else if (account?.provider === "naver" || account?.provider === "google") {
+          socialUserOption = {
+            email: user.email,
+            sns_id: account.providerAccountId,
+            login_type: account.provider,
+            is_delete: false,
+          };
+        } else if (account?.provider === "kakao") {
+          socialUserOption = {
+            sns_id: account.providerAccountId,
+            login_type: account.provider,
+            is_delete: false,
+          };
         }
 
-        // DB에서 고유한 이메일 확인
-        const existingUser = await User.findOne({
-          email: user.email,
-        });
+        const existingUser = await User.findOne(
+          {
+            email: user.email,
+            is_delete: false,
+          },
+          { email: 1 },
+        );
 
-        const socialUser = await User.findOne({
-          email: user.email,
-          sns_id: account.providerAccountId,
-          login_type: account.provider,
-        });
+        const socialUser = await User.findOne(socialUserOption);
 
-        if (!socialUser) {
+        if (socialUser) {
+          // SNS 로그인
+          user.role = "user";
+          if (account && account?.provider !== "credentials") {
+            user.language = socialUser.language;
+            await loginCookie(account.providerAccountId, socialUser.email, false, account.provider); // 로그인 시 쿠키 발급
+          }
+        } else {
+          // SNS 회원가입
           if (existingUser) {
             return EXIST_PATH;
           }
-          user.role = account.provider;
-          user.phone = user.phone;
-          user.birth = user.birth;
-        } else {
-          user.role = "user";
+          user.role = (account && account.provider) || "user";
         }
-        user.id = account.providerAccountId;
-
-        if (socialUser) {
-          await loginCookie(account.providerAccountId, socialUser.email, false, account.provider); // 로그인 시 쿠키 발급
-        }
+        user.id = (account && account.providerAccountId) || user.id;
         return true;
-      } else if (account?.provider === "kakao") {
-        // console.log("--------------------- 카카오 signIn 영역 --------------------- ");
-        // console.log("user:", user, "account:", account, "profile:", profile);
-
-        try {
-          await connectDB();
-        } catch (error) {
-          console.error("Kakao DB 연결 오류:", error);
-          return false;
-        }
-
-        // DB에서 고유한 이메일 확인
-        const existingUser = await User.findOne({
-          email: user.email,
-        });
-
-        const socialUser = await User.findOne({
-          sns_id: account.providerAccountId,
-          login_type: account.provider,
-        });
-
-        if (!socialUser) {
-          if (existingUser) {
-            return EXIST_PATH;
-          }
-          user.role = account.provider;
-        } else {
-          user.role = "user";
-        }
-
-        user.id = account.providerAccountId;
-
-        if (socialUser) {
-          await loginCookie(account.providerAccountId, socialUser.email, false, account.provider); // 로그인 시 쿠키 발급
-        }
-        return true;
-      } else if (account?.provider === "google") {
-        // console.log("--------------------- 구글 signIn 영역 --------------------- ");
-        // console.log("user:", user, "account:", account, "profile:", profile);
-
-        // DB에서 조회 유저정보 조회
-        try {
-          await connectDB();
-        } catch (error) {
-          console.error("Google DB 연결 오류:", error);
-          return false;
-        }
-
-        // DB에서 고유한 이메일 확인
-        const existingUser = await User.findOne({
-          email: user.email,
-        });
-
-        const socialUser = await User.findOne({
-          name: user.name,
-          email: user.email,
-          login_type: account.provider,
-          sns_id: account.providerAccountId,
-        });
-
-        // 조회한 유저정보 통해, role check
-        if (!socialUser) {
-          if (existingUser) {
-            return EXIST_PATH;
-          }
-          user.role = account.provider;
-        } else {
-          user.role = "user";
-        }
-
-        user.id = account.providerAccountId;
-
-        if (socialUser) {
-          await loginCookie(account.providerAccountId, socialUser.email, false, account.provider); // 로그인 시 쿠키 발급
-        }
-        return true;
-      } else if (account?.provider === "credentials") {
-        user.role = "user";
-        return true;
-      } else {
-        return true;
+      } catch (error) {
+        console.error("SNS DB 연결 오류:", error);
+        return false;
       }
     },
     async jwt({ token, user, account }) {
-      // console.log("--------------------- 토큰 영역 --------------------- ");
       // console.log("JWT-token", token, "JWT-user", user);
 
       if (user && account) {
@@ -248,15 +182,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         token.email = user.email;
         token.phone = user.phone;
         token.birth = user.birth;
+        token.language = user.language;
+        token.login_type = user.login_type;
         token.accessToken = account.access_token;
       }
 
       return token;
     },
     async session({ session, token }) {
-      // console.log("--------------------- 세션 영역 --------------------- ");
       // console.log("session-session", session, "session-token", token);
-
       if (token.sub && session.user) {
         session.user.id = token.sub;
         session.user.name = token.name;
@@ -264,9 +198,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         session.user.email = token.email as string;
         session.user.phone = token.phone as string;
         session.user.birth = token.birth as string;
+        session.user.language = token.language as "ko" | "en" | "ch" | "jp" | "fr";
+        session.user.login_type = token.login_type as "local" | "naver" | "kakao" | "google";
         session.accessToken = token.accessToken as string;
       }
-
       return session;
     },
   },
@@ -275,7 +210,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 const loginCookie = async (sns_id: string, email: string, autoLoginCheck: boolean, login_type: string) => {
   // 로그인 완료 시 백엔드 통신 (쿠키 저장)
   const body = { sns_id, email, autoLoginCheck, login_type };
-  console.log(body);
+  // console.log(body);
   const fetchResponse = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/login`, {
     method: "POST",
     body: JSON.stringify(body),
