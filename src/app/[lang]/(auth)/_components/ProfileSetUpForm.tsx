@@ -13,17 +13,16 @@ import { Input, Button } from "@/components/common";
 
 import useZodSchemaForm from "@/hooks/useZodSchemaForm";
 
-import { cn } from "@/utils/cn";
+import { useRegisterStore } from "@/providers/RegisterProvider";
 
-import EditIcon from "@/public/icons/avatar_edit.svg?component";
+import { cn } from "@/utils/cn";
+import reduceImageSize from "@/utils/reduce-image-size";
 
 import { TProfileSchema, profileSchema } from "@/types/AuthType";
 
-import { useRegisterStore } from "@/providers/RegisterProvider";
-
 import { REGISTER_COMPLETE_PATH } from "@/routes/path";
 
-import reduceImageSize from "@/utils/reduce-image-size";
+import EditIcon from "@/public/icons/avatar_edit.svg?component";
 
 type TOption = {
   value: string;
@@ -32,13 +31,19 @@ type TOption = {
 };
 
 const options = [
-  { value: "tsla", label: "# 테슬라 ∙ TSLA", isFixed: false },
-  { value: "appl", label: "# 애플 ∙ APPL", isFixed: false },
-  { value: "amzn", label: "# 아마존 ∙ AMZN", isFixed: false },
-  { value: "msft", label: "# MS ∙ MSFT", isFixed: false },
-  { value: "googl", label: "# 구글 ∙ GOOGL", isFixed: false },
-  { value: "u", label: "# 유니티 ∙ U", isFixed: false },
+  { value: "TSLA.O", label: "# 테슬라 ∙ TSLA", isFixed: false },
+  { value: "AAPL.O", label: "# 애플 ∙ APPL", isFixed: false },
+  { value: "AMZN.O", label: "# 아마존 ∙ AMZN", isFixed: false },
+  { value: "MSFT.O", label: "# MS ∙ MSFT", isFixed: false },
+  { value: "GOOGL.O", label: "# 구글 ∙ GOOGL", isFixed: false },
+  { value: "U", label: "# 유니티 ∙ U", isFixed: false },
 ];
+
+const extractString = (value: string | undefined) => {
+  if (value) {
+    return value.replaceAll("-", "").slice(2);
+  }
+};
 
 export default function ProfileSetUpForm() {
   const form = useRegisterStore((state) => state.form);
@@ -59,7 +64,7 @@ export default function ProfileSetUpForm() {
     setError,
   } = useZodSchemaForm<TProfileSchema>(profileSchema);
 
-  const isFormFilled = watchProfile("nickname");
+  const isNickNameChk = watchProfile("nickname");
 
   const avatarChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (avatar) {
@@ -74,12 +79,6 @@ export default function ProfileSetUpForm() {
 
   const isGenderActive = (value: null | "M" | "F") => {
     setIsGender(value);
-  };
-
-  const extractString = (value: string | undefined) => {
-    if (value) {
-      return value.replaceAll("-", "").slice(2);
-    }
   };
 
   const registerFormData = (): { [key: string]: string | undefined | null } => {
@@ -138,8 +137,6 @@ export default function ProfileSetUpForm() {
 
   // 가입하기 버튼 클릭시 실행되는 이벤트
   const onProfileSetUpSubmit = async (data: TProfileSchema) => {
-    //console.log("registerFormData", registerFormData());
-
     const formData = new FormData();
 
     if (isGender) {
@@ -153,11 +150,9 @@ export default function ProfileSetUpForm() {
     }
 
     if (data.tags) {
-      formData.append("interest_stocks", JSON.stringify(data.tags.map((item) => item.value)));
+      formData.append("reuters_code", JSON.stringify(data.tags.map((item) => item.value)));
     }
-
     formData.append("nickname", data.nickname);
-
     const additionalData = registerFormData();
     for (const key in additionalData) {
       if (additionalData.hasOwnProperty(key)) {
@@ -188,7 +183,7 @@ export default function ProfileSetUpForm() {
   useEffect(() => {
     setIsNicknameChk(false);
     setNicknameValidated(false);
-  }, [isFormFilled]);
+  }, [isNickNameChk]);
 
   return (
     <form onSubmit={handleProfileSubmit(onProfileSetUpSubmit)}>
@@ -289,8 +284,8 @@ export default function ProfileSetUpForm() {
         type="submit"
         variant="textButton"
         size="lg"
-        bgColor={isProfileValid ? "bg-navy-900" : "bg-grayscale-200"}
-        className={cn(`mt-[4rem] ${isProfileValid ? "text-white" : "text-gray-300"}`)}
+        bgColor={isProfileValid && isNicknameChk ? "bg-navy-900" : "bg-grayscale-200"}
+        className={cn(`mt-[4rem] ${isProfileValid && isNicknameChk ? "text-white" : "text-gray-300"}`)}
         disabled={!isProfileValid}
       >
         가입하기
