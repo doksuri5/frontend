@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Controller } from "react-hook-form";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 import { Button, CheckBox, Input } from "@/components/common";
 
@@ -14,7 +15,7 @@ import { cn } from "@/utils/cn";
 
 import { loginAction } from "@/lib/auth-action";
 
-import { FIND_EMAIL_PATH, FIND_PASSWORD_PATH } from "@/routes/path";
+import { HOME_PATH, FIND_EMAIL_PATH, FIND_PASSWORD_PATH } from "@/routes/path";
 
 const cssConfig = {
   link: "relative body_5",
@@ -24,6 +25,7 @@ const cssConfig = {
 export default function LoginForm() {
   const [checked, setChecked] = useState(false);
   const [error, setError] = useState<string | undefined>("");
+  const router = useRouter();
 
   const {
     control,
@@ -31,11 +33,18 @@ export default function LoginForm() {
     formState: { errors, isValid },
   } = useZodSchemaForm<TLoginSchema>(loginSchema);
 
-  const onLoginSubmit = (values: TLoginSchema) => {
+  const onLoginSubmit = async (values: TLoginSchema) => {
     if (isValid) {
-      loginAction(values).then((data) => {
-        setError(data?.error);
-      });
+      try {
+        const response = await loginAction(values);
+        if (!!response.error) {
+          setError("이메일과 비밀번호를 확인해주세요.");
+        } else {
+          router.push(HOME_PATH);
+        }
+      } catch (e) {
+        console.error(e);
+      }
     }
   };
 
