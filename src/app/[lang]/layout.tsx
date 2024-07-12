@@ -1,3 +1,4 @@
+import { cookies } from "next/headers";
 import { pretendard } from "@/fonts";
 
 import "../globals.css";
@@ -19,8 +20,9 @@ export default function RootLayout({
   children: React.ReactNode;
   params: { lang: Locale };
 }>) {
-  // TODO : 추후 해당 코드 변경 예정
-  const isLoggedIn = false;
+  const cookieStore = cookies();
+  const connectCookie = cookieStore.get("connect.sid")?.value;
+  const isLoggedIn = connectCookie ? true : false;
 
   return (
     <html lang={params.lang} className={pretendard.className}>

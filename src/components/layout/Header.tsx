@@ -1,29 +1,21 @@
 "use client";
 
-import { useState } from "react";
-import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { logoutAction } from "@/lib/auth-action";
 import { Button } from "../common";
 
-import { DISCOVERY_PATH, LOGIN_PATH, MAIN_PATH, MY_PAGE_PATH, MY_STOCK_PATH, NEWS_PATH } from "@/routes/path";
+import { DISCOVERY_PATH, MAIN_PATH, HOME_PATH, MY_PAGE_PATH, MY_STOCK_PATH, NEWS_PATH } from "@/routes/path";
 
 import LightLogo from "@/public/icons/light_logo.svg?component";
 import DarkLogo from "@/public/icons/dark_logo.svg?component";
-
-import { signOut, useSession } from "next-auth/react";
 
 type THeaderProps = {
   isLoggedIn: boolean;
 };
 
 const Header = ({ isLoggedIn }: THeaderProps) => {
-  const router = usePathname();
-  const [isLogin, setIsLogin] = useState(isLoggedIn); // 로그인 여부 로직 처리
-  const { data: session } = useSession();
-
-  const handleLogOut = async () => {
-    await signOut({ redirect: true, callbackUrl: LOGIN_PATH });
-  };
+  const pathname = usePathname();
 
   const buttonList = [
     { text: "발견", url: DISCOVERY_PATH },
@@ -32,20 +24,26 @@ const Header = ({ isLoggedIn }: THeaderProps) => {
     { text: "마이페이지", url: MY_PAGE_PATH },
   ];
 
+  const handleLogOut = async () => {
+    logoutAction();
+  };
+
   return (
     <header
       className={`flex_row_center fixed left-0 top-0 z-50 h-[8rem] w-full py-[1rem] ${isLoggedIn ? "bg-white" : "bg-transparent"}`}
     >
       <div className="flex_row h-full w-[120rem] justify-between">
         <div className="flex_row h-full">
-          <Link href={MAIN_PATH}>{router === MAIN_PATH && !isLogin ? <LightLogo /> : <DarkLogo />}</Link>
-          {session?.user.role === "user" && (
+          <Link href={isLoggedIn ? HOME_PATH : MAIN_PATH}>
+            {pathname === MAIN_PATH && !isLoggedIn ? <LightLogo /> : <DarkLogo />}
+          </Link>
+          {isLoggedIn && (
             <nav className="flex_row_center ml-[2rem] h-full">
               {buttonList.map((item) => (
                 <Link
                   key={item.text}
                   href={item.url}
-                  className={`body_3 flex_row_center h-full w-[16rem] ${item.url === router && "font-bold"} text-navy-900`}
+                  className={`body_3 flex_row_center h-full w-[16rem] ${item.url === pathname && "font-bold"} text-navy-900`}
                 >
                   {item.text}
                 </Link>
@@ -53,7 +51,7 @@ const Header = ({ isLoggedIn }: THeaderProps) => {
             </nav>
           )}
         </div>
-        {session?.user.role === "user" && (
+        {isLoggedIn && (
           <Button
             variant="textButton"
             size="sm"
