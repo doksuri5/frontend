@@ -6,8 +6,10 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import { Button, CheckBox, Input } from "@/components/common";
+import FormResultError from "@/components/common/FormResultError";
 
 import useZodSchemaForm from "@/hooks/useZodSchemaForm";
+import useFormResultError from "@/hooks/useFormResultError";
 
 import { TLoginSchema, loginSchema } from "@/types/AuthType";
 
@@ -16,8 +18,6 @@ import { cn } from "@/utils/cn";
 import { loginAction } from "@/lib/auth-action";
 
 import { HOME_PATH, FIND_EMAIL_PATH, FIND_PASSWORD_PATH } from "@/routes/path";
-import FormResultError from "@/components/common/FormResultError";
-import useFormResultError from "@/hooks/useFormResultError";
 
 const cssConfig = {
   link: "relative body_5",
