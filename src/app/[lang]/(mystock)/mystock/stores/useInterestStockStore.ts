@@ -13,7 +13,7 @@ const useInterestStockStore = create<InterestStockType>()((set) => ({
   addStockItemList: (newStockItem) => set((state) => ({ stockItemList: [...state.stockItemList, newStockItem] })),
   deleteStockItem: (stockItem) =>
     set((state) => ({
-      stockItemList: state.stockItemList.filter((stock) => stock._id !== stockItem._id),
+      stockItemList: state.stockItemList.filter((stock) => stock.id !== stockItem.id),
     })),
 }));
 
