@@ -5,6 +5,7 @@ import useUserStore from "@/stores/useUserStore";
 import { cn } from "@/utils/cn";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { passwordCert } from "../_api/privacyApi";
 
 const withdrawReasons = [
   { value: "inconvenient_service", text: "이용이 불편하고 장애가 많아서" },
@@ -19,19 +20,40 @@ type TWithdrawModalProps = {
   onClose: () => void;
 };
 
-// TODO: 추후 실제 유저 이메일 가져오도록 로직 수정 예정
+// TODO: 백엔드와 연결 시 삭제할 것
 const email = "abcde@test.com";
 
 export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) {
   const { userStoreData } = useUserStore();
   const router = useRouter();
 
+  const [password, setPassword] = useState("");
   const [selectedReason, setSelectedReason] = useState(withdrawReasons[0]);
   const [otherReason, setOtherReason] = useState("");
 
+  // 일반 로그인 회원의 경우 비밀번호 인증을 거쳐야 함
+  const handleVerifyCode = async () => {
+    if (!userStoreData?.email || !password) return;
+    const response = await passwordCert(userStoreData.email, password);
+    if (response.ok) {
+    } else {
+      alert(response.message);
+      return;
+    }
+  };
+
   const handleWithdraw = async () => {
+    if (userStoreData?.login_type === "local") {
+      handleVerifyCode();
+    }
+
     try {
-      const formData = { email, reason: selectedReason.text, reason_other: otherReason === "" ? null : otherReason };
+      const formData = {
+        // email, // 테스트 유저 이메일
+        email: userStoreData?.email, // 실제 유저 이메일
+        reason: selectedReason.text,
+        reason_other: otherReason === "" ? null : otherReason,
+      };
       const response = await (
         await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/user/withdraw`, {
           method: "POST",
@@ -58,8 +80,8 @@ export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) 
       isBackdropClosable={true}
       panelStyle="px-[10.2rem] py-[8rem] rounded-[3.2rem] w-[59rem] items-center justify-center"
     >
-      <div className="flex w-full flex-col gap-[5.6rem]">
-        <div className="mb-[5.6rem] mt-[4rem] flex flex-col justify-start gap-[1.6rem]">
+      <div className="flex w-full flex-col">
+        <div className="mt-[4rem] flex flex-col justify-start gap-[1.6rem]">
           <Dropdown
             label="회원탈퇴 사유"
             placeholder="회원탈퇴 사유를 선택해주세요"
@@ -69,7 +91,7 @@ export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) 
           />
           {selectedReason.value === "other" && (
             <div>
-              <label className="body_4 font-medium text-gray-900">탈퇴 사유</label>
+              <label className="body_4 font-medium text-navy-900">탈퇴 사유</label>
               <textarea
                 className={cn(
                   `${userStoreData?.login_type === "local" ? "h-[10rem]" : "h-[15rem]"} w-full resize-none rounded-[0.8rem] border border-gray-300 p-[1.6rem] text-navy-900 focus:outline-blue-500`,
@@ -80,22 +102,26 @@ export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) 
               />
             </div>
           )}
-          <div>
-            {userStoreData?.login_type === "local" ? (
-              <Input
-                labelName="비밀번호 입력"
-                type="password"
-                inputGroupClass="w-full h-[5.6rem]"
-                inputClass="text-navy-900 h-[5.6rem] p-[1.6rem] rounded-[0.8rem]"
-                placeholder="비밀번호를 입력해주세요"
-                labelClass="body_4 font-medium text-gray-900"
-              />
-            ) : (
-              <div className="h-[3rem]" />
-            )}
-          </div>
+          {userStoreData?.login_type === "local" && (
+            <Input
+              labelName="비밀번호 입력"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              inputGroupClass="w-full h-[5.6rem]"
+              inputClass="p-[1.6rem] rounded-[0.8rem]"
+              placeholder="비밀번호를 입력해주세요"
+              labelClass="body_4 font-medium text-navy-900"
+            />
+          )}
         </div>
-        <Button size="lg" className="text-grayscale-0" onClick={handleWithdraw}>
+        <Button
+          size="lg"
+          bgColor={password ? "bg-navy-900" : "bg-grayscale-200"}
+          className={cn(`mt-[6.4rem] ${password ? "text-grayscale-0" : "text-gray-300"}`)}
+          onClick={handleWithdraw}
+          disabled={userStoreData?.login_type !== "local" && !password}
+        >
           회원탈퇴
         </Button>
       </div>
