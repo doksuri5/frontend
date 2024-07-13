@@ -6,6 +6,7 @@ import { cn } from "@/utils/cn";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { passwordCert } from "../_api/privacyApi";
+import { deleteGoogleUserAccount, deleteKakaoUserAccount, deleteNaverUserAccount } from "../_api/withdrawApi";
 
 const withdrawReasons = [
   { value: "inconvenient_service", text: "이용이 불편하고 장애가 많아서" },
@@ -47,29 +48,51 @@ export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) 
       handleVerifyCode();
     }
 
-    try {
-      const formData = {
-        // email, // 테스트 유저 이메일
-        email: userStoreData?.email, // 실제 유저 이메일
-        reason: selectedReason.text,
-        reason_other: otherReason === "" ? null : otherReason,
-      };
-      const response = await (
-        await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/user/withdraw`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        })
-      ).json();
+    const formData = {
+      // email, // 테스트 유저 이메일
+      email: userStoreData?.email, // 실제 유저 이메일
+      reason: selectedReason.text,
+      reason_other: otherReason === "" ? null : otherReason,
+    };
+    const response = await (
+      await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/user/withdraw`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      })
+    ).json();
 
-      if (response.ok) {
-        router.push("/withdraw");
-      }
-    } catch (err) {
-      alert("회원탈퇴 실패: " + err);
+    if (!response.ok) {
+      alert("회원탈퇴 실패: " + response.message);
+      return;
     }
+
+    // 소셜 로그인 연동 해제
+    if (userStoreData?.login_type === "google") {
+      const googleResult = await deleteGoogleUserAccount();
+      if (googleResult) {
+        alert("구글 회원탈퇴 완료");
+        return;
+      }
+      alert("구글 회원탈퇴 실패");
+    } else if (userStoreData?.login_type === "kakao") {
+      const kakaoResult = await deleteKakaoUserAccount();
+      if (kakaoResult) {
+        alert("카카오 회원탈퇴 완료");
+        return;
+      }
+      alert("카카오 회원탈퇴 실패");
+    } else if (userStoreData?.login_type === "naver") {
+      const naverResult = await deleteNaverUserAccount();
+      if (naverResult) {
+        alert("네이버 회원탈퇴 완료");
+        return;
+      }
+      alert("네이버 회원탈퇴 실패");
+    }
+    router.push("/withdraw");
   };
 
   return (

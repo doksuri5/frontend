@@ -4,6 +4,7 @@ import { auth } from "@/auth";
 
 const fetchUserData = async () => {
   const session = await auth();
+  console.log(session);
   try {
     const response = await (
       await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/getUser/${session?.user.email}`, { cache: "no-cache" })
