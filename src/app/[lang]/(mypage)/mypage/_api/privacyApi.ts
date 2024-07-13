@@ -25,3 +25,50 @@ export async function passwordCert(email: string, password: string) {
     return data;
   }
 }
+
+// 개인정보 수정 - 이메일 인증 코드 발송 API
+export async function emailCert(email: string) {
+  const cookieStore = cookies();
+  const connectCookie = cookieStore.get("connect.sid")?.value;
+
+  if (connectCookie !== undefined) {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/user/emailCert`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Cookie: `connect.sid=${connectCookie}`,
+      },
+      credentials: "include",
+      body: JSON.stringify({
+        email,
+      }),
+    });
+
+    const data = await response.json();
+    return data;
+  }
+}
+
+// 개인정보 수정 - 이메일 인증 확인 API
+export async function verifyCode(email: string, code: string) {
+  const cookieStore = cookies();
+  const connectCookie = cookieStore.get("connect.sid")?.value;
+
+  if (connectCookie !== undefined) {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/verifyCode`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Cookie: `connect.sid=${connectCookie}`,
+      },
+      credentials: "include",
+      body: JSON.stringify({
+        email,
+        code,
+      }),
+    });
+
+    const data = await response.json();
+    return data;
+  }
+}
