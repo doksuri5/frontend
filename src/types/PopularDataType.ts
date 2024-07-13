@@ -16,12 +16,3 @@ export interface PopularDetailDataType {
   compareToPreviousClosePrice: number;
   fluctuationsRatio: number;
 }
-
-const PopularSearchSchema = camelSchema(
-  z.object({
-    stock_name: z.string(),
-    count: z.number().int().default(0),
-  }),
-);
-
-export type PopularSearchesDataType = z.infer<typeof PopularSearchSchema>;
