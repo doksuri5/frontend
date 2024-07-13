@@ -81,7 +81,7 @@ export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) 
       panelStyle="px-[10.2rem] py-[8rem] rounded-[3.2rem] w-[59rem] items-center justify-center"
     >
       <div className="flex w-full flex-col">
-        <div className="mt-[4rem] flex flex-col justify-start gap-[1.6rem]">
+        <div className="mb-[2.9rem] mt-[4rem] flex flex-col gap-[1.6rem]">
           <Dropdown
             label="회원탈퇴 사유"
             placeholder="회원탈퇴 사유를 선택해주세요"
@@ -93,34 +93,36 @@ export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) 
             <div>
               <label className="body_4 font-medium text-navy-900">탈퇴 사유</label>
               <textarea
-                className={cn(
-                  `${userStoreData?.login_type === "local" ? "h-[10rem]" : "h-[15rem]"} w-full resize-none rounded-[0.8rem] border border-gray-300 p-[1.6rem] text-navy-900 focus:outline-blue-500`,
-                )}
+                className="h-[10rem] w-full resize-none rounded-[0.8rem] border border-gray-300 p-[1.6rem] text-grayscale-900 focus:outline-blue-500"
                 value={otherReason}
                 onChange={(e) => setOtherReason(e.target.value)}
                 placeholder="기타 사유를 입력해주세요"
               />
             </div>
           )}
-          {userStoreData?.login_type === "local" && (
+          {userStoreData?.login_type === "local" ? (
             <Input
               labelName="비밀번호 입력"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               inputGroupClass="w-full h-[5.6rem]"
-              inputClass="p-[1.6rem] rounded-[0.8rem]"
+              inputClass="p-[1.6rem] rounded-[0.8rem] text-grayscale-900 font-normal"
               placeholder="비밀번호를 입력해주세요"
               labelClass="body_4 font-medium text-navy-900"
             />
+          ) : (
+            <div className="h-[2rem]" />
           )}
         </div>
         <Button
           size="lg"
-          bgColor={password ? "bg-navy-900" : "bg-grayscale-200"}
-          className={cn(`mt-[6.4rem] ${password ? "text-grayscale-0" : "text-gray-300"}`)}
+          bgColor={userStoreData?.login_type !== "local" || password ? "bg-navy-900" : "bg-grayscale-200"}
+          className={cn(
+            `${userStoreData?.login_type !== "local" || password ? "text-grayscale-0" : "text-gray-300"} mt-[6.4rem] w-full`,
+          )}
           onClick={handleWithdraw}
-          disabled={userStoreData?.login_type !== "local" && !password}
+          disabled={userStoreData?.login_type === "local" ? !password : false}
         >
           회원탈퇴
         </Button>
