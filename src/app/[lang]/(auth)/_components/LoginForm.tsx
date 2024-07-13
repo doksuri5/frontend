@@ -1,12 +1,11 @@
 "use client";
 
-import { useEffect, useState, useTransition } from "react";
+import { useState, useTransition } from "react";
 import { Controller } from "react-hook-form";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-import { Button, CheckBox, Input } from "@/components/common";
-import FormResultError from "@/components/common/FormResultError";
+import { Button, CheckBox, Input, FormResultError } from "@/components/common";
 
 import useZodSchemaForm from "@/hooks/useZodSchemaForm";
 import useFormResultError from "@/hooks/useFormResultError";
@@ -28,11 +27,10 @@ export default function LoginForm() {
   const {
     control,
     handleSubmit,
-    watch,
     formState: { errors, isValid },
   } = useZodSchemaForm<TLoginSchema>(loginSchema);
 
-  const [checked, setChecked] = useState(false);
+  const [_, setChecked] = useState(false);
   const { formResultError, setFormResultError } = useFormResultError(isValid);
   const [isPending, startTransition] = useTransition();
   const router = useRouter();

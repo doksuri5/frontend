@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Select, { components, MultiValue } from "react-select";
@@ -51,6 +51,7 @@ export default function ProfileSetUpForm() {
   const [avatar, setAvatar] = useState("");
   const [isNicknameChk, setIsNicknameChk] = useState(false);
   const [nicknameValidated, setNicknameValidated] = useState(false);
+  const [isPending, startTransition] = useTransition();
 
   const router = useRouter();
   const { data: session } = useSession();
@@ -107,7 +108,8 @@ export default function ProfileSetUpForm() {
   const nicknameChkHandler = async () => {
     const valid = await triggerProfile("nickname");
     const nickname = watchProfile("nickname");
-
+    setIsNicknameChk(false);
+    setNicknameValidated(false);
     if (valid) {
       try {
         const response = await (
@@ -164,16 +166,18 @@ export default function ProfileSetUpForm() {
 
     if (isProfileValid && isNicknameChk) {
       try {
-        const response = await (
-          await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/${PATH}`, {
-            method: "POST",
-            body: formData,
-            cache: "no-store",
-          })
-        ).json();
-        if (response.ok) {
-          router.push(REGISTER_COMPLETE_PATH);
-        }
+        startTransition(async () => {
+          const response = await (
+            await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/${PATH}`, {
+              method: "POST",
+              body: formData,
+              cache: "no-store",
+            })
+          ).json();
+          if (response.ok) {
+            router.push(REGISTER_COMPLETE_PATH);
+          }
+        });
       } catch (e) {
         console.log(e);
       }
@@ -208,6 +212,7 @@ export default function ProfileSetUpForm() {
         id="nickname"
         labelName="닉네임"
         placeholder="닉네임을 입력해주세요."
+        disabled={isPending}
         {...profileControl.register("nickname")}
         variant={profileErrors.nickname ? "error" : "default" || isNicknameChk ? "success" : "default"}
         caption={nicknameValidated ? "* 사용가능한 닉네임 입니다." : profileErrors.nickname?.message}
@@ -233,6 +238,7 @@ export default function ProfileSetUpForm() {
         <Controller
           name="tags"
           control={profileControl}
+          disabled={isPending}
           render={({ field }) => (
             <Select
               {...field}
@@ -284,9 +290,9 @@ export default function ProfileSetUpForm() {
         type="submit"
         variant="textButton"
         size="lg"
-        bgColor={isProfileValid && isNicknameChk ? "bg-navy-900" : "bg-grayscale-200"}
-        className={cn(`mt-[4rem] ${isProfileValid && isNicknameChk ? "text-white" : "text-gray-300"}`)}
-        disabled={!isProfileValid}
+        bgColor={isProfileValid && isNicknameChk && !isPending ? "bg-navy-900" : "bg-grayscale-200"}
+        className={cn(`mt-[4rem] ${isProfileValid && isNicknameChk && !isPending ? "text-white" : "text-gray-300"}`)}
+        disabled={!isProfileValid || isPending}
       >
         가입하기
       </Button>

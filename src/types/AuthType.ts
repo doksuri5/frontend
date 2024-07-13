@@ -49,7 +49,7 @@ const baseRegisterSchema = z.object({
 });
 
 const googleRegisterSchema = baseRegisterSchema.extend({
-  name: z.string().min(1, { message: "이름을 입력해주세요." }),
+  name: z.string().regex(/^[a-zA-Z가-힣\s]+$/, { message: "숫자나 특수기호가 포함될 수 없습니다." }),
   email: z.string().email({ message: "올바른 이메일 형식이 아닙니다." }),
 });
 
@@ -88,7 +88,7 @@ export const registerSchema = (isSocialLogin: "google" | "kakao" | "regular") =>
 
 // 프로필
 export const profileSchema = z.object({
-  nickname: z.string().min(1, { message: "닉네임을 입력해주세요." }),
+  nickname: z.string().regex(/^[a-zA-Z0-9가-힣\s]+$/, { message: "특수기호가 포함될 수 없습니다." }),
   tags: z
     .array(
       z.object({

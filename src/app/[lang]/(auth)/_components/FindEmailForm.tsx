@@ -2,8 +2,7 @@
 
 import { useState, useTransition } from "react";
 
-import { Button, Input } from "@/components/common";
-import FormResultError from "@/components/common/FormResultError";
+import { Button, FormResultError, Input } from "@/components/common";
 
 import FindEmailComplete from "./FindEmailComplete";
 

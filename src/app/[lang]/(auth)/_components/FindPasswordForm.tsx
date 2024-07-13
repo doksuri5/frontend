@@ -1,11 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
+import { toast } from "react-toastify";
 
-import { Input, Button, Modal } from "@/components/common";
+import { Input, Button, Modal, FormResultError } from "@/components/common";
 import CommonLoginBtn from "./CommonLoginBtn";
 
 import useZodSchemaForm from "@/hooks/useZodSchemaForm";
+import useFormResultError from "@/hooks/useFormResultError";
+import useToast from "@/hooks/use-toast";
 
 import { TFindPasswordSchema, findPasswordSchema } from "@/types/AuthType";
 
@@ -31,47 +34,54 @@ const snsTypeName = (value: string) => {
 };
 
 export default function FindPasswordForm() {
-  const [snsUser, setSnsUser] = useState(false);
-  const [snsType, setSnsType] = useState("local");
-
-  const [isOpen, setIsOpen] = useState(false);
-  const closeModal = () => setIsOpen(false);
-
   const {
     control,
     handleSubmit,
-    setError,
     trigger,
     formState: { errors, isValid },
   } = useZodSchemaForm<TFindPasswordSchema>(findPasswordSchema);
+
+  const [snsUser, setSnsUser] = useState(false);
+  const [snsType, setSnsType] = useState("local");
+  const [isPending, startTransition] = useTransition();
+  const { formResultError, setFormResultError } = useFormResultError(isValid);
+  const { showLoadingToast, updateToast } = useToast();
+
+  const [isOpen, setIsOpen] = useState(false);
+  const closeModal = () => setIsOpen(false);
 
   const onFindPasswordSubmit = async (data: TFindPasswordSchema) => {
     const valid = await trigger(["email", "name"]);
     if (valid) {
       try {
-        const response = await (
-          await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/findPassword`, {
-            method: "POST",
-            headers: {
-              "content-type": "application/json",
-            },
-            body: JSON.stringify({
-              name: data.name,
-              email: data.email,
-            }),
-            cache: "no-store",
-          })
-        ).json();
-        if (response.ok) {
-          setIsOpen(true);
-        } else {
-          if (response.data) {
+        const toast = showLoadingToast("임시 비밀번호가 발급 중입니다.");
+        startTransition(async () => {
+          const response = await (
+            await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/findPassword`, {
+              method: "POST",
+              headers: {
+                "content-type": "application/json",
+              },
+              body: JSON.stringify({
+                name: data.name,
+                email: data.email,
+              }),
+              cache: "no-store",
+            })
+          ).json();
+          if (response.ok) {
+            updateToast(toast, "임시 비밀번호 발급이 완료되었습니다.", "success");
             setIsOpen(true);
-            setSnsUser(true);
-            setSnsType(response.data.login_type);
+          } else {
+            updateToast(toast, "임시 비밀번호 발급에 실패했습니다.", "error");
+            if (response.data) {
+              setIsOpen(true);
+              setSnsUser(true);
+              setSnsType(response.data.login_type);
+            }
+            setFormResultError(response.message);
           }
-          setError("email", { type: "manual", message: response.message });
-        }
+        });
       } catch (e) {
         console.log(e);
       }
@@ -85,22 +95,25 @@ export default function FindPasswordForm() {
           id="name"
           labelName="이름"
           placeholder="이름을 입력해주세요."
-          variant={errors.name ? "error" : "default"}
+          disabled={isPending}
+          variant={errors.name || formResultError ? "error" : "default"}
           {...control.register("name")}
         />
         <Input
           id="email"
           labelName="이메일 주소"
           placeholder="가입 시 입력한 이메일주소를 입력해주세요."
-          variant={errors.email ? "error" : "default"}
+          disabled={isPending}
+          variant={errors.email || formResultError ? "error" : "default"}
           caption={errors.email?.message}
           {...control.register("email")}
         />
+        {formResultError && <FormResultError message={formResultError} />}
         <Button
           size="lg"
-          bgColor={isValid ? "bg-navy-900" : "bg-grayscale-200"}
-          className={cn(`mt-[4rem] ${isValid ? "text-white" : "text-gray-300"}`)}
-          disabled={!isValid}
+          bgColor={isValid && !isPending ? "bg-navy-900" : "bg-grayscale-200"}
+          className={cn(`mt-[4rem] ${isValid && !isPending ? "text-white" : "text-gray-300"}`)}
+          disabled={!isValid || isPending}
         >
           임시 비밀번호 발급
         </Button>
