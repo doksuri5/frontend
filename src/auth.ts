@@ -155,6 +155,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           // SNS 로그인
           user.role = "user";
           if (account && account?.provider !== "credentials") {
+            user.email = socialUser.email;
             user.language = socialUser.language;
             await loginCookie(account.providerAccountId, socialUser.email, false, account.provider); // 로그인 시 쿠키 발급
           }
