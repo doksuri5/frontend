@@ -23,6 +23,12 @@ export type TStockTags =
   | "/interest/insertInterestStock"
   | "/interest/deleteInterestStock";
 
+// 주식 종목 리스트 가져오기
+export const getStocks = api.get({
+  endpoint: "/stocks",
+  responseSchema: StockSchema,
+})<undefined, StockDataType>;
+
 // 주식 종목 전체 리스트 가져오기
 export const getDetailInterestStocks = api.get({
   endpoint: "/interest/getDetailInterestStocks",

@@ -1,6 +1,6 @@
 "use client";
 
-import { getRecentSearchDetails } from "@/actions/stock";
+import { getRecentSearchDetails, getStocks } from "@/actions/stock";
 import SearchItem from "@/app/[lang]/(mystock)/mystock/_components/SearchItem";
 import { StockDataType } from "@/types";
 import { useEffect, useState } from "react";
@@ -14,7 +14,7 @@ const MyStockSearchResult = ({ value }: TMyStockSearchResultProps) => {
 
   useEffect(() => {
     async function fetchData() {
-      const res = await getRecentSearchDetails();
+      const res = await getStocks();
       setLists(res?.data.filter((data) => data.stockName.includes(value)));
     }
 
