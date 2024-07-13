@@ -111,7 +111,7 @@ export default function EditPrivacyForm({ closeModal }: TEditPrivacyFormProps) {
           labelName="새 비밀번호 확인"
           placeholder="비밀번호를 다시 한번 입력해주세요."
           {...register("passwordChk", {
-            validate: (value) => value === password || "비밀번호가 일치하지 않습니다.",
+            validate: (value) => value === password || "동일한 비밀번호가 아닙니다. 다시 확인 후 입력해주세요.",
           })}
           variant={errors.passwordChk ? "error" : "default"}
           caption={errors.passwordChk ? errors.passwordChk.message : ""}
