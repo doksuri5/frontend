@@ -1,6 +1,6 @@
 import React from "react";
 import MyPageMain from "./_components/MyPageMain";
-import { auth } from "@/auth"  
+import { auth } from "@/auth";
 
 const fetchUserData = async () => {
   const session = await auth();

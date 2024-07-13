@@ -1,25 +1,23 @@
 import { Modal, Button, Input } from "@/components/common";
 import { useRef, useState, useEffect } from "react";
 import { emailCert, passwordCert, verifyCode } from "../_api/privacyApi";
-import { useSession } from "next-auth/react";
 import { cn } from "@/utils/cn";
+import useUserStore from "@/stores/useUserStore";
 
 type TVerifyModalProps = {
   isOpen: boolean;
   onClose: () => void;
   onEdit: () => void;
-  loginType: string;
 };
 
-export default function VerifyModal({ isOpen, onClose, onEdit, loginType }: TVerifyModalProps) {
-  const { data: session } = useSession();
+export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalProps) {
+  const { userStoreData } = useUserStore();
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [code, setCode] = useState<string>("");
 
   const [visibleCodeField, setVisibleCodeField] = useState<boolean>(false);
-  const [visibleCodeCheckField, setVisibleCodeCheckField] = useState<boolean>(false);
 
   const [timeLeft, setTimeLeft] = useState<number | null>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
@@ -61,8 +59,9 @@ export default function VerifyModal({ isOpen, onClose, onEdit, loginType }: TVer
   };
 
   const handleVerifyPassword = async () => {
-    if (!session?.user?.email) return;
-    const response = await passwordCert(session.user.email, password);
+    if (!userStoreData?.email) return;
+
+    const response = await passwordCert(userStoreData.email, password);
     if (response.ok) {
       alert(response.message);
       onEdit();
@@ -84,11 +83,10 @@ export default function VerifyModal({ isOpen, onClose, onEdit, loginType }: TVer
   };
 
   const handleVerifyCode = async () => {
-    if (!session?.user?.email) return;
+    if (!userStoreData?.email) return;
 
-    const verify = await verifyCode(session.user.email, code);
+    const verify = await verifyCode(userStoreData.email, code);
     if (verify.ok) {
-      setVisibleCodeCheckField(true);
       alert(verify.message);
       onEdit();
     } else {
@@ -111,12 +109,12 @@ export default function VerifyModal({ isOpen, onClose, onEdit, loginType }: TVer
         }
         onClose();
       }}
-      title={loginType === "local" ? "비밀번호 인증" : "이메일 인증"}
+      title={userStoreData?.login_type === "local" ? "비밀번호 인증" : "이메일 인증"}
       isBackdropClosable={true}
       panelStyle="px-[10.2rem] py-[8rem] rounded-[3.2rem] w-[59rem] items-center justify-center"
     >
       <div className="mt-[4rem] flex w-full flex-col">
-        {loginType === "local" ? (
+        {userStoreData?.login_type === "local" ? (
           <div className="flex flex-col gap-[6.4rem]">
             <Input
               id="password"

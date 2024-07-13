@@ -99,7 +99,6 @@ export default function MyPageMain({ userData }: TMyPageMainProps) {
         isOpen={verifyModal.isOpen}
         onClose={() => verifyModal.close()}
         onEdit={handleOpenPrivacyWithdrawModal}
-        loginType={userData?.login_type}
       />
       <PrivacyEditModal
         isOpen={privacyModal.isOpen}
