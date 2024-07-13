@@ -4,15 +4,17 @@ import { useRef } from "react";
 import { StockItem } from "@/components/common";
 import useDraggable from "@/hooks/use-draggable";
 import { useRecentSearchStore } from "@/stores";
+import { deleteRecentSearch } from "@/actions/stock";
 
 const MyStockRecentSearches = () => {
   const ref = useRef(null);
   const draggableOptions = useDraggable(ref);
   const { stockItemList, allDeleteStockItem } = useRecentSearchStore();
 
-  const handleAllDeleteSearch = () => {
+  const handleAllDeleteSearch = async () => {
     allDeleteStockItem();
     // delete fetch 진행
+    await deleteRecentSearch();
   };
 
   return (
@@ -28,20 +30,8 @@ const MyStockRecentSearches = () => {
       </div>
       <ul className="flex gap-[2rem] overflow-x-scroll scrollbar-hide" ref={ref} {...draggableOptions()}>
         {stockItemList.map((stock) => (
-          <div key={stock._id} className="rounded-[1.6rem] border border-navy-100 px-[1.6rem] py-[2.4rem]">
-            <StockItem
-              style="h-[4.8rem]"
-              _id={stock._id}
-              icon={stock.icon}
-              stockName={stock.stockName}
-              symbolCode={stock.symbolCode}
-              price={stock.price}
-              compareToPreviousClosePrice={stock.compareToPreviousClosePrice}
-              fluctuationsRatio={stock.fluctuationsRatio}
-              reutersCode={stock.reutersCode}
-              nationType={stock.nationType}
-              variant="findStock"
-            />
+          <div key={stock.id} className="rounded-[1.6rem] border border-navy-100 px-[1.6rem] py-[2.4rem]">
+            <StockItem variant="findStock" style="h-[4.8rem]" {...stock} />
           </div>
         ))}
       </ul>
