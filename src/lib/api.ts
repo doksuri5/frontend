@@ -38,9 +38,9 @@ const request = ({
 }) => {
   /**
    * @param body request body
-   * @param params query string ex) "/:id => /1", / 는 제외
-   * @param queryString query string array ex) ["page=1", "size=10"]
    * @param options fetch options
+   * @param options.params path parameter ex) "/:id => /1", / 는 제외
+   * @param options.queryString query parameter array ex) ["page=1", "size=10"]
    */
   return async <T, D>(
     body?: T,
