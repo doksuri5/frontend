@@ -188,7 +188,7 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
         {/* 프로필 이미지 */}
         <div className="flex h-[12rem] w-[12rem] overflow-hidden rounded-[50%]">
           <Image
-            src={imageUrl ? imageUrl : Avatar}
+            src={imageUrl || Avatar}
             width={120}
             height={120}
             alt="프로필 이미지"

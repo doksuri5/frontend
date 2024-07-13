@@ -2,13 +2,19 @@ import React from "react";
 import MyPageMain from "./_components/MyPageMain";
 import { auth } from "@/auth";
 
+// TODO: 백엔드와 연결 시 삭제할 것
+const email = "abcde@test.com";
+
 const fetchUserData = async () => {
   const session = await auth();
-  console.log(session);
+
   try {
     const response = await (
       await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/getUser/${session?.user.email}`, { cache: "no-cache" })
     ).json();
+    // const response = await (
+    //   await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/getUser/${email}`, { cache: "no-cache" })
+    // ).json();
 
     if (response.ok) {
       return response.data;

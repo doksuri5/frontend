@@ -33,7 +33,7 @@ export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) 
   const [otherReason, setOtherReason] = useState("");
 
   // 일반 로그인 회원의 경우 비밀번호 인증을 거쳐야 함
-  const handleVerifyCode = async () => {
+  const handleVerifyPassword = async () => {
     if (!userStoreData?.email || !password) return;
     const response = await passwordCert(userStoreData.email, password);
     if (response.ok) {
@@ -45,7 +45,7 @@ export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) 
 
   const handleWithdraw = async () => {
     if (userStoreData?.login_type === "local") {
-      handleVerifyCode();
+      handleVerifyPassword();
     }
 
     const formData = {
