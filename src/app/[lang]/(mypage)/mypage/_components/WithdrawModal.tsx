@@ -7,6 +7,8 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { passwordCert } from "../_api/privacyApi";
 import { deleteGoogleUserAccount, deleteKakaoUserAccount, deleteNaverUserAccount } from "../_api/withdrawApi";
+import { signOut } from "next-auth/react";
+import { logoutAction } from "@/lib/auth-action";
 
 const withdrawReasons = [
   { value: "inconvenient_service", text: "이용이 불편하고 장애가 많아서" },
@@ -103,6 +105,7 @@ export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) 
       alert("네이버 회원탈퇴 실패");
     }
     router.push("/withdraw");
+    logoutAction();
   };
 
   return (
