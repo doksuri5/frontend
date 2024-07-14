@@ -37,15 +37,17 @@ export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) 
     if (!userStoreData?.email || !password) return;
     const response = await passwordCert(userStoreData.email, password);
     if (response.ok) {
+      return true;
     } else {
       alert(response.message);
-      return;
+      return false;
     }
   };
 
   const handleWithdraw = async () => {
     if (userStoreData?.login_type === "local") {
-      handleVerifyPassword();
+      const passwordResponse = await handleVerifyPassword();
+      if (!passwordResponse) return;
     }
 
     const formData = {
