@@ -6,14 +6,15 @@ import { Button, Input } from "@/components/common";
 import { cn } from "@/utils/cn";
 import useUserStore from "@/stores/useUserStore";
 import { useRouter } from "next/navigation";
+import { updateUserInfo } from "../_api/privacyApi";
 
 type TEditPrivacyFormProps = {
   closeModal: () => void;
 };
-interface FormData {
+export interface FormData {
   email: string;
   password: string;
-  passwordChk: string;
+  passwordChk?: string;
   phone: string;
   birth: string;
 }
@@ -43,7 +44,10 @@ export default function EditPrivacyForm({ closeModal }: TEditPrivacyFormProps) {
 
   // Form 전송 함수
   const onSubmit = async (data: FormData) => {
-    if (!formValid) return;
+    if (!formValid) {
+      console.log("안돼 돌아가");
+      return;
+    }
     console.log(data);
 
     const formData = {
@@ -53,24 +57,13 @@ export default function EditPrivacyForm({ closeModal }: TEditPrivacyFormProps) {
       birth: data.birth,
     };
 
-    try {
-      const response = await (
-        await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/user/updateUserInfo`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        })
-      ).json();
+    const response = await updateUserInfo(formData);
+    console.log(response);
 
-      if (response.ok) {
-        alert("회원정보가 수정되었습니다.");
-        closeModal();
-        router.refresh();
-      }
-    } catch (err) {
-      alert("프로필 업데이트 실패: " + err);
+    if (response.ok) {
+      alert("회원정보가 수정되었습니다.");
+      closeModal();
+      router.refresh();
     }
   };
 

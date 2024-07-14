@@ -33,6 +33,7 @@ export const deleteKakaoUserAccount = async () => {
     method: "GET",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
+      Authorization: `Bearer ${session.accessToken}`,
     },
   });
 
