@@ -4,7 +4,7 @@ import { cn } from "@/utils/cn";
 type TPolicyDivProps = {
   policyType: "service" | "privacy";
   handleToggleExpand: (policyType: "service" | "privacy") => void;
-  policyText: string;
+  policyText: JSX.Element[];
   expanded: boolean;
 };
 
@@ -30,7 +30,9 @@ export const PolicyContent = ({ policyType, handleToggleExpand, policyText, expa
           `rounded-[1.6rem] border border-gray-100 px-[1.4rem] py-[2.4rem] scrollbar-hide ${expanded ? "h-[100%]" : "h-[25rem] overflow-hidden overflow-y-scroll"}`,
         )}
       >
-        <pre className="body_4 text-wrap font-pretendard text-grayscale-900">{policyText}</pre>
+        <div className="body_4 text-wrap text-grayscale-900">
+          <pre className="text-wrap font-pretendard">{policyText}</pre>
+        </div>
       </div>
     </article>
   );

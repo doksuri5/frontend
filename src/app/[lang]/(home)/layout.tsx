@@ -7,10 +7,10 @@ export const metadata: Metadata = {
   description: "아잇나우는 해외 주식 정보를 제공하는 서비스입니다.",
 };
 
-export default function HomeLayout({
+export default function HomeRootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <>{children}</>;
+  return <section className="bg-[url('/images/intro_bg.png')] bg-cover bg-center bg-no-repeat">{children}</section>;
 }

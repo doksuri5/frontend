@@ -1,4 +1,5 @@
 import NewsItem from "@/components/common/List/NewsItem";
+import NewsItemSkeleton from "@/components/common/skeleton/NewsItemSkeleton";
 import { NewsItemType } from "@/types";
 import { cn } from "@/utils/cn";
 import { Fragment, useEffect, useRef } from "react";
@@ -59,14 +60,18 @@ export default function NewsInfinityList({
     };
   }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
 
-  if (status === "pending") {
-    return <p>Loading...</p>;
-  }
-
   return (
     <div
       className={cn(`flex w-full flex-col overflow-y-scroll scrollbar-hide ${selectedVariantStyles.border} ${style}`)}
     >
+      {status === "pending" &&
+        Array(4)
+          .fill(0)
+          .map((_, index) => (
+            <Fragment key={index}>
+              <NewsItemSkeleton variant={lineClamp} /> {index < 3 && <hr />}
+            </Fragment>
+          ))}
       {newsItems?.map((newsItem, index) => (
         <Fragment key={newsItem._id}>
           <NewsItem

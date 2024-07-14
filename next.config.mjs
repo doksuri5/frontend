@@ -4,8 +4,19 @@ import createNextIntlPlugin from "next-intl/plugin";
 const withNextIntl = createNextIntlPlugin();
 
 const nextConfig = {
+  logging: {
+    fetches: {
+      fullUrl: true,
+    },
+  },
+  experimental: {
+    instrumentationHook: true,
+  },
   images: {
-    remotePatterns: [{ protocol: "https", hostname: "imgnews.pstatic.net" }],
+    remotePatterns: [
+      { protocol: "https", hostname: "imgnews.pstatic.net" },
+      { protocol: "https", hostname: "doksuri5-s3.s3.ap-northeast-2.amazonaws.com" },
+    ],
   },
   webpack(config) {
     // 기존 svg 파일 불러올 때의 조건

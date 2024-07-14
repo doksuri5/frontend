@@ -4,13 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { Alert, Button } from "@/components/common";
 import { StockDataType } from "@/types";
-import {
-  getCompareToPreviousClosePriceColor,
-  getFluctuationsRatioColor,
-  getCompareToPreviousClosePriceArrow,
-  getCompareToPreviousClosePriceSign,
-  getFluctuationsRatioSign,
-} from "@/utils/stockPriceUtils";
+import { formatValueWithIndicator, formatValueWithSign, getTextColor } from "@/utils/stockPriceUtils";
 import graph from "@/public/icons/graph.png";
 import Link from "next/link";
 import { REPORT_PATH } from "@/routes/path";
@@ -51,12 +45,11 @@ const MyStockItem = ({ data }: TMyStockItemProps) => {
         </div>
         <div className="flex_row justify-start gap-[.8rem]">
           <span className="body_4 font-medium text-grayscale-900">{`${cashSymbol.get(data.nationType) || ""}${data.price}`}</span>
-          <span className={`${getCompareToPreviousClosePriceColor(data.compareToPreviousClosePrice)}`}>
-            {getCompareToPreviousClosePriceArrow(data.compareToPreviousClosePrice)}
-            {getCompareToPreviousClosePriceSign(data.compareToPreviousClosePrice)}
+          <span className={`${getTextColor(data.compareToPreviousClosePrice)}`}>
+            {formatValueWithIndicator(data.compareToPreviousClosePrice)}
           </span>
-          <span className={`${getFluctuationsRatioColor(data.fluctuationsRatio)}`}>
-            {getFluctuationsRatioSign(data.fluctuationsRatio) + data.fluctuationsRatio + "%"}
+          <span className={`${getTextColor(data.fluctuationsRatio)}`}>
+            {formatValueWithSign(data.fluctuationsRatio) + "%"}
           </span>
         </div>
       </div>

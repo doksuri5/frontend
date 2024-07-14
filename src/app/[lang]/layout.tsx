@@ -1,14 +1,15 @@
+import { cookies } from "next/headers";
 import { pretendard } from "@/fonts";
 
 import "../globals.css";
 import Header from "@/components/layout/Header";
 import QueryProvider from "@/providers/QueryProvider";
 import { i18n, type Locale } from "../../i18n";
+import { getDictionary } from "@/get-dictionary";
+import { ChatBot } from "@/components/common";
 import { NextIntlClientProvider } from "next-intl";
 
-import Image from "next/image";
-import { Button, ChatBot } from "@/components/common";
-import { getDictionary } from "@/get-dictionary";
+import AuthSession from "@/providers/AuthSession";
 
 export async function generateStaticParams() {
   return i18n.locales.map((locale) => ({ lang: locale }));
@@ -21,42 +22,23 @@ export default async function RootLayout({
   children: React.ReactNode;
   params: { lang: Locale };
 }>) {
-  // TODO : 추후 해당 코드 변경 예정
-  const isLoggedIn = true;
+  const cookieStore = cookies();
+  const connectCookie = cookieStore.get("connect.sid")?.value;
+  const isLoggedIn = connectCookie ? true : false;
 
   const dictionary = await getDictionary(`${params.lang}`);
 
   return (
     <html lang={params.lang} className={pretendard.className}>
-      <body
-        className={`${isLoggedIn ? "bg-background-100" : "bg-[url('/images/intro_bg.png')] bg-cover bg-center bg-no-repeat"}`}
-      >
+      <body className="bg-background-100">
         <NextIntlClientProvider messages={dictionary}>
-          <Header isLoggedIn={isLoggedIn} />
-          <main className="relative m-auto max-w-[120rem] pt-[8rem]">
-            {isLoggedIn ? (
+          <AuthSession>
+            <Header isLoggedIn={isLoggedIn} />
+            <main className="relative m-auto max-w-[120rem] pt-[8rem]">
               <QueryProvider>{children}</QueryProvider>
-            ) : (
-              <div className="flex flex-col items-center justify-between pt-[8rem]">
-                <dl className="flex_col_center fadeInUp-animation mb-[5.8rem] mt-[7rem] text-white">
-                  <dt className="heading_1 font-medium">
-                    해외주식은 <em className="font-extrabold not-italic">아잇나우</em>와 함께!
-                  </dt>
-                  <dd className="heading_4 mb-[5.6rem] mt-[2.4rem] text-center font-medium">
-                    해외 주식 뉴스 실시간 번역과
-                    <br /> AI 애널리스트가 알려주는 어려운 해외주식 리포트
-                  </dd>
-                  <dd>
-                    <Button variant="textButton" size="lg" bgColor="bg-navy-900" className="w-[38.6rem]">
-                      로그인
-                    </Button>
-                  </dd>
-                </dl>
-                <Image src={"/images/intro_content.png"} alt="아잇나우" width={1038} height={526} />
-              </div>
-            )}
-          </main>
-          <ChatBot />
+            </main>
+            <ChatBot />
+          </AuthSession>
         </NextIntlClientProvider>
       </body>
     </html>
