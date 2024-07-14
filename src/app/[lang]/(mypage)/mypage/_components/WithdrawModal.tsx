@@ -4,7 +4,7 @@ import { Modal, Button, Dropdown, Input } from "@/components/common";
 import useUserStore from "@/stores/useUserStore";
 import { cn } from "@/utils/cn";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { passwordCert } from "../_api/privacyApi";
 import { deleteGoogleUserAccount, deleteKakaoUserAccount, deleteNaverUserAccount } from "../_api/withdrawApi";
 
@@ -31,6 +31,14 @@ export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) 
   const [password, setPassword] = useState("");
   const [selectedReason, setSelectedReason] = useState(withdrawReasons[0]);
   const [otherReason, setOtherReason] = useState("");
+
+  useEffect(() => {
+    if (!isOpen) {
+      setPassword("");
+      setSelectedReason(withdrawReasons[0]);
+      setOtherReason("");
+    }
+  }, [isOpen]);
 
   // 일반 로그인 회원의 경우 비밀번호 인증을 거쳐야 함
   const handleVerifyPassword = async () => {
