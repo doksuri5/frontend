@@ -13,46 +13,44 @@ type TVerifyModalProps = {
 export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalProps) {
   const { userStoreData } = useUserStore();
 
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [code, setCode] = useState<string>("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [code, setCode] = useState("");
 
-  const [visibleCodeField, setVisibleCodeField] = useState<boolean>(false);
-
+  const [visibleCodeField, setVisibleCodeField] = useState(false);
   const [timeLeft, setTimeLeft] = useState<number | null>(null);
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    if (timeLeft === 0) {
-      clearInterval(timerRef.current!);
-      timerRef.current = null;
+    if (!isOpen) {
+      setEmail("");
+      setPassword("");
+      setCode("");
+      setVisibleCodeField(false);
+      setTimeLeft(null);
+    }
+  }, [isOpen]);
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout | null = null;
+    if (timeLeft !== null && timeLeft > 0) {
+      timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
+    } else if (timeLeft === 0) {
       alert("인증 코드가 만료되었습니다. 다시 요청해주세요.");
       setVisibleCodeField(false);
       setTimeLeft(null);
       setCode("");
     }
+    return () => {
+      if (timer) clearTimeout(timer);
+    };
   }, [timeLeft]);
 
   const startTimer = () => {
-    if (timerRef.current !== null) return; // 이미 타이머가 실행 중이면 중단
-
-    setTimeLeft(180); // 타이머를 3분(180초)으로 설정
-
-    const updateTimer = () => {
-      setTimeLeft((prevTime) => {
-        if (prevTime === null || prevTime <= 1) {
-          clearInterval(timerRef.current!);
-          timerRef.current = null;
-          return 0;
-        }
-        return prevTime - 1;
-      });
-    };
-
-    timerRef.current = setInterval(updateTimer, 1000);
+    setTimeLeft(180);
   };
 
-  const formatTime = (seconds: number) => {
+  const formatTime = (seconds: number | null) => {
+    if (seconds === null) return "";
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
     return `${minutes}:${remainingSeconds < 10 ? `0${remainingSeconds}` : remainingSeconds}`;
@@ -97,18 +95,7 @@ export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalPro
   return (
     <Modal
       isOpen={isOpen}
-      onClose={() => {
-        setPassword("");
-        setEmail("");
-        setCode("");
-        setVisibleCodeField(false);
-        setTimeLeft(null);
-        if (timerRef.current) {
-          clearInterval(timerRef.current);
-          timerRef.current = null;
-        }
-        onClose();
-      }}
+      onClose={onClose}
       title={userStoreData?.login_type === "local" ? "비밀번호 인증" : "이메일 인증"}
       isBackdropClosable={true}
       panelStyle="px-[10.2rem] py-[8rem] rounded-[3.2rem] w-[59rem] items-center justify-center"
@@ -125,12 +112,7 @@ export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalPro
               type="password"
               placeholder="비밀번호를 입력해주세요"
             />
-            <Button
-              size="lg"
-              className="mt-[2rem] text-grayscale-0"
-              onClick={handleVerifyPassword}
-              disabled={!password}
-            >
+            <Button size="lg" className="text-grayscale-0" onClick={handleVerifyPassword} disabled={!password}>
               수정하기
             </Button>
           </div>
