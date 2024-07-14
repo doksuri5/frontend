@@ -84,8 +84,8 @@ export default function MyPageMain({ userData }: TMyPageMainProps) {
         </Button>
       </section>
       <div className="flex flex-row items-center">
-        <div className="body_3 w-[14.4rem] font-medium text-grayscale-900">아이디</div>
-        <div className="body_4 font-medium text-grayscale-600">{userData?._id}</div>
+        <div className="body_3 w-[14.4rem] font-medium text-grayscale-900">이메일</div>
+        <div className="body_4 font-medium text-grayscale-600">{userData?.email}</div>
       </div>
       <div className="flex flex-row items-center">
         <div className="body_3 w-[14.4rem] font-medium text-grayscale-900">이름</div>
@@ -95,11 +95,7 @@ export default function MyPageMain({ userData }: TMyPageMainProps) {
         <div className="body_3 w-[14.4rem] font-medium text-grayscale-900">생년월일</div>
         <div className="body_4 font-medium text-grayscale-600">{userData?.birth}</div>
       </div>
-      <VerifyModal
-        isOpen={verifyModal.isOpen}
-        onClose={() => verifyModal.close()}
-        onEdit={handleOpenPrivacyWithdrawModal}
-      />
+      <VerifyModal isOpen={verifyModal.isOpen} onClose={verifyModal.close} onEdit={handleOpenPrivacyWithdrawModal} />
       <PrivacyEditModal
         isOpen={privacyModal.isOpen}
         onClose={privacyModal.close}
