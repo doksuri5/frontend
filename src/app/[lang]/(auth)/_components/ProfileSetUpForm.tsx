@@ -9,7 +9,8 @@ import { Controller } from "react-hook-form";
 
 import Image from "next/image";
 
-import { Input, Button } from "@/components/common";
+import { Input, Button, Modal } from "@/components/common";
+import PropensityInvest from "@/components/common/PropensityInvest";
 
 import useZodSchemaForm from "@/hooks/useZodSchemaForm";
 
@@ -50,6 +51,7 @@ export default function ProfileSetUpForm() {
   const [avatar, setAvatar] = useState("");
   const [isNicknameChk, setIsNicknameChk] = useState(false);
   const [isPending, startTransition] = useTransition();
+  const [isOpen, setIsOpen] = useState(false);
 
   const router = useRouter();
   const { data: session } = useSession();
@@ -63,6 +65,8 @@ export default function ProfileSetUpForm() {
     setError,
     setValue,
   } = useZodSchemaForm<TProfileSchema>(profileSchema);
+
+  const closeModal = () => setIsOpen(false);
 
   const avatarChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (avatar) {
@@ -285,6 +289,28 @@ export default function ProfileSetUpForm() {
           </Button>
         </p>
       </div>
+      {/* 투자 성향 등록하기 버튼 */}
+      <Button
+        type="button"
+        variant="textButton"
+        size="lg"
+        className="mt-[4rem] text-white"
+        onClick={() => {
+          setIsOpen(true);
+        }}
+      >
+        투자 성향 등록하기
+      </Button>
+      {isOpen && (
+        <Modal
+          isOpen={isOpen}
+          onClose={closeModal}
+          closeIcon={true}
+          panelStyle="w-[80rem] py-[1.6rem] px-[3.2rem] rounded-[2rem]"
+        >
+          <PropensityInvest />
+        </Modal>
+      )}
       {/* 가입하기 버튼 */}
       <Button
         type="submit"
