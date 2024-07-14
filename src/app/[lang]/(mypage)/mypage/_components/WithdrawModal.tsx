@@ -22,7 +22,7 @@ type TWithdrawModalProps = {
 };
 
 // TODO: 백엔드와 연결 시 삭제할 것
-const email = "abcde@test.com";
+const email = "vohali2476@atebin.com";
 
 export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) {
   const { userStoreData } = useUserStore();
