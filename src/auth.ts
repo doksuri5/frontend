@@ -172,7 +172,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         return false;
       }
     },
-    async jwt({ token, user, account }) {
+    async jwt({ token, user, account, trigger, session }) {
       // console.log("JWT-token", token, "JWT-user", user);
 
       if (user && account) {
@@ -185,6 +185,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         token.language = user.language;
         token.login_type = user.login_type;
         token.accessToken = account.access_token;
+      }
+
+      // 언어 설정 변경 시 서버 세션 정보 업데이트
+      if (trigger === "update" && session !== null) {
+        const { language } = session;
+        token.language = language;
       }
 
       return token;

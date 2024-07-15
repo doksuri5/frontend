@@ -1,13 +1,15 @@
 import React from "react";
 import MyPageMain from "./_components/MyPageMain";
+import { auth } from "@/auth";
 
 // TODO: 추후 실제 유저 이메일 가져오도록 로직 수정 예정
 const email = "abcde@test.com";
 
 const fetchUserData = async () => {
+  const session = await auth();
   try {
     const response = await (
-      await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/getUser/${email}`, { cache: "no-cache" })
+      await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/getUser/${session?.user?.email}`, { cache: "no-cache" })
     ).json();
 
     if (response.ok) {
