@@ -32,7 +32,7 @@ export default function LanguageSettingMain({ userLanguage }: { userLanguage: st
   const pathname = usePathname();
   const router = useRouter();
 
-  const [selectedLang, setSelectedLang] = useState("ko");
+  const [selectedLang, setSelectedLang] = useState("");
   const [langList, setLangList] = useState<ILanguageInform[]>(languageList);
   const [pendingLang, setPendingLang] = useState<string | null>(null);
 
@@ -87,10 +87,11 @@ export default function LanguageSettingMain({ userLanguage }: { userLanguage: st
   };
 
   const handleSelectLang = (val: string) => {
+    if (val === selectedLang) return;
     setPendingLang(val);
     setOpenConfirmAlert(true);
   };
-
+  
   const handleConfirmChange = async () => {
     if (pendingLang) {
       await settingLanguage(pendingLang);
@@ -122,7 +123,7 @@ export default function LanguageSettingMain({ userLanguage }: { userLanguage: st
           <div key={it.value}>
             <Button
               variant="langButton"
-              className="w-[19.8rem]"
+              className="w-[19.8rem] duration-300 ease-in-out"
               active={it.value === selectedLang}
               onClick={() => handleSelectLang(it.value)}
             >
