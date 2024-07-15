@@ -53,6 +53,7 @@ export const middleware = async (req: NextRequest) => {
   const isAuthPath = requiresAuth(pathname, [
     `/${locale}`,
     `/${locale}/login`,
+    `/${locale}/login/error`,
     `/${locale}/account`,
     `/${locale}/account/register`,
     `/${locale}/account/profile-setup`,
