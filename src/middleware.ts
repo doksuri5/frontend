@@ -71,6 +71,11 @@ export const middleware = async (req: NextRequest) => {
     return response;
   }
 
+  // 로그인이 필요한 경로와 유저가 로그인 한 경우 Home 페이지로 넘기기
+  if (isAuthPath && isAuthenticated) {
+    return NextResponse.redirect(new URL(`/${locale}/home`, req.url));
+  }
+
   // header에 pathname 추가
   const requestHeaders = new Headers(req.headers);
   requestHeaders.set("x-pathname", pathname);
