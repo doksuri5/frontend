@@ -67,8 +67,6 @@ export const GET = async (req: NextRequest, { params }: { params: { code: string
       `,
     });
 
-    console.log(response.object);
-
     return Response.json({
       ...response.object,
       metrics,

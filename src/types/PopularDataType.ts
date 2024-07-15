@@ -1,3 +1,6 @@
+import { z } from "zod";
+import { camelSchema } from "./ApiType";
+
 export interface PopularDataType {
   _id: string;
   rank: number;

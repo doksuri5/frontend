@@ -1,12 +1,12 @@
+import { StockDataType } from "@/types";
 import { create } from "zustand";
-import { SearchDetailDataType } from "@/types";
-
 interface RecentSearchType {
-  stockItemList: SearchDetailDataType[];
-  setStockItemList: (fetchData: SearchDetailDataType[]) => void;
-  addStockItemList: (newStockItem: SearchDetailDataType) => void;
+  stockItemList: StockDataType[];
+  setStockItemList: (fetchData: StockDataType[]) => void;
+  addStockItemList: (newStockItem: StockDataType) => void;
   allDeleteStockItem: () => void;
 }
+
 const useRecentSearchStore = create<RecentSearchType>()((set) => ({
   stockItemList: [],
   setStockItemList: (fetchData) => set({ stockItemList: fetchData }),

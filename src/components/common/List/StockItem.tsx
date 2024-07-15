@@ -1,3 +1,4 @@
+import { STOCK_NAMES } from "@/constants/stockCodes";
 import { DISCOVERY_PATH, REPORT_PATH } from "@/routes/path";
 import { StockDataType } from "@/types";
 import { cn } from "@/utils/cn";
@@ -32,19 +33,8 @@ const variantStyles = {
   },
 };
 
-export default function StockItem({
-  _id,
-  icon,
-  iconSize = 50,
-  stockName,
-  reutersCode,
-  symbolCode,
-  price,
-  compareToPreviousClosePrice,
-  fluctuationsRatio,
-  style,
-  variant = "stock",
-}: TIStockItemProps) {
+export default function StockItem({ iconSize = 50, style, variant = "stock", ...props }: TIStockItemProps) {
+  const { stockName, symbolCode, closePrice, compareToPreviousClosePrice, fluctuationsRatio, reutersCode } = props;
   const fluctuationPriceColor = getTextColor(compareToPreviousClosePrice);
 
   const selectedVariantStyles = variantStyles[variant];
@@ -58,7 +48,12 @@ export default function StockItem({
       >
         <div className="flex items-center gap-[1.6rem]">
           <div className={selectedVariantStyles.imageSize}>
-            <Image src={icon} alt="icon" width={iconSize} height={iconSize} />
+            <Image
+              src={`/icons/stocks/${STOCK_NAMES[reutersCode]}.svg`}
+              alt="icon"
+              width={iconSize}
+              height={iconSize}
+            />
           </div>
           <div>
             <h3 className={selectedVariantStyles.stockKorName}>{stockName}</h3>
@@ -67,7 +62,7 @@ export default function StockItem({
         </div>
         <div>
           <div className={selectedVariantStyles.currentPrice}>
-            <span>${price}</span>
+            <span>${closePrice}</span>
           </div>
           <div className={cn(`${selectedVariantStyles.fluctuation}`)}>
             <span className={`${fluctuationPriceColor}`}>{formatValueWithIndicator(compareToPreviousClosePrice)}</span>
