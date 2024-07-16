@@ -1,5 +1,5 @@
-import { Modal, Button, Input } from "@/components/common";
-import { useRef, useState, useEffect } from "react";
+import { Modal, Button, Input, Alert } from "@/components/common";
+import { useState, useEffect } from "react";
 import { emailCert, passwordCert, verifyCode } from "../_api/privacyApi";
 import { cn } from "@/utils/cn";
 import useUserStore from "@/stores/useUserStore";
@@ -20,6 +20,12 @@ export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalPro
   const [visibleCodeField, setVisibleCodeField] = useState(false);
   const [timeLeft, setTimeLeft] = useState<number | null>(null);
 
+  const [openEmailFailAlert, setOpenEmailFailAlert] = useState(false);
+  const [openPasswordFailAlert, setOpenPasswordFailAlert] = useState(false);
+  const [openEmailSentAlert, setOpenEmailSentAlert] = useState(false);
+  const [openCodeFailAlert, setOpenCodeFailAlert] = useState(false);
+  const [openExpiredAlert, setOpenExpiredAlert] = useState(false);
+
   useEffect(() => {
     if (!isOpen) {
       setEmail("");
@@ -35,7 +41,7 @@ export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalPro
     if (timeLeft !== null && timeLeft > 0) {
       timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
     } else if (timeLeft === 0) {
-      alert("인증 코드가 만료되었습니다. 다시 요청해주세요.");
+      setOpenExpiredAlert(true);
       setVisibleCodeField(false);
       setTimeLeft(null);
       setCode("");
@@ -46,7 +52,7 @@ export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalPro
   }, [timeLeft]);
 
   const startTimer = () => {
-    setTimeLeft(180);
+    setTimeLeft(30);
   };
 
   const formatTime = (seconds: number | null) => {
@@ -57,38 +63,36 @@ export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalPro
   };
 
   const handleVerifyPassword = async () => {
-    if (!userStoreData?.email) return;
+    if (!userStoreData?.email || !password) return;
 
     const response = await passwordCert(userStoreData.email, password);
     if (response.ok) {
-      alert(response.message);
       onEdit();
     } else {
-      alert(response.message);
+      setOpenPasswordFailAlert(true);
     }
   };
 
   const handleVerifyEmail = async () => {
     if (!email) return;
+
     const response = await emailCert(email);
     if (response.ok) {
-      alert(response.message);
       setVisibleCodeField(true);
-      startTimer();
+      setOpenEmailSentAlert(true);
     } else {
-      alert(response.message);
+      setOpenEmailFailAlert(true);
     }
   };
 
   const handleVerifyCode = async () => {
-    if (!userStoreData?.email) return;
+    if (!userStoreData?.email || !code) return;
 
     const verify = await verifyCode(userStoreData.email, code);
     if (verify.ok) {
-      alert(verify.message);
       onEdit();
     } else {
-      alert(verify.message);
+      setOpenCodeFailAlert(true);
     }
   };
 
@@ -112,7 +116,13 @@ export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalPro
               type="password"
               placeholder="비밀번호를 입력해주세요"
             />
-            <Button size="lg" className="text-grayscale-0" onClick={handleVerifyPassword} disabled={!password}>
+            <Button
+              size="lg"
+              bgColor={password ? "bg-navy-900" : "bg-grayscale-200"}
+              className={cn(`${password ? "text-grayscale-0" : "text-gray-300"}`)}
+              onClick={handleVerifyPassword}
+              disabled={!password}
+            >
               수정하기
             </Button>
           </div>
@@ -147,7 +157,7 @@ export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalPro
                   labelName="인증 코드 입력"
                   placeholder="인증 코드를 입력해주세요"
                 />
-                <div className="flex justify-end text-[1.4rem] text-success-100">
+                <div className="flex justify-end text-[1.4rem] text-blue-500">
                   {timeLeft !== null && formatTime(timeLeft)}
                 </div>
                 <Button
@@ -164,6 +174,56 @@ export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalPro
           </div>
         )}
       </div>
+
+      {/* Alert 창 */}
+      {openExpiredAlert && (
+        <Alert
+          variant="checkCustomCloseButton"
+          title="인증 코드가 만료되었습니다."
+          subText="인증 코드를 다시 요청해주세요."
+          buttonText="확인"
+          onClose={() => setOpenExpiredAlert(false)}
+        />
+      )}
+      {openPasswordFailAlert && (
+        <Alert
+          variant="checkCustomCloseButton"
+          title="비밀번호 인증에 실패했습니다."
+          subText="비밀번호를 다시 확인해 주세요."
+          buttonText="확인"
+          onClose={() => setOpenPasswordFailAlert(false)}
+        />
+      )}
+      {openEmailFailAlert && (
+        <Alert
+          variant="checkCustomCloseButton"
+          title="이메일 인증에 실패했습니다."
+          subText="이메일을 다시 확인해 주세요."
+          buttonText="확인"
+          onClose={() => setOpenEmailFailAlert(false)}
+        />
+      )}
+      {openEmailSentAlert && (
+        <Alert
+          variant="checkCustomCloseButton"
+          title="작성한 이메일주소로 인증 코드를 전송했습니다."
+          subText="메일 확인 후 회원가입을 계속 진행해주세요."
+          buttonText="확인"
+          onClose={() => {
+            setOpenEmailSentAlert(false);
+            startTimer();
+          }}
+        />
+      )}
+      {openCodeFailAlert && (
+        <Alert
+          variant="checkCustomCloseButton"
+          title="인증코드가 일치하지 않거나 만료되었습니다."
+          subText="인증코드를 다시 확인해 주세요."
+          buttonText="확인"
+          onClose={() => setOpenCodeFailAlert(false)}
+        />
+      )}
     </Modal>
   );
 }
