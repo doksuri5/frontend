@@ -10,7 +10,7 @@ import { Controller } from "react-hook-form";
 import Image from "next/image";
 
 import { Input, Button, Modal } from "@/components/common";
-import PropensityInvest from "@/components/common/PropensityInvest";
+import InvestPropensity from "@/components/common/InvestPropensity";
 
 import useZodSchemaForm from "@/hooks/useZodSchemaForm";
 
@@ -81,6 +81,13 @@ export default function ProfileSetUpForm() {
 
   const isGenderActive = (value: null | "M" | "F") => {
     setIsGender(value);
+  };
+
+  // InvestPropensity폼에서 넘어온 데이터 처리
+  const handleFormSubmit = (data: any) => {
+    setIsOpen(false);
+    setValue("investPropensity", data);
+    setValue("isAgreeCreditInfo", true);
   };
 
   const registerFormData = (): { [key: string]: string | undefined | null } => {
@@ -158,7 +165,9 @@ export default function ProfileSetUpForm() {
       formData.append("reuters_code", JSON.stringify(data.tags.map((item) => item.value)));
     }
     formData.append("nickname", data.nickname);
+
     const additionalData = registerFormData();
+
     for (const key in additionalData) {
       if (additionalData.hasOwnProperty(key)) {
         formData.append(key, String(additionalData[key]));
@@ -308,7 +317,7 @@ export default function ProfileSetUpForm() {
           closeIcon={true}
           panelStyle="w-[80rem] py-[1.6rem] px-[3.2rem] rounded-[2rem]"
         >
-          <PropensityInvest />
+          <InvestPropensity onSubmit={handleFormSubmit} />
         </Modal>
       )}
       {/* 가입하기 버튼 */}
