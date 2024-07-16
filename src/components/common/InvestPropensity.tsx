@@ -97,8 +97,17 @@ export default function InvestPropensity({ onSubmit }: any) {
 
   const fieldValues = watch();
 
-  const isAllFieldsFilled =
-    Object.keys(fieldValues).length === 0 ? false : !Object.values(fieldValues).some((value) => value === undefined);
+  // 모든 필드가 응답되었는지 확인하는 함수
+  const areAllFieldsFilled = (values: any) => {
+    // 해당 폼에 처음 진입했을 때는 빈 객체로 존재하기 때문에 빈 객체인지 여부를 체크함
+    if (Object.keys(values).length === 0) return false;
+    return !Object.values(values).some((value, index) => {
+      if (index === 4 && Array.isArray(value)) return value.length === 0;
+      else return value === undefined;
+    });
+  };
+
+  const isAllFieldsFilled = areAllFieldsFilled(fieldValues);
 
   const handleFormSubmit = (data: any) => {
     if (isChecked && isAllFieldsFilled) onSubmit(data);
@@ -163,7 +172,7 @@ export default function InvestPropensity({ onSubmit }: any) {
         ))}
         <Button
           type="submit"
-          disabled={!isAllFieldsFilled && !isEnabled}
+          disabled={!isAllFieldsFilled && !isChecked}
           bgColor={isAllFieldsFilled ? "bg-navy-900" : "bg-grayscale-200"}
           className={cn(`my-12 text-white ${isAllFieldsFilled ? "text-white" : "text-gray-300"}`)}
         >
