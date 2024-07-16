@@ -8,6 +8,9 @@ export default function useZodSchemaForm<T extends FieldValues>(schema: ZodSchem
   const methods = useForm<T>({
     resolver: zodResolver(schema) as Resolver<T>,
     mode: "onChange",
+    defaultValues: {
+      isAgreeCreditInfo: false,
+    } as any,
   });
 
   return methods;
