@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { useForm, useFormContext } from "react-hook-form";
 import { useState } from "react";
 import Image from "next/image";
 import CheckBox from "./CheckBox";
@@ -98,20 +98,18 @@ const questions = [
   },
 ];
 
-export default function PropensityInvest({}) {
+export default function InvestPropensity({ onSubmit }: any) {
   const [isChecked, setIsChecked] = useState(false);
   const [isEnabled, setIsEnabled] = useState(false);
-  const { register, getValues, setValue, handleSubmit, watch } = useForm();
+  const { register, getValues, handleSubmit, watch } = useForm();
 
-  const onSubmit = (data: any) => {
-    console.log("data: ", data);
-    const values = getValues("q4-option");
-    console.log("values: ", values);
+  const handleFormSubmit = (data: any) => {
+    if (isChecked) onSubmit(data);
   };
 
   return (
     <section className="bg-white px-20 py-16">
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(handleFormSubmit)}>
         <h1 className="heading_3 mb-10 text-center font-bold text-navy-900">투자 성향 진단</h1>
         <CreditInfoAgree />
         <CheckBox
