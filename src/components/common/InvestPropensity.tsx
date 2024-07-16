@@ -163,7 +163,7 @@ export default function InvestPropensity({ onSubmit }: any) {
         ))}
         <Button
           type="submit"
-          disabled={!isAllFieldsFilled || !isEnabled}
+          disabled={!isAllFieldsFilled && !isEnabled}
           bgColor={isAllFieldsFilled ? "bg-navy-900" : "bg-grayscale-200"}
           className={cn(`my-12 text-white ${isAllFieldsFilled ? "text-white" : "text-gray-300"}`)}
         >
