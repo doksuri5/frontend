@@ -5,8 +5,7 @@ import { z } from "zod";
 
 import { NewsDataType, SearchStockNewsSchema, SearchStockNewsDataType } from "@/types/NewsDataType2";
 
-export const getSearchNews = (params: string) =>
-  api.get({
-    endpoint: `/news/getSearchNews`,
-    responseSchema: SearchStockNewsSchema,
-  })<undefined, SearchStockNewsDataType>(undefined, { params });
+export const getSearchNews = api.get({
+  endpoint: `/news/getSearchNews`,
+  responseSchema: SearchStockNewsSchema,
+})<undefined, SearchStockNewsDataType>;
