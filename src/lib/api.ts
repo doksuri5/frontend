@@ -1,17 +1,12 @@
-import { ApiRequestBody, ApiResponse } from "@/types/ApiType";
+import { ApiRequestBody, ApiResponse, ResponseReturnType } from "@/types/ApiType";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { ZodSchema } from "zod";
 import { revalidateTag } from "next/cache";
 import { TStockTags } from "@/actions/stock";
 
-type ResponseReturnType<D> = {
-  data: D[];
-  ok?: boolean;
-  message?: string;
-};
-
 type TBaseOptions = RequestInit & {
+  isFetchFromRouteHandler?: boolean;
   revalidateTags?: TStockTags[];
 };
 /**
@@ -19,6 +14,8 @@ type TBaseOptions = RequestInit & {
  * @param method 원하는 HTTP 메소드
  * @param endpoint api endpoint ex) /getPopularSearches (/api 제외, / 로 시작)
  * @param baseOptions fetch options
+ * @param baseOptions.isFetchFromRouteHandler true 일 경우, process.env.NEXT_PUBLIC_BASE_URL 로 fetch 합니다.
+ * @param baseOptions.revalidateTags revalidateTag 를 사용하여 revalidate 할 태그들을 배열로 넣어줍니다.
  * @param requestSchema request body 를 검증할 스키마
  * @param responseSchema response data 를 검증할 스키마
  * @returns
@@ -80,8 +77,11 @@ const request = ({
       };
 
       const combinedQueryString = options.queryString ? `?${options.queryString.join("&")}` : "";
+
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api${endpoint}/${options.params ?? ""}${combinedQueryString}`,
+        `${
+          baseOptions?.isFetchFromRouteHandler ? process.env.NEXT_PUBLIC_BASE_URL : process.env.NEXT_PUBLIC_API_BASE_URL
+        }/api${endpoint}/${options.params ?? ""}${combinedQueryString}`,
         {
           ...requestOptions,
           body: requestBody ? JSON.stringify(requestBody) : null,
@@ -115,6 +115,8 @@ export const api = {
    * POST
    * @param endpoint api endpoint ex) /getPopularSearches (/api 제외, / 로 시작)
    * @param baseOptions fetch options
+   * @param baseOptions.isFetchFromRouteHandler true 일 경우, process.env.NEXT_PUBLIC_BASE_URL 로 fetch 합니다.
+   * @param baseOptions.revalidateTags revalidateTag 를 사용하여 revalidate 할 태그들을 배열로 넣어줍니다.
    * @param requestSchema request body 를 검증할 스키마
    * @param responseSchema response data 를 검증할 스키마
    * @returns
@@ -129,6 +131,8 @@ export const api = {
    * GET
    * @param endpoint api endpoint ex) /getPopularSearches (/api 제외, / 로 시작)
    * @param baseOptions fetch options
+   * @param baseOptions.isFetchFromRouteHandler true 일 경우, process.env.NEXT_PUBLIC_BASE_URL 로 fetch 합니다.
+   * @param baseOptions.revalidateTags revalidateTag 를 사용하여 revalidate 할 태그들을 배열로 넣어줍니다.
    * @param requestSchema request body 를 검증할 스키마
    * @param responseSchema response data 를 검증할 스키마
    * @returns
@@ -143,6 +147,8 @@ export const api = {
    * PATCH
    * @param endpoint api endpoint ex) /getPopularSearches (/api 제외, / 로 시작)
    * @param baseOptions fetch options
+   * @param baseOptions.isFetchFromRouteHandler true 일 경우, process.env.NEXT_PUBLIC_BASE_URL 로 fetch 합니다.
+   * @param baseOptions.revalidateTags revalidateTag 를 사용하여 revalidate 할 태그들을 배열로 넣어줍니다.
    * @param requestSchema request body 를 검증할 스키마
    * @param responseSchema response data 를 검증할 스키마
    * @returns
@@ -157,6 +163,8 @@ export const api = {
    * DELETE
    * @param endpoint api endpoint ex) /getPopularSearches (/api 제외, / 로 시작)
    * @param baseOptions fetch options
+   * @param baseOptions.isFetchFromRouteHandler true 일 경우, process.env.NEXT_PUBLIC_BASE_URL 로 fetch 합니다.
+   * @param baseOptions.revalidateTags revalidateTag 를 사용하여 revalidate 할 태그들을 배열로 넣어줍니다.
    * @param requestSchema request body 를 검증할 스키마
    * @param responseSchema response data 를 검증할 스키마
    * @returns
