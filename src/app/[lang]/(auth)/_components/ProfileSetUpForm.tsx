@@ -51,7 +51,8 @@ export default function ProfileSetUpForm() {
   const [avatar, setAvatar] = useState("");
   const [isNicknameChk, setIsNicknameChk] = useState(false);
   const [isPending, startTransition] = useTransition();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpenOfInvestPropensity, setIsOpenOfInvestPropensity] = useState(false);
+  const [isOpenOfSuggestion, setIsOpenOfSuggestion] = useState(false);
 
   const router = useRouter();
   const { data: session } = useSession();
@@ -66,7 +67,7 @@ export default function ProfileSetUpForm() {
     setValue,
   } = useZodSchemaForm<TProfileSchema>(profileSchema);
 
-  const closeModal = () => setIsOpen(false);
+  const isAgreeCreditInfo = watchProfile("isAgreeCreditInfo");
 
   const avatarChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (avatar) {
@@ -85,7 +86,7 @@ export default function ProfileSetUpForm() {
 
   // InvestPropensity폼에서 넘어온 데이터 처리
   const handleFormSubmit = (data: any) => {
-    setIsOpen(false);
+    setIsOpenOfInvestPropensity(false);
     setValue("investPropensity", data);
     setValue("isAgreeCreditInfo", true);
   };
@@ -197,7 +198,7 @@ export default function ProfileSetUpForm() {
   };
 
   return (
-    <form onSubmit={handleProfileSubmit(onProfileSetUpSubmit)}>
+    <form onSubmit={(e: React.FormEvent<HTMLFormElement>) => e.preventDefault()}>
       {/* 프로필 이미지 */}
       <div className="flex_col_center relative mx-[auto] mb-[2.4rem] h-[12rem] w-[12rem]">
         <figure className="relative h-full w-full overflow-hidden rounded-[50%]">
@@ -305,14 +306,14 @@ export default function ProfileSetUpForm() {
         size="lg"
         className="mt-[4rem] text-white"
         onClick={() => {
-          setIsOpen(true);
+          setIsOpenOfInvestPropensity(true);
         }}
       >
         투자 성향 등록하기
       </Button>
-      {isOpen && (
+      {isOpenOfInvestPropensity && (
         <Modal
-          isOpen={isOpen}
+          isOpen={isOpenOfInvestPropensity}
           onClose={closeModal}
           closeIcon={true}
           panelStyle="w-[80rem] py-[1.6rem] px-[3.2rem] rounded-[2rem]"
@@ -322,15 +323,57 @@ export default function ProfileSetUpForm() {
       )}
       {/* 가입하기 버튼 */}
       <Button
-        type="submit"
         variant="textButton"
         size="lg"
         bgColor={isProfileValid && isNicknameChk && !isPending ? "bg-navy-900" : "bg-grayscale-200"}
         className={cn(`mt-[4rem] ${isProfileValid && isNicknameChk && !isPending ? "text-white" : "text-gray-300"}`)}
         disabled={(!isProfileValid && !isNicknameChk) || isPending}
+        onClick={() => {
+          if (!isAgreeCreditInfo) setIsOpenOfSuggestion(true);
+          else handleProfileSubmit(onProfileSetUpSubmit)();
+        }}
       >
         가입하기
       </Button>
+      {/* 투자 성향 분석 권유 팝업 */}
+      {isOpenOfSuggestion && (
+        <Modal
+          isOpen={isOpenOfSuggestion}
+          onClose={() => setIsOpenOfSuggestion(false)}
+          closeIcon={true}
+          panelStyle="w-[60rem] py-[4rem] px-[3rem] rounded-[2rem]"
+        >
+          <div className="px-[4rem]">
+            <p className="body_1 mb-16 flex flex-col text-center font-bold">
+              <span>투자 성향을 등록하지 않으셨습니다.</span>
+              <span>등록하지 않고 이대로 가입하시겠어요?</span>
+            </p>
+            <div className="flex gap-[0.8rem]">
+              <Button
+                variant="textButton"
+                bgColor="bg-grayscale-200"
+                size="md"
+                onClick={() => {
+                  handleProfileSubmit(onProfileSetUpSubmit)();
+                }}
+              >
+                등록하지 않고 가입하기
+              </Button>
+              <Button
+                variant="textButton"
+                bgColor="bg-navy-900"
+                size="md"
+                onClick={() => {
+                  setIsOpenOfSuggestion(false);
+                  setIsOpenOfInvestPropensity(true);
+                }}
+              >
+                투자 성향 등록하기
+              </Button>
+            </div>
+          </div>
+        </Modal>
+      )}
     </form>
   );
 }
