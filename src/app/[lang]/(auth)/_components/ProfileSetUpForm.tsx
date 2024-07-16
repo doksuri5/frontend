@@ -86,6 +86,13 @@ export default function ProfileSetUpForm() {
     setIsGender(value);
   };
 
+  // InvestPropensity폼에서 넘어온 데이터 처리
+  const handleFormSubmit = (data: any) => {
+    setIsOpen(false);
+    setValue("investPropensity", data);
+    setValue("isAgreeCreditInfo", true);
+  };
+
   const registerFormData = (): { [key: string]: string | undefined | null } => {
     const commonData = {
       name: form.name || session?.user.name,
