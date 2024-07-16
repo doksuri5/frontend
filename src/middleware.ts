@@ -74,6 +74,7 @@ export const middleware = async (req: NextRequest) => {
   // header에 pathname 추가
   const requestHeaders = new Headers(req.headers);
   requestHeaders.set("x-pathname", pathname);
+  requestHeaders.set("x-path-locale", locale);
   return NextResponse.next({
     request: {
       headers: requestHeaders,
