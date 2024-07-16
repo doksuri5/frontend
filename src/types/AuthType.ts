@@ -100,11 +100,11 @@ export const profileSchema = z.object({
   isAgreeCreditInfo: z.boolean(),
   investPropensity: z
     .object({
-      "q0-option": z.string(),
-      "q1-option": z.string(),
-      "q2-option": z.string(),
-      "q3-option": z.string(),
-      "q4-option": z.array(z.string()),
+      1: z.string(),
+      2: z.string(),
+      3: z.string(),
+      4: z.string(),
+      5: z.array(z.string()),
     })
     .optional(),
 });
