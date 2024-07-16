@@ -197,6 +197,8 @@ export default function ProfileSetUpForm() {
     }
   };
 
+  const closeModal = () => setIsOpenOfInvestPropensity(false);
+
   return (
     <form onSubmit={(e: React.FormEvent<HTMLFormElement>) => e.preventDefault()}>
       {/* 프로필 이미지 */}
