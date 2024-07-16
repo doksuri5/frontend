@@ -54,6 +54,8 @@ export default function ProfileSetUpForm() {
   const [nicknameValidated, setNicknameValidated] = useState(false);
   const [isOpenOfInvestPropensity, setIsOpenOfInvestPropensity] = useState(false);
   const [isOpenOfSuggestion, setIsOpenOfSuggestion] = useState(false);
+  const [isOpenOfInvestPropensity, setIsOpenOfInvestPropensity] = useState(false);
+  const [isOpenOfSuggestion, setIsOpenOfSuggestion] = useState(false);
 
   const router = useRouter();
   const { data: session } = useSession();
@@ -88,7 +90,7 @@ export default function ProfileSetUpForm() {
 
   // InvestPropensity폼에서 넘어온 데이터 처리
   const handleFormSubmit = (data: any) => {
-    setIsOpen(false);
+    setIsOpenOfInvestPropensity(false);
     setValue("investPropensity", data);
     setValue("isAgreeCreditInfo", true);
   };
