@@ -1,8 +1,14 @@
 "use client";
 
 import { Modal, Button, Dropdown, Input } from "@/components/common";
-import Link from "next/link";
-import { useState } from "react";
+import useUserStore from "@/stores/useUserStore";
+import { cn } from "@/utils/cn";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { passwordCert } from "../_api/privacyApi";
+import { deleteGoogleUserAccount, deleteKakaoUserAccount, deleteNaverUserAccount } from "../_api/withdrawApi";
+import { signOut } from "next-auth/react";
+import { logoutAction } from "@/lib/auth-action";
 
 const withdrawReasons = [
   { value: "inconvenient_service", text: "이용이 불편하고 장애가 많아서" },
@@ -17,9 +23,90 @@ type TWithdrawModalProps = {
   onClose: () => void;
 };
 
+// TODO: 백엔드와 연결 시 삭제할 것
+const email = "vohali2476@atebin.com";
+
 export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) {
+  const { userStoreData } = useUserStore();
+  const router = useRouter();
+
+  const [password, setPassword] = useState("");
   const [selectedReason, setSelectedReason] = useState(withdrawReasons[0]);
   const [otherReason, setOtherReason] = useState("");
+
+  useEffect(() => {
+    if (!isOpen) {
+      setPassword("");
+      setSelectedReason(withdrawReasons[0]);
+      setOtherReason("");
+    }
+  }, [isOpen]);
+
+  // 일반 로그인 회원의 경우 비밀번호 인증을 거쳐야 함
+  const handleVerifyPassword = async () => {
+    if (!userStoreData?.email || !password) return;
+    const response = await passwordCert(userStoreData.email, password);
+    if (response.ok) {
+      return true;
+    } else {
+      alert(response.message);
+      return false;
+    }
+  };
+
+  const handleWithdraw = async () => {
+    if (userStoreData?.login_type === "local") {
+      const passwordResponse = await handleVerifyPassword();
+      if (!passwordResponse) return;
+    }
+
+    const formData = {
+      // email, // 테스트 유저 이메일
+      email: userStoreData?.email, // 실제 유저 이메일
+      reason: selectedReason.text,
+      reason_other: otherReason === "" ? null : otherReason,
+    };
+    const response = await (
+      await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/user/withdraw`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      })
+    ).json();
+
+    if (!response.ok) {
+      alert("회원탈퇴 실패: " + response.message);
+      return;
+    }
+
+    // 소셜 로그인 연동 해제
+    if (userStoreData?.login_type === "google") {
+      const googleResult = await deleteGoogleUserAccount();
+      if (googleResult) {
+        alert("구글 회원탈퇴 완료");
+        return;
+      }
+      alert("구글 회원탈퇴 실패");
+    } else if (userStoreData?.login_type === "kakao") {
+      const kakaoResult = await deleteKakaoUserAccount();
+      if (kakaoResult) {
+        alert("카카오 회원탈퇴 완료");
+        return;
+      }
+      alert("카카오 회원탈퇴 실패");
+    } else if (userStoreData?.login_type === "naver") {
+      const naverResult = await deleteNaverUserAccount();
+      if (naverResult) {
+        alert("네이버 회원탈퇴 완료");
+        return;
+      }
+      alert("네이버 회원탈퇴 실패");
+    }
+    router.push("/withdraw");
+    logoutAction();
+  };
 
   return (
     <Modal
@@ -29,8 +116,8 @@ export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) 
       isBackdropClosable={true}
       panelStyle="px-[10.2rem] py-[8rem] rounded-[3.2rem] w-[59rem] items-center justify-center"
     >
-      <div className="flex w-full flex-col gap-[5.6rem]">
-        <div className="mb-[5.6rem] mt-[4rem] flex flex-col justify-start gap-[1.6rem]">
+      <div className="flex w-full flex-col">
+        <div className="mb-[2.9rem] mt-[4rem] flex flex-col gap-[1.6rem]">
           <Dropdown
             label="회원탈퇴 사유"
             placeholder="회원탈퇴 사유를 선택해주세요"
@@ -40,31 +127,41 @@ export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) 
           />
           {selectedReason.value === "other" && (
             <div>
-              <label className="body_4 font-medium text-gray-900">탈퇴 사유</label>
+              <label className="body_4 font-medium text-navy-900">탈퇴 사유</label>
               <textarea
-                className="h-[10rem] w-full resize-none rounded-[0.8rem] border border-gray-300 p-[1.6rem] text-navy-900 focus:outline-blue-500"
+                className="h-[10rem] w-full resize-none rounded-[0.8rem] border border-gray-300 p-[1.6rem] text-grayscale-900 focus:outline-blue-500"
                 value={otherReason}
                 onChange={(e) => setOtherReason(e.target.value)}
                 placeholder="기타 사유를 입력해주세요"
               />
             </div>
           )}
-          <div>
+          {userStoreData?.login_type === "local" ? (
             <Input
               labelName="비밀번호 입력"
               type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               inputGroupClass="w-full h-[5.6rem]"
-              inputClass="text-navy-900 h-[5.6rem] p-[1.6rem] rounded-[0.8rem]"
+              inputClass="p-[1.6rem] rounded-[0.8rem] text-grayscale-900 font-normal"
               placeholder="비밀번호를 입력해주세요"
-              labelClass="body_4 font-medium text-gray-900"
+              labelClass="body_4 font-medium text-navy-900"
             />
-          </div>
+          ) : (
+            <div className="h-[2rem]" />
+          )}
         </div>
-        <Link href="/withdraw">
-          <Button size="lg" className="text-grayscale-0">
-            회원탈퇴
-          </Button>
-        </Link>
+        <Button
+          size="lg"
+          bgColor={userStoreData?.login_type !== "local" || password ? "bg-navy-900" : "bg-grayscale-200"}
+          className={cn(
+            `${userStoreData?.login_type !== "local" || password ? "text-grayscale-0" : "text-gray-300"} mt-[6.4rem] w-full`,
+          )}
+          onClick={handleWithdraw}
+          disabled={userStoreData?.login_type === "local" ? !password : false}
+        >
+          회원탈퇴
+        </Button>
       </div>
     </Modal>
   );
