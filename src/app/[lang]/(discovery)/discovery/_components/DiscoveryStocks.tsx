@@ -6,11 +6,7 @@ import DiscoverySection from "./DiscoverySection";
 import { StockDataType } from "@/types";
 import { saveRecentSearch } from "@/actions/stock";
 
-type TStocksProps = {
-  param: string;
-};
-
-const Stocks = ({ param }: TStocksProps) => {
+const Stocks = ({ params }: { params: string }) => {
   const [stockList, setStockList] = useState<StockDataType[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [showMoreItems, setShowMoreItems] = useState<boolean>(false);
@@ -20,7 +16,7 @@ const Stocks = ({ param }: TStocksProps) => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const response = await saveRecentSearch({ stockName: param });
+        const response = await saveRecentSearch({ stockName: params });
         if (response.ok) setStockList(response.data);
       } catch (error) {
         console.error("Failed to fetch stock data:", error);
@@ -30,7 +26,7 @@ const Stocks = ({ param }: TStocksProps) => {
     };
 
     fetchData();
-  }, [param]);
+  }, [params]);
 
   const handleShowMore = () => {
     setShowMoreItems(true);
