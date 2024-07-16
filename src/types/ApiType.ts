@@ -2,6 +2,12 @@ import { input, SafeParseReturnType, z, ZodEffects } from "zod";
 import snakecaseKeys from "snakecase-keys";
 import camelcaseKeys, { CamelCaseKeys, Options } from "camelcase-keys";
 
+export type ResponseReturnType<D> = {
+  data: D[];
+  ok?: boolean;
+  message?: string;
+};
+
 // parse 이후 transform 이 실행되어 변환된 값을 반환한다.
 export const camelSchema = <T extends z.ZodTypeAny>(schema: T, options: Options = { deep: true }) => {
   return schema.transform((props) => camelcaseKeys(props, options)) as ZodEffects<T, CamelCaseKeys<z.infer<T>>>;
