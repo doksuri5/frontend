@@ -303,18 +303,26 @@ export default function ProfileSetUpForm() {
           </Button>
         </p>
       </div>
-      {/* 투자 성향 등록하기 버튼 */}
-      <Button
-        type="button"
-        variant="textButton"
-        size="lg"
-        className="mt-[4rem] text-white"
-        onClick={() => {
-          setIsOpenOfInvestPropensity(true);
-        }}
-      >
-        투자 성향 등록하기
-      </Button>
+
+      <div className="flex justify-between">
+        <p className="body_4 mt-[4rem] flex flex-col items-start">
+          <span>투자 성향을 등록하면</span>
+          <span>더 정확한 정보를 받을 수 있습니다!</span>
+        </p>
+        <Button
+          type="button"
+          variant="textButton"
+          size="sm"
+          className="body_4 mt-[4rem] h-[48px] w-[160px]"
+          bgColor={isAgreeCreditInfo ? "bg-navy-900" : "bg-white"}
+          onClick={() => {
+            setIsOpenOfInvestPropensity(true);
+          }}
+        >
+          투자 성향 등록하기
+        </Button>
+      </div>
+      {/* 투자 성향 등록 모달 폼 */}
       {isOpenOfInvestPropensity && (
         <Modal
           isOpen={isOpenOfInvestPropensity}
