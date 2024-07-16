@@ -299,7 +299,7 @@ export default function ProfileSetUpForm() {
           </Button>
         </p>
       </div>
-
+      {/* 투자 성향 등록 버튼 */}
       <div className="flex justify-between">
         <p className="body_4 mt-[4rem] flex flex-col items-start">
           <span>투자 성향을 등록하면</span>
