@@ -10,7 +10,7 @@ export const NewsSchema = z
       jp: z.string(),
       // fr: z.string(),
     }),
-    thumbnail_url: z.string().url(),
+    thumbnailUrl: z.string().url(),
     title: z.object({
       ko: z.string(),
       en: z.string(),
@@ -25,7 +25,7 @@ export const NewsSchema = z
       jp: z.string(),
       // fr: z.string(),
     }),
-    published_time: z.string(),
+    publishedTime: z.string(),
     link: z.string().url(),
     content: z.object({
       ko: z.string(),
@@ -34,11 +34,11 @@ export const NewsSchema = z
       jp: z.string(),
       // fr: z.string(),
     }),
-    content_img: z.string().url(),
-    relative_stock: z.array(z.string()).optional(),
+    contentImg: z.string().url(),
+    relativeStock: z.array(z.string()).optional(),
     score: z.number().default(0),
     view: z.number().default(0),
-    ai_summary: z
+    aiSummary: z
       .object({
         ko: z.string().optional(),
         en: z.string().optional(),
@@ -51,19 +51,19 @@ export const NewsSchema = z
   .required({
     index: true,
     publisher: true,
-    thumbnail_url: true,
+    thumbnailUrl: true,
     title: true,
     description: true,
-    published_time: true,
+    publishedTime: true,
     link: true,
     content: true,
-    content_img: true,
+    contentImg: true,
   });
 
 export const SearchStockNewsSchema = z.object({
   index: z.string(),
-  thumbnail_url: z.string().url(),
-  published_time: z.string(),
+  thumbnailUrl: z.string().url(),
+  publishedTime: z.string(),
   publisher: z.object({
     ko: z.string(),
     en: z.string(),
