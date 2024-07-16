@@ -172,9 +172,9 @@ export default function InvestPropensity({ onSubmit }: any) {
         ))}
         <Button
           type="submit"
-          disabled={!isAllFieldsFilled && !isChecked}
-          bgColor={isAllFieldsFilled ? "bg-navy-900" : "bg-grayscale-200"}
-          className={cn(`my-12 text-white ${isAllFieldsFilled ? "text-white" : "text-gray-300"}`)}
+          disabled={!isAllFieldsFilled || !isChecked}
+          bgColor={isAllFieldsFilled && isChecked ? "bg-navy-900" : "bg-grayscale-200"}
+          className={cn(`my-12 text-white ${isAllFieldsFilled && isChecked ? "text-white" : "text-gray-300"}`)}
         >
           제출하기
         </Button>
