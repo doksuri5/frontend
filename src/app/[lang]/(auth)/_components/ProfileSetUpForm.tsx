@@ -10,7 +10,7 @@ import { Controller } from "react-hook-form";
 import Image from "next/image";
 
 import { Input, Button, Modal } from "@/components/common";
-import PropensityInvest from "@/components/common/PropensityInvest";
+import InvestPropensity from "@/components/common/InvestPropensity";
 
 import useZodSchemaForm from "@/hooks/useZodSchemaForm";
 
@@ -59,9 +59,8 @@ export default function ProfileSetUpForm() {
     trigger: triggerProfile,
     watch: watchProfile,
     setError,
+    setValue,
   } = useZodSchemaForm<TProfileSchema>(profileSchema);
-
-  const closeModal = () => setIsOpen(false);
 
   const isFormFilled = watchProfile("nickname");
 
@@ -84,6 +83,13 @@ export default function ProfileSetUpForm() {
     if (value) {
       return value.replaceAll("-", "").slice(2);
     }
+  };
+
+  // InvestPropensity폼에서 넘어온 데이터 처리
+  const handleFormSubmit = (data: any) => {
+    setIsOpen(false);
+    setValue("investPropensity", data);
+    setValue("isAgreeCreditInfo", true);
   };
 
   const registerFormData = (): { [key: string]: string | undefined | null } => {
@@ -162,7 +168,12 @@ export default function ProfileSetUpForm() {
 
     formData.append("nickname", data.nickname);
 
+    formData.append("isAgreeCreditInfo", JSON.stringify(data.isAgreeCreditInfo));
+
+    formData.append("investPropensity", JSON.stringify(data.investPropensity));
+
     const additionalData = registerFormData();
+
     for (const key in additionalData) {
       if (additionalData.hasOwnProperty(key)) {
         formData.append(key, String(additionalData[key]));
@@ -188,6 +199,8 @@ export default function ProfileSetUpForm() {
       }
     }
   };
+
+  const closeModal = () => setIsOpen(false);
 
   useEffect(() => {
     setIsNicknameChk(false);
@@ -307,7 +320,7 @@ export default function ProfileSetUpForm() {
           closeIcon={true}
           panelStyle="w-[80rem] py-[1.6rem] px-[3.2rem] rounded-[2rem]"
         >
-          <PropensityInvest />
+          <InvestPropensity onSubmit={handleFormSubmit} />
         </Modal>
       )}
       {/* 가입하기 버튼 */}
