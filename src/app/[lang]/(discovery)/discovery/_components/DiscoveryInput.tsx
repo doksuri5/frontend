@@ -5,7 +5,7 @@ import { useRef } from "react";
 import { Input } from "@/components/common";
 import SearchIcon from "@/public/icons/search_icon.svg?component";
 
-const DiscoveryInput = () => {
+const DiscoveryInput = ({ params }: { params: string }) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -30,6 +30,7 @@ const DiscoveryInput = () => {
       <Input
         ref={inputRef}
         type="text"
+        defaultValue={params}
         inputGroupClass="w-full h-[5.6rem]"
         inputClass="text-navy-900 h-[5.6rem] pl-[4.4rem] rounded-[0.8rem]"
         placeholder="종목을 검색해주세요"
