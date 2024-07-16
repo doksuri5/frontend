@@ -75,16 +75,7 @@ export default function HomePage() {
         </div>
         <div className="flex w-full gap-4">
           {dummyDataItems.slice(0, 3).map((stock) => (
-            <SimpleReportCard
-              report={{
-                companyName: stock.stockKorName,
-                stockCode: stock.stockEngName,
-                currentPrice: stock.currentPrice,
-                fluctuationPrice: stock.fluctuationPrice,
-                fluctuationRatio: stock.fluctuationRatio,
-              }}
-              key={stock.id}
-            />
+            <SimpleReportCard reutersCode={stock.reutersCode} key={stock.id} />
           ))}
         </div>
       </section>
