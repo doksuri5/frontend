@@ -2,7 +2,7 @@
 
 import { getStockAnalysis } from "@/actions/stock-analysis";
 import SimpleRadarChart from "@/components/common/SimpleRadarChart";
-import { TReutersCodes } from "@/constants/stockCodes";
+import { STOCK_NAMES, TReutersCodes } from "@/constants/stockCodes";
 import { StockAIReportDataType } from "@/types/StockDataType";
 import { cn } from "@/utils/cn";
 import { formatOnlyIndicator, formatValueWithIndicator, getTextColor } from "@/utils/stockPriceUtils";
@@ -18,7 +18,7 @@ const SimpleReportCard = ({
   reutersCode,
   isShowHeader = true,
 }: {
-  reutersCode?: TReutersCodes;
+  reutersCode: TReutersCodes;
   isShowHeader?: boolean;
 }) => {
   const [stockAnalysis, setStockAnalysis] = useState<StockAIReportDataType>();
@@ -37,18 +37,23 @@ const SimpleReportCard = ({
   }, [reutersCode]);
 
   if (!stockAnalysis || isLoading) {
+    if (isShowHeader) {
+      return (
+        <section className="h-[28rem] flex-1 rounded-[1.6rem] bg-white p-[3.2rem]">
+          <Skeleton className="h-[20rem] w-full" />
+        </section>
+      );
+    }
+
     return <Skeleton className="h-[20rem] w-full" />;
   }
-
-  const fluctuationColor = stockAnalysis.metrics.fluctuationsRatio < 0 ? "text-blue-600" : "text-warning-100";
-  const fluctuationArrow = stockAnalysis.metrics.fluctuationsRatio < 0 ? "▼" : "▲";
 
   return (
     <section className="h-[28rem] flex-1 rounded-[1.6rem] bg-white p-[3.2rem]">
       {isShowHeader && (
         <>
           <div className="flex items-center gap-[0.8rem]">
-            <Image src="/icons/Apple_icon.svg" alt="icon" width={30} height={30} />
+            <Image src={`/icons/stocks/${STOCK_NAMES[reutersCode]}.svg`} alt="icon" width={30} height={30} />
             <h3 className="body_3 font-bold">{stockAnalysis.metrics.stockName}</h3>
             <h3 className="body_5 font-normal text-grayscale-600">{stockAnalysis.metrics.symbolCode}</h3>
           </div>
@@ -56,8 +61,16 @@ const SimpleReportCard = ({
             <div className="body_5 text-right font-medium">
               <span>${stockAnalysis.metrics.closePrice}</span>
             </div>
-            <div className={cn("body_4 flex gap-[0.8rem] font-normal", fluctuationColor)}>
-              <span>{fluctuationArrow + stockAnalysis.metrics.closePriceChange}</span>
+            <div
+              className={cn(
+                "body_4 flex gap-[0.8rem] font-normal",
+                getTextColor(stockAnalysis.metrics.closePriceChange),
+              )}
+            >
+              <span>
+                {formatOnlyIndicator(stockAnalysis.metrics.closePriceChange)}
+                <CountUp end={Math.abs(stockAnalysis.metrics.closePriceChange)} decimals={2} />
+              </span>
               <span>{stockAnalysis.metrics.fluctuationsRatio}%</span>
             </div>
           </div>

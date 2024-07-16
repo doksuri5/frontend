@@ -16,8 +16,6 @@ export default function ReportHeader({ reutersCode }: TStockHeader) {
   const [stock, setStock] = useState<StockDataType>();
   const [isMyStockState, setIsMyStockState] = useState(false);
 
-  console.log("stock", stock);
-
   useEffect(() => {
     const fetchData = async () => {
       const data = await getStocksByReutersCode(undefined, { params: reutersCode });

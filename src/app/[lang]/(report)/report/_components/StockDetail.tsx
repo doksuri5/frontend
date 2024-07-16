@@ -8,6 +8,7 @@ import { TReutersCodes } from "@/constants/stockCodes";
 import { getStocksByReutersCode } from "@/actions/stock";
 import { StockDataType } from "@/types";
 import StockDetailSkeleton from "./skeleton/StockDetailSkeleton";
+import { getStockAnalysis } from "@/actions/stock-analysis";
 
 type TStockDetail = {
   reutersCode: TReutersCodes;
@@ -15,16 +16,19 @@ type TStockDetail = {
 
 export default function StockDetail({ reutersCode }: TStockDetail) {
   const [stock, setStock] = useState<StockDataType>();
+  const [description, setDescription] = useState<string>("");
   const [currency, setCurrency] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getStocksByReutersCode(undefined, { params: reutersCode });
-      if (!data.data[0]) {
+      const stock = await getStocksByReutersCode(undefined, { params: reutersCode });
+      const analysis = await getStockAnalysis(undefined, { params: reutersCode });
+      if (!stock.ok || !analysis.ok) {
         return;
       }
 
-      setStock(data.data[0]);
+      setStock(stock.data[0]);
+      setDescription(analysis.data[0].description);
     };
 
     fetchData();
@@ -56,7 +60,7 @@ export default function StockDetail({ reutersCode }: TStockDetail) {
             <Toggle checked={currency} setChecked={setCurrency} />
           </div>
         </div>
-        <p>{}</p>
+        <p>{description}</p>
       </div>
     </section>
   );

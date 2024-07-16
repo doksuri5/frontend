@@ -5,9 +5,14 @@ import { ZodSchema } from "zod";
 import { revalidateTag } from "next/cache";
 import { TStockTags } from "@/actions/stock";
 
-type TBaseOptions = RequestInit & {
+export type TBaseOptions = RequestInit & {
   isFetchFromRouteHandler?: boolean;
   revalidateTags?: TStockTags[];
+};
+
+export type TFetchOptions = RequestInit & {
+  params?: string;
+  queryString?: string[];
 };
 /**
  *
@@ -39,13 +44,7 @@ const request = ({
    * @param options.params path parameter ex) "/:id => /1", / 는 제외
    * @param options.queryString query parameter array ex) ["page=1", "size=10"]
    */
-  return async <T, D>(
-    body?: T,
-    options: RequestInit & {
-      params?: string;
-      queryString?: string[];
-    } = {},
-  ): Promise<ResponseReturnType<D>> => {
+  return async <T, D>(body?: T, options: TFetchOptions = {}): Promise<ResponseReturnType<D>> => {
     try {
       const requestBody = requestSchema && body ? ApiRequestBody(requestSchema, body, false) : body;
 

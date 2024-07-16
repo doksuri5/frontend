@@ -138,6 +138,7 @@ export const StockSchema = z
   });
 
 export const StockAIReportSchema = z.object({
+  description: z.string(),
   investmentIndex: z.number().default(0),
   profitabilityPercentage: z.number().default(0),
   growthPercentage: z.number().default(0),
