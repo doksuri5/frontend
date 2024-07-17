@@ -1,4 +1,5 @@
 import Link from "next/link";
+import React from "react";
 import Image, { StaticImageData } from "next/image";
 import { NEWS_PATH } from "@/routes/path";
 import { cn } from "@/utils/cn";
@@ -13,7 +14,7 @@ export type TIFindNewsProps = {
   style?: string;
 };
 
-export default function FindNews({ _id, image, title, publishedTime, newspaperCompany, style }: TIFindNewsProps) {
+function FindNews({ _id, image, title, publishedTime, newspaperCompany, style }: TIFindNewsProps) {
   return (
     <Link href={`${NEWS_PATH}/${_id}`} className="w-full">
       <div className={cn(`flex h-[6.4rem] w-full gap-[2rem] ${style}`)}>
@@ -40,3 +41,4 @@ export default function FindNews({ _id, image, title, publishedTime, newspaperCo
     </Link>
   );
 }
+export default React.memo(FindNews);
