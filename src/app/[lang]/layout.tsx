@@ -27,15 +27,9 @@ export default function RootLayout({
   const connectCookie = cookieStore.get("connect.sid")?.value;
   const isLoggedIn = connectCookie ? true : false;
 
-  const currentHeaders = headers();
-  const pathname = currentHeaders.get("x-invoke-path") || "";
-  console.log("pathname", pathname);
-
   return (
     <html lang={params.lang} className={pretendard.className}>
-      <body
-        className={`${isLoggedIn ? "bg-[url('/images/intro_bg.png')] bg-cover bg-center bg-no-repeat" : "bg-background-100"}`}
-      >
+      <body>
         <AuthSession>
           <Header isLoggedIn={isLoggedIn} />
           <main className="relative pt-[8rem]">
