@@ -23,7 +23,17 @@ export const withCamelCase = <T extends z.ZodTypeAny>(schema: T, options: Option
 };
 
 // 응답을 받을 때 snake_case 로 오는 경우 사용한다. data 를 응답받아 parse 하기전에 camel_case 로 변환한다.
-export const ApiResponse = <T extends z.ZodTypeAny, D>(dataSchema: T, data: D) => {
+export const ApiResponse = <T extends z.ZodTypeAny, D>(dataSchema: T, data: D, isArray: boolean = true) => {
+  if (!isArray) {
+    return z
+      .object({
+        data: withCamelCase(dataSchema).nullable(),
+        ok: z.boolean().optional(),
+        message: z.string().optional(),
+      })
+      .parse(data);
+  }
+
   return z
     .object({
       data: withCamelCase(dataSchema).array().nullable(),

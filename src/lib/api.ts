@@ -8,6 +8,8 @@ import { TStockTags } from "@/actions/stock";
 export type TBaseOptions = RequestInit & {
   isFetchFromRouteHandler?: boolean;
   revalidateTags?: TStockTags[];
+  isLoggedIn?: boolean;
+  isDataArray?: boolean;
 };
 
 export type TFetchOptions = RequestInit & {
@@ -47,16 +49,22 @@ const request = ({
   return async <T, D>(body?: T, options: TFetchOptions = {}): Promise<ResponseReturnType<D>> => {
     try {
       const requestBody = requestSchema && body ? ApiRequestBody(requestSchema, body, false) : body;
+      const combinedOptions: TBaseOptions = {
+        isLoggedIn: true,
+        ...baseOptions,
+      };
 
       const sid = cookies().get("connect.sid");
 
-      if (!sid) {
+      if (combinedOptions.isLoggedIn && !sid) {
         redirect("/login");
       }
 
       const defaultHeaders = {
         "Content-Type": "application/json",
-        Cookie: `${sid.name}=${sid.value}`,
+        ...(sid && {
+          Cookie: `${sid.name}=${sid.value}`,
+        }),
       };
 
       const requestHeaders = {
@@ -72,14 +80,17 @@ const request = ({
         next: {
           tags: [endpoint],
         },
-        ...baseOptions,
+        // 요청과 무관한 fetch options 가 있으면 fetch 함수에서 요청시 무시합니다.
+        ...combinedOptions,
       };
 
       const combinedQueryString = options.queryString ? `?${options.queryString.join("&")}` : "";
 
       const res = await fetch(
         `${
-          baseOptions?.isFetchFromRouteHandler ? process.env.NEXT_PUBLIC_BASE_URL : process.env.NEXT_PUBLIC_API_BASE_URL
+          combinedOptions?.isFetchFromRouteHandler
+            ? process.env.NEXT_PUBLIC_BASE_URL
+            : process.env.NEXT_PUBLIC_API_BASE_URL
         }/api${endpoint}/${options.params ?? ""}${combinedQueryString}`,
         {
           ...requestOptions,
@@ -93,7 +104,7 @@ const request = ({
 
       const data = await res.json();
 
-      return responseSchema ? ApiResponse(responseSchema, data) : data;
+      return responseSchema ? ApiResponse(responseSchema, data, combinedOptions.isDataArray) : data;
     } catch (e) {
       console.error(e);
       throw new Error("Failed to fetch");
