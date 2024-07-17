@@ -8,5 +8,8 @@ export const getStockAnalysis = api.get({
   responseSchema: StockAIReportSchema,
   baseOptions: {
     isFetchFromRouteHandler: true,
+    next: {
+      revalidate: 60 * 60 * 6,
+    },
   },
 })<undefined, StockAIReportDataType>;

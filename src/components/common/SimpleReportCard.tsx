@@ -78,20 +78,20 @@ const SimpleReportCard = ({
       )}
       <div className="flex h-full w-full items-center gap-[0.8rem]">
         <div className="h-full w-full min-w-[13rem] p-[1.6rem]">
-          <SimpleRadarChart />
+          <SimpleRadarChart data={stockAnalysis} />
         </div>
         <ul className="body_6 flex h-auto min-w-[14rem] flex-col gap-[0.4rem] rounded-[2.4rem] bg-[#F9F9F9] p-[1.6rem]">
           <li className="flex justify-between">
-            주가
+            1. 주가
             <div className={cn("flex gap-[0.8rem] font-normal", getTextColor(stockAnalysis.metrics.fluctuationsRatio))}>
               <span>
                 {formatOnlyIndicator(stockAnalysis.metrics.fluctuationsRatio)}
-                <CountUp end={Math.abs(stockAnalysis.metrics.fluctuationsRatio)} decimals={2} />%
+                <CountUp end={Math.abs(stockAnalysis.metrics.fluctuationsRatio)} decimals={1} />%
               </span>
             </div>
           </li>
           <li className="flex justify-between">
-            투자지수
+            2. 투자지수
             <div className={cn("flex gap-[0.8rem] font-normal", getTextColor(stockAnalysis.investmentIndex))}>
               <span>
                 {formatOnlyIndicator(stockAnalysis.investmentIndex)}
@@ -100,7 +100,7 @@ const SimpleReportCard = ({
             </div>
           </li>
           <li className="flex justify-between">
-            수익성
+            3. 수익성
             <div className={cn("flex gap-[0.8rem] font-normal", getTextColor(stockAnalysis.profitabilityPercentage))}>
               <span>
                 {formatOnlyIndicator(stockAnalysis.profitabilityPercentage)}
@@ -109,7 +109,7 @@ const SimpleReportCard = ({
             </div>
           </li>
           <li className="flex justify-between">
-            성장성
+            4. 성장성
             <div className={cn("flex gap-[0.8rem] font-normal", getTextColor(stockAnalysis.growthPercentage))}>
               <span>
                 {formatOnlyIndicator(stockAnalysis.growthPercentage)}
@@ -118,7 +118,7 @@ const SimpleReportCard = ({
             </div>
           </li>
           <li className="flex justify-between">
-            관심도
+            5. 관심도
             <div className={cn("flex gap-[0.8rem] font-normal", getTextColor(stockAnalysis.interestPercentage))}>
               <span>
                 {formatOnlyIndicator(stockAnalysis.interestPercentage)}
