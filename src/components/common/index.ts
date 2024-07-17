@@ -20,6 +20,7 @@ import PopularNews from "./PopularNews";
 import SimpleRadarChart from "./SimpleRadarChart";
 import CardSkeleton from "./skeleton/CardSkeleton";
 import PopularNewsSkeleton from "./skeleton/PopularNewsSkeleton";
+import FormResultError from "./FormResultError";
 
 export {
   Button,
@@ -44,4 +45,5 @@ export {
   PopularNews,
   CardSkeleton,
   PopularNewsSkeleton,
+  FormResultError,
 };

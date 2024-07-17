@@ -36,6 +36,7 @@
     "react-dom": "^18",
     "react-hook-form": "^7.52.0",
     "react-select": "^5.8.0",
+    "react-toastify": "^10.0.5",
     "recharts": "^2.12.7",
     "snakecase-keys": "^8.0.1",
     "tailwind-merge": "^2.3.0",

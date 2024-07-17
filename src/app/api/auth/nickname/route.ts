@@ -16,7 +16,7 @@ export const POST = async (request: Request) => {
     });
   }
 
-  const existingUser = await User.findOne({ nickname });
+  const existingUser = await User.findOne({ nickname, is_delete: false }, { nickname: 1 });
 
   if (existingUser) {
     return new NextResponse(

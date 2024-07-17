@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Select, { components, MultiValue } from "react-select";
@@ -27,16 +27,15 @@ import EditIcon from "@/public/icons/avatar_edit.svg?component";
 type TOption = {
   value: string;
   label: string;
-  isFixed?: boolean;
 };
 
 const options = [
-  { value: "TSLA.O", label: "# 테슬라 ∙ TSLA", isFixed: false },
-  { value: "AAPL.O", label: "# 애플 ∙ APPL", isFixed: false },
-  { value: "AMZN.O", label: "# 아마존 ∙ AMZN", isFixed: false },
-  { value: "MSFT.O", label: "# MS ∙ MSFT", isFixed: false },
-  { value: "GOOGL.O", label: "# 구글 ∙ GOOGL", isFixed: false },
-  { value: "U", label: "# 유니티 ∙ U", isFixed: false },
+  { value: "TSLA.O", label: "# 테슬라 ∙ TSLA" },
+  { value: "AAPL.O", label: "# 애플 ∙ APPL" },
+  { value: "AMZN.O", label: "# 아마존 ∙ AMZN" },
+  { value: "MSFT.O", label: "# MS ∙ MSFT" },
+  { value: "GOOGL.O", label: "# 구글 ∙ GOOGL" },
+  { value: "U", label: "# 유니티 ∙ U" },
 ];
 
 const extractString = (value: string | undefined) => {
@@ -50,7 +49,7 @@ export default function ProfileSetUpForm() {
   const [isGender, setIsGender] = useState<null | "M" | "F">(null);
   const [avatar, setAvatar] = useState("");
   const [isNicknameChk, setIsNicknameChk] = useState(false);
-  const [nicknameValidated, setNicknameValidated] = useState(false);
+  const [isPending, startTransition] = useTransition();
 
   const router = useRouter();
   const { data: session } = useSession();
@@ -62,9 +61,8 @@ export default function ProfileSetUpForm() {
     trigger: triggerProfile,
     watch: watchProfile,
     setError,
+    setValue,
   } = useZodSchemaForm<TProfileSchema>(profileSchema);
-
-  const isNickNameChk = watchProfile("nickname");
 
   const avatarChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (avatar) {
@@ -104,9 +102,14 @@ export default function ProfileSetUpForm() {
   };
 
   // 닉네임 중복 확인 버튼 클릭시 실행되는 이벤트
-  const nicknameChkHandler = async () => {
+  const nicknameChkHandler = (value: string) => async () => {
     const valid = await triggerProfile("nickname");
     const nickname = watchProfile("nickname");
+
+    if (value === "닉네임 변경") {
+      setIsNicknameChk(false);
+      return;
+    }
 
     if (valid) {
       try {
@@ -122,10 +125,8 @@ export default function ProfileSetUpForm() {
             cache: "no-store",
           })
         ).json();
-
         if (response.ok) {
           setIsNicknameChk(true);
-          setNicknameValidated(true);
         } else {
           setError("nickname", { type: "manual", message: response.message });
         }
@@ -164,26 +165,23 @@ export default function ProfileSetUpForm() {
 
     if (isProfileValid && isNicknameChk) {
       try {
-        const response = await (
-          await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/${PATH}`, {
-            method: "POST",
-            body: formData,
-            cache: "no-store",
-          })
-        ).json();
-        if (response.ok) {
-          router.push(REGISTER_COMPLETE_PATH);
-        }
+        startTransition(async () => {
+          const response = await (
+            await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/${PATH}`, {
+              method: "POST",
+              body: formData,
+              cache: "no-store",
+            })
+          ).json();
+          if (response.ok) {
+            router.push(REGISTER_COMPLETE_PATH);
+          }
+        });
       } catch (e) {
         console.log(e);
       }
     }
   };
-
-  useEffect(() => {
-    setIsNicknameChk(false);
-    setNicknameValidated(false);
-  }, [isNickNameChk]);
 
   return (
     <form onSubmit={handleProfileSubmit(onProfileSetUpSubmit)}>
@@ -208,9 +206,11 @@ export default function ProfileSetUpForm() {
         id="nickname"
         labelName="닉네임"
         placeholder="닉네임을 입력해주세요."
+        disabled={isPending}
         {...profileControl.register("nickname")}
         variant={profileErrors.nickname ? "error" : "default" || isNicknameChk ? "success" : "default"}
-        caption={nicknameValidated ? "* 사용가능한 닉네임 입니다." : profileErrors.nickname?.message}
+        caption={profileErrors.nickname?.message || (isNicknameChk ? "* 사용가능한 닉네임 입니다." : undefined)}
+        readOnly={isNicknameChk}
         suffix={
           <Button
             type="button"
@@ -221,9 +221,9 @@ export default function ProfileSetUpForm() {
               `w-[12rem] ${!profileErrors.nickname && watchProfile("nickname") ? "text-white" : "text-gray-300"}`,
             )}
             disabled={!watchProfile("nickname")}
-            onClick={nicknameChkHandler}
+            onClick={nicknameChkHandler(isNicknameChk ? "닉네임 변경" : "중복 확인")}
           >
-            중복 확인
+            {isNicknameChk ? "닉네임 변경" : "중복 확인"}
           </Button>
         }
       />
@@ -233,6 +233,7 @@ export default function ProfileSetUpForm() {
         <Controller
           name="tags"
           control={profileControl}
+          disabled={isPending}
           render={({ field }) => (
             <Select
               {...field}
@@ -248,7 +249,10 @@ export default function ProfileSetUpForm() {
                 IndicatorSeparator: () => null,
                 Input: (props) => <components.Input {...props} aria-activedescendant={undefined} />,
               }}
-              onChange={(selected: MultiValue<TOption>) => field.onChange(selected)}
+              onChange={(selected: MultiValue<TOption>) => {
+                field.onChange(selected);
+                setValue("tags", selected as unknown as TOption[], { shouldValidate: true });
+              }}
             />
           )}
         />
@@ -264,6 +268,7 @@ export default function ProfileSetUpForm() {
             bgColor={isGender === "M" ? "bg-navy-900" : "bg-white"}
             value="M"
             onClick={() => isGenderActive("M")}
+            disabled={isPending}
           >
             남성
           </Button>
@@ -274,6 +279,7 @@ export default function ProfileSetUpForm() {
             bgColor={isGender === "F" ? "bg-navy-900" : "bg-white"}
             value="F"
             onClick={() => isGenderActive("F")}
+            disabled={isPending}
           >
             여성
           </Button>
@@ -284,9 +290,9 @@ export default function ProfileSetUpForm() {
         type="submit"
         variant="textButton"
         size="lg"
-        bgColor={isProfileValid && isNicknameChk ? "bg-navy-900" : "bg-grayscale-200"}
-        className={cn(`mt-[4rem] ${isProfileValid && isNicknameChk ? "text-white" : "text-gray-300"}`)}
-        disabled={!isProfileValid}
+        bgColor={isProfileValid && isNicknameChk && !isPending ? "bg-navy-900" : "bg-grayscale-200"}
+        className={cn(`mt-[4rem] ${isProfileValid && isNicknameChk && !isPending ? "text-white" : "text-gray-300"}`)}
+        disabled={(!isProfileValid && !isNicknameChk) || isPending}
       >
         가입하기
       </Button>
