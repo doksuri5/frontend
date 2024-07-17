@@ -92,7 +92,7 @@ export default function LoginForm() {
           />
           <div className={cn("flex_row_center ml-auto")}>
             <p className={cn(cssConfig.link, "py-[1.6rem]")}>
-              <Link href={FIND_EMAIL_PATH}>아이디 찾기</Link>
+              <Link href={FIND_EMAIL_PATH}>이메일 찾기</Link>
             </p>
             <p className={cn(cssConfig.link, "relative ml-[2rem]", cssConfig.line)}>
               <Link href={FIND_PASSWORD_PATH}>비밀번호 찾기</Link>
