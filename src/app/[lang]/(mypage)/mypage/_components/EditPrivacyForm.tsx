@@ -11,6 +11,7 @@ import { updateUserInfo } from "../_api/privacyApi";
 type TEditPrivacyFormProps = {
   closeModal: () => void;
 };
+
 export interface FormData {
   email: string;
   password: string;
@@ -42,13 +43,10 @@ export default function EditPrivacyForm({ closeModal }: TEditPrivacyFormProps) {
   const passwordChk = watch("passwordChk");
   const formValid = Boolean(isValid && isDirty && (!password || password === passwordChk));
 
-  // Form 전송 함수
   const onSubmit = async (data: FormData) => {
     if (!formValid) {
-      console.log("안돼 돌아가");
       return;
     }
-    console.log(data);
 
     const formData = {
       email: data.email,
@@ -58,7 +56,6 @@ export default function EditPrivacyForm({ closeModal }: TEditPrivacyFormProps) {
     };
 
     const response = await updateUserInfo(formData);
-    console.log(response);
 
     if (response.ok) {
       alert("회원정보가 수정되었습니다.");

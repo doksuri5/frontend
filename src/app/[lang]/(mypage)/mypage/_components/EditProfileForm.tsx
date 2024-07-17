@@ -120,9 +120,7 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
 
   // 닉네임 중복 체크 함수
   const handleDuplicateCheck = async () => {
-    if (!nickname) {
-      setError("nickname", { type: "manual", message: "* 닉네임을 입력해주세요." });
-      setActiveDuplicateBtn(false);
+    if (!nickname || nickname === lastCheckedNickname) {
       return;
     }
 
@@ -222,7 +220,13 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
           caption={nicknameChange ? (isNicknameAvailable && nickname !== "" ? "* 사용가능한 닉네임 입니다." : errors.nickname?.message):""}
           value={nickname}
           placeholder="닉네임을 입력해주세요."
-          {...register("nickname", { required: "* 닉네임을 입력해주세요." })}
+          {...register("nickname", {
+            required: "* 닉네임을 입력해주세요.",
+            pattern: {
+              value:/^[A-Za-z0-9-_ㄱ-ㅎㅏ-ㅣ가-힣]+$/,
+              message: "* '_', '-'를 제외한 특수 문자는 사용할 수 없습니다." // 이 메시지는 사용자가 패턴에 맞지 않는 입력을 할 때 표시됩니다.
+            }
+          })}
           suffix={
             <Button
               type="button"
@@ -232,7 +236,7 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
               className={cn(
                 `w-[12rem] ${!errors.nickname && isNicknameAvailable !== null && activeDuplicateBtn ? "text-white" : "text-gray-300"}`,
               )}
-              disabled={isNicknameAvailable && activeDuplicateBtn}
+              disabled={nickname === "" || (isNicknameAvailable && activeDuplicateBtn)}
               onClick={handleDuplicateCheck}
             >
               중복 확인
