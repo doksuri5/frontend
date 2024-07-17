@@ -32,7 +32,7 @@ export default function RootLayout({
       <body>
         <AuthSession>
           <Header isLoggedIn={isLoggedIn} />
-          <main className="relative pt-[8rem]">
+          <main className="relative m-auto min-h-[100vh] max-w-[120rem] pt-[8rem]">
             <ToastContainer position="top-center" limit={1} />
             <QueryProvider>{children}</QueryProvider>
           </main>

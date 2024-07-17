@@ -12,5 +12,5 @@ export default function HomeRootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <section className="m-auto max-w-[120rem]">{children}</section>;
+  return <section>{children}</section>;
 }
