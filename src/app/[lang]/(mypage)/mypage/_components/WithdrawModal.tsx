@@ -6,8 +6,7 @@ import { cn } from "@/utils/cn";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { passwordCert } from "../_api/privacyApi";
-import { deleteGoogleUserAccount, deleteKakaoUserAccount, deleteNaverUserAccount } from "../_api/withdrawApi";
-import { signOut } from "next-auth/react";
+import { deleteGoogleUserAccount, deleteKakaoUserAccount, deleteNaverUserAccount, withdraw } from "../_api/withdrawApi";
 import { logoutAction } from "@/lib/auth-action";
 
 const withdrawReasons = [
@@ -23,8 +22,11 @@ type TWithdrawModalProps = {
   onClose: () => void;
 };
 
-// TODO: 백엔드와 연결 시 삭제할 것
-const email = "vohali2476@atebin.com";
+export interface IWithdrawForm {
+  email: string | undefined,
+  reason: string,
+  reason_other: string | null,
+}
 
 export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) {
   const { userStoreData } = useUserStore();
@@ -42,10 +44,12 @@ export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) 
     }
   }, [isOpen]);
 
-  // 일반 로그인 회원의 경우 비밀번호 인증을 거쳐야 함
+  // 일반 로그인 회원 비밀번호 인증
   const handleVerifyPassword = async () => {
     if (!userStoreData?.email || !password) return;
+
     const response = await passwordCert(userStoreData.email, password);
+    
     if (response.ok) {
       return true;
     } else {
@@ -61,20 +65,12 @@ export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) 
     }
 
     const formData = {
-      // email, // 테스트 유저 이메일
-      email: userStoreData?.email, // 실제 유저 이메일
+      email: userStoreData?.email,
       reason: selectedReason.text,
       reason_other: otherReason === "" ? null : otherReason,
     };
-    const response = await (
-      await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/user/withdraw`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      })
-    ).json();
+
+    const response = await withdraw(formData);
 
     if (!response.ok) {
       alert("회원탈퇴 실패: " + response.message);
@@ -86,23 +82,23 @@ export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) 
       const googleResult = await deleteGoogleUserAccount();
       if (googleResult) {
         alert("구글 회원탈퇴 완료");
-        return;
+      } else {
+        alert("구글 회원탈퇴 실패");
       }
-      alert("구글 회원탈퇴 실패");
     } else if (userStoreData?.login_type === "kakao") {
       const kakaoResult = await deleteKakaoUserAccount();
       if (kakaoResult) {
         alert("카카오 회원탈퇴 완료");
-        return;
+      } else {
+        alert("카카오 회원탈퇴 실패");
       }
-      alert("카카오 회원탈퇴 실패");
     } else if (userStoreData?.login_type === "naver") {
       const naverResult = await deleteNaverUserAccount();
       if (naverResult) {
         alert("네이버 회원탈퇴 완료");
-        return;
+      } else {
+        alert("네이버 회원탈퇴 실패");
       }
-      alert("네이버 회원탈퇴 실패");
     }
     router.push("/withdraw");
     logoutAction();

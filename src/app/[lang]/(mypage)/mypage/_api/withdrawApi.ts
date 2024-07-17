@@ -1,6 +1,28 @@
 "use server";
 
 import { auth } from "@/auth";
+import { cookies } from "next/headers";
+import { IWithdrawForm } from "../_components/WithdrawModal";
+
+// 회원탈퇴
+export async function withdraw(formData: IWithdrawForm) {
+  const cookieStore = cookies();
+  const connectCookie = cookieStore.get("connect.sid")?.value;
+
+  if (connectCookie !== undefined) {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/user/withdraw`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Cookie: `connect.sid=${connectCookie}`,
+      },
+      body: JSON.stringify(formData),
+    });
+
+    const data = await response.json();
+    return data;
+  }
+}
 
 // 구글
 export const deleteGoogleUserAccount = async () => {
@@ -16,10 +38,8 @@ export const deleteGoogleUserAccount = async () => {
 
   console.log(response);
   if (response.ok) {
-    console.log("구글 회원탈퇴 성공");
     return true;
   } else {
-    console.error("구글 회원탈퇴 실패");
     return false;
   }
 };
@@ -37,18 +57,12 @@ export const deleteKakaoUserAccount = async () => {
     },
   });
 
+  console.log(unlinkResponse);
   if (unlinkResponse.ok) {
-    console.log(unlinkResponse);
-    console.log("카카오 회원탈퇴 성공");
     return true;
   } else {
-    console.log(unlinkResponse);
-    console.error("카카오 회원탈퇴 실패");
     return false;
   }
-
-  // 출력 결과
-  // id(Long): 연결 끊기에 성공한 사용자의 회원번호
 };
 
 // 네이버
@@ -65,14 +79,8 @@ export const deleteNaverUserAccount = async () => {
 
   console.log(unlinkResponse);
   if (unlinkResponse.ok) {
-    console.log("네이버 회원탈퇴 성공");
     return true;
   } else {
-    console.error("네이버 회원탈퇴 실패");
     return false;
   }
-
-  // 출력 결과
-  // access_token(string): 삭제처리된 접근토큰
-  // result(string): 처리결과 (success)
 };
