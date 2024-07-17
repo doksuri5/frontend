@@ -15,7 +15,8 @@ export default function AuthSession({ children }: Props) {
   return (
     <SessionProvider>
       <div
-        className={`${filterMainPath(pathname) ? "bg-[url('/images/intro_bg.png')] bg-cover bg-center bg-no-repeat" : "bg-background-100"}`}
+        className={`${filterMainPath(pathname) ? "bg-cover bg-center bg-no-repeat" : "bg-background-100"}`}
+        style={filterMainPath(pathname) ? { backgroundImage: "url('/images/intro_bg.png')" } : undefined}
       >
         {children}
       </div>

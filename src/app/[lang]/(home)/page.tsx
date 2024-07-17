@@ -5,7 +5,7 @@ import CommonLoginBtn from "../(auth)/_components/CommonLoginBtn";
 
 export default function HomeRootPage() {
   return (
-    <div className="flex flex-col items-center justify-between pt-[8rem]">
+    <div className="flex flex-col items-center justify-between">
       <dl className="flex_col_center fadeInUp-animation mb-[5.8rem] mt-[7rem] text-white">
         <dt className="heading_1 font-medium">
           해외주식은 <em className="font-extrabold not-italic">아잇나우</em>와 함께!
