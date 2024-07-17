@@ -197,8 +197,6 @@ export default function ProfileSetUpForm() {
     }
   };
 
-  const closeModal = () => setIsOpenOfInvestPropensity(false);
-
   return (
     <form onSubmit={(e: React.FormEvent<HTMLFormElement>) => e.preventDefault()}>
       {/* 프로필 이미지 */}
@@ -324,7 +322,7 @@ export default function ProfileSetUpForm() {
       {isOpenOfInvestPropensity && (
         <Modal
           isOpen={isOpenOfInvestPropensity}
-          onClose={closeModal}
+          onClose={() => setIsOpenOfInvestPropensity(false)}
           closeIcon={true}
           panelStyle="w-[80rem] py-[1.6rem] px-[3.2rem] rounded-[2rem]"
         >
