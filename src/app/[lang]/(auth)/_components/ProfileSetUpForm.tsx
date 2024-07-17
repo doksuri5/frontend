@@ -57,6 +57,7 @@ export default function ProfileSetUpForm() {
   const router = useRouter();
   const { data: session } = useSession();
 
+  const defaultValues = { isAgreeCreditInfo: false };
   const {
     control: profileControl,
     handleSubmit: handleProfileSubmit,
@@ -65,7 +66,7 @@ export default function ProfileSetUpForm() {
     watch: watchProfile,
     setError,
     setValue,
-  } = useZodSchemaForm<TProfileSchema>(profileSchema);
+  } = useZodSchemaForm<TProfileSchema>(profileSchema, defaultValues);
 
   const isAgreeCreditInfo = watchProfile("isAgreeCreditInfo");
 
