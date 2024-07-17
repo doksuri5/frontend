@@ -1,22 +1,15 @@
 "use client";
 
-import AppleIcon from "@/public/icons/Apple_icon.svg";
 import ReportHeader from "./ReportHeader";
 import StockDetail from "./StockDetail";
 import StockChartSection from "./StockChartSection";
 import AIAnalystReport from "./AIAnalystReport";
 import StockAIReport from "./StockAIReport";
-import PopularNews from "@/components/common/PopularNews";
 import { DUMMY_POPULAR_NEWS_ITEMS } from "@/app/[lang]/(news)/news/_components";
-import ReportHeaderSkeleton from "./skeleton/ReportHeaderSkeleton";
-import StockDetailSkeleton from "./skeleton/StockDetailSkeleton";
 import StockChartSectionSkeleton from "./skeleton/StockChartSectionSkeleton";
-import StockAIReportSkeleton from "./skeleton/StockAIReportSkeleton";
-import AIAnalystReportSkeleton from "./skeleton/AIAnalystReportSkeleton";
 import { lazy, Suspense, useEffect, useState } from "react";
 import PopularNewsSkeleton from "@/components/common/skeleton/PopularNewsSkeleton";
 import { TReutersCodes } from "@/constants/stockCodes";
-import { getStocksByReutersCode } from "@/actions/stock";
 
 const DUMMY_CHART = [
   { period: "2024/04/1week", price: 4000 },
@@ -36,7 +29,7 @@ const DUMMY_CHART = [
 const PopularNewsComponent = lazy(
   () =>
     new Promise<{ default: React.ComponentType<any> }>((resolve) =>
-      setTimeout(() => resolve(import("@/components/common/PopularNews")), 2000),
+      setTimeout(() => resolve(import("@/components/common/PoPularNews")), 2000),
     ),
 );
 
