@@ -53,8 +53,6 @@ export default function ProfileSetUpForm() {
   const [isPending, startTransition] = useTransition();
   const [isOpenOfInvestPropensity, setIsOpenOfInvestPropensity] = useState(false);
   const [isOpenOfSuggestion, setIsOpenOfSuggestion] = useState(false);
-  const [isOpenOfInvestPropensity, setIsOpenOfInvestPropensity] = useState(false);
-  const [isOpenOfSuggestion, setIsOpenOfSuggestion] = useState(false);
 
   const router = useRouter();
   const { data: session } = useSession();
