@@ -1,12 +1,18 @@
 "use client";
 
-import { getStocksByReutersCode } from "@/actions/stock";
+import {
+  deleteInterestStock,
+  getDetailInterestStocks,
+  getStocksByReutersCode,
+  insertInterestStock,
+} from "@/actions/stock";
 import { Button } from "@/components/common";
 import { STOCK_NAMES, TReutersCodes } from "@/constants/stockCodes";
 import { StockDataType } from "@/types";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import ReportHeaderSkeleton from "./skeleton/ReportHeaderSkeleton";
+import { set } from "mongoose";
 
 type TStockHeader = {
   reutersCode: TReutersCodes;
@@ -16,11 +22,36 @@ export default function ReportHeader({ reutersCode }: TStockHeader) {
   const [stock, setStock] = useState<StockDataType>();
   const [isMyStockState, setIsMyStockState] = useState(false);
 
+  const handleOnClick = async () => {
+    if (isMyStockState) {
+      const res = await deleteInterestStock(undefined, { params: reutersCode });
+      if (!res.ok) {
+        return;
+      }
+      setIsMyStockState(false);
+    }
+    if (!isMyStockState) {
+      const res = await insertInterestStock({ reutersCode });
+      if (!res.ok) {
+        return;
+      }
+      setIsMyStockState(true);
+    }
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       const data = await getStocksByReutersCode(undefined, { params: reutersCode });
-      if (!data.data[0]) {
+      const myStocks = await getDetailInterestStocks();
+
+      if (!data.ok || !myStocks.ok) {
         return;
+      }
+
+      const item = myStocks.data.find((item) => reutersCode === item.reutersCode);
+
+      if (item) {
+        setIsMyStockState(true);
       }
 
       setStock(data.data[0]);
@@ -49,17 +80,12 @@ export default function ReportHeader({ reutersCode }: TStockHeader) {
           size="md"
           className="w-[18rem] bg-transparent"
           bgColor="bg-white"
-          onClick={() => setIsMyStockState(!isMyStockState)}
+          onClick={handleOnClick}
         >
           관심종목 해제
         </Button>
       ) : (
-        <Button
-          variant="textButton"
-          size="md"
-          className="w-[18rem] text-white"
-          onClick={() => setIsMyStockState(!isMyStockState)}
-        >
+        <Button variant="textButton" size="md" className="w-[18rem] text-white" onClick={handleOnClick}>
           관심종목 추가
         </Button>
       )}
