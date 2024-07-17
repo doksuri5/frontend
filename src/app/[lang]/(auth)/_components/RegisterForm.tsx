@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useTransition } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
@@ -8,6 +8,7 @@ import { Input, Button, Modal } from "@/components/common";
 import Timer from "./Timer";
 
 import useZodSchemaForm from "@/hooks/useZodSchemaForm";
+import useToast from "@/hooks/use-toast";
 
 import { useRegisterStore } from "@/providers/RegisterProvider";
 
@@ -29,9 +30,12 @@ export default function RegisterForm() {
   const [isEmailCertificationShow, setIsEmailCertificationShow] = useState(false);
   const [emailCodeChkComplete, setEmailCodeChkComplete] = useState(false);
   const [timeCount, setTimeCount] = useState(0);
+  const [timeExpired, setTimeExpired] = useState(false);
   const [isRunning, setIsRunning] = useState(false);
+  const [isPending, startTransition] = useTransition();
 
   const [passwordError, setPasswordError] = useState("");
+  const { showLoadingToast, updateToast } = useToast();
 
   const [isOpen, setIsOpen] = useState(false);
   const closeModal = () => setIsOpen(false);
@@ -48,6 +52,8 @@ export default function RegisterForm() {
     trigger: triggerRegister,
     watch: watchRegister,
     setError,
+    setValue,
+    clearErrors,
   } = useZodSchemaForm<TRegisterSchemaType>(validationSchema);
 
   const password = watchRegister("password");
@@ -57,11 +63,16 @@ export default function RegisterForm() {
   const emailVerificationHandler = async () => {
     const valid = await triggerRegister("email");
     const emailValue = watchRegister("email");
+
     setTimeCount(0); // 타이머 초기화
     setIsRunning(false); // 타이머 시작 초기화
+    setTimeExpired(false); // 타이머 만료 상태 초기화
+    setValue("emailCertification", "");
+    clearErrors("emailCertification");
 
     if (valid) {
       try {
+        const toast = showLoadingToast("이메일을 전송중입니다.");
         const response = await (
           await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/sendEmail`, {
             method: "POST",
@@ -74,13 +85,15 @@ export default function RegisterForm() {
             cache: "no-store",
           })
         ).json();
-        console.log(response);
+
         if (response.ok) {
+          updateToast(toast, "이메일 전송이 완료되었습니다.", "success");
           setIsOpen(true); // 팝업 노출
           setTimeCount(180); // 타이머 시간
           setIsRunning(true); // 타이머 시작
           setIsEmailCertificationShow(true); // 이메일 인증 코드 필드 보여줌
         } else {
+          updateToast(toast, "이메일 전송이 실패되었습니다.", "error");
           setError("email", { type: "manual", message: response.message });
         }
       } catch (e) {
@@ -110,7 +123,6 @@ export default function RegisterForm() {
             cache: "no-store",
           })
         ).json();
-        //console.log(response);
         setEmailCodeChkComplete(response.ok); // 이메일 인증 코드 확인 결과
         if (response.ok) {
           setIsRunning(false); // 타이머 멈춤
@@ -127,21 +139,24 @@ export default function RegisterForm() {
   // 다음 버튼 클릭시 실행되는 이벤트
   const onRegisterFormSubmit = (data: TRegisterSchemaType) => {
     if (isRegisterValid && emailCodeChkComplete) {
-      const form = {
-        name: data.name ?? "",
-        email: data.email ?? "",
-        password: data.password ?? "",
-        birth: data.birth,
-        phone: data.phone,
-      };
-      setForm({ form });
-      router.push(PROFILE_SETUP_PATH);
+      startTransition(() => {
+        const form = {
+          name: data.name ?? "",
+          email: data.email ?? "",
+          password: data.password ?? "",
+          birth: data.birth,
+          phone: data.phone,
+        };
+        setForm({ form });
+        router.push(PROFILE_SETUP_PATH);
+      });
     }
   };
 
   const handleTimeUp = () => {
     setIsEmailShow(true);
     setIsRunning(false);
+    setTimeExpired(true); // 타이머 만료 상태 설정
   };
 
   useEffect(() => {
@@ -169,8 +184,10 @@ export default function RegisterForm() {
           labelName="이름"
           placeholder="이름을 입력해주세요."
           {...registerControl.register("name")}
+          variant={registerErrors.name ? "error" : "default"}
+          caption={registerErrors.name?.message}
           defaultValue={socialGoogle ? String(session?.user.name) : ""}
-          disabled={socialGoogle}
+          disabled={socialGoogle || isPending}
         />
         <div>
           {/* 이메일 인증 */}
@@ -182,7 +199,7 @@ export default function RegisterForm() {
             caption={registerErrors.email?.message}
             {...registerControl.register("email")}
             defaultValue={socialGoogle ? String(session?.user.email) : ""}
-            disabled={socialGoogle}
+            disabled={socialGoogle || isPending}
             suffix={
               <Button
                 type="button"
@@ -207,17 +224,26 @@ export default function RegisterForm() {
               <Input
                 id="emailCertification"
                 placeholder="이메일 인증 코드 6자리 입력"
+                disabled={isPending}
                 {...registerControl.register("emailCertification")}
                 inputGroupClass="mt-[.8rem]"
                 variant={
-                  registerErrors.emailCertification
+                  timeExpired
                     ? "error"
-                    : "default" || emailCodeChkComplete
-                      ? "success"
-                      : "default"
+                    : registerErrors.emailCertification
+                      ? "error"
+                      : emailCodeChkComplete
+                        ? "success"
+                        : "default"
                 }
                 caption={
-                  emailCodeChkComplete ? "* 이메일 인증이 완료되었습니다." : registerErrors.emailCertification?.message
+                  timeExpired
+                    ? "인증 시간이 만료되었습니다. 이메일 요청을 다시 시도해주세요."
+                    : emailCodeChkComplete
+                      ? "* 이메일 인증이 완료되었습니다."
+                      : registerErrors.emailCertification
+                        ? registerErrors.emailCertification.message
+                        : ""
                 }
                 suffix={
                   <Button
@@ -252,6 +278,7 @@ export default function RegisterForm() {
               id="password"
               labelName="비밀번호 입력"
               placeholder="비밀번호를 입력해주세요."
+              disabled={isPending}
               caption="*  8-20자 이내 숫자, 특수문자, 영문자 중 2가지 이상을 조합"
               {...registerControl.register("password")}
               variant={registerErrors.password ? "error" : "default"}
@@ -272,6 +299,7 @@ export default function RegisterForm() {
           id="phone"
           labelName="휴대폰번호"
           placeholder="-를 제외한 휴대폰번호를 입력해주세요."
+          disabled={isPending}
           {...registerControl.register("phone")}
           variant={registerErrors.phone ? "error" : "default"}
         />
@@ -281,6 +309,7 @@ export default function RegisterForm() {
           labelName="생년월일"
           placeholder="생년월일 6자리를 입력해주세요.(예시 : 991231)"
           {...registerControl.register("birth")}
+          disabled={isPending}
           variant={registerErrors.birth ? "error" : "default"}
           caption={registerErrors.birth?.message}
         />
@@ -288,9 +317,11 @@ export default function RegisterForm() {
         <Button
           type="submit"
           size="lg"
-          bgColor={isRegisterValid && emailCodeChkComplete ? "bg-navy-900" : "bg-grayscale-200"}
-          className={cn(`mt-[4rem] ${isRegisterValid && emailCodeChkComplete ? "text-white" : "text-gray-300"}`)}
-          disabled={!isRegisterValid && !socialGoogle && !emailCodeChkComplete}
+          bgColor={isRegisterValid && emailCodeChkComplete && !isPending ? "bg-navy-900" : "bg-grayscale-200"}
+          className={cn(
+            `mt-[4rem] ${isRegisterValid && emailCodeChkComplete && !isPending ? "text-white" : "text-gray-300"}`,
+          )}
+          disabled={(!isRegisterValid && !socialGoogle && !emailCodeChkComplete) || isPending}
         >
           다음
         </Button>
@@ -299,7 +330,7 @@ export default function RegisterForm() {
       {isOpen && (
         <Modal isOpen={isOpen} onClose={closeModal} panelStyle="w-[38.6rem] py-[1.6rem] px-[3.2rem] rounded-[2rem]">
           <dl className="flex_col_center mb-[3.2rem]">
-            <dt className="body_2 my-[.8rem] font-bold text-navy-900">인증링크를 전송했습니다.</dt>
+            <dt className="body_2 my-[.8rem] font-bold text-navy-900">인증 코드를 전송했습니다.</dt>
             <dd className="text-center">
               작성한 이메일주소로 인증 코드를 전송했습니다.
               <br />
