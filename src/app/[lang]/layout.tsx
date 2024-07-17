@@ -1,4 +1,4 @@
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { pretendard } from "@/fonts";
 import { ToastContainer } from "react-toastify";
 
@@ -27,12 +27,18 @@ export default function RootLayout({
   const connectCookie = cookieStore.get("connect.sid")?.value;
   const isLoggedIn = connectCookie ? true : false;
 
+  const currentHeaders = headers();
+  const pathname = currentHeaders.get("x-invoke-path") || "";
+  console.log("pathname", pathname);
+
   return (
     <html lang={params.lang} className={pretendard.className}>
-      <body className="bg-background-100">
+      <body
+        className={`${isLoggedIn ? "bg-[url('/images/intro_bg.png')] bg-cover bg-center bg-no-repeat" : "bg-background-100"}`}
+      >
         <AuthSession>
           <Header isLoggedIn={isLoggedIn} />
-          <main className="relative m-auto max-w-[120rem] pt-[8rem]">
+          <main className="relative pt-[8rem]">
             <ToastContainer position="top-center" limit={1} />
             <QueryProvider>{children}</QueryProvider>
           </main>
