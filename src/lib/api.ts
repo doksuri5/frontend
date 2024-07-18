@@ -8,6 +8,7 @@ import { TRecentTags } from "@/actions/search";
 
 export type TBaseOptions = RequestInit & {
   isFetchFromRouteHandler?: boolean;
+  revalidate?: number;
   revalidateTags?: TStockTags[] | TRecentTags[];
   isLoggedIn?: boolean;
   isDataArray?: boolean;
@@ -83,6 +84,7 @@ const request = ({
         // tag 를 사용하여 캐시를 관리할 수 있습니다.
         next: {
           tags: [endpoint],
+          ...(combinedOptions.revalidate !== undefined && { revalidate: combinedOptions.revalidate }),
         },
         // 요청과 무관한 fetch options 가 있으면 fetch 함수에서 요청시 무시합니다.
         ...combinedOptions,
