@@ -36,7 +36,6 @@ export const deleteGoogleUserAccount = async () => {
     },
   });
 
-  console.log(unlinkResponse);
   if (unlinkResponse.ok) {
     return true;
   } else {
@@ -57,7 +56,6 @@ export const deleteKakaoUserAccount = async () => {
     },
   });
 
-  console.log(unlinkResponse);
   if (unlinkResponse.ok) {
     return true;
   } else {
@@ -77,7 +75,6 @@ export const deleteNaverUserAccount = async () => {
     },
   );
 
-  console.log(unlinkResponse);
   if (unlinkResponse.ok) {
     return true;
   } else {
