@@ -17,3 +17,11 @@ export const getSearchStocks = api.get({
   endpoint: `/getSearchStocks`,
   responseSchema: StockSchema,
 })<undefined, StockDataType>;
+
+export const deleteRecentSearchItem = api.delete({
+  endpoint: "/deleteRecentSearchItem",
+  responseSchema: SearchTextSchema,
+  baseOptions: {
+    revalidateTags: ["/getRecentSearches"],
+  },
+})<undefined, SearchTextDataType>;
