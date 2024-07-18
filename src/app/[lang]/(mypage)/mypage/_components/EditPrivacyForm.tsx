@@ -20,6 +20,10 @@ export interface FormData {
   birth: string;
 }
 
+export type i = {
+dfjls:string
+}
+
 export default function EditPrivacyForm({ closeModal }: TEditPrivacyFormProps) {
   const { userStoreData } = useUserStore();
   const router = useRouter();

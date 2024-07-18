@@ -52,7 +52,7 @@ export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalPro
   }, [timeLeft]);
 
   const startTimer = () => {
-    setTimeLeft(30);
+    setTimeLeft(180);
   };
 
   const formatTime = (seconds: number | null) => {
