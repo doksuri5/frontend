@@ -1,7 +1,7 @@
 import React from "react";
-import MyPageMain from "./_components/MyPageMain";
 import { auth } from "@/auth";
 import { cookies } from "next/headers";
+import { MyPageMain } from "./_components";
 
 const fetchUserData = async () => {
   const cookieStore = cookies();

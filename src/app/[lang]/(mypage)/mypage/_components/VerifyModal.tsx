@@ -1,3 +1,5 @@
+"use client";
+
 import { Modal, Button, Input, Alert } from "@/components/common";
 import { useState, useEffect } from "react";
 import { emailCert, passwordCert, verifyCode } from "../_api/privacyApi";
