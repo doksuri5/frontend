@@ -1,23 +1,46 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Toggle } from "@/components/common";
 import { cn } from "@/utils/cn";
-import { StockDetailDataType } from "@/types";
 import { formatValueWithIndicator, formatValueWithSign, getTextColor } from "@/utils/stockPriceUtils";
+import { TReutersCodes } from "@/constants/stockCodes";
+import { getStocksByReutersCode } from "@/actions/stock";
+import { StockDataType } from "@/types";
+import StockDetailSkeleton from "./skeleton/StockDetailSkeleton";
+import { getStockAnalysis } from "@/actions/stock-analysis";
 
 type TStockDetail = {
-  stockDetail: Omit<StockDetailDataType, "_id" | "icon" | "score" | "stockCode" | "isMyStock" | "aiReport">;
+  reutersCode: TReutersCodes;
 };
 
-export default function StockDetail({ stockDetail }: TStockDetail) {
+export default function StockDetail({ reutersCode }: TStockDetail) {
+  const [stock, setStock] = useState<StockDataType>();
+  const [description, setDescription] = useState<string>("");
   const [currency, setCurrency] = useState(false);
-  const { priceUSD, price, symbolCode, stockName, compareToPreviousClosePrice, fluctuationsRatio, description } =
-    stockDetail;
 
-  const viewCurrency = currency ? `$${priceUSD}` : `₩${price}`;
-  const viewStockName = currency ? symbolCode : stockName;
+  useEffect(() => {
+    const fetchData = async () => {
+      const stock = await getStocksByReutersCode(undefined, { params: reutersCode });
+      const analysis = await getStockAnalysis(undefined, { params: reutersCode });
+      if (!stock.ok || !analysis.ok) {
+        return;
+      }
 
+      setStock(stock.data[0]);
+      setDescription(analysis.data[0].description);
+    };
+
+    fetchData();
+  }, [reutersCode]);
+
+  if (!stock) return <StockDetailSkeleton />;
+
+  // TODO: change currency symbol
+  const viewCurrency = currency ? `$${stock?.closePrice}` : `₩${stock?.closePrice}`;
+  const viewStockName = currency ? stock?.symbolCode : stock.stockName;
+
+  //TODO: Add stock description
   return (
     <section className="min-h-[25.6rem] min-w-[48.8rem] rounded-[1.6rem] bg-white p-[3.2rem]">
       <div className="flex flex-col gap-[3.2rem]">
@@ -29,9 +52,9 @@ export default function StockDetail({ stockDetail }: TStockDetail) {
                 <span className="body_1 font-bold">∙</span>
                 <span className="body_2 font-normal">{viewStockName}</span>
               </div>
-              <div className={cn(`flex_row body_2 gap-[0.8rem] font-normal ${getTextColor(fluctuationsRatio)}`)}>
-                <span>{formatValueWithIndicator(compareToPreviousClosePrice)}</span>
-                <span>{formatValueWithSign(fluctuationsRatio)}%</span>
+              <div className={cn(`flex_row body_2 gap-[0.8rem] font-normal ${getTextColor(stock.fluctuationsRatio)}`)}>
+                <span>{formatValueWithIndicator(stock.compareToPreviousClosePrice)}</span>
+                <span>{formatValueWithSign(stock.fluctuationsRatio)}%</span>
               </div>
             </div>
             <Toggle checked={currency} setChecked={setCurrency} />

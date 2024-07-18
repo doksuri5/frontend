@@ -18,70 +18,100 @@ const Stocks = ({ param }: TStocksProps) => {
     setTimeout(() => {
       setStockList([
         {
-          _id: "1",
-          icon: Apple_icon,
+          id: "1",
           stockName: "애플",
           symbolCode: "AAPL",
-          price: 0,
+          closePrice: 0,
           nationType: "USA",
           compareToPreviousClosePrice: 1.75,
           fluctuationsRatio: 0.82,
           reutersCode: "AAPL.O",
+          stockNameEng: "",
+          marketPrice: 0,
+          investmentIndex: 0,
+          profitability: 0,
+          growthRate: 0,
+          interestRate: 0,
         },
         {
-          _id: "2",
-          icon: Apple_icon,
+          id: "2",
           stockName: "애플",
           symbolCode: "AAPL",
-          price: 0,
+          closePrice: 0,
           nationType: "USA",
           compareToPreviousClosePrice: -1.75,
           fluctuationsRatio: -0.82,
           reutersCode: "AAPL.O",
+          stockNameEng: "",
+          marketPrice: 0,
+          investmentIndex: 0,
+          profitability: 0,
+          growthRate: 0,
+          interestRate: 0,
         },
         {
-          _id: "3",
-          icon: Apple_icon,
+          id: "3",
           stockName: "애플",
           symbolCode: "AAPL",
-          price: 0,
           nationType: "USA",
           compareToPreviousClosePrice: -1.75,
           fluctuationsRatio: -0.82,
           reutersCode: "AAPL.O",
+          stockNameEng: "",
+          closePrice: 0,
+          marketPrice: 0,
+          investmentIndex: 0,
+          profitability: 0,
+          growthRate: 0,
+          interestRate: 0,
         },
         {
-          _id: "4",
-          icon: Apple_icon,
+          id: "4",
           stockName: "애플",
           symbolCode: "AAPL",
-          price: 0,
           nationType: "USA",
           compareToPreviousClosePrice: -1.75,
           fluctuationsRatio: -0.82,
           reutersCode: "AAPL.O",
+          stockNameEng: "",
+          closePrice: 0,
+          marketPrice: 0,
+          investmentIndex: 0,
+          profitability: 0,
+          growthRate: 0,
+          interestRate: 0,
         },
         {
-          _id: "5",
-          icon: Apple_icon,
+          id: "5",
           stockName: "애플",
           symbolCode: "AAPL",
-          price: 0,
           nationType: "USA",
           compareToPreviousClosePrice: -1.75,
           fluctuationsRatio: -0.82,
           reutersCode: "AAPL.O",
+          stockNameEng: "",
+          closePrice: 0,
+          marketPrice: 0,
+          investmentIndex: 0,
+          profitability: 0,
+          growthRate: 0,
+          interestRate: 0,
         },
         {
-          _id: "6",
-          icon: Apple_icon,
+          id: "6",
           stockName: "애플",
           symbolCode: "AAPL",
-          price: 0,
           nationType: "USA",
           compareToPreviousClosePrice: -1.75,
           fluctuationsRatio: -0.82,
           reutersCode: "AAPL.O",
+          stockNameEng: "",
+          closePrice: 0,
+          marketPrice: 0,
+          investmentIndex: 0,
+          profitability: 0,
+          growthRate: 0,
+          interestRate: 0,
         },
       ]);
       setLoading(false);
@@ -103,19 +133,7 @@ const Stocks = ({ param }: TStocksProps) => {
           ) : (
             <>
               {stockList.map((stock) => (
-                <StockItem
-                  key={stock._id}
-                  _id={stock._id}
-                  icon={stock.icon}
-                  stockName={stock.stockName}
-                  symbolCode={stock.symbolCode}
-                  price={stock.price}
-                  compareToPreviousClosePrice={stock.compareToPreviousClosePrice}
-                  fluctuationsRatio={stock.fluctuationsRatio}
-                  nationType={stock.nationType}
-                  reutersCode={stock.reutersCode}
-                  variant="findStock"
-                />
+                <StockItem variant="findStock" key={stock.id} {...stock} />
               ))}
             </>
           )}

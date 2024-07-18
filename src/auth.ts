@@ -10,12 +10,13 @@ import connectDB from "./lib/db";
 import { User } from "./lib/schema";
 import { compare } from "bcryptjs";
 
-import { EXIST_PATH, LOGIN_PATH, MAIN_PATH } from "./routes/path";
+import { EXIST_PATH, LOGIN_PATH, MAIN_PATH, LOGIN_ERROR_PATH } from "./routes/path";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   pages: {
     signIn: LOGIN_PATH,
     signOut: MAIN_PATH,
+    error: LOGIN_ERROR_PATH,
   },
   providers: [
     Credentials({
@@ -91,18 +92,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      authorization: {
-        params: {
-          prompt: "consent",
-          access_type: "offline",
-          response_type: "code",
-        },
-      },
       async profile(profile) {
         return {
           name: profile.name,
           email: profile.email,
-          email_verified: profile.email_verified,
           role: "user",
           id: profile.sub,
           language: "ko",

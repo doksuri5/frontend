@@ -1,6 +1,113 @@
 import { z } from "zod";
 import { REUTERS_CODES } from "@/constants/stockCodes";
 
+export const FetchedNaverStockSchema = z.object({
+  stockEndType: z.literal("stock"),
+  reutersCode: z.string(),
+  stockName: z.string(),
+  stockNameEng: z.string(),
+  symbolCode: z.string(),
+  tradeStopType: z.object({
+    code: z.string(),
+    text: z.string(),
+    name: z.string(),
+  }),
+  stockExchangeType: z.object({
+    code: z.string(),
+    zoneId: z.string(),
+    nationType: z.string(),
+    delayTime: z.number(),
+    startTime: z.string(),
+    endTime: z.string(),
+    closePriceSendTime: z.string(),
+    nameKor: z.string(),
+    nameEng: z.string(),
+    name: z.string(),
+    nationName: z.string(),
+    stockType: z.string(),
+    nationCode: z.string(),
+  }),
+  stockExchangeName: z.string(),
+  industryCodeType: z.object({
+    code: z.string(),
+    industryGroupKor: z.string(),
+    name: z.string(),
+  }),
+  delayTime: z.number(),
+  delayTimeName: z.string(),
+  compareToPreviousPrice: z.object({
+    code: z.string(),
+    text: z.string(),
+    name: z.string(),
+  }),
+  closePrice: z.string(),
+  compareToPreviousClosePrice: z.string(),
+  fluctuationsRatio: z.string(),
+  localTradedAt: z.string(),
+  marketStatus: z.string(),
+  overMarketPriceInfo: z.null(),
+  imageCharts: z.object({
+    areaYearThree: z.string(),
+    areaMonthThree: z.string(),
+    candleDay: z.string(),
+    day: z.string(),
+    day_up_tablet: z.string(),
+    areaYear: z.string(),
+    transparent: z.string(),
+    day_up: z.string(),
+    candleWeek: z.string(),
+    candleMonth: z.string(),
+    areaYearTen: z.string(),
+  }),
+  scriptChartTypes: z.array(z.string()),
+  currencyType: z.object({
+    code: z.string(),
+    text: z.string(),
+    name: z.string(),
+  }),
+  countOfListedStock: z.number(),
+  indexOrEtfToolTip: z.null(),
+  endUrl: z.string(),
+  chartIqEndUrl: z.string(),
+  stockItemTotalInfos: z.array(
+    z.object({
+      code: z.string(),
+      key: z.string(),
+      value: z.string(),
+      keyDesc: z.string().optional(),
+      compareToPreviousPrice: z
+        .object({
+          code: z.string(),
+          text: z.string(),
+          name: z.string(),
+        })
+        .optional(),
+    }),
+  ),
+  etfThemaInfos: z.null(),
+  isEtf: z.boolean(),
+  isEtfAmerica: z.boolean(),
+  isFinanceSummary: z.boolean(),
+  hasNews: z.boolean(),
+  researchs: z.array(z.unknown()),
+  nationType: z.string(),
+  nationName: z.string(),
+  newlyListed: z.boolean(),
+  stockEndUrl: z.string(),
+  marketOperatingTimeInfo: z.object({
+    zoneId: z.string(),
+    zoneName: z.string(),
+    isDst: z.boolean(),
+    preMarketOpeningTime: z.string(),
+    preMarketClosingTime: z.string(),
+    regularMarketOpeningTime: z.string(),
+    regularMarketClosingTime: z.string(),
+    afterMarketOpeningTime: z.string(),
+    afterMarketClosingTime: z.string(),
+  }),
+  exchangeOperatingTime: z.boolean(),
+});
+
 export const StockSchema = z
   .object({
     id: z.string(),
@@ -31,20 +138,21 @@ export const StockSchema = z
   });
 
 export const StockAIReportSchema = z.object({
+  description: z.string(),
   investmentIndex: z.number().default(0),
-  profitability: z.number().default(0),
+  profitabilityPercentage: z.number().default(0),
   growthPercentage: z.number().default(0),
   interestPercentage: z.number().default(0),
+  report: z.string(),
   metrics: z.object({
-    companyName: z.string(),
-    roe: z.number().default(0),
-    per: z.number().default(0),
-    forwardPer: z.number().default(0),
-    dividendYield: z.number().default(0),
-    currentPriceRatio: z.number().default(0),
-    currentPrice: z.number().default(0),
+    stockName: z.string(),
+    symbolCode: z.string(),
+    fluctuationsRatio: z.number().default(0),
+    closePriceChange: z.number().default(0),
+    closePrice: z.string(),
   }),
 });
+
 export const InterestStockItemSchema = z.object({
   reutersCode: z.enum(REUTERS_CODES),
   order: z.number(),
@@ -78,6 +186,7 @@ export const PopularSearchSchema = z.object({
   fluctuationsRatio: z.number().default(0),
 });
 
+export type FetchedNaverStockDataType = z.infer<typeof FetchedNaverStockSchema>;
 export type InterestStockDataType = z.infer<typeof InterestStockSchema>;
 export type InterestStockItemDataType = z.infer<typeof InterestStockItemSchema>;
 

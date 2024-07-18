@@ -88,10 +88,10 @@
 
 /* tag select css */
 .basic-multi-select .tag__control{
-  @apply min-h-[2.4rem] px-[1.6rem] py-[1.1rem] rounded-[0.5rem] border-grayscale-300
+  @apply min-h-[2.4rem] px-[1.6rem] py-[1.1rem] rounded-[0.5rem] border-grayscale-300 cursor-pointer
 }
 .basic-multi-select .tag__control:focus{
-  @apply border-blue-500 outline-blue-500
+  @apply border-blue-500 outline-blue-500 cursor-pointer
 }
 
 .basic-multi-select .tag__control:hover{
@@ -118,6 +118,10 @@
   @apply shadow-none border border-grayscale-300
 }
 
+.basic-multi-select .tag__option  {
+  @apply cursor-pointer;
+}
+
 .basic-multi-select .tag__multi-value{
   @apply bg-transparent
 }
@@ -125,6 +129,7 @@
 .basic-multi-select .tag__multi-value__label {
   @apply text-grayscale-900 body_4
 }
+
 
 .basic-multi-select .tag__multi-value__remove {
   @apply w-[3rem] rounded-[100%] flex items-center justify-center

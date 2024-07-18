@@ -9,7 +9,8 @@ import { Controller } from "react-hook-form";
 
 import Image from "next/image";
 
-import { Input, Button } from "@/components/common";
+import { Input, Button, Modal } from "@/components/common";
+import InvestPropensity from "@/components/common/InvestPropensity";
 
 import useZodSchemaForm from "@/hooks/useZodSchemaForm";
 
@@ -50,10 +51,13 @@ export default function ProfileSetUpForm() {
   const [avatar, setAvatar] = useState("");
   const [isNicknameChk, setIsNicknameChk] = useState(false);
   const [isPending, startTransition] = useTransition();
+  const [isOpenOfInvestPropensity, setIsOpenOfInvestPropensity] = useState(false);
+  const [isOpenOfSuggestion, setIsOpenOfSuggestion] = useState(false);
 
   const router = useRouter();
   const { data: session } = useSession();
 
+  const defaultValues = { isAgreeCreditInfo: false };
   const {
     control: profileControl,
     handleSubmit: handleProfileSubmit,
@@ -62,7 +66,9 @@ export default function ProfileSetUpForm() {
     watch: watchProfile,
     setError,
     setValue,
-  } = useZodSchemaForm<TProfileSchema>(profileSchema);
+  } = useZodSchemaForm<TProfileSchema>(profileSchema, defaultValues);
+
+  const isAgreeCreditInfo = watchProfile("isAgreeCreditInfo");
 
   const avatarChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (avatar) {
@@ -77,6 +83,13 @@ export default function ProfileSetUpForm() {
 
   const isGenderActive = (value: null | "M" | "F") => {
     setIsGender(value);
+  };
+
+  // InvestPropensity폼에서 넘어온 데이터 처리
+  const handleFormSubmit = (data: any) => {
+    setIsOpenOfInvestPropensity(false);
+    setValue("investPropensity", data);
+    setValue("isAgreeCreditInfo", true);
   };
 
   const registerFormData = (): { [key: string]: string | undefined | null } => {
@@ -153,8 +166,15 @@ export default function ProfileSetUpForm() {
     if (data.tags) {
       formData.append("reuters_code", JSON.stringify(data.tags.map((item) => item.value)));
     }
+
     formData.append("nickname", data.nickname);
+
+    formData.append("isAgreeCreditInfo", JSON.stringify(data.isAgreeCreditInfo));
+
+    formData.append("investPropensity", JSON.stringify(data.investPropensity));
+
     const additionalData = registerFormData();
+
     for (const key in additionalData) {
       if (additionalData.hasOwnProperty(key)) {
         formData.append(key, String(additionalData[key]));
@@ -184,7 +204,7 @@ export default function ProfileSetUpForm() {
   };
 
   return (
-    <form onSubmit={handleProfileSubmit(onProfileSetUpSubmit)}>
+    <form onSubmit={(e: React.FormEvent<HTMLFormElement>) => e.preventDefault()}>
       {/* 프로필 이미지 */}
       <div className="flex_col_center relative mx-[auto] mb-[2.4rem] h-[12rem] w-[12rem]">
         <figure className="relative h-full w-full overflow-hidden rounded-[50%]">
@@ -285,17 +305,89 @@ export default function ProfileSetUpForm() {
           </Button>
         </p>
       </div>
+      {/* 투자 성향 등록 버튼 */}
+      <div className="flex justify-between">
+        <p className="body_4 mt-[4rem] flex flex-col items-start">
+          <span>투자 성향을 등록하면</span>
+          <span>더 정확한 정보를 받을 수 있습니다!</span>
+        </p>
+        <Button
+          type="button"
+          variant="textButton"
+          size="sm"
+          className="body_4 mt-[4rem] h-[48px] w-[160px]"
+          bgColor={isAgreeCreditInfo ? "bg-navy-900" : "bg-white"}
+          onClick={() => {
+            setIsOpenOfInvestPropensity(true);
+          }}
+        >
+          투자 성향 등록하기
+        </Button>
+      </div>
+      {/* 투자 성향 등록 모달 폼 */}
+      {isOpenOfInvestPropensity && (
+        <Modal
+          isOpen={isOpenOfInvestPropensity}
+          onClose={() => setIsOpenOfInvestPropensity(false)}
+          closeIcon={true}
+          panelStyle="w-[80rem] py-[1.6rem] px-[3.2rem] rounded-[2rem]"
+        >
+          <InvestPropensity onSubmit={handleFormSubmit} />
+        </Modal>
+      )}
       {/* 가입하기 버튼 */}
       <Button
-        type="submit"
         variant="textButton"
         size="lg"
         bgColor={isProfileValid && isNicknameChk && !isPending ? "bg-navy-900" : "bg-grayscale-200"}
         className={cn(`mt-[4rem] ${isProfileValid && isNicknameChk && !isPending ? "text-white" : "text-gray-300"}`)}
         disabled={(!isProfileValid && !isNicknameChk) || isPending}
+        onClick={() => {
+          if (!isAgreeCreditInfo) setIsOpenOfSuggestion(true);
+          else handleProfileSubmit(onProfileSetUpSubmit)();
+        }}
       >
         가입하기
       </Button>
+      {/* 투자 성향 분석 권유 팝업 */}
+      {isOpenOfSuggestion && (
+        <Modal
+          isOpen={isOpenOfSuggestion}
+          onClose={() => setIsOpenOfSuggestion(false)}
+          closeIcon={true}
+          panelStyle="w-[60rem] py-[4rem] px-[3rem] rounded-[2rem]"
+        >
+          <div className="px-[4rem]">
+            <p className="body_1 mb-16 flex flex-col text-center font-bold">
+              <span>투자 성향을 등록하지 않으셨습니다.</span>
+              <span>등록하지 않고 이대로 가입하시겠어요?</span>
+            </p>
+            <div className="flex gap-[0.8rem]">
+              <Button
+                variant="textButton"
+                bgColor="bg-grayscale-200"
+                size="md"
+                onClick={() => {
+                  handleProfileSubmit(onProfileSetUpSubmit)();
+                }}
+              >
+                등록하지 않고 가입하기
+              </Button>
+              <Button
+                variant="textButton"
+                bgColor="bg-navy-900"
+                size="md"
+                onClick={() => {
+                  setIsOpenOfSuggestion(false);
+                  setIsOpenOfInvestPropensity(true);
+                }}
+              >
+                투자 성향 등록하기
+              </Button>
+            </div>
+          </div>
+        </Modal>
+      )}
     </form>
   );
 }

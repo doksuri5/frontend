@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { boolean, z } from "zod";
 
 // 로그인
 export const loginSchema = z.object({
@@ -97,6 +97,16 @@ export const profileSchema = z.object({
       }),
     )
     .min(1, "관심 종목을 최소 하나 선택해야 합니다."),
+  isAgreeCreditInfo: z.boolean(),
+  investPropensity: z
+    .object({
+      1: z.string(),
+      2: z.string(),
+      3: z.string(),
+      4: z.string(),
+      5: z.array(z.string()),
+    })
+    .optional(),
 });
 
 export type TLoginSchema = z.infer<typeof loginSchema>;

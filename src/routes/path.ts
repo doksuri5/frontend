@@ -8,6 +8,7 @@ export const ACCOUNT_PATH = "/account";
 export const FIND_EMAIL_PATH = "/find-email";
 export const FIND_PASSWORD_PATH = "/find-password";
 export const LOGIN_PATH = "/login";
+export const LOGIN_ERROR_PATH = "/login/error";
 export const PROFILE_SETUP_PATH = "/account/profile-setup";
 export const REGISTER_PATH = "/account/register";
 export const REGISTER_COMPLETE_PATH = "/register-complete";

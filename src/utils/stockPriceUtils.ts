@@ -12,6 +12,12 @@ export const formatValueWithIndicator = (data: number) => {
   else return `▲${data}`;
 };
 
+export const formatOnlyIndicator = (data: number) => {
+  if (data === 0) return 0;
+  else if (data < 0) return `▼`;
+  else return `▲`;
+};
+
 // 숫자 값이 양수일 경우 + 부호를 포함하여 문자열을 반환
 export const formatValueWithSign = (data: number) => {
   if (data > 0) return `+${data}`;
