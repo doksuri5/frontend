@@ -81,7 +81,7 @@ export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalPro
       }
     } catch (err) {
       customAlert({
-        title: "비밀번호 인증에 실패했습니다.",
+        title: "비밀번호 인증 도중 오류가 발생했습니다.",
         subText: err instanceof Error ? err.message : "알 수 없는 오류가 발생했습니다.",
         buttonText: "확인",
         onClose: () => {},
@@ -97,7 +97,7 @@ export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalPro
       if (response.ok) {
         setVisibleCodeField(true);
         customAlert({
-          title: "작성한 이메일주소로 인증 코드를 전송했습니다.",
+          title: "작성한 이메일 주소로 인증 코드를 전송했습니다.",
           subText: "메일 확인 후 회원가입을 계속 진행해주세요.",
           buttonText: "확인",
           onClose: () => {
@@ -114,7 +114,7 @@ export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalPro
       }
     } catch (err) {
       customAlert({
-        title: "이메일 인증에 실패했습니다.",
+        title: "이메일 인증 도중 오류가 발생했습니다.",
         subText: err instanceof Error ? err.message : "알 수 없는 오류가 발생했습니다.",
         buttonText: "확인",
         onClose: () => {},
@@ -139,8 +139,8 @@ export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalPro
       }
     } catch (err) {
       customAlert({
-        title: "코드 인증에 실패했습니다.",
-        subText: "이메일을 확인 후 다시 시도해 주세요.",
+        title: "인증코드 확인 도중 오류가 발생했습니다.",
+        subText: err instanceof Error ? err.message : "알 수 없는 오류가 발생했습니다.",
         buttonText: "확인",
         onClose: () => {},
       });

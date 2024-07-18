@@ -53,13 +53,18 @@ export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) 
       if (response.ok) {
         return true;
       } else {
-        alert(response.message);
+        customAlert({
+          title: "비밀번호 인증에 실패했습니다.",
+          subText: "비밀번호를 한번 더 확인해 주세요.",
+          buttonText: "확인",
+          onClose: () => {},
+        });
         return false;
       }
     } catch (err) {
       customAlert({
         title: "비밀번호 인증에 실패했습니다.",
-        subText: "비밀번호 인증을 다시 시도해주세요.",
+        subText: err instanceof Error ? err.message : "알 수 없는 오류가 발생했습니다.",
         buttonText: "확인",
         onClose: () => {},
       });
