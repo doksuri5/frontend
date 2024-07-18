@@ -17,5 +17,11 @@ export const SearchTextSchema = z.object({
   searchDate: z.string(),
 });
 
+export const PopularSearchesNameSchema = z.object({
+  stockName: z.string(),
+  count: z.number().default(0),
+});
+
 export type SearchDataType = z.infer<typeof SearchSchema>;
 export type SearchTextDataType = z.infer<typeof SearchTextSchema>;
+export type PopularSearchesNameDataType = z.infer<typeof PopularSearchesNameSchema>;

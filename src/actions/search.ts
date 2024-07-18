@@ -3,7 +3,12 @@
 import { api } from "@/lib/api";
 import { z } from "zod";
 
-import { SearchTextSchema, SearchTextDataType } from "@/types/SearchDataType";
+import {
+  SearchTextSchema,
+  SearchTextDataType,
+  PopularSearchesNameSchema,
+  PopularSearchesNameDataType,
+} from "@/types/SearchDataType";
 import { StockSchema, StockDataType } from "@/types/StockDataType";
 
 export type TRecentTags = "/getRecentSearches";
@@ -18,8 +23,24 @@ export const getSearchStocks = api.get({
   responseSchema: StockSchema,
 })<undefined, StockDataType>;
 
-export const deleteRecentSearchItem = api.delete({
-  endpoint: "/deleteRecentSearchItem",
+export const getPopularSearchesName = api.get({
+  endpoint: `/getPopularSearchesName`,
+  responseSchema: PopularSearchesNameSchema,
+  baseOptions: {
+    revalidate: 60 * 60, // 1시간 주기로 조회
+  },
+})<undefined, PopularSearchesNameDataType>;
+
+export const deleteRecentSearchTextList = api.delete({
+  endpoint: "/deleteRecentSearchTextList",
+  responseSchema: SearchTextSchema,
+  baseOptions: {
+    revalidateTags: ["/getRecentSearches"],
+  },
+})<undefined, SearchTextDataType>;
+
+export const deleteRecentSearchTextItem = api.delete({
+  endpoint: "/deleteRecentSearchTextItem",
   responseSchema: SearchTextSchema,
   baseOptions: {
     revalidateTags: ["/getRecentSearches"],
