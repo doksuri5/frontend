@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const RecentSchema = z
+export const SearchSchema = z
   .object({
     userSnsId: z.string(),
     isDelete: z.boolean().default(false),
@@ -12,10 +12,10 @@ export const RecentSchema = z
     searchText: true,
   });
 
-export const SearchRecentSchema = z.object({
+export const SearchTextSchema = z.object({
   searchText: z.string(),
   searchDate: z.string(),
 });
 
-export type RecentDataType = z.infer<typeof RecentSchema>;
-export type SearchRecentDataType = z.infer<typeof SearchRecentSchema>;
+export type SearchDataType = z.infer<typeof SearchSchema>;
+export type SearchTextDataType = z.infer<typeof SearchTextSchema>;
