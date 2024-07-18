@@ -17,7 +17,6 @@ import {
 export type TStockTags =
   | "/interest/getDetailInterestStocks"
   | "/getRecentSearchDetails"
-  | "/getRecentSearches"
   | "/getPopularSearches"
   | "/saveRecentSearch"
   | "/deleteRecentSearches"
@@ -71,7 +70,7 @@ export const deleteRecentSearch = api.delete({
   endpoint: "/deleteRecentSearches",
   responseSchema: StockSchema,
   baseOptions: {
-    revalidateTags: ["/getRecentSearchDetails", "/getRecentSearches"],
+    revalidateTags: ["/getRecentSearchDetails"],
   },
 })<undefined, StockDataType>;
 
