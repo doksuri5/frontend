@@ -56,10 +56,16 @@ const MyStockItem = ({ data }: TMyStockItemProps) => {
       <SimpleReportCard isShowHeader={false} reutersCode={data.reutersCode} />
       {/* 버튼 */}
       <div className="flex_row my-[1.6rem] w-full gap-[.8rem]">
-        <Button variant="textButton" size="md" bgColor="bg-grayscale-200" onClick={handleDeleteClick}>
+        <Button
+          className="flex-1"
+          variant="textButton"
+          size="md"
+          bgColor="bg-grayscale-200"
+          onClick={handleDeleteClick}
+        >
           삭제하기
         </Button>
-        <Link href={`${REPORT_PATH}/${data.reutersCode}`}>
+        <Link href={`${REPORT_PATH}/${data.reutersCode}`} className="flex-1">
           <Button variant="textButton" size="md" bgColor="bg-navy-900">
             자세히 보기
           </Button>
