@@ -3,7 +3,6 @@ import { createOpenAI } from "@ai-sdk/openai";
 import { streamText } from "ai";
 import { auth } from "@/auth";
 
-export const runtime = "edge";
 export const maxDuration = 30;
 
 export const POST = async (req: NextRequest) => {

@@ -4,6 +4,8 @@ import AiReports from "./_components/ai-reports";
 import { getDetailInterestStocks } from "@/actions/stock";
 import { StockItem } from "@/components/common";
 
+export const dynamic = "force-dynamic";
+
 const getInterestStocks = async () => {
   const res = await getDetailInterestStocks();
 

@@ -28,12 +28,15 @@ export type TStockTags =
 export const getStocks = api.get({
   endpoint: "/stocks",
   responseSchema: StockSchema,
-})<undefined, StockDataType>;
+})<undefined, StockDataType, true>;
 
 export const getStocksByReutersCode = api.get({
   endpoint: "/stocks",
   responseSchema: StockSchema,
-})<undefined, StockDataType>;
+  baseOptions: {
+    isDataArray: false,
+  },
+})<undefined, StockDataType, false>;
 
 // 주식 종목 전체 리스트 가져오기
 export const getDetailInterestStocks = api.get({
