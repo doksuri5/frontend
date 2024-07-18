@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { MyStockItem } from "@/app/[lang]/(mystock)/mystock/_components";
-import MyStockItemSkeleton from "./skeleton/MyStockItemSkeleton";
+import MyStockItemSkeleton from "./_skeleton/MyStockItemSkeleton";
 import { useInterestStockStore } from "@/app/[lang]/(mystock)/mystock/stores";
 import { StockDataType } from "@/types";
 import WarningIcon from "@/public/icons/warning_icon.svg?component";
