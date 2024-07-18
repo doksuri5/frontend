@@ -4,10 +4,11 @@ import { cookies } from "next/headers";
 import { ZodSchema } from "zod";
 import { revalidateTag } from "next/cache";
 import { TStockTags } from "@/actions/stock";
+import { TRecentTags } from "@/actions/search";
 
 export type TBaseOptions = RequestInit & {
   isFetchFromRouteHandler?: boolean;
-  revalidateTags?: TStockTags[];
+  revalidateTags?: TStockTags[] | TRecentTags[];
   isLoggedIn?: boolean;
   isDataArray?: boolean;
 };
