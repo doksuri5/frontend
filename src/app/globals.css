@@ -88,10 +88,10 @@
 
 /* tag select css */
 .basic-multi-select .tag__control{
-  @apply min-h-[2.4rem] px-[1.6rem] py-[1.1rem] rounded-[0.5rem] border-grayscale-300
+  @apply min-h-[2.4rem] px-[1.6rem] py-[1.1rem] rounded-[0.5rem] border-grayscale-300 cursor-pointer
 }
 .basic-multi-select .tag__control:focus{
-  @apply border-blue-500 outline-blue-500
+  @apply border-blue-500 outline-blue-500 cursor-pointer
 }
 
 .basic-multi-select .tag__control:hover{
@@ -118,6 +118,10 @@
   @apply shadow-none border border-grayscale-300
 }
 
+.basic-multi-select .tag__option  {
+  @apply cursor-pointer;
+}
+
 .basic-multi-select .tag__multi-value{
   @apply bg-transparent
 }
@@ -125,6 +129,7 @@
 .basic-multi-select .tag__multi-value__label {
   @apply text-grayscale-900 body_4
 }
+
 
 .basic-multi-select .tag__multi-value__remove {
   @apply w-[3rem] rounded-[100%] flex items-center justify-center
@@ -144,4 +149,27 @@
 
 .fadeInUp-animation {
   animation: 1.5s fadeInUp;
+}
+
+/* input auto bg css reset */
+input:-webkit-autofill,
+input:-webkit-autofill:disabled,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+	-webkit-text-fill-color: inherit;
+    -webkit-box-shadow: 0 0 0px 1000px inherit inset;
+    box-shadow: 0 0 0px 1000px inherit inset;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+input:autofill,
+input:autofill:disabled,
+input:autofill:hover,
+input:autofill:focus,
+input:autofill:active {
+	-webkit-text-fill-color: inherit;
+    -webkit-box-shadow: 0 0 0px 1000px inherit inset;
+    box-shadow: 0 0 0px 1000px inherit inset;
+    transition: background-color 5000s ease-in-out 0s;
 }

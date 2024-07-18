@@ -1,12 +1,15 @@
 "use server";
 
-import { StockAIReportDataType } from "@/types/StockDataType";
+import { api } from "@/lib/api";
+import { StockAIReportDataType, StockAIReportSchema } from "@/types/StockDataType";
 
-const getStockAnalysis = async (code: string): Promise<StockAIReportDataType> => {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/report/stock-analysis/${code}`);
-  const data = await response.json();
-
-  return data;
-};
-
-export default getStockAnalysis;
+export const getStockAnalysis = api.get({
+  endpoint: "/report/stock-analysis",
+  responseSchema: StockAIReportSchema,
+  baseOptions: {
+    isFetchFromRouteHandler: true,
+    next: {
+      revalidate: 60 * 60 * 6,
+    },
+  },
+})<undefined, StockAIReportDataType>;

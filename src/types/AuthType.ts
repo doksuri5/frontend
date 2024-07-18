@@ -1,9 +1,9 @@
-import { z } from "zod";
+import { boolean, z } from "zod";
 
 // 로그인
 export const loginSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(1),
+  email: z.string().email({ message: "올바른 이메일 형식이 아닙니다." }),
+  password: z.string().min(1, { message: "비밀번호를 입력해주세요." }),
   authLogin: z.boolean().optional(),
 });
 
@@ -49,7 +49,7 @@ const baseRegisterSchema = z.object({
 });
 
 const googleRegisterSchema = baseRegisterSchema.extend({
-  name: z.string().min(1, { message: "이름을 입력해주세요." }),
+  name: z.string().regex(/^[a-zA-Z가-힣\s]+$/, { message: "숫자나 특수기호가 포함될 수 없습니다." }),
   email: z.string().email({ message: "올바른 이메일 형식이 아닙니다." }),
 });
 
@@ -88,7 +88,7 @@ export const registerSchema = (isSocialLogin: "google" | "kakao" | "regular") =>
 
 // 프로필
 export const profileSchema = z.object({
-  nickname: z.string().min(1, { message: "닉네임을 입력해주세요." }),
+  nickname: z.string().regex(/^[a-zA-Z0-9가-힣\s]+$/, { message: "특수기호가 포함될 수 없습니다." }),
   tags: z
     .array(
       z.object({
@@ -97,6 +97,16 @@ export const profileSchema = z.object({
       }),
     )
     .min(1, "관심 종목을 최소 하나 선택해야 합니다."),
+  isAgreeCreditInfo: z.boolean(),
+  investPropensity: z
+    .object({
+      1: z.string(),
+      2: z.string(),
+      3: z.string(),
+      4: z.string(),
+      5: z.array(z.string()),
+    })
+    .optional(),
 });
 
 export type TLoginSchema = z.infer<typeof loginSchema>;

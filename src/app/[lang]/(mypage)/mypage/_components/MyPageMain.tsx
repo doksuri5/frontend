@@ -3,7 +3,7 @@
 import { Button } from "@/components/common";
 import Image from "next/image";
 import Profile from "@/public/icons/avatar_default.svg";
-import { ProfileEditModal, PWCheckModal, PrivacyEditModal, WithdrawModal } from "./index";
+import { ProfileEditModal, VerifyModal, PrivacyEditModal, WithdrawModal } from "./index";
 import useDisclosure from "@/hooks/use-disclosure";
 import { createProfileImgURL } from "../_utils/profileUtils";
 import { useEffect } from "react";
@@ -18,19 +18,18 @@ export default function MyPageMain({ userData }: TMyPageMainProps) {
 
   // 모달 관련 상태 관리
   const profileModal = useDisclosure();
-  const pwCheckModal = useDisclosure();
+  const verifyModal = useDisclosure();
   const privacyModal = useDisclosure();
   const withdrawModal = useDisclosure();
 
-  // 패스워드 확인 모달을 닫는 함수
-  const handlePWCheckModalClose = () => {
-    pwCheckModal.close();
-  };
-
   // 개인정보 수정 모달을 여는 함수
-  const handleOpenPrivacyModal = () => {
-    pwCheckModal.close();
-    privacyModal.open();
+  const handleOpenPrivacyWithdrawModal = () => {
+    verifyModal.close();
+    if (userData.login_type === "local") {
+      privacyModal.open();
+    } else {
+      withdrawModal.open();
+    }
   };
 
   // 회원 탈퇴 모달을 여는 함수
@@ -80,13 +79,13 @@ export default function MyPageMain({ userData }: TMyPageMainProps) {
           <h1 className="body_2 font-bold text-gray-900">계정 설정</h1>
           <div>서비스 이용시 사용되는 계정을 생성 및 변경합니다. 계정을 연동하여 다양한 서비스를 이용해보세요.</div>
         </div>
-        <Button variant="textButton" size="sm" className="w-[16rem] text-grayscale-0" onClick={pwCheckModal.open}>
-          계정정보 수정
+        <Button variant="textButton" size="sm" className="w-[16rem] text-grayscale-0" onClick={verifyModal.open}>
+          {userData?.login_type === "local" ? "계정정보 수정" : "회원탈퇴"}
         </Button>
       </section>
       <div className="flex flex-row items-center">
-        <div className="body_3 w-[14.4rem] font-medium text-grayscale-900">아이디</div>
-        <div className="body_4 font-medium text-grayscale-600">{userData?._id}</div>
+        <div className="body_3 w-[14.4rem] font-medium text-grayscale-900">이메일</div>
+        <div className="body_4 font-medium text-grayscale-600">{userData?.email}</div>
       </div>
       <div className="flex flex-row items-center">
         <div className="body_3 w-[14.4rem] font-medium text-grayscale-900">이름</div>
@@ -96,7 +95,7 @@ export default function MyPageMain({ userData }: TMyPageMainProps) {
         <div className="body_3 w-[14.4rem] font-medium text-grayscale-900">생년월일</div>
         <div className="body_4 font-medium text-grayscale-600">{userData?.birth}</div>
       </div>
-      <PWCheckModal isOpen={pwCheckModal.isOpen} onClose={handlePWCheckModalClose} onEdit={handleOpenPrivacyModal} />
+      <VerifyModal isOpen={verifyModal.isOpen} onClose={verifyModal.close} onEdit={handleOpenPrivacyWithdrawModal} />
       <PrivacyEditModal
         isOpen={privacyModal.isOpen}
         onClose={privacyModal.close}

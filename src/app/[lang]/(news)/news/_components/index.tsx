@@ -31,7 +31,7 @@ export const DUMMY_POPULAR_NEWS_ITEMS = Array(3).fill({
 const PopularNewsComponent = lazy(
   () =>
     new Promise<{ default: React.ComponentType<any> }>((resolve) =>
-      setTimeout(() => resolve(import("@/components/common/PopularNews")), 2000),
+      setTimeout(() => resolve(import("@/components/common/PoPularNews")), 2000),
     ),
 );
 

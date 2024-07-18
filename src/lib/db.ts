@@ -25,7 +25,6 @@ const connectDB = async () => {
 
   if (!cached.mongoose!.promise) {
     const options = {
-      useNewUrlParser: true,
       useUnifiedTopology: true,
       bufferCommands: false,
     };

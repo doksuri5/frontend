@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { signOut, useSession } from "next-auth/react";
 
 import { Button, CheckBox } from "@/components/common";
 
@@ -16,6 +17,8 @@ export default function AgreeForm() {
   const [agreedAll, setAgreedAll] = useState(false);
   const [terms, setTerms] = useState(false);
   const [privacy, setPrivacy] = useState(false);
+
+  const { data: session } = useSession();
 
   const router = useRouter();
 
@@ -37,7 +40,11 @@ export default function AgreeForm() {
 
   const nextStepHandler = () => {
     if (agreedAll) {
-      router.push(REGISTER_PATH);
+      if (session) {
+        signOut({ callbackUrl: REGISTER_PATH, redirect: true });
+      } else {
+        router.push(REGISTER_PATH);
+      }
     }
   };
 

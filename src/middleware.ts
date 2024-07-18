@@ -53,6 +53,7 @@ export const middleware = async (req: NextRequest) => {
   const isAuthPath = requiresAuth(pathname, [
     `/${locale}`,
     `/${locale}/login`,
+    `/${locale}/login/error`,
     `/${locale}/account`,
     `/${locale}/account/register`,
     `/${locale}/account/profile-setup`,
@@ -69,6 +70,11 @@ export const middleware = async (req: NextRequest) => {
     response.cookies.delete("authjs.session-token");
 
     return response;
+  }
+
+  // 로그인이 필요한 경로와 유저가 로그인 한 경우 Home 페이지로 넘기기
+  if (isAuthPath && isAuthenticated) {
+    return NextResponse.redirect(new URL(`/${locale}/home`, req.url));
   }
 
   // header에 pathname 추가

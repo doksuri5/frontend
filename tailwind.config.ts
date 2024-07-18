@@ -14,9 +14,7 @@ const utilsPlugin: PluginCreator = ({ addUtilities }) =>
   });
 
 const config: Config = {
-  purge: {
-    safelist: ["text-grayscale-500", "text-blue-600", "text-warning-100"],
-  },
+  safelist: ["text-grayscale-500", "text-blue-600", "text-warning-100"],
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",

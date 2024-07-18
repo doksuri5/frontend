@@ -12,5 +12,5 @@ export default function HomeRootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <section className="bg-[url('/images/intro_bg.png')] bg-cover bg-center bg-no-repeat">{children}</section>;
+  return <section>{children}</section>;
 }

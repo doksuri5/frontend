@@ -5,7 +5,7 @@ import { cookies, headers } from "next/headers";
 
 import { signIn, signOut } from "@/auth";
 
-import { TLoginSchema } from "@/types/AuthType";
+import { loginSchema, TLoginSchema } from "@/types/AuthType";
 
 function getBasePath(path: string) {
   const regex = /^(\/[^\/]+)(\/.*)/;
@@ -17,27 +17,29 @@ function getBasePath(path: string) {
 }
 
 export async function loginAction(data: TLoginSchema) {
-  try {
-    const response = await signIn("credentials", {
-      email: data.email,
-      password: data.password,
-      autoLogin: data.authLogin,
-      redirect: false,
-    });
-    return response;
-  } catch (error) {
-    if (error instanceof AuthError) {
-      switch (error.type) {
-        case "CredentialsSignin": {
-          return { error: "로그인 실패 : 이메일과 비밀번호를 확인해주세요!" };
-        }
-        default: {
-          return { error: "이메일과 비밀번호를 확인해주세요!" };
+  const validatedFields = loginSchema.safeParse(data);
+  if (validatedFields) {
+    try {
+      const response = await signIn("credentials", {
+        email: data.email,
+        password: data.password,
+        autoLogin: data.authLogin,
+        redirect: false,
+      });
+      return response;
+    } catch (error) {
+      if (error instanceof AuthError) {
+        switch (error.type) {
+          case "CredentialsSignin": {
+            return { error: "로그인 실패 : 이메일과 비밀번호를 확인해주세요!" };
+          }
+          default: {
+            return { error: "이메일과 비밀번호를 확인해주세요!" };
+          }
         }
       }
+      throw error;
     }
-
-    throw error;
   }
 }
 
