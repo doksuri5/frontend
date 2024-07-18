@@ -1,10 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/common";
+import CommonLoginBtn from "../(auth)/_components/CommonLoginBtn";
 
 export default function HomeRootPage() {
   return (
-    <div className="flex flex-col items-center justify-between pt-[8rem]">
+    <div className="flex flex-col items-center justify-between">
       <dl className="flex_col_center fadeInUp-animation mb-[5.8rem] mt-[7rem] text-white">
         <dt className="heading_1 font-medium">
           해외주식은 <em className="font-extrabold not-italic">아잇나우</em>와 함께!
@@ -14,11 +15,7 @@ export default function HomeRootPage() {
           <br /> AI 애널리스트가 알려주는 어려운 해외주식 리포트
         </dd>
         <dd>
-          <Link href="/login" className="block h-full">
-            <Button variant="textButton" size="lg" bgColor="bg-navy-900" className="w-[38.6rem]">
-              로그인
-            </Button>
-          </Link>
+          <CommonLoginBtn className="w-[38.6rem]" />
         </dd>
       </dl>
       <Image src={"/images/intro_content.png"} alt="아잇나우" width={1038} height={526} />

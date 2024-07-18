@@ -1,4 +1,4 @@
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { pretendard } from "@/fonts";
 import { ToastContainer } from "react-toastify";
 
@@ -29,10 +29,10 @@ export default function RootLayout({
 
   return (
     <html lang={params.lang} className={pretendard.className}>
-      <body className="bg-background-100">
+      <body>
         <AuthSession>
           <Header isLoggedIn={isLoggedIn} />
-          <main className="relative m-auto max-w-[120rem] pt-[8rem]">
+          <main className="relative m-auto min-h-[100vh] max-w-[120rem] pt-[8rem]">
             <ToastContainer position="top-center" limit={1} />
             <QueryProvider>{children}</QueryProvider>
           </main>
