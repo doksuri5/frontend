@@ -16,7 +16,7 @@ import FindNewsSkeleton from "./skeleton/FindNewsSkeleton";
 import StockItemSkeleton from "./skeleton/StockItemSkeleton";
 import ChatBot from "./ChatBot";
 import Alert from "./Alert";
-import PopularNews from "./PopularNews";
+import PopularNews from "./PoPularNews";
 import SimpleRadarChart from "./SimpleRadarChart";
 import CardSkeleton from "./skeleton/CardSkeleton";
 import PopularNewsSkeleton from "./skeleton/PopularNewsSkeleton";

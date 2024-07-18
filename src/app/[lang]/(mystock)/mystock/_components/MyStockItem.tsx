@@ -53,16 +53,7 @@ const MyStockItem = ({ data }: TMyStockItemProps) => {
           </span>
         </div>
       </div>
-      <SimpleReportCard
-        isShowHeader={false}
-        report={{
-          companyName: data.stockName,
-          stockCode: data.symbolCode,
-          currentPrice: data.closePrice,
-          fluctuationPrice: data.compareToPreviousClosePrice,
-          fluctuationRatio: data.fluctuationsRatio,
-        }}
-      />
+      <SimpleReportCard isShowHeader={false} reutersCode={data.reutersCode} />
       {/* 버튼 */}
       <div className="flex_row my-[1.6rem] w-full gap-[.8rem]">
         <Button variant="textButton" size="md" bgColor="bg-grayscale-200" onClick={handleDeleteClick}>
