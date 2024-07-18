@@ -76,6 +76,7 @@ const News = ({ param }: { param: string }) => {
           <>
             {newsList.map((news) => (
               <FindNews
+                _id={news.idx}
                 key={news.idx}
                 image={news.image}
                 title={news.title}
