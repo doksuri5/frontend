@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import PopularSearchItemDetailSkeleton from "./_skeleton/PopularSearchItemDetailSkeleton";
 import { getPopularSearches } from "@/actions/stock";
@@ -41,25 +42,27 @@ const MyStockPopularSearches = () => {
           <>
             {popularList.map((popular, index) => (
               <div key={popular.id} className={`flex_row h-[4rem] justify-between gap-[1.6rem]`}>
-                <div className="flex_row">
-                  <span className="body_4 w-[1.8rem] font-medium text-navy-900">{index + 1}</span>
-                  <Image
-                    src={`/icons/stocks/${STOCK_NAMES[popular.reutersCode]}.svg`}
-                    alt="아이콘"
-                    width={32}
-                    height={32}
-                    className="ml-[1.6rem] mr-[.8rem]"
-                  />
-                  <span className="body_4 w-full truncate font-medium text-grayscale-600">{popular.stockName}</span>
-                </div>
-                <div>
-                  <span className={`${getTextColor(popular.compareToPreviousClosePrice)}`}>
-                    {formatValueWithIndicator(popular.compareToPreviousClosePrice)}
-                  </span>
-                  <span className={`${getTextColor(popular.fluctuationsRatio)}`}>
-                    {formatValueWithSign(popular.fluctuationsRatio) + "%"}
-                  </span>
-                </div>
+                <Link href={`/report/${popular.reutersCode}`} className="flex_row w-full justify-between">
+                  <div className="flex_row">
+                    <span className="body_4 w-[1.8rem] font-medium text-navy-900">{index + 1}</span>
+                    <Image
+                      src={`/icons/stocks/${STOCK_NAMES[popular.reutersCode]}.svg`}
+                      alt="아이콘"
+                      width={32}
+                      height={32}
+                      className="ml-[1.6rem] mr-[.8rem]"
+                    />
+                    <span className="body_4 w-full truncate font-medium text-grayscale-600">{popular.stockName}</span>
+                  </div>
+                  <div>
+                    <span className={`${getTextColor(popular.compareToPreviousClosePrice)}`}>
+                      {formatValueWithIndicator(popular.compareToPreviousClosePrice)}
+                    </span>
+                    <span className={`${getTextColor(popular.fluctuationsRatio)}`}>
+                      {formatValueWithSign(popular.fluctuationsRatio) + "%"}
+                    </span>
+                  </div>
+                </Link>
               </div>
             ))}
           </>
