@@ -4,9 +4,9 @@ import { useEffect, useState } from "react";
 import { StockItem, StockItemSkeleton } from "@/components/common";
 import DiscoverySection from "./DiscoverySection";
 import { StockDataType } from "@/types";
-import { saveRecentSearch } from "@/actions/stock";
+import { getSearchStocks } from "@/actions/search";
 
-const Stocks = ({ params }: { params: string }) => {
+const DiscoveryStocks = ({ params }: { params: string }) => {
   const [stockList, setStockList] = useState<StockDataType[]>([]);
   const [isRander, setIsRender] = useState(false);
   const [showMoreItems, setShowMoreItems] = useState(false);
@@ -15,7 +15,7 @@ const Stocks = ({ params }: { params: string }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await saveRecentSearch({ stockName: params });
+        const response = await getSearchStocks(undefined, { params });
         if (response.ok) setStockList(response.data);
       } catch (error) {
         console.error("Failed to fetch stock data:", error);
@@ -70,4 +70,4 @@ const Stocks = ({ params }: { params: string }) => {
   );
 };
 
-export default Stocks;
+export default DiscoveryStocks;

@@ -1,8 +1,8 @@
 import TimeIcon from "@/public/icons/time_icon.svg?component";
 import CloseIcon from "@/public/icons/close_icon.svg?component";
-import { SearchRecentDataType } from "@/types/RecentDataType";
+import { SearchTextDataType } from "@/types/SearchDataType";
 
-const SearchItem = ({ search, deleteSearch }: { search: SearchRecentDataType; deleteSearch: () => void }) => {
+const SearchItem = ({ search, deleteSearch }: { search: SearchTextDataType; deleteSearch: () => void }) => {
   return (
     <li key={search.searchText} className="flex_row h-[4rem] w-full justify-between">
       <div className="flex_row gap-[.8rem]">

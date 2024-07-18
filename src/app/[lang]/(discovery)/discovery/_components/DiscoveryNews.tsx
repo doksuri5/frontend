@@ -7,7 +7,7 @@ import DiscoverySection from "./DiscoverySection";
 import { getSearchNews } from "@/actions/news";
 import { SearchStockNewsDataType } from "@/types/NewsDataType2";
 
-const News = ({ params }: { params: string }) => {
+const DiscoveryNews = ({ params }: { params: string }) => {
   const pathname = usePathname();
   const lang = pathname.match(/\/([a-z]{2})\//)?.[1];
   const [isRander, setIsRender] = useState(false);
@@ -94,4 +94,4 @@ const News = ({ params }: { params: string }) => {
   );
 };
 
-export default News;
+export default DiscoveryNews;
