@@ -3,6 +3,7 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useRef } from "react";
 import { Input } from "@/components/common";
+import { saveRecentSearch } from "@/actions/stock";
 import SearchIcon from "@/public/icons/search_icon.svg?component";
 
 const DiscoveryInput = ({ params }: { params: string }) => {
@@ -11,15 +12,19 @@ const DiscoveryInput = ({ params }: { params: string }) => {
   const router = useRouter();
   const pathname = usePathname();
 
-  const moveLink = () => {
+  const moveLink = async () => {
     const params = new URLSearchParams(searchParams.toString());
     if (inputRef.current?.value.trim() === "") {
       params.delete("search");
     } else {
-      params.set("search", inputRef.current?.value || "");
+      try {
+        const response = await saveRecentSearch({ stockName: inputRef.current?.value as string });
+        if (response.ok) params.set("search", inputRef.current?.value || "");
+      } catch (error) {
+        console.error("Failed to fetch stock data:", error);
+      }
     }
 
-    // window.history.pushState(null, "", `?${params.toString()}`);
     const newPath = `${pathname}?${params.toString()}`;
     router.push(newPath);
   };
