@@ -6,12 +6,13 @@ import { FetchedNaverStockDataType } from "@/types/StockDataType";
 import { kv } from "@vercel/kv";
 import yahooFinance from "yahoo-finance2";
 import { unstable_noStore as noStore } from "next/cache";
+import { auth } from "@/auth";
 
 export const maxDuration = 30;
 
 export const GET = async (request: NextRequest, { params }: { params: { code: string } }) => {
   try {
-    const search = request.nextUrl.searchParams;
+    const session = await auth();
 
     const key = `stock:${params.code}`;
     noStore();
@@ -78,8 +79,8 @@ export const GET = async (request: NextRequest, { params }: { params: { code: st
         The company's current price is ${metrics.currentPrice}.
         The company's current price ratio is ${metrics.currentPriceRatio}.        if per is higher than 20.36, the company is considered overvalued. and forward per is higher than 22.93, the company is considered overvalued.
         if company forward per is lower then trailing per, It can be expected to grow gradually.
-        summarize description for introduce for investor of this company in korean language just introduction not use data.
-        please provide a report on the profitability, interest, and growth potential of the company and the reason for your analysis in korean language.
+        summarize description for introduce for investor of this company in ${session?.user.language ?? "ko"} language just introduction not use data.
+        please provide a report on the profitability, interest, and growth potential of the company and the reason for your analysis in ${session?.user.language ?? "ko"} language.
         profitabilityPercentage: An indicator of how much you can expect to earn in a year's time, expressed as a percentage.
         interestPercentage: An indicator of how much people are interested in this stock recently use search , expressed as a percentage.
         growthPercentage: An indicator of how much the company is expected to grow in the future, expressed as a percentage.
