@@ -4,6 +4,8 @@ import { emailCert, passwordCert, verifyCode } from "../_api/privacyApi";
 import { cn } from "@/utils/cn";
 import useUserStore from "@/stores/useUserStore";
 import useAlert from "@/hooks/use-alert";
+import useToast from "@/hooks/use-toast";
+import { toast } from "react-toastify";
 
 type TVerifyModalProps = {
   isOpen: boolean;
@@ -14,6 +16,7 @@ type TVerifyModalProps = {
 export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalProps) {
   const { userStoreData } = useUserStore();
   const { alertInfo, customAlert } = useAlert();
+  const { showLoadingToast, updateToast } = useToast();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -92,9 +95,22 @@ export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalPro
   const handleVerifyEmail = async () => {
     if (!email) return;
 
+    let loadingToastId;
+    let isResponseReceived = false;
+
+    const delayToast = setTimeout(() => {
+      if (!isResponseReceived) {
+        loadingToastId = showLoadingToast("이메일 인증 중...");
+      }
+    }, 500);
+
     try {
       const response = await emailCert(email);
+      isResponseReceived = true;
+      clearTimeout(delayToast);
+
       if (response.ok) {
+        if (loadingToastId) updateToast(loadingToastId, "이메일로 인증 코드를 전송했습니다.", "success");
         setVisibleCodeField(true);
         customAlert({
           title: "작성한 이메일 주소로 인증 코드를 전송했습니다.",
@@ -105,6 +121,7 @@ export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalPro
           },
         });
       } else {
+        toast.dismiss(loadingToastId);
         customAlert({
           title: "이메일 인증에 실패했습니다.",
           subText: "이메일을 확인 후 다시 시도해 주세요.",
@@ -113,6 +130,8 @@ export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalPro
         });
       }
     } catch (err) {
+      if (loadingToastId) toast.dismiss(loadingToastId);
+      clearTimeout(delayToast);
       customAlert({
         title: "이메일 인증 도중 오류가 발생했습니다.",
         subText: err instanceof Error ? err.message : "알 수 없는 오류가 발생했습니다.",
