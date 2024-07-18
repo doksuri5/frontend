@@ -10,8 +10,6 @@ import AgreeContent from "./AgreeContent";
 
 import { cn } from "@/utils/cn";
 
-import { REGISTER_PATH } from "@/routes/path";
-
 import { servicePolicyText } from "@/constants/servicePolicyText";
 import { privacyPolicyText } from "@/constants/privacyPolicyText";
 
@@ -20,6 +18,8 @@ import { getAgreeContent } from "@/actions/agree";
 import { formatTextWithLineBreaks } from "@/utils/textUtils";
 
 import { AgreeDataType } from "@/types/AuthType";
+
+import { REGISTER_PATH } from "@/routes/path";
 
 export default function AgreeForm() {
   const [agreedAll, setAgreedAll] = useState(false);
@@ -58,10 +58,10 @@ export default function AgreeForm() {
   };
 
   useEffect(() => {
+    // 약관 API
     async function fetchAgreeContent() {
       const res = await getAgreeContent();
-      //setAgreeData(res.data[0]);
-      // setAgreeData(res.data);
+      setAgreeData(res.data);
     }
 
     fetchAgreeContent();
@@ -100,7 +100,10 @@ export default function AgreeForm() {
         </div>
         {/* 개인정보 처리방침  */}
         <div>
-          <AgreeContent title="개인정보 처리방침(필수)" content={privacyPolicyText} />
+          <AgreeContent
+            title="개인정보 처리방침(필수)"
+            content={agreeData ? formatTextWithLineBreaks(agreeData.privacyPolicy.content) : privacyPolicyText}
+          />
           <CheckBox
             checked={privacy}
             setChecked={individualChangeHandler(setPrivacy)}

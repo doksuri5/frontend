@@ -10,4 +10,4 @@ export const getAgreeContent = api.get({
     isLoggedIn: false,
     isDataArray: false,
   },
-})<undefined, AgreeDataType>;
+})<undefined, AgreeDataType, false>;
