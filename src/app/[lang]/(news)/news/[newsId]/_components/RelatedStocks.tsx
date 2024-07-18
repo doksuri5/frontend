@@ -10,39 +10,54 @@ type TRelatedStocksProps = {
   stockData: StockDataType[];
 };
 
-const DUMMY_STOCK = [
+const DUMMY_STOCK: StockDataType[] = [
   {
-    _id: nanoid(),
-    icon: "/icons/Apple_icon.svg",
+    id: nanoid(),
     stockName: "애플",
     symbolCode: "AAPL",
-    price: 150.25,
     compareToPreviousClosePrice: -1.75,
     fluctuationsRatio: -1.15,
     nationType: "USA",
     reutersCode: "AAPL.O",
+    stockNameEng: "",
+    closePrice: 0,
+    marketPrice: 0,
+    investmentIndex: 0,
+    profitability: 0,
+    growthRate: 0,
+    interestRate: 0,
   },
   {
-    _id: nanoid(),
-    icon: "/icons/Apple_icon.svg",
+    id: nanoid(),
     stockName: "애플",
     symbolCode: "AAPL",
-    price: 148.0,
     compareToPreviousClosePrice: 2.5,
     fluctuationsRatio: 1.72,
     nationType: "USA",
     reutersCode: "AAPL.O",
+    stockNameEng: "",
+    closePrice: 0,
+    marketPrice: 0,
+    investmentIndex: 0,
+    profitability: 0,
+    growthRate: 0,
+    interestRate: 0,
   },
   {
-    _id: nanoid(),
-    icon: "/icons/Apple_icon.svg",
+    id: nanoid(),
     stockName: "애플",
     symbolCode: "AAPL",
-    price: 155.1,
     compareToPreviousClosePrice: -0.75,
     fluctuationsRatio: -0.48,
     nationType: "USA",
     reutersCode: "AAPL.O",
+    stockNameEng: "",
+    closePrice: 0,
+    marketPrice: 0,
+    investmentIndex: 0,
+    profitability: 0,
+    growthRate: 0,
+    interestRate: 0,
   },
 ];
 
@@ -65,22 +80,7 @@ export default function RelatedStocks() {
           Array(4)
             .fill(0)
             .map((_, index) => <StockItemSkeleton variant="findStock" key={index} />)}
-        {!loading &&
-          stockData.map((stock) => (
-            <StockItem
-              variant="findStock"
-              key={stock._id}
-              _id={stock._id}
-              icon={stock.icon}
-              stockName={stock.stockName}
-              symbolCode={stock.symbolCode}
-              price={stock.price}
-              compareToPreviousClosePrice={stock.compareToPreviousClosePrice}
-              fluctuationsRatio={stock.fluctuationsRatio}
-              nationType={stock.nationType}
-              reutersCode={stock.reutersCode}
-            />
-          ))}
+        {!loading && stockData.map((stock) => <StockItem variant="findStock" key={stock.id} {...stock} />)}
       </div>
     </section>
   );
