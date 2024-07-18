@@ -12,7 +12,6 @@ import { StockDataType } from "@/types";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import ReportHeaderSkeleton from "./skeleton/ReportHeaderSkeleton";
-import { set } from "mongoose";
 
 type TStockHeader = {
   reutersCode: TReutersCodes;
@@ -54,7 +53,7 @@ export default function ReportHeader({ reutersCode }: TStockHeader) {
         setIsMyStockState(true);
       }
 
-      setStock(data.data[0]);
+      setStock(data.data);
     };
 
     fetchData();

@@ -2,8 +2,8 @@ import { input, SafeParseReturnType, z, ZodEffects } from "zod";
 import snakecaseKeys from "snakecase-keys";
 import camelcaseKeys, { CamelCaseKeys, Options } from "camelcase-keys";
 
-export type ResponseReturnType<D> = {
-  data: D[];
+export type ResponseReturnType<T> = {
+  data: T;
   ok?: boolean;
   message?: string;
 };
@@ -24,33 +24,41 @@ export const withCamelCase = <T extends z.ZodTypeAny>(schema: T, options: Option
 
 // 응답을 받을 때 snake_case 로 오는 경우 사용한다. data 를 응답받아 parse 하기전에 camel_case 로 변환한다.
 export const ApiResponse = <T extends z.ZodTypeAny, D>(dataSchema: T, data: D, isArray: boolean = true) => {
-  if (!isArray) {
+  try {
+    if (!isArray) {
+      return z
+        .object({
+          data: withCamelCase(dataSchema).nullable(),
+          ok: z.boolean().optional(),
+          message: z.string().optional(),
+        })
+        .parse(data);
+    }
+
     return z
       .object({
-        data: withCamelCase(dataSchema).nullable(),
+        data: withCamelCase(dataSchema).array().nullable(),
         ok: z.boolean().optional(),
         message: z.string().optional(),
       })
       .parse(data);
+  } catch (err) {
+    if (err instanceof z.ZodError) {
+      console.error(err.issues);
+    }
   }
-
-  return z
-    .object({
-      data: withCamelCase(dataSchema).array().nullable(),
-      ok: z.boolean().optional(),
-      message: z.string().optional(),
-    })
-    .parse(data);
 };
 
 // 요청을 보낼 때 snake_case 로 변환하여 보내야 하는 경우 사용한다. ( 주로 body 검증 schema 에 사용 )
-export const ApiRequestBody = <T extends z.ZodTypeAny, D>(
-  dataSchema: T,
-  data: D,
-  safe: boolean | undefined = true,
-): SafeParseReturnType<input<T>, any> => {
-  if (safe) {
-    return dataSchema.transform((data) => snakecaseKeys(data, { deep: true })).safeParse(data);
+export const ApiRequestBody = <T extends z.ZodTypeAny, D>(dataSchema: T, data: D, safe: boolean | undefined = true) => {
+  try {
+    if (safe) {
+      return dataSchema.transform((data) => snakecaseKeys(data, { deep: true })).safeParse(data);
+    }
+    return dataSchema.transform((data) => snakecaseKeys(data, { deep: true })).parse(data);
+  } catch (err) {
+    if (err instanceof z.ZodError) {
+      console.error(err.issues);
+    }
   }
-  return dataSchema.transform((data) => snakecaseKeys(data, { deep: true })).parse(data);
 };

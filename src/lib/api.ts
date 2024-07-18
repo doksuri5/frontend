@@ -46,7 +46,10 @@ const request = ({
    * @param options.params path parameter ex) "/:id => /1", / 는 제외
    * @param options.queryString query parameter array ex) ["page=1", "size=10"]
    */
-  return async <T, D>(body?: T, options: TFetchOptions = {}): Promise<ResponseReturnType<D>> => {
+  return async <T, D, isDataArray extends boolean | undefined = true>(
+    body?: T,
+    options: TFetchOptions = {},
+  ): Promise<isDataArray extends true ? ResponseReturnType<D[]> : ResponseReturnType<D>> => {
     try {
       const requestBody = requestSchema && body ? ApiRequestBody(requestSchema, body, false) : body;
       const combinedOptions: TBaseOptions = {
