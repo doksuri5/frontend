@@ -7,20 +7,15 @@ export async function updateUserProfile(formData: FormData) {
   const connectCookie = cookieStore.get("connect.sid")?.value;
 
   if (connectCookie !== undefined) {
-    try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/user/updateUserProfile`, {
-        method: "PUT",
-        headers: {
-          Cookie: `connect.sid=${connectCookie}`,
-        },
-        credentials: "include",
-        body: formData,
-      });
-
-      const data = await response.json();
-      return data;
-    } catch (err) {
-      return err;
-    }
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/user/updateUserProfile`, {
+      method: "PUT",
+      headers: {
+        Cookie: `connect.sid=${connectCookie}`,
+      },
+      credentials: "include",
+      body: formData,
+    });
+    const data = await response.json();
+    return data;
   }
 }
