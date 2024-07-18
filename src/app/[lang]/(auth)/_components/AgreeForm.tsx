@@ -13,9 +13,9 @@ import { cn } from "@/utils/cn";
 import { servicePolicyText } from "@/constants/servicePolicyText";
 import { privacyPolicyText } from "@/constants/privacyPolicyText";
 
-import { getAgreeContent } from "@/actions/agree";
-
 import { formatTextWithLineBreaks } from "@/utils/textUtils";
+
+import { getAgreeContent } from "@/actions/auth";
 
 import { AgreeDataType } from "@/types/AuthType";
 
