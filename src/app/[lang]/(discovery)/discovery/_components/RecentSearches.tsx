@@ -7,7 +7,7 @@ import SearchItem from "./SearchItem";
 import { Alert } from "@/components/common";
 import RecentSearchItemSkeleton from "./_skeleton/RecentSearchItemSkeleton";
 
-import { getRecentSearches } from "@/actions/search";
+import { deleteRecentSearchItem, getRecentSearches } from "@/actions/search";
 import { deleteRecentSearch } from "@/actions/stock";
 import { SearchTextDataType } from "@/types/SearchDataType";
 
@@ -49,10 +49,10 @@ const RecentSearches = () => {
     }
   };
 
-  const handleDeleteSearchItem = async () => {
+  const handleDeleteSearchItem = async (search_text: string) => {
     try {
-      // const response = await deleteRecentSearchItem();
-      // if (response.ok) setSearchList([]);
+      const response = await deleteRecentSearchItem(undefined, { params: search_text });
+      if (response.ok) setSearchList(response.data);
     } catch (error) {
       console.error("Fetch Error", error);
     } finally {
@@ -74,17 +74,21 @@ const RecentSearches = () => {
     >
       <div className="flex_col min-h-[20rem] rounded-[1.6rem] bg-white p-[2.4rem]">
         {!isRender ? (
-          <ul className="w-full">
-            {Array.from({ length: 6 }).map((_, idx) => (
+          <ul className="h-[18rem] w-full">
+            {Array.from({ length: 5 }).map((_, idx) => (
               <RecentSearchItemSkeleton key={idx} />
             ))}
           </ul>
         ) : (
           <>
             {searchList.length !== 0 ? (
-              <ul className="w-full">
+              <ul className="h-[18rem] w-full overflow-y-scroll scrollbar-hide">
                 {searchList.map((search) => (
-                  <SearchItem key={search.searchText} search={search} deleteSearch={handleDeleteSearchItem} />
+                  <SearchItem
+                    key={search.searchText}
+                    search={search}
+                    deleteSearch={() => handleDeleteSearchItem(search.searchText)}
+                  />
                 ))}
               </ul>
             ) : (
