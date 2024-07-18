@@ -2,7 +2,7 @@ import { cn } from "@/utils/cn";
 
 type TCommonAgreeLayoutProps = {
   title: string;
-  children: string;
+  children: string | JSX.Element[];
   height?: string;
 };
 

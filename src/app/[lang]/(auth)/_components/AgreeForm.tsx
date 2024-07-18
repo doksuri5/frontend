@@ -17,10 +17,15 @@ import { privacyPolicyText } from "@/constants/privacyPolicyText";
 
 import { getAgreeContent } from "@/actions/agree";
 
+import { formatTextWithLineBreaks } from "@/utils/textUtils";
+
+import { AgreeDataType } from "@/types/AuthType";
+
 export default function AgreeForm() {
   const [agreedAll, setAgreedAll] = useState(false);
   const [terms, setTerms] = useState(false);
   const [privacy, setPrivacy] = useState(false);
+  const [agreeData, setAgreeData] = useState<AgreeDataType | undefined>(undefined);
 
   const { data: session } = useSession();
 
@@ -52,13 +57,15 @@ export default function AgreeForm() {
     }
   };
 
-  // useEffect(() => {
-  //   async function fetchAgreeContent() {
-  //     const res = await getAgreeContent();
-  //   }
+  useEffect(() => {
+    async function fetchAgreeContent() {
+      const res = await getAgreeContent();
+      //setAgreeData(res.data[0]);
+      // setAgreeData(res.data);
+    }
 
-  //   fetchAgreeContent();
-  // }, []);
+    fetchAgreeContent();
+  }, []);
 
   return (
     <>
@@ -77,7 +84,10 @@ export default function AgreeForm() {
         </div>
         {/* 서비스 이용악관  */}
         <div>
-          <AgreeContent title="서비스 이용악관(필수)" content={servicePolicyText} />
+          <AgreeContent
+            title="서비스 이용악관(필수)"
+            content={agreeData ? formatTextWithLineBreaks(agreeData.termsOfService.content) : servicePolicyText}
+          />
           <CheckBox
             checked={terms}
             setChecked={individualChangeHandler(setTerms)}

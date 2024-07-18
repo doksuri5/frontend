@@ -2,7 +2,7 @@ import CommonAgreeLayout from "./CommonAgreeLayout";
 
 type TAgreeContentProps = {
   title: string;
-  content: string;
+  content: string | JSX.Element[];
 };
 
 export default function AgreeContent({ title, content }: TAgreeContentProps) {
