@@ -4,16 +4,19 @@ import { useEffect, useState } from "react";
 
 import DiscoverySection from "./DiscoverySection";
 import SearchItem from "./SearchItem";
+import { Alert } from "@/components/common";
 import RecentSearchItemSkeleton from "./_skeleton/RecentSearchItemSkeleton";
 
-import { getRecentSearches } from "@/actions/recent";
-import { SearchRecentDataType } from "@/types/RecentDataType";
+import { getRecentSearches } from "@/actions/search";
+import { deleteRecentSearch } from "@/actions/stock";
+import { SearchTextDataType } from "@/types/SearchDataType";
 
 import WarningIcon from "@/public/icons/warning_icon.svg?component";
 
 const RecentSearches = () => {
-  const [searchList, setSearchList] = useState<SearchRecentDataType[]>([]);
+  const [searchList, setSearchList] = useState<SearchTextDataType[]>([]);
   const [isRender, setIsRender] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
 
   useEffect(() => {
     const fetchRecent = async () => {
@@ -29,11 +32,36 @@ const RecentSearches = () => {
     fetchRecent();
   }, []);
 
-  const deleteSearchList = () => {};
-  const deleteSearch = () => {};
+  // 알럿 켜기
+  const handleAlertConfirm = async () => {
+    setShowAlert(true);
+  };
+
+  // 삭제
+  const handleDeleteSearch = async () => {
+    try {
+      const response = await deleteRecentSearch();
+      if (response.ok) setSearchList([]);
+    } catch (error) {
+      console.error("Fetch Error", error);
+    } finally {
+      setShowAlert(false);
+    }
+  };
+
+  const handleDeleteSearchItem = async () => {
+    try {
+      // const response = await deleteRecentSearchItem();
+      // if (response.ok) setSearchList([]);
+    } catch (error) {
+      console.error("Fetch Error", error);
+    } finally {
+      setShowAlert(false);
+    }
+  };
 
   const subTag = (
-    <button type="button" className="body_5 font-medium text-grayscale-600 underline" onClick={deleteSearchList}>
+    <button type="button" className="body_5 font-medium text-grayscale-600 underline" onClick={handleAlertConfirm}>
       전체삭제
     </button>
   );
@@ -56,7 +84,7 @@ const RecentSearches = () => {
             {searchList.length !== 0 ? (
               <ul className="w-full">
                 {searchList.map((search) => (
-                  <SearchItem key={search.searchText} search={search} deleteSearch={deleteSearch} />
+                  <SearchItem key={search.searchText} search={search} deleteSearch={handleDeleteSearchItem} />
                 ))}
               </ul>
             ) : (
@@ -68,6 +96,18 @@ const RecentSearches = () => {
           </>
         )}
       </div>
+
+      {/* Alert 컴포넌트 */}
+      {showAlert && (
+        <Alert
+          variant="fnButton"
+          title="최근 검색어를 전부 삭제하시겠습니까?"
+          buttonText="삭제하기"
+          subButtonText="취소"
+          onClick={handleDeleteSearch}
+          onClose={() => setShowAlert(false)}
+        />
+      )}
     </DiscoverySection>
   );
 };
