@@ -29,15 +29,15 @@ export const deleteGoogleUserAccount = async () => {
   const session = await auth();
   if (!session) return;
 
-  const response = await fetch(`https://oauth2.googleapis.com/revoke?token=${session.accessToken}`, {
+  const unlinkResponse = await fetch(`https://oauth2.googleapis.com/revoke?token=${session.accessToken}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
     },
   });
 
-  console.log(response);
-  if (response.ok) {
+  console.log(unlinkResponse);
+  if (unlinkResponse.ok) {
     return true;
   } else {
     return false;

@@ -7,7 +7,6 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { passwordCert } from "../_api/privacyApi";
 import { deleteGoogleUserAccount, deleteKakaoUserAccount, deleteNaverUserAccount, withdraw } from "../_api/withdrawApi";
-import { logoutAction } from "@/lib/auth-action";
 
 const withdrawReasons = [
   { value: "inconvenient_service", text: "이용이 불편하고 장애가 많아서" },
@@ -80,28 +79,21 @@ export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) 
     // 소셜 로그인 연동 해제
     if (userStoreData?.login_type === "google") {
       const googleResult = await deleteGoogleUserAccount();
-      if (googleResult) {
-        alert("구글 회원탈퇴 완료");
-      } else {
+      if (!googleResult) {
         alert("구글 회원탈퇴 실패");
-      }
+      } 
     } else if (userStoreData?.login_type === "kakao") {
       const kakaoResult = await deleteKakaoUserAccount();
-      if (kakaoResult) {
-        alert("카카오 회원탈퇴 완료");
-      } else {
+      if (!kakaoResult) {
         alert("카카오 회원탈퇴 실패");
       }
     } else if (userStoreData?.login_type === "naver") {
       const naverResult = await deleteNaverUserAccount();
-      if (naverResult) {
-        alert("네이버 회원탈퇴 완료");
-      } else {
+      if (!naverResult) {
         alert("네이버 회원탈퇴 실패");
       }
     }
     router.push("/withdraw");
-    logoutAction();
   };
 
   return (

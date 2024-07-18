@@ -224,7 +224,7 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
             required: "* 닉네임을 입력해주세요.",
             pattern: {
               value:/^[A-Za-z0-9-_ㄱ-ㅎㅏ-ㅣ가-힣]+$/,
-              message: "* '_', '-'를 제외한 특수 문자는 사용할 수 없습니다." // 이 메시지는 사용자가 패턴에 맞지 않는 입력을 할 때 표시됩니다.
+              message: "* '_', '-'를 제외한 특수 문자는 사용할 수 없습니다."
             }
           })}
           suffix={
