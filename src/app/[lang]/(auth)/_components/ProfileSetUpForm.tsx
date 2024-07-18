@@ -166,7 +166,12 @@ export default function ProfileSetUpForm() {
     if (data.tags) {
       formData.append("reuters_code", JSON.stringify(data.tags.map((item) => item.value)));
     }
+
     formData.append("nickname", data.nickname);
+
+    formData.append("isAgreeCreditInfo", JSON.stringify(data.isAgreeCreditInfo));
+
+    formData.append("investPropensity", JSON.stringify(data.investPropensity));
 
     const additionalData = registerFormData();
 
