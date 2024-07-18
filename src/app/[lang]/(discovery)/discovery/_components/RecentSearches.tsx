@@ -7,8 +7,7 @@ import SearchItem from "./SearchItem";
 import { Alert } from "@/components/common";
 import RecentSearchItemSkeleton from "./_skeleton/RecentSearchItemSkeleton";
 
-import { deleteRecentSearchItem, getRecentSearches } from "@/actions/search";
-import { deleteRecentSearch } from "@/actions/stock";
+import { deleteRecentSearchTextList, deleteRecentSearchTextItem, getRecentSearches } from "@/actions/search";
 import { SearchTextDataType } from "@/types/SearchDataType";
 
 import WarningIcon from "@/public/icons/warning_icon.svg?component";
@@ -40,7 +39,7 @@ const RecentSearches = () => {
   // 삭제
   const handleDeleteSearch = async () => {
     try {
-      const response = await deleteRecentSearch();
+      const response = await deleteRecentSearchTextList();
       if (response.ok) setSearchList([]);
     } catch (error) {
       console.error("Fetch Error", error);
@@ -51,7 +50,7 @@ const RecentSearches = () => {
 
   const handleDeleteSearchItem = async (search_text: string) => {
     try {
-      const response = await deleteRecentSearchItem(undefined, { params: search_text });
+      const response = await deleteRecentSearchTextItem(undefined, { params: search_text });
       if (response.ok) setSearchList(response.data);
     } catch (error) {
       console.error("Fetch Error", error);
