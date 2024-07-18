@@ -80,7 +80,6 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
       customAlert({
         title: "최대 1MB 이하의 이미지 파일만 업로드 가능합니다.",
         subText: "",
-        buttonText: "확인",
         onClose: () => {},
       });
       e.target.value = "";
@@ -153,7 +152,6 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
       customAlert({
         title: "닉네임 중복체크에 실패했습니다.",
         subText: "다시 시도해 주세요",
-        buttonText: "확인",
         onClose: () => {},
       });
     }
@@ -175,7 +173,6 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
         customAlert({
           title: "이미지 처리에 실패했습니다.",
           subText: "다시 시도해 주세요.",
-          buttonText: "확인",
           onClose: () => {},
         });
         return;
@@ -194,7 +191,6 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
         customAlert({
           title: "프로필이 수정되었습니다.",
           subText: "",
-          buttonText: "확인",
           onClose: () => {
             closeModal();
             router.refresh();
@@ -204,7 +200,6 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
         customAlert({
           title: "프로필 수정에 실패했습니다.",
           subText: "다시 시도해 주세요.",
-          buttonText: "확인",
           onClose: () => {},
         });
       }
@@ -212,7 +207,6 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
       customAlert({
         title: "프로필 수정에 실패했습니다.",
         subText: err instanceof Error ? err.message : "알 수 없는 오류가 발생했습니다.",
-        buttonText: "확인",
         onClose: () => {},
       });
     }

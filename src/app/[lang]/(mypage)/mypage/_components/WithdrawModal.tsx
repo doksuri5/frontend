@@ -56,7 +56,6 @@ export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) 
         customAlert({
           title: "비밀번호 인증에 실패했습니다.",
           subText: "비밀번호를 한번 더 확인해 주세요.",
-          buttonText: "확인",
           onClose: () => {},
         });
         return false;
@@ -65,7 +64,6 @@ export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) 
       customAlert({
         title: "비밀번호 인증에 실패했습니다.",
         subText: err instanceof Error ? err.message : "알 수 없는 오류가 발생했습니다.",
-        buttonText: "확인",
         onClose: () => {},
       });
     }
@@ -94,7 +92,6 @@ export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) 
         customAlert({
           title: `${userStoreData!.login_type.toUpperCase()} 로그인 회원 탈퇴 도중 오류가 발생했습니다.`,
           subText: "잠시 후 다시 시도해 주세요.",
-          buttonText: "확인",
           onClose: () => {},
         });
         return;
@@ -114,7 +111,6 @@ export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) 
         customAlert({
           title: "회원 탈퇴 처리 중 오류가 발생했습니다.",
           subText: "잠시 후 다시 시도해 주세요.",
-          buttonText: "확인",
           onClose: () => {},
         });
         return;
@@ -125,7 +121,6 @@ export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) 
       customAlert({
         title: "회원 탈퇴 처리 중 오류가 발생했습니다.",
         subText: err instanceof Error ? err.message : "알 수 없는 오류가 발생했습니다.",
-        buttonText: "확인",
         onClose: () => {},
       });
     }

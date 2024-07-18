@@ -4,7 +4,6 @@ export default function useAlert() {
   interface ICustomAlert {
     title: string;
     subText: string;
-    buttonText: string;
     onClose: () => void;
   }
 
@@ -12,16 +11,16 @@ export default function useAlert() {
     open: false,
     title: "",
     subText: "",
-    buttonText: "",
+    buttonText: "확인",
     onClose: () => {},
   });
 
-  const customAlert = ({ title, subText, buttonText, onClose }: ICustomAlert) => {
+  const customAlert = ({ title, subText, onClose }: ICustomAlert) => {
     setAlertInfo({
       open: true,
       title,
       subText,
-      buttonText,
+      buttonText: "확인",
       onClose: () => {
         setAlertInfo((prevState) => ({ ...prevState, open: false }));
         onClose();

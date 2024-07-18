@@ -63,7 +63,6 @@ export default function EditPrivacyForm({ closeModal }: TEditPrivacyFormProps) {
         customAlert({
           title: "회원 정보가 수정되었습니다.",
           subText: "",
-          buttonText: "확인",
           onClose: () => {
             closeModal();
             router.refresh();
@@ -74,7 +73,6 @@ export default function EditPrivacyForm({ closeModal }: TEditPrivacyFormProps) {
       customAlert({
         title: "회원 정보 수정 중 오류가 발생했습니다.",
         subText: err instanceof Error ? err.message : "알 수 없는 오류가 발생했습니다.",
-        buttonText: "확인",
         onClose: () => {},
       });
     }
