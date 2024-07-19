@@ -5,7 +5,7 @@ import { cn } from "@/utils/cn";
 import { Fragment, useEffect, useRef } from "react";
 
 type TINewsListProps = {
-  newsItems: NewsItemType[] | undefined;
+  newsItems: any; //NewsItemType[] | undefined;
   lineClamp?: "lineClamp-2" | "lineClamp-4";
   variant?: "border" | "noBorder";
   style?: string;
@@ -59,7 +59,6 @@ export default function NewsInfinityList({
       }
     };
   }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
-
   return (
     <div
       className={cn(`flex w-full flex-col overflow-y-scroll scrollbar-hide ${selectedVariantStyles.border} ${style}`)}
@@ -72,21 +71,22 @@ export default function NewsInfinityList({
               <NewsItemSkeleton variant={lineClamp} /> {index < 3 && <hr />}
             </Fragment>
           ))}
-      {newsItems?.map((newsItem, index) => (
-        <Fragment key={newsItem._id}>
-          <NewsItem
-            _id={newsItem._id}
-            image={newsItem.image}
-            title={newsItem.title}
-            description={newsItem.description}
-            publishedTime={newsItem.publishedTime}
-            publisher={newsItem.publisher}
-            variant={lineClamp}
-          />
-          {index === newsItems.length - 1 && <div ref={lastNewsItemRef} />}
-          {index < newsItems.length - 1 && <hr />}
-        </Fragment>
-      ))}
+      {newsItems?.data &&
+        newsItems?.data?.map((newsItem: any, index: any) => (
+          <Fragment key={newsItem._id}>
+            <NewsItem
+              _id={newsItem._id}
+              image={newsItem.image}
+              title={newsItem.title}
+              description={newsItem.description}
+              publishedTime={newsItem.publishedTime}
+              publisher={newsItem.publisher}
+              variant={lineClamp}
+            />
+            {index === newsItems?.data?.length - 1 && <div ref={lastNewsItemRef} />}
+            {index < newsItems?.data?.length - 1 && <hr />}
+          </Fragment>
+        ))}
     </div>
   );
 }
