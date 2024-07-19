@@ -1,17 +1,15 @@
 "use client";
 
+import { StockChartDataType, TMappedPeriod } from "@/types/StockDataType";
 import { useEffect, useState } from "react";
 import { Area, AreaChart, Tooltip, XAxis, YAxis } from "recharts";
 
 type TChartData = {
-  chartData: {
-    period: string;
-    price: number;
-  }[];
+  chartData: StockChartDataType[];
+  period: keyof TMappedPeriod;
 };
 
-export default function StockChart({ chartData }: TChartData) {
-  // Recharts컴포넌트 렌더링 시 클라이언트에서만 렌더링되도록 하기 위함
+export default function StockChart({ chartData, period }: TChartData) {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -26,12 +24,16 @@ export default function StockChart({ chartData }: TChartData) {
     setIsClient(true);
   }, []);
 
-  // 각 월의 중앙에 위치할 레이블의 인덱스 계산
-  const monthTicks = [
-    chartData[1].period, // 2024/04
-    chartData[5].period, // 2024/05
-    chartData[9].period, // 2024/06
-  ];
+  const interval = {
+    일: 1,
+    주: 5,
+    월: 2,
+    분기: 2,
+    년: 1,
+  };
+
+  // add last month ticks
+  const monthTicks = chartData.map((data) => data.localDate).filter((_, idx) => idx % interval[period] === 0);
 
   if (!isClient) return null;
 
@@ -44,13 +46,14 @@ export default function StockChart({ chartData }: TChartData) {
         </linearGradient>
       </defs>
       <XAxis
-        dataKey="period"
+        dataKey="localDate"
         ticks={monthTicks}
         tickFormatter={(tick: string) => {
-          const [year, month] = tick.split("/");
+          const year = tick.slice(0, 4);
+          const month = tick.slice(4, 6);
           return `${year}/${month}`;
         }}
-        tick={{ fontSize: 12, fontWeight: 400, fill: "#9F9F9F", dx: 20 }} // 레이블 스타일
+        tick={{ fontSize: 12, fontWeight: 400, fill: "#9F9F9F", dx: -10 }} // 레이블 스타일
         tickLine={false} // 레이블 선 스타일
         axisLine={false} // 축 스타일
       />
@@ -61,7 +64,7 @@ export default function StockChart({ chartData }: TChartData) {
         tick={{ fontSize: 12, fontWeight: 400, fill: "#9F9F9F" }} // 레이블 스타일
       />
       <Tooltip />
-      <Area type="monotone" dataKey="price" stroke="#47B4E1" fillOpacity={1} fill="url(#customGradient)" />
+      <Area type="monotone" dataKey="closePrice" stroke="#47B4E1" fillOpacity={1} fill="url(#customGradient)" />
     </AreaChart>
   );
 }
