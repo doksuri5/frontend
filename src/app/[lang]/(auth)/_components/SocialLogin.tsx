@@ -10,7 +10,7 @@ import KakaoIcon from "@/public/icons/kakao_logo.svg?component";
 import NaverIcon from "@/public/icons/naver_logo.svg?component";
 import GoogleIcon from "@/public/icons/google_logo.svg?component";
 
-import { SocialLoginAction } from "@/lib/auth-action";
+import { SocialLoginAction } from "@/actions/auth-action";
 
 import { PROFILE_SETUP_PATH, REGISTER_PATH } from "@/routes/path";
 

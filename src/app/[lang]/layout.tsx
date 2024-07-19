@@ -1,7 +1,10 @@
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { pretendard } from "@/fonts";
+import { ToastContainer } from "react-toastify";
 
+import "react-toastify/dist/ReactToastify.css";
 import "../globals.css";
+
 import Header from "@/components/layout/Header";
 import QueryProvider from "@/providers/QueryProvider";
 import { i18n, type Locale } from "../../i18n";
@@ -30,11 +33,12 @@ export default async function RootLayout({
 
   return (
     <html lang={params.lang} className={pretendard.className}>
-      <body className="bg-background-100">
+      <body>
         <NextIntlClientProvider messages={dictionary}>
           <AuthSession>
             <Header isLoggedIn={isLoggedIn} />
-            <main className="relative m-auto max-w-[120rem] pt-[8rem]">
+            <main className="relative m-auto min-h-[100vh] max-w-[120rem] pt-[8rem]">
+              <ToastContainer position="top-center" limit={1} />
               <QueryProvider>{children}</QueryProvider>
             </main>
             <ChatBot />

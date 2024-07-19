@@ -1,7 +1,6 @@
 "use client";
 
 import DiscoverySection from "./DiscoverySection";
-import { SearchDataType } from "@/types";
 import TimeIcon from "@/public/icons/time_icon.svg?component";
 import CloseIcon from "@/public/icons/close_icon.svg?component";
 import WarningIcon from "@/public/icons/warning_icon.svg?component";
@@ -11,7 +10,15 @@ import RecentSearchItemSkeleton from "./_skeleton/RecentSearchItemSkeleton";
 const RecentSearches = () => {
   // 로딩 이벤트를 줄라고 useState, useEffect를 사용하기 때문에 클라이언트 컴포넌트로 선언했습니다.
   // 추후에 없앨겁니다.
-  const [searchList, setSearchList] = useState<SearchDataType[]>([]);
+  const [searchList, setSearchList] = useState<
+    {
+      _id: string;
+      user_id: string;
+      stockName: string;
+      symbolCode: string;
+      created_at: string;
+    }[]
+  >([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     setTimeout(() => {

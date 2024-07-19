@@ -8,17 +8,16 @@ import {
   MyStockRecentSearches,
 } from "@/app/[lang]/(mystock)/mystock/_components";
 import { useModalStore, useRecentSearchStore } from "@/stores";
-import { SearchDetailDataType, StockDataType } from "@/types";
+import { StockDataType } from "@/types";
 import SearchIcon from "@/public/icons/search_icon.svg?component";
-
-const STOCK_LIST = ["애플", "마이크로소프트", "테슬라", "아마존", "구글", "유니티"];
+import { saveRecentSearch } from "@/actions/stock";
 
 const MyStockModalSection = ({
   dataList,
   recentSearchList,
 }: {
   dataList: StockDataType[];
-  recentSearchList: SearchDetailDataType[];
+  recentSearchList: StockDataType[];
 }) => {
   const { openModal, setOpenModal } = useModalStore();
   const { stockItemList, setStockItemList, addStockItemList } = useRecentSearchStore();
@@ -27,12 +26,9 @@ const MyStockModalSection = ({
   const [searchText, setSearchText] = useState<string>("");
 
   useEffect(() => {
-    dataList.length === 0 && setOpenModal(true);
-  }, [dataList, setOpenModal]);
-
-  useEffect(() => {
     setStockItemList(recentSearchList);
-  }, [recentSearchList, setStockItemList]);
+    dataList && dataList.length === 0 && setOpenModal(true);
+  }, [dataList, recentSearchList, setOpenModal, setStockItemList]);
 
   const handleCloseModal = () => {
     setOpenModal(false);
@@ -42,23 +38,19 @@ const MyStockModalSection = ({
     setSearchText(""); // 검색 텍스트 초기화
   };
 
-  const handleSearch = () => {
+  const handleSearch = async () => {
     if (inputRef.current) {
       const value = inputRef.current.value.trim(); // 입력 값에서 공백 제거
       setSearchText(value);
-      if (STOCK_LIST.includes(value))
+
+      if (value === "") return;
+
+      const response = await saveRecentSearch({ stockName: value });
+      if (response.ok) {
         addStockItemList({
-          _id: String(Date.now()),
-          user_id: "",
-          icon: "/icons/Apple_icon.svg",
-          stockName: value,
-          symbolCode: "AAPL",
-          price: 0.0,
-          nationType: "USA",
-          compareToPreviousClosePrice: 1.75,
-          fluctuationsRatio: 0.82,
-          created_at: "06.14",
+          ...response.data[0],
         });
+      }
     }
   };
 

@@ -2,13 +2,16 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { logoutAction } from "@/lib/auth-action";
+
 import { Button } from "../common";
 
-import { DISCOVERY_PATH, MAIN_PATH, HOME_PATH, MY_PAGE_PATH, MY_STOCK_PATH, NEWS_PATH } from "@/routes/path";
+import { filterMainPath } from "@/utils/filter-mainpath";
 
 import LightLogo from "@/public/icons/light_logo.svg?component";
 import DarkLogo from "@/public/icons/dark_logo.svg?component";
+
+import { DISCOVERY_PATH, MAIN_PATH, HOME_PATH, MY_PAGE_PATH, MY_STOCK_PATH, NEWS_PATH } from "@/routes/path";
+import { logoutAction } from "@/actions/auth-action";
 
 type THeaderProps = {
   isLoggedIn: boolean;
@@ -30,12 +33,12 @@ const Header = ({ isLoggedIn }: THeaderProps) => {
 
   return (
     <header
-      className={`flex_row_center fixed left-0 top-0 z-50 h-[8rem] w-full py-[1rem] ${isLoggedIn ? "bg-white" : "bg-transparent"}`}
+      className={`flex_row_center fixed left-0 top-0 z-50 h-[8rem] w-full py-[1rem] ${filterMainPath(pathname) && !isLoggedIn ? "bg-transparent" : "bg-white"}`}
     >
       <div className="flex_row h-full w-[120rem] justify-between">
         <div className="flex_row h-full">
           <Link href={isLoggedIn ? HOME_PATH : MAIN_PATH}>
-            {pathname === MAIN_PATH && !isLoggedIn ? <LightLogo /> : <DarkLogo />}
+            {filterMainPath(pathname) && !isLoggedIn ? <LightLogo /> : <DarkLogo />}
           </Link>
           {isLoggedIn && (
             <nav className="flex_row_center ml-[2rem] h-full">

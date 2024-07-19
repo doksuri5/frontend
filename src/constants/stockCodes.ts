@@ -1,23 +1,23 @@
 
     // stockName: reutersCode
     // fetch from db
-    type TReutersCodes = "GOOGL.O" | "AMZN.O" | "AAPL.O" | "MSFT.O" | "TSLA.O" | "U";
+    type TReutersCodes = "AAPL.O" | "MSFT.O" | "TSLA.O" | "AMZN.O" | "GOOGL.O" | "U";
     
     const REUTERS_CODES = [
-  "GOOGL.O",
-  "AMZN.O",
   "AAPL.O",
   "MSFT.O",
   "TSLA.O",
+  "AMZN.O",
+  "GOOGL.O",
   "U"
 ] as const;
     
     const STOCK_CODES: { [key: string]: TReutersCodes } = {
-  "ALPHABET": "GOOGL.O",
-  "AMAZON": "AMZN.O",
   "APPLE": "AAPL.O",
   "MICROSOFT": "MSFT.O",
   "TESLA": "TSLA.O",
+  "AMAZON": "AMZN.O",
+  "ALPHABET": "GOOGL.O",
   "UNITY": "U"
 };
     

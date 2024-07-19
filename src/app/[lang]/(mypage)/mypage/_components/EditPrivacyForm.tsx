@@ -1,150 +1,185 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, Input } from "@/components/common";
+import { Alert, Button, Input } from "@/components/common";
 import { cn } from "@/utils/cn";
-import { registerSchema, TRegisterSchemaType } from "@/types/AuthType";
+import useUserStore from "@/stores/useUserStore";
+import { useRouter } from "next/navigation";
+import { updateUserInfo } from "../_api/privacyApi";
+import useAlert from "@/hooks/use-alert";
 
 type TEditPrivacyFormProps = {
   closeModal: () => void;
 };
+export interface FormData {
+  email: string;
+  password: string;
+  passwordChk?: string;
+  phone: string;
+  birth: string;
+}
 
 export default function EditPrivacyForm({ closeModal }: TEditPrivacyFormProps) {
-  const [isIdAvailable, setIsIdAvailable] = useState(false);
+  const { userStoreData } = useUserStore();
+  const { alertInfo, customAlert } = useAlert();
+  const router = useRouter();
   const {
     register,
     handleSubmit,
     watch,
-    setError,
-    clearErrors,
-    trigger,
-    formState: { errors },
-  } = useForm<TRegisterSchemaType>({
-    resolver: zodResolver(registerSchema),
+    formState: { errors, isDirty, isValid },
+  } = useForm<FormData>({
+    mode: "onChange",
+    defaultValues: {
+      email: userStoreData?.email,
+      password: "",
+      passwordChk: "",
+      phone: userStoreData?.phone,
+      birth: userStoreData?.birth,
+    },
   });
 
-  const watchRegister = watch();
-  //실제 값이 입력된 필드만을 고려하여 폼의 유효성을 검사
-  const hasValues = Object.values(watchRegister).every((value) => value !== undefined && value !== "");
-  const isFormValid = !Object.keys(errors).length && hasValues && isIdAvailable;
+  const password = watch("password");
+  const passwordChk = watch("passwordChk");
+  const formValid = Boolean(isValid && isDirty && (!password || password === passwordChk));
 
-  //Form 전송 함수
-  const onSubmit = async (data: TRegisterSchemaType) => {
-    if (!isFormValid) return;
-    console.log(data);
-    //유저 정보 수정 API 추가
-    closeModal();
-  };
-
-  //변경할 ID 중복 체크 함수
-  const handleDuplicateCheck = async () => {
-    if (isIdAvailable) {
+  const onSubmit = async (data: FormData) => {
+    if (!formValid) {
       return;
     }
 
-    const id = watchRegister.id;
-    if (!id) {
-      setError("id", { type: "manual", message: "아이디를 입력해주세요." });
-      return;
-    }
+    const formData = {
+      email: data.email,
+      password: data.password,
+      phone: data.phone,
+      birth: data.birth,
+    };
 
-    //중복 확인 API가 들어갈 자리
-    const isDuplicate = false;
+    try {
+      const response = await updateUserInfo(formData);
 
-    if (isDuplicate) {
-      setError("id", { type: "manual", message: "이미 사용 중인 아이디입니다." });
-      setIsIdAvailable(false);
-    } else {
-      clearErrors("id");
-      setIsIdAvailable(true);
-      alert("사용 가능한 아이디입니다.");
-    }
-  };
-
-  useEffect(() => {
-    const subscription = watch((value, { name }) => {
-      if (name === "id") {
-        setIsIdAvailable(false); //ID 입력 변경 시, ID 중복 재확인 필요
+      if (response.ok) {
+        customAlert({
+          title: "회원 정보가 수정되었습니다.",
+          subText: "",
+          onClose: () => {
+            closeModal();
+            router.refresh();
+          },
+        });
       }
-      trigger(name); //실시간 유효성 검사 트리거
-    });
-    return () => subscription.unsubscribe();
-  }, [watch, trigger]);
+    } catch (err) {
+      customAlert({
+        title: "회원 정보 수정 중 오류가 발생했습니다.",
+        subText: err instanceof Error ? err.message : "알 수 없는 오류가 발생했습니다.",
+        onClose: () => {},
+      });
+    }
+  };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={cn("flex w-full flex-col gap-[1.6rem]")}>
-      <div>
-        <Input
-          id="id"
-          labelName="아이디"
-          placeholder="아이디를 입력해주세요."
-          {...register("id")}
-          variant={errors.id ? "error" : "default"}
-          caption={errors.id ? errors.id.message : "* 6~12자의 영문, 숫자, _,을 이용한 조합"}
-          suffix={
-            <Button
-              type="button"
-              variant="textButton"
-              size="sm"
-              bgColor={!errors.id && !isIdAvailable ? "bg-navy-900" : "bg-grayscale-200"}
-              className={cn(`w-[12rem] ${!errors.id && !isIdAvailable ? "text-white" : "text-gray-300"}`)}
-              disabled={isIdAvailable}
-              onClick={handleDuplicateCheck}
-            >
-              중복 확인
-            </Button>
-          }
+    <>
+      <form onSubmit={handleSubmit(onSubmit)} className={cn("flex w-full flex-col gap-[1.6rem]")}>
+        <Input id="email" labelName="이메일" value={userStoreData?.email} disabled />
+        <div>
+          <Input
+            type="password"
+            id="password"
+            labelName="새 비밀번호 입력"
+            placeholder="변경할 비밀번호를 입력해주세요."
+            {...register("password", {
+              minLength: {
+                value: 8,
+                message: "비밀번호는 최소 8자리 이상이어야 합니다.",
+              },
+              maxLength: {
+                value: 16,
+                message: "비밀번호는 최대 16자리까지 입력 가능합니다.",
+              },
+              pattern: {
+                value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+                message: "숫자, 영문자, 특수문자를 포함해야 합니다.",
+              },
+            })}
+            variant={errors.password ? "error" : "default"}
+            caption={
+              errors.password ? errors.password.message : "* 8-20자 이내 숫자, 특수문자, 영문자 중 2가지 이상을 조합"
+            }
+          />
+        </div>
+
+        <div>
+          <Input
+            type="password"
+            id="passwordChk"
+            labelName="새 비밀번호 확인"
+            placeholder="비밀번호를 다시 한번 입력해주세요."
+            {...register("passwordChk", {
+              validate: (value) => value === password || "동일한 비밀번호가 아닙니다. 다시 확인 후 입력해주세요.",
+            })}
+            variant={errors.passwordChk ? "error" : "default"}
+            caption={errors.passwordChk ? errors.passwordChk.message : ""}
+          />
+        </div>
+
+        <div>
+          <Input
+            id="phone"
+            labelName="휴대폰번호"
+            placeholder="-를 제외한 휴대폰번호를 입력해주세요."
+            {...register("phone", {
+              required: "휴대폰 번호를 입력해주세요.",
+              validate: {
+                containsHyphen: (value) => !/-/.test(value) || "-를 제외한 휴대폰번호를 입력해주세요.",
+                correctLength: (value) => /^\d{10,11}$/.test(value) || "유효한 휴대폰 번호를 입력해주세요.",
+              },
+            })}
+            variant={errors.phone ? "error" : "default"}
+            caption={errors.phone ? errors.phone.message : ""}
+          />
+        </div>
+
+        <div>
+          <Input
+            id="birth"
+            labelName="생년월일"
+            placeholder="생년월일 6자리를 입력해주세요.(예시 : 991231)"
+            {...register("birth", {
+              required: "생년월일을 입력해주세요.",
+              validate: {
+                correctLength: (value) => value.length === 6 || "생년월일은 반드시 6자리 숫자여야 합니다.",
+                validFormat: (value) =>
+                  /^[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01])$/.test(value) ||
+                  "생년월일 형식이 올바르지 않습니다.",
+              },
+            })}
+            variant={errors.birth ? "error" : "default"}
+            caption={errors.birth ? errors.birth.message : ""}
+          />
+        </div>
+
+        <Button
+          type="submit"
+          size="lg"
+          bgColor={formValid ? "bg-navy-900" : "bg-grayscale-200"}
+          className={cn(`mt-[4rem] ${formValid ? "text-white" : "text-gray-300"}`)}
+          disabled={!formValid}
+        >
+          수정하기
+        </Button>
+      </form>
+
+      {/* Alert */}
+      {alertInfo.open && (
+        <Alert
+          variant="checkCustomCloseButton"
+          title={alertInfo.title}
+          subText={alertInfo.subText}
+          buttonText={alertInfo.buttonText}
+          onClose={alertInfo.onClose}
         />
-      </div>
-      <Input
-        type="password"
-        id="password"
-        labelName="새 비밀번호 입력"
-        placeholder="변경할 비밀번호를 입력해주세요."
-        {...register("password")}
-        variant={errors.password ? "error" : "default"}
-        caption={
-          errors.password ? errors.password.message : "* 8-20자 이내 숫자, 특수문자, 영문자 중 2가지 이상을 조합"
-        }
-      />
-      <Input
-        type="password"
-        id="passwordChk"
-        labelName="새 비밀번호 확인"
-        placeholder="비밀번호를 다시 한번 입력해주세요."
-        {...register("passwordChk")}
-        variant={errors.passwordChk ? "error" : "default"}
-        caption={errors.passwordChk ? errors.passwordChk.message : ""}
-      />
-      <div>
-        <Input
-          id="phone"
-          labelName="휴대폰번호"
-          placeholder="-를 제외한 휴대폰번호를 입력해주세요."
-          {...register("phone")}
-          variant={errors.phone ? "error" : "default"}
-          caption={errors.phone ? errors.phone.message : ""}
-        />
-      </div>
-      <Input
-        id="birth"
-        labelName="생년월일"
-        placeholder="생년월일 6자리를 입력해주세요.(예시 : 991231)"
-        {...register("birth")}
-        variant={errors.birth ? "error" : "default"}
-        caption={errors.birth ? errors.birth.message : ""}
-      />
-      <Button
-        type="submit"
-        size="lg"
-        bgColor={isFormValid ? "bg-navy-900" : "bg-grayscale-200"}
-        className={cn(`mt-[4rem] ${isFormValid ? "text-white" : "text-gray-300"}`)}
-        disabled={!isFormValid}
-      >
-        수정하기
-      </Button>
-    </form>
+      )}
+    </>
   );
 }

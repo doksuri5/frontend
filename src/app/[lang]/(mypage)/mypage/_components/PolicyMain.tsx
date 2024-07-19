@@ -9,7 +9,7 @@ type TPolicyTextProps = {
   privacyText: string;
 };
 
-export default function TermsMain({ serviceText, privacyText }: TPolicyTextProps) {
+export default function PolicyMain({ serviceText, privacyText }: TPolicyTextProps) {
   const [servicePolicy, setServicePolicy] = useState(false);
   const [privacyPolicy, setPrivacyPolicy] = useState(false);
 
