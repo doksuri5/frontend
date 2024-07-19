@@ -9,6 +9,8 @@ import {
   PopularSearchSchema,
   PostInterestStockSchema,
   PostRecentSearchSchema,
+  StockChartDataSchema,
+  StockChartDataType,
   StockDataType,
   StockPopularSearchDataType,
   StockSchema,
@@ -93,3 +95,11 @@ export const deleteInterestStock = api.delete({
     revalidateTags: ["/interest/getDetailInterestStocks"],
   },
 })<z.infer<typeof PostInterestStockSchema>, InterestStockItemDataType>;
+
+export const getStockChartData = api.get({
+  endpoint: "/stocks",
+  responseSchema: StockChartDataSchema,
+  baseOptions: {
+    isFetchFromRouteHandler: true,
+  },
+})<undefined, StockChartDataType>;
