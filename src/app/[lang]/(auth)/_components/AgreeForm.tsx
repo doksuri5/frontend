@@ -1,15 +1,23 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
 
 import { Button, CheckBox } from "@/components/common";
 
-import Terms from "./Terms";
-import Privacy from "./Privacy";
+import AgreeContent from "./AgreeContent";
 
 import { cn } from "@/utils/cn";
+
+import { servicePolicyText } from "@/constants/servicePolicyText";
+import { privacyPolicyText } from "@/constants/privacyPolicyText";
+
+import { formatTextWithLineBreaks } from "@/utils/textUtils";
+
+import { getAgreeContent } from "@/actions/auth";
+
+import { AgreeDataType } from "@/types/AuthType";
 
 import { REGISTER_PATH } from "@/routes/path";
 
@@ -17,6 +25,7 @@ export default function AgreeForm() {
   const [agreedAll, setAgreedAll] = useState(false);
   const [terms, setTerms] = useState(false);
   const [privacy, setPrivacy] = useState(false);
+  const [agreeData, setAgreeData] = useState<AgreeDataType | undefined>(undefined);
 
   const { data: session } = useSession();
 
@@ -48,9 +57,18 @@ export default function AgreeForm() {
     }
   };
 
+  useEffect(() => {
+    // 약관 API
+    async function fetchAgreeContent() {
+      const res = await getAgreeContent();
+      setAgreeData(res.data);
+    }
+
+    fetchAgreeContent();
+  }, []);
+
   return (
     <>
-      {/* 약관동의  */}
       <div className={cn("flex flex-col gap-[1.6rem]")}>
         <div className="border-b-[.1rem] border-grayscale-300 pb-[1.6rem]">
           <CheckBox
@@ -64,8 +82,12 @@ export default function AgreeForm() {
             labelClass="body_3"
           />
         </div>
+        {/* 서비스 이용악관  */}
         <div>
-          <Terms />
+          <AgreeContent
+            title="서비스 이용악관(필수)"
+            content={agreeData ? formatTextWithLineBreaks(agreeData.termsOfService.content) : servicePolicyText}
+          />
           <CheckBox
             checked={terms}
             setChecked={individualChangeHandler(setTerms)}
@@ -76,8 +98,12 @@ export default function AgreeForm() {
             className="w-full justify-end"
           />
         </div>
+        {/* 개인정보 처리방침  */}
         <div>
-          <Privacy />
+          <AgreeContent
+            title="개인정보 처리방침(필수)"
+            content={agreeData ? formatTextWithLineBreaks(agreeData.privacyPolicy.content) : privacyPolicyText}
+          />
           <CheckBox
             checked={privacy}
             setChecked={individualChangeHandler(setPrivacy)}

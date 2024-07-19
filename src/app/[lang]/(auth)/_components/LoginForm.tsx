@@ -14,7 +14,7 @@ import { TLoginSchema, loginSchema } from "@/types/AuthType";
 
 import { cn } from "@/utils/cn";
 
-import { loginAction } from "@/lib/auth-action";
+import { loginAction } from "@/actions/auth-action";
 
 import { HOME_PATH, FIND_EMAIL_PATH, FIND_PASSWORD_PATH } from "@/routes/path";
 

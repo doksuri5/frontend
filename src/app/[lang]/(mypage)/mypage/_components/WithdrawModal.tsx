@@ -6,9 +6,10 @@ import { cn } from "@/utils/cn";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { passwordCert } from "../_api/privacyApi";
+
 import { deleteGoogleUserAccount, deleteKakaoUserAccount, deleteNaverUserAccount } from "../_api/withdrawApi";
-import { signOut } from "next-auth/react";
-import { logoutAction } from "@/lib/auth-action";
+
+import { logoutAction } from "@/actions/auth-action";
 
 const withdrawReasons = [
   { value: "inconvenient_service", text: "이용이 불편하고 장애가 많아서" },

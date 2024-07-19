@@ -2,7 +2,7 @@ import { cn } from "@/utils/cn";
 
 type TCommonAgreeLayoutProps = {
   title: string;
-  children: React.ReactNode;
+  children: string | JSX.Element[];
   height?: string;
 };
 
@@ -16,7 +16,7 @@ export default function CommonAgreeLayout({ title, children, height }: TCommonAg
             `body_4 scrollbar-thin scrollbar_style h-[16rem] w-full overflow-y-scroll px-[1.6rem] ${height}`,
           )}
         >
-          {children}
+          <pre className="text-wrap font-pretendard">{children}</pre>
         </div>
       </div>
     </div>

@@ -109,6 +109,27 @@ export const profileSchema = z.object({
     .optional(),
 });
 
+// 약관
+const updatesSchema = z.object({
+  id: z.string(),
+  reason: z.string(),
+  date: z.string(),
+});
+
+export const AgreeSchema = z.object({
+  termsOfService: z.object({
+    content: z.string(),
+    lastUpdated: z.string(),
+    updates: z.array(updatesSchema).default([]),
+  }),
+  privacyPolicy: z.object({
+    content: z.string(),
+    lastUpdated: z.string(),
+    updates: z.array(updatesSchema).default([]),
+  }),
+  id: z.string(),
+});
+
 export type TLoginSchema = z.infer<typeof loginSchema>;
 export type TFindEmailSchema = z.infer<typeof findIdSchema>;
 export type TFindPasswordSchema = z.infer<typeof findPasswordSchema>;
@@ -122,3 +143,5 @@ export type TRegisterSchemaType = TBaseRegisterSchema &
   Partial<TKakaoRegisterSchema> &
   Partial<TRegularRegisterSchema>;
 export type TProfileSchema = z.infer<typeof profileSchema>;
+
+export type AgreeDataType = z.infer<typeof AgreeSchema>;
