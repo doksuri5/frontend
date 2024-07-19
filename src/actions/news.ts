@@ -100,23 +100,21 @@ export const fetchRecentNews = async (pageParam = 1) => {
     ).json();
 
     if (response.ok) {
-      console.log("response: ", response);
       let data = response.data;
 
-      let refinedData = (data as any[]).map(({ content_img, title, published_time, publisher, index }) => ({
-        image: content_img,
-        // TODO:  시간 포맷팅하기
-        date: published_time,
-        _id: index,
-        title: title.ko,
-        publisher: publisher.ko,
-      }));
+      let refinedData = (data.recent_news as any[]).map(
+        ({ content_img, title, published_time, publisher, index, description }) => ({
+          image: content_img,
+          // TODO:  시간 포맷팅하기
+          date: published_time,
+          _id: index,
+          title: title.ko,
+          publisher: publisher.ko,
+          description: description.ko,
+        }),
+      );
 
-      //console.log("최신 뉴스 - 원래 데이터: ", data.length);
-      //console.log("최신 뉴스 - refinedData데이터: ", refinedData[0]);
-
-      //console.log("반환한 값 구조: ", { pages: refinedData, page: response.page, totalPages: response.totalPages });
-      return { data: refinedData, page: data.page, totalPages: data.totalPages };
+      return { data: refinedData, page: data.now_page, totalPages: data.total_page };
     }
   } catch (err) {
     console.error(err);
@@ -138,13 +136,11 @@ export const fetchNewsDetail = async (index: any) => {
         credentials: "include",
       })
     ).json();
-    //inputString.replace(/[\w.-]+@[\w.-]+\.\w{2,4}\n?\(끝\)?/g, '').trim();
+
     if (response.ok) {
-      //console.log("response.data: ", response.data);
       let news = response.data.news;
       let relatedNews = response.data.relative_news;
       let stockData = response.data.stock_data;
-      //console.log("response.data.relativeNews: ", response.data.relativeNews);
 
       let refinedNews = {
         image: news.content_img,
@@ -152,7 +148,7 @@ export const fetchNewsDetail = async (index: any) => {
         publishedTime: news.published_time,
         _id: news.index,
         title: news.title.ko,
-        description: truncateBackstring(news.content.ko), //.replace(/[\w.-]+@[\w.-]+\.\w{2,4}\n?\(끝\)?/g, "").trim(),
+        description: truncateBackstring(news.content.ko),
         publisher: news.publisher.ko,
         view: news.view,
       };
