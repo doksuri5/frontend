@@ -4,22 +4,14 @@ import { FindNews, FindNewsSkeleton } from "@/components/common";
 import { TIFindNewsProps } from "@/components/common/List/FindNews";
 import { Fragment, useEffect, useState } from "react";
 
-const DUMMY_RELATED_NEWS = Array(4).fill({
-  title: `일본, '빅테크 규제법' 내년 시행…"사실상 애플·구글 규제"`,
-  publishedTime: "n",
-  newspaperCompany: "문화일보",
-});
-
-export default function RelatedNews() {
+export default function RelatedNews({ relatedNews }: any) {
   const [newsData, setNewsData] = useState<TIFindNewsProps[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setTimeout(() => {
-      setNewsData(DUMMY_RELATED_NEWS);
-      setLoading(false);
-    }, 2000);
-  }, []);
+    setNewsData(relatedNews);
+    setLoading(false);
+  }, [relatedNews]);
 
   return (
     <section className="min-h-[31rem] min-w-[38.4rem] rounded-[1.6rem] bg-white p-[3.2rem]">
@@ -36,7 +28,7 @@ export default function RelatedNews() {
         newsData.map((news, idx) => (
           <Fragment key={idx}>
             <FindNews
-              _id={news._id}
+              _id={news._id || "3244"}
               image={news?.image}
               title={news.title}
               publishedTime={news.publishedTime}
