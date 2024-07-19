@@ -14,7 +14,7 @@ export const POST = async (req: NextRequest) => {
   });
 
   const model = ai.chat("gpt-3.5-turbo");
-
+  // add finance tools to the model
   const result = await streamText({
     model,
     system: `You are a helpful stock analyst. Answer my questions about the stock market. but short and sweet. answer in ${session?.user.language ?? "ko"} language.`,
