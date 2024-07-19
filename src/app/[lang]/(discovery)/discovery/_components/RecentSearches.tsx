@@ -1,45 +1,66 @@
 "use client";
 
-import DiscoverySection from "./DiscoverySection";
-import TimeIcon from "@/public/icons/time_icon.svg?component";
-import CloseIcon from "@/public/icons/close_icon.svg?component";
-import WarningIcon from "@/public/icons/warning_icon.svg?component";
 import { useEffect, useState } from "react";
+
+import DiscoverySection from "./DiscoverySection";
+import SearchItem from "./SearchItem";
+import { Alert } from "@/components/common";
 import RecentSearchItemSkeleton from "./_skeleton/RecentSearchItemSkeleton";
 
+import { deleteRecentSearchTextList, deleteRecentSearchTextItem, getRecentSearches } from "@/actions/search";
+import { SearchTextDataType } from "@/types/SearchDataType";
+
+import WarningIcon from "@/public/icons/warning_icon.svg?component";
+
 const RecentSearches = () => {
-  // 로딩 이벤트를 줄라고 useState, useEffect를 사용하기 때문에 클라이언트 컴포넌트로 선언했습니다.
-  // 추후에 없앨겁니다.
-  const [searchList, setSearchList] = useState<
-    {
-      _id: string;
-      user_id: string;
-      stockName: string;
-      symbolCode: string;
-      created_at: string;
-    }[]
-  >([]);
-  const [loading, setLoading] = useState(true);
+  const [searchList, setSearchList] = useState<SearchTextDataType[]>([]);
+  const [isRender, setIsRender] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+
   useEffect(() => {
-    setTimeout(() => {
-      setSearchList([
-        { _id: "1", user_id: "", stockName: "테슬라", symbolCode: "", created_at: "06.14" },
-        { _id: "2", user_id: "", stockName: "테슬라", symbolCode: "", created_at: "06.14" },
-        { _id: "3", user_id: "", stockName: "테슬라", symbolCode: "", created_at: "06.14" },
-        { _id: "4", user_id: "", stockName: "테슬라", symbolCode: "", created_at: "06.14" },
-        { _id: "5", user_id: "", stockName: "테슬라", symbolCode: "", created_at: "06.14" },
-        { _id: "6", user_id: "", stockName: "테슬라", symbolCode: "", created_at: "06.14" },
-        { _id: "7", user_id: "", stockName: "테슬라", symbolCode: "", created_at: "06.14" },
-      ]);
-      setLoading(false);
-    }, 2000);
+    const fetchRecent = async () => {
+      try {
+        const response = await getRecentSearches(undefined);
+        if (response.ok) setSearchList(response.data);
+      } catch (error) {
+        console.error("Fetch Error", error);
+      } finally {
+        setIsRender(true);
+      }
+    };
+    fetchRecent();
   }, []);
 
-  const deleteSearchList = () => {};
-  const deleteSearch = () => {};
+  // 알럿 켜기
+  const handleAlertConfirm = async () => {
+    setShowAlert(true);
+  };
+
+  // 삭제
+  const handleDeleteSearch = async () => {
+    try {
+      const response = await deleteRecentSearchTextList();
+      if (response.ok) setSearchList([]);
+    } catch (error) {
+      console.error("Fetch Error", error);
+    } finally {
+      setShowAlert(false);
+    }
+  };
+
+  const handleDeleteSearchItem = async (search_text: string) => {
+    try {
+      const response = await deleteRecentSearchTextItem(undefined, { params: search_text });
+      if (response.ok) setSearchList(response.data);
+    } catch (error) {
+      console.error("Fetch Error", error);
+    } finally {
+      setShowAlert(false);
+    }
+  };
 
   const subTag = (
-    <button type="button" className="body_5 font-medium text-grayscale-600 underline" onClick={deleteSearchList}>
+    <button type="button" className="body_5 font-medium text-grayscale-600 underline" onClick={handleAlertConfirm}>
       전체삭제
     </button>
   );
@@ -51,29 +72,22 @@ const RecentSearches = () => {
       titleStyle="justify-between"
     >
       <div className="flex_col min-h-[20rem] rounded-[1.6rem] bg-white p-[2.4rem]">
-        {loading ? (
-          <ul className="w-full">
-            {Array.from({ length: 6 }).map((_, idx) => (
+        {!isRender ? (
+          <ul className="h-[18rem] w-full">
+            {Array.from({ length: 5 }).map((_, idx) => (
               <RecentSearchItemSkeleton key={idx} />
             ))}
           </ul>
         ) : (
           <>
             {searchList.length !== 0 ? (
-              <ul className="w-full">
+              <ul className="h-[18rem] w-full overflow-y-scroll scrollbar-hide">
                 {searchList.map((search) => (
-                  <li key={search._id} className="flex_row h-[4rem] w-full justify-between">
-                    <div className="flex_row gap-[.8rem]">
-                      <TimeIcon width={24} height={24} fill="text-navy-900" />
-                      <span className="body_4 font-medium text-grayscale-600">{search.stockName}</span>
-                    </div>
-                    <div className="flex_row gap-[.8rem]">
-                      <span className="body_5 text-grayscale-400">{search.created_at}</span>
-                      <button type="button" onClick={deleteSearch}>
-                        <CloseIcon />
-                      </button>
-                    </div>
-                  </li>
+                  <SearchItem
+                    key={search.searchText}
+                    search={search}
+                    deleteSearch={() => handleDeleteSearchItem(search.searchText)}
+                  />
                 ))}
               </ul>
             ) : (
@@ -85,6 +99,18 @@ const RecentSearches = () => {
           </>
         )}
       </div>
+
+      {/* Alert 컴포넌트 */}
+      {showAlert && (
+        <Alert
+          variant="fnButton"
+          title="최근 검색어를 전부 삭제하시겠습니까?"
+          buttonText="삭제하기"
+          subButtonText="취소"
+          onClick={handleDeleteSearch}
+          onClose={() => setShowAlert(false)}
+        />
+      )}
     </DiscoverySection>
   );
 };
