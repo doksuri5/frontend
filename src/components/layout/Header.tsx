@@ -5,14 +5,13 @@ import { usePathname } from "next/navigation";
 
 import { Button } from "../common";
 
-import { logoutAction } from "@/lib/auth-action";
-
 import { filterMainPath } from "@/utils/filter-mainpath";
 
 import LightLogo from "@/public/icons/light_logo.svg?component";
 import DarkLogo from "@/public/icons/dark_logo.svg?component";
 
 import { DISCOVERY_PATH, MAIN_PATH, HOME_PATH, MY_PAGE_PATH, MY_STOCK_PATH, NEWS_PATH } from "@/routes/path";
+import { logoutAction } from "@/actions/auth-action";
 
 type THeaderProps = {
   isLoggedIn: boolean;
