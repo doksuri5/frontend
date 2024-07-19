@@ -2,20 +2,47 @@
 
 import { Button } from "@/components/common";
 import { cn } from "@/utils/cn";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import StockChart from "./StockChart";
 import clsx from "clsx";
+import { getStockChartData } from "@/actions/stock";
+import { TReutersCodes } from "@/constants/stockCodes";
+import StockChartSectionSkeleton from "./skeleton/StockChartSectionSkeleton";
+import { MAPPED_PERIOD, StockChartDataType, TMappedPeriod } from "@/types/StockDataType";
+import calculatePeriod from "@/utils/calculate-period";
 
 type TChartData = {
-  chartData: {
-    period: string;
-    price: number;
-  }[];
+  reutersCode: TReutersCodes;
 };
 
-export default function StockChartSection({ chartData }: TChartData) {
-  const [period, setPeriod] = useState("3개월");
-  const chartButton = ["1일", "3개월", "1년", "3년", "10년"];
+export default function StockChartSection({ reutersCode }: TChartData) {
+  const [period, setPeriod] = useState<keyof TMappedPeriod>("일");
+  const [isLoading, setIsLoading] = useState(false);
+  const chartButton: (keyof TMappedPeriod)[] = ["일", "주", "월", "분기", "년"] as const;
+  const [chartData, setChartData] = useState<StockChartDataType[]>();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const [startDateTime, endDateTime] = calculatePeriod(period);
+      setIsLoading(true);
+      const response = await getStockChartData(undefined, {
+        params: `${reutersCode}/${MAPPED_PERIOD[period]}`,
+        queryString: [`startDateTime=${startDateTime}`, `endDateTime=${endDateTime}`],
+      });
+
+      if (!response.data && !response.ok) {
+        return;
+      }
+
+      setChartData(response.data);
+    };
+    fetchData();
+    setIsLoading(false);
+  }, [period, reutersCode]);
+
+  if (isLoading && !chartData) {
+    return <StockChartSectionSkeleton />;
+  }
 
   return (
     <section className="flex min-h-[25.6rem] min-w-[69.2rem] flex-col gap-[0.8rem] rounded-[1.6rem] bg-white p-[3.2rem]">
@@ -37,7 +64,7 @@ export default function StockChartSection({ chartData }: TChartData) {
           ))}
         </div>
       </div>
-      <StockChart chartData={chartData} />
+      <StockChart chartData={chartData ?? []} period={period} />
     </section>
   );
 }

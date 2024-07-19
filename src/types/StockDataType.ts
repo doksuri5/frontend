@@ -1,6 +1,22 @@
 import { z } from "zod";
 import { REUTERS_CODES } from "@/constants/stockCodes";
 
+export type TMappedPeriod = {
+  일: "day";
+  주: "week";
+  월: "month";
+  분기: "quarter";
+  년: "year";
+};
+
+export const MAPPED_PERIOD: TMappedPeriod = {
+  일: "day",
+  주: "week",
+  월: "month",
+  분기: "quarter",
+  년: "year",
+};
+
 export const FetchedNaverStockSchema = z.object({
   stockEndType: z.literal("stock"),
   reutersCode: z.string(),
@@ -186,9 +202,19 @@ export const PopularSearchSchema = z.object({
   fluctuationsRatio: z.number().default(0),
 });
 
+export const StockChartDataSchema = z.object({
+  localDate: z.string(),
+  closePrice: z.number(),
+  openPrice: z.number(),
+  highPrice: z.number(),
+  lowPrice: z.number(),
+  accumulatedTradingVolume: z.number(),
+});
+
 export type FetchedNaverStockDataType = z.infer<typeof FetchedNaverStockSchema>;
 export type InterestStockDataType = z.infer<typeof InterestStockSchema>;
 export type InterestStockItemDataType = z.infer<typeof InterestStockItemSchema>;
+export type StockChartDataType = z.infer<typeof StockChartDataSchema>;
 
 export type StockDataType = z.infer<typeof StockSchema>;
 export type StockAIReportDataType = z.infer<typeof StockAIReportSchema>;
