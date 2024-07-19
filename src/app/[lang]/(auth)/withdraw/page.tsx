@@ -4,7 +4,7 @@ import Link from "next/link";
 import CommonLayout from "../_components/CommonLayout";
 
 import { Button } from "@/components/common";
-import { logoutAction } from "@/lib/auth-action";
+import { logoutAction } from "@/actions/auth-action";
 
 export default function page() {
   return (
