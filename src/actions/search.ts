@@ -27,7 +27,9 @@ export const getPopularSearchesName = api.get({
   endpoint: `/getPopularSearchesName`,
   responseSchema: PopularSearchesNameSchema,
   baseOptions: {
-    revalidate: 60 * 60, // 1시간 주기로 조회
+    next: {
+      revalidate: 60 * 60, // 1시간 주기로 조회
+    },
   },
 })<undefined, PopularSearchesNameDataType>;
 
