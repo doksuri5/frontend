@@ -55,7 +55,7 @@ export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalPro
     return () => {
       if (timer) clearTimeout(timer);
     };
-  }, [timeLeft]);
+  }, [customAlert, timeLeft]);
 
   const startTimer = () => {
     setTimeLeft(180);
