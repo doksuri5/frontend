@@ -1,5 +1,5 @@
 import React from "react";
-import TermsMain from "../_components/PolicyMain";
+import { PolicyMain } from "../_components";
 import { servicePolicyText } from "@/constants/servicePolicyText";
 import { privacyPolicyText } from "@/constants/privacyPolicyText";
 
@@ -19,7 +19,7 @@ const getTerms = async () => {
 export default async function Terms() {
   const policyText = await getTerms();
   return (
-    <TermsMain
+    <PolicyMain
       serviceText={policyText ? policyText.terms_of_service.content : servicePolicyText}
       privacyText={policyText ? policyText.privacy_policy.content : privacyPolicyText}
     />

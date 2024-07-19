@@ -3,6 +3,7 @@
 import { cookies } from "next/headers";
 import { FormData } from "../_components/EditPrivacyForm";
 
+// 개인정보 수정
 export async function updateUserInfo(formData: FormData) {
   const cookieStore = cookies();
   const connectCookie = cookieStore.get("connect.sid")?.value;

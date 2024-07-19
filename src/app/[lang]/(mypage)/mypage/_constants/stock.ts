@@ -1,6 +1,6 @@
 export const stockList = [
   { value: "TSLA.O", label: "#테슬라" },
-  { value: "APPL.O", label: "#애플" },
+  { value: "AAPL.O", label: "#애플" },
   { value: "AMZN.O", label: "#아마존" },
   { value: "MSFT.O", label: "#MS" },
   { value: "GOOGL.O", label: "#구글" },

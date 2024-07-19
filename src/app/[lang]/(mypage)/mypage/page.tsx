@@ -1,19 +1,24 @@
 import React from "react";
-import MyPageMain from "./_components/MyPageMain";
 import { auth } from "@/auth";
-
-// TODO: 백엔드와 연결 시 삭제할 것
-const email = "vohali2476@atebin.com";
+import { cookies } from "next/headers";
+import { MyPageMain } from "./_components";
 
 const fetchUserData = async () => {
+  const cookieStore = cookies();
+  const connectCookie = cookieStore.get("connect.sid")?.value;
+
   const session = await auth();
 
   try {
-    // const response = await (
-    //   await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/getUser/${session?.user.email}`, { cache: "no-cache" })
-    // ).json();
     const response = await (
-      await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/getUser/${email}`, { cache: "no-cache" })
+      await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/getUser/${session?.user.email}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Cookie: `connect.sid=${connectCookie}`,
+        },
+        credentials: "include",
+        cache: "no-cache",
+      })
     ).json();
 
     if (response.ok) {
