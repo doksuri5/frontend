@@ -23,7 +23,7 @@ export default function NewsDetail({ newsData }: TNewsDetailProps) {
             <span>∙</span>
             <span>{publishedTime}</span>
             <span>∙</span>
-            <span>{view}</span>
+            <span>조회수 {view}</span>
           </div>
           <Button variant="textButton" size="md" bgColor="bg-navy-900" className="h-[3.6rem] max-w-[17.6rem]">
             <TranslateIcon />
