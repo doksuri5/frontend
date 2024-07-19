@@ -7,10 +7,11 @@ import {
   MyStockPopularSearches,
   MyStockRecentSearches,
 } from "@/app/[lang]/(mystock)/mystock/_components";
-import { useModalStore, useRecentSearchStore } from "@/stores";
+import { useRecentSearchStore } from "@/stores";
 import { StockDataType } from "@/types";
 import SearchIcon from "@/public/icons/search_icon.svg?component";
 import { saveRecentSearch } from "@/actions/stock";
+import { useMyStockStore } from "@/providers/MyStockProvider";
 
 const MyStockModalSection = ({
   dataList,
@@ -19,7 +20,8 @@ const MyStockModalSection = ({
   dataList: StockDataType[];
   recentSearchList: StockDataType[];
 }) => {
-  const { openModal, setOpenModal } = useModalStore();
+  const openModal = useMyStockStore((state) => state.openModal);
+  const setOpenModal = useMyStockStore((state) => state.setOpenModal);
   const { stockItemList, setStockItemList, addStockItemList } = useRecentSearchStore();
 
   const inputRef = useRef<HTMLInputElement>(null);

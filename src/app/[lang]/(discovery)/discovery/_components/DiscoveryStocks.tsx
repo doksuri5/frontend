@@ -8,7 +8,7 @@ import { getSearchStocks } from "@/actions/search";
 
 const DiscoveryStocks = ({ params }: { params: string }) => {
   const [stockList, setStockList] = useState<StockDataType[]>([]);
-  const [isRander, setIsRender] = useState(false);
+  const [isRender, setIsRender] = useState(false);
   const [showMoreItems, setShowMoreItems] = useState(false);
   const [maxDisplayedItems, setMaxDisplayedItems] = useState(4);
 
@@ -39,7 +39,7 @@ const DiscoveryStocks = ({ params }: { params: string }) => {
   return (
     <DiscoverySection title="주식" subTag={subTag}>
       <div className="flex_col rounded-[1.6rem] bg-white p-[2.4rem]">
-        {!isRander ? (
+        {!isRender ? (
           <div className="grid w-full grid-cols-2 gap-x-[1.6rem] gap-y-[.8rem]">
             {Array.from({ length: 4 }).map((_, idx) => (
               <StockItemSkeleton key={idx} variant="findStock" />

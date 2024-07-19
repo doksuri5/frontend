@@ -23,7 +23,9 @@ export type TStockTags =
   | "/saveRecentSearch"
   | "/deleteRecentSearches"
   | "/interest/insertInterestStock"
-  | "/interest/deleteInterestStock";
+  | "/interest/deleteInterestStock"
+  | "/news/getSearchNews"
+  | "/getSearchStocks";
 
 // 주식 종목 리스트 가져오기
 export const getStocks = api.get({
@@ -63,7 +65,7 @@ export const saveRecentSearch = api.patch({
   requestSchema: PostRecentSearchSchema,
   responseSchema: StockSchema,
   baseOptions: {
-    revalidateTags: ["/getRecentSearchDetails"],
+    revalidateTags: ["/getRecentSearchDetails", "/news/getSearchNews", "/getSearchStocks"],
   },
 })<z.infer<typeof PostRecentSearchSchema>, StockDataType>;
 

@@ -10,7 +10,7 @@ import { SearchStockNewsDataType } from "@/types/NewsDataType2";
 const DiscoveryNews = ({ params }: { params: string }) => {
   const pathname = usePathname();
   const lang = pathname.match(/\/([a-z]{2})\//)?.[1];
-  const [isRander, setIsRender] = useState(false);
+  const [isRender, setIsRender] = useState(false);
   const [newsList, setNewsList] = useState<SearchStockNewsDataType[]>([]);
   const [showMoreItems, setShowMoreItems] = useState(false);
   const [maxDisplayedItems, setMaxDisplayedItems] = useState(6);
@@ -48,7 +48,7 @@ const DiscoveryNews = ({ params }: { params: string }) => {
   return (
     <DiscoverySection title="뉴스" subTag={subTag}>
       <div className="flex_col h-vh gap-[1.6rem] rounded-[1.6rem] bg-white p-[2.4rem]">
-        {!isRander ? (
+        {!isRender ? (
           <>
             {Array.from({ length: 6 }).map((_, idx) => (
               <FindNewsSkeleton key={idx} />
