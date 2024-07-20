@@ -4,12 +4,12 @@ import CommonLayout from "../_components/CommonLayout";
 
 import { Button } from "@/components/common";
 import { logoutAction } from "@/actions/auth-action";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 
-export default function page() {
+export default function WithdrawPage() {
   const router = useRouter();
 
-  const handleLogout = async () => {
+  const handleLogout = () => {
     router.push('/home');      
     logoutAction();
   };
