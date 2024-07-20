@@ -27,7 +27,7 @@ export default function StockDetail({ reutersCode }: TStockDetail) {
         return;
       }
 
-      setStock(stock.data[0]);
+      setStock(stock.data);
       setDescription(analysis.data[0].description);
     };
 
