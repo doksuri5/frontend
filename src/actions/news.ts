@@ -67,16 +67,18 @@ export const fetchInterestStockNews = async () => {
     if (response.ok) {
       let data = response.data;
 
-      let refinedData = (data as any[]).map(({ content_img, title, published_time, publisher, index }) => ({
-        image: content_img,
-        // TODO: 시간 포맷팅하기
-        date: published_time,
-        _id: index,
-        title: title.ko,
-        publisher: publisher.ko,
-      }));
+      if (data.length > 0) {
+        let refinedData = (data as any[]).map(({ content_img, title, published_time, publisher, index }) => ({
+          image: content_img,
+          // TODO: 시간 포맷팅하기
+          date: published_time,
+          _id: index,
+          title: title.ko,
+          publisher: publisher.ko,
+        }));
 
-      return [refinedData[0], refinedData[1], refinedData[2]];
+        return [refinedData[0], refinedData[1], refinedData[2]];
+      } else return data;
     }
   } catch (err) {
     console.error(err);
