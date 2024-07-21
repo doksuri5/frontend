@@ -67,6 +67,7 @@ const MyStockModalSection = ({
         <Input
           type="text"
           ref={inputRef}
+          defaultValue={searchText}
           inputGroupClass="h-[5.6rem]"
           inputClass="text-grayscale-900 h-[5.6rem] rounded-[0.8rem]"
           placeholder="검색어를 입력해주세요."
@@ -77,7 +78,7 @@ const MyStockModalSection = ({
           <MyStockSearchResult value={searchText} /> // 검색 리스트
         ) : (
           <>
-            {stockItemList.length > 0 && <MyStockRecentSearches />}
+            {stockItemList.length > 0 && <MyStockRecentSearches setSearchText={setSearchText} />}
             <MyStockPopularSearches />
           </>
         )}

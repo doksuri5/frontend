@@ -1,16 +1,20 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { Dispatch, MouseEvent, SetStateAction, useRef, useState } from "react";
 import { Alert, StockItem } from "@/components/common";
 import useDraggable from "@/hooks/use-draggable";
 import { useRecentSearchStore } from "@/stores";
-import { deleteRecentSearch } from "@/actions/stock";
+import { deleteRecentSearch, saveRecentSearch } from "@/actions/stock";
 
-const MyStockRecentSearches = () => {
+type TMyStockRecentSearchedProps = {
+  setSearchText: Dispatch<SetStateAction<string>>;
+};
+
+const MyStockRecentSearches = ({ setSearchText }: TMyStockRecentSearchedProps) => {
   const [showAlert, setShowAlert] = useState(false);
   const ref = useRef(null);
   const draggableOptions = useDraggable(ref);
-  const { stockItemList, allDeleteStockItem } = useRecentSearchStore();
+  const { stockItemList, addStockItemList, allDeleteStockItem } = useRecentSearchStore();
 
   const handleShowAlert = () => {
     setShowAlert(true);
@@ -20,6 +24,19 @@ const MyStockRecentSearches = () => {
     allDeleteStockItem();
     // delete fetch 진행
     await deleteRecentSearch();
+  };
+
+  const handleMove = async (e: MouseEvent<HTMLDivElement>, stockName: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    setSearchText(stockName);
+    const response = await saveRecentSearch({ stockName });
+    if (response.ok) {
+      addStockItemList({
+        ...response.data[0],
+      });
+    }
   };
 
   return (
@@ -32,8 +49,12 @@ const MyStockRecentSearches = () => {
       </div>
       <ul className="flex gap-[2rem] overflow-x-scroll scrollbar-hide" ref={ref} {...draggableOptions()}>
         {stockItemList.map((stock) => (
-          <div key={stock.id} className="rounded-[1.6rem] border border-navy-100 px-[1.6rem] py-[2.4rem]">
-            <StockItem variant="findStock" style="h-[4.8rem]" {...stock} />
+          <div
+            key={stock.id}
+            className="cursor-pointer rounded-[1.6rem] border border-navy-100 px-[1.6rem] py-[2.4rem]"
+            onClick={(e) => handleMove(e, stock.stockName)}
+          >
+            <StockItem variant="findStock" style="h-[4.8rem]" clickNone={true} {...stock} />
           </div>
         ))}
       </ul>
