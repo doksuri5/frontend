@@ -103,14 +103,14 @@ export const fetchRecentNews = async (pageParam = 1) => {
       let data = response.data;
 
       let refinedData = (data.recent_news as any[]).map(
-        ({ content_img, title, published_time, publisher, index, description }) => ({
+        ({ content_img, title, published_time, publisher, index, content }) => ({
           image: content_img,
           // TODO:  시간 포맷팅하기
           date: published_time,
           _id: index,
           title: title.ko,
           publisher: publisher.ko,
-          description: description.ko,
+          description: content.ko,
         }),
       );
 
@@ -158,7 +158,7 @@ export const fetchNewsDetail = async (index: any) => {
         _id: index,
         title: title.ko,
         publishedTimeate: published_time,
-        newspaperCompany: publisher.ko, // news.publisher.ko,
+        newspaperCompany: publisher.ko,
       }));
 
       // 관련 주식 필드 정제
