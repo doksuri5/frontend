@@ -45,7 +45,7 @@ export const GET = async (request: NextRequest, { params }: { params: { code: st
       forwardPER: quoteSummary.summaryDetail?.forwardPE,
       dividendYield: quoteSummary.summaryDetail?.dividendYield,
       currentPrice: stockInfoData.closePrice,
-      currentPriceRatio: quoteSummary.financialData?.currentRatio,
+      currentPriceRatio: (quoteSummary.price?.regularMarketChangePercent ?? 0) * 100,
       currentPriceChange: quoteSummary.price?.regularMarketChange,
     };
 

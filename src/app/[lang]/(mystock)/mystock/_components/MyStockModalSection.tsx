@@ -7,10 +7,11 @@ import {
   MyStockPopularSearches,
   MyStockRecentSearches,
 } from "@/app/[lang]/(mystock)/mystock/_components";
-import { useModalStore, useRecentSearchStore } from "@/stores";
+import { useRecentSearchStore } from "@/stores";
 import { StockDataType } from "@/types";
 import SearchIcon from "@/public/icons/search_icon.svg?component";
 import { saveRecentSearch } from "@/actions/stock";
+import { useMyStockStore } from "@/providers/MyStockProvider";
 
 const MyStockModalSection = ({
   dataList,
@@ -19,7 +20,8 @@ const MyStockModalSection = ({
   dataList: StockDataType[];
   recentSearchList: StockDataType[];
 }) => {
-  const { openModal, setOpenModal } = useModalStore();
+  const openModal = useMyStockStore((state) => state.openModal);
+  const setOpenModal = useMyStockStore((state) => state.setOpenModal);
   const { stockItemList, setStockItemList, addStockItemList } = useRecentSearchStore();
 
   const inputRef = useRef<HTMLInputElement>(null);
@@ -67,6 +69,7 @@ const MyStockModalSection = ({
         <Input
           type="text"
           ref={inputRef}
+          defaultValue={searchText}
           inputGroupClass="h-[5.6rem]"
           inputClass="text-grayscale-900 h-[5.6rem] rounded-[0.8rem]"
           placeholder="검색어를 입력해주세요."
@@ -77,7 +80,7 @@ const MyStockModalSection = ({
           <MyStockSearchResult value={searchText} /> // 검색 리스트
         ) : (
           <>
-            {stockItemList.length > 0 && <MyStockRecentSearches />}
+            {stockItemList.length > 0 && <MyStockRecentSearches setSearchText={setSearchText} />}
             <MyStockPopularSearches />
           </>
         )}

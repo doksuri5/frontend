@@ -1,10 +1,10 @@
 "use client";
 
 import { Button } from "@/components/common";
-import { useModalStore } from "@/stores";
+import { useMyStockStore } from "@/providers/MyStockProvider";
 
 const MyStockHeader = ({ userName }: { userName: string }) => {
-  const { setOpenModal } = useModalStore();
+  const setOpenModal = useMyStockStore((state) => state.setOpenModal);
 
   const handleAddStock = () => {
     setOpenModal(true);

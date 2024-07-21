@@ -1,11 +1,7 @@
-"use server";
+import { publicFetchApi } from "@/lib/public-api";
+import { SearchStockNewsSchema, SearchStockNewsDataType } from "@/types/NewsDataType2";
 
-import { api } from "@/lib/api";
-import { z } from "zod";
-
-import { NewsDataType, SearchStockNewsSchema, SearchStockNewsDataType } from "@/types/NewsDataType2";
-
-export const getSearchNews = api.get({
-  endpoint: `/news/getSearchNews`,
+export const getSearchNews = publicFetchApi.get({
+  endpoint: "/news/getSearchNews",
   responseSchema: SearchStockNewsSchema,
 })<undefined, SearchStockNewsDataType>;

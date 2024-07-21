@@ -6,11 +6,12 @@ import { Input } from "@/components/common";
 import { saveRecentSearch } from "@/actions/stock";
 import SearchIcon from "@/public/icons/search_icon.svg?component";
 
-const DiscoveryInput = ({ params }: { params: string }) => {
+const DiscoveryInput = () => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
+  const params = useSearchParams().get("search") || "";
 
   const moveLink = async () => {
     const params = new URLSearchParams(searchParams.toString());
@@ -26,7 +27,7 @@ const DiscoveryInput = ({ params }: { params: string }) => {
     }
 
     const newPath = `${pathname}?${params.toString()}`;
-    router.push(newPath);
+    router.replace(newPath);
   };
 
   return (

@@ -36,7 +36,7 @@ export default function RootLayout({
             <ToastContainer position="top-center" limit={1} />
             <QueryProvider>{children}</QueryProvider>
           </main>
-          <ChatBot />
+          {isLoggedIn && <ChatBot />}
         </AuthSession>
       </body>
     </html>
