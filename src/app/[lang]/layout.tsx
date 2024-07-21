@@ -7,7 +7,7 @@ import "../globals.css";
 
 import Header from "@/components/layout/Header";
 import QueryProvider from "@/providers/QueryProvider";
-import { i18n, type Locale } from "../../i18n-config";
+import { i18n, type Locale } from "../../lib/i18n-config";
 import { ChatBot } from "@/components/common";
 
 import AuthSession from "@/providers/AuthSession";
