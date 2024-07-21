@@ -129,7 +129,7 @@ export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) 
       }
 
       updateToast(loadingToastId, "회원 탈퇴가 성공적으로 처리되었습니다.", "success");
-      router.push("/withdraw")
+      router.replace("/withdraw")
     } catch (err) {
       updateToast(loadingToastId, "회원 탈퇴 처리 중 오류 발생", "error");
       customAlert({
