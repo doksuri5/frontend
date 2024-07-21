@@ -1,5 +1,6 @@
 "use client";
 
+import WarningIcon from "@/public/icons/warning_icon.svg?component";
 import { Card, CardSkeleton, PopularNews, PopularNewsSkeleton } from "@/components/common";
 import NewsInfinityList from "@/app/[lang]/(news)/news/_components/NewsInfinityList";
 import { Suspense, useState } from "react";
@@ -31,7 +32,7 @@ export default function News({ popularNews, interestStockNews }: any) {
                 <CardSkeleton key={index} variant="halfMediaCard" style="w-1/3" />
               ))}
           >
-            {interestStockNews.value.length > 0 &&
+            {interestStockNews.value.length > 0 ? (
               interestStockNews.value.map((news: any) => (
                 <Card
                   key={news._id}
@@ -43,7 +44,13 @@ export default function News({ popularNews, interestStockNews }: any) {
                   content={news.description}
                   publisher={news.newspaperCompany}
                 />
-              ))}
+              ))
+            ) : (
+              <div className="flex_row_col min-h-[36rem] flex-1 gap-2 rounded-lg bg-white">
+                <WarningIcon />
+                <p className="body_4 font-medium text-navy-900">추가된 관심 종목이 없습니다.</p>
+              </div>
+            )}
           </Suspense>
         </div>
       </div>
