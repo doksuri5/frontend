@@ -10,7 +10,7 @@ export default function WithdrawPage() {
   const router = useRouter();
 
   const handleLogout = () => {
-    router.replace('/home');      
+    router.replace('/');      
     logoutAction();
   };
 
