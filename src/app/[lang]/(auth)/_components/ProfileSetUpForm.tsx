@@ -22,7 +22,7 @@ import reduceImageSize from "@/utils/reduce-image-size";
 
 import { TProfileSchema, profileSchema } from "@/types/AuthType";
 
-import { REGISTER_COMPLETE_PATH } from "@/routes/path";
+import { REGISTER_COMPLETE_PATH, REGISTER_PATH } from "@/routes/path";
 
 import EditIcon from "@/public/icons/avatar_edit.svg?component";
 
@@ -163,6 +163,26 @@ export default function ProfileSetUpForm() {
   const onProfileSetUpSubmit = async (data: TProfileSchema) => {
     const formData = new FormData();
 
+    const additionalData = registerFormData();
+
+    for (const key in additionalData) {
+      if (additionalData.hasOwnProperty(key)) {
+        if (additionalData[key] === undefined || additionalData[key] === null || additionalData[key] === "") {
+          setIsOpenOfSuggestion(false);
+          customAlert({
+            title: "일시적인 오류로 인해 회원가입에 실패하였습니다.",
+            subText: "다시 회원가입을 시도해주세요.",
+            onClose: () => {
+              router.replace(REGISTER_PATH);
+              return;
+            },
+          });
+        } else {
+          formData.append(key, String(additionalData[key]));
+        }
+      }
+    }
+
     if (isGender) {
       formData.append("gender", isGender);
     }
@@ -182,14 +202,6 @@ export default function ProfileSetUpForm() {
     formData.append("isAgreeCreditInfo", JSON.stringify(data.isAgreeCreditInfo));
 
     formData.append("investPropensity", JSON.stringify(data.investPropensity));
-
-    const additionalData = registerFormData();
-
-    for (const key in additionalData) {
-      if (additionalData.hasOwnProperty(key)) {
-        formData.append(key, String(additionalData[key]));
-      }
-    }
 
     const PATH = session?.user.role ? "registerSocial" : "register";
 
@@ -401,7 +413,7 @@ export default function ProfileSetUpForm() {
         )}
       </form>
 
-      {/* Alert */}
+      {/* 공통 Alert 팝업 */}
       {alertInfo.open && (
         <Alert
           variant="checkCustomCloseButton"
