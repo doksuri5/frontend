@@ -28,7 +28,7 @@ export default function RelatedNews({ relatedNews }: any) {
         newsData.map((news, idx) => (
           <Fragment key={idx}>
             <FindNews
-              _id={news._id || "3244"}
+              _id={news._id}
               image={news?.image}
               title={news.title}
               publishedTime={news.publishedTime}
