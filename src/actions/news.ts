@@ -157,7 +157,7 @@ export const fetchNewsDetail = async (index: any) => {
       let refinedRelatedNews = (relatedNews as any[]).map(({ index, publisher, published_time, title }) => ({
         _id: index,
         title: title.ko,
-        publishedTimeate: published_time,
+        publishedTime: published_time,
         newspaperCompany: publisher.ko,
       }));
 
