@@ -18,7 +18,7 @@ export const GET = async (request: NextRequest, { params }: { params: { reutersC
     const data = {
       symbolCode: quoteSummary.price?.symbol,
       closePrice: quoteSummary.price?.regularMarketPrice,
-      fluctuationsRatio: quoteSummary.price?.regularMarketChangePercent,
+      fluctuationsRatio: (quoteSummary.price?.regularMarketChangePercent ?? 0) * 100,
       compareToPreviousClosePrice: quoteSummary.price?.regularMarketChange,
     };
 
