@@ -4,7 +4,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 const useInfiniteNews = () => {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } = useInfiniteQuery({
     queryKey: ["news"],
-    queryFn: ({ pageParam = 1 }) => fetchRecentNews(pageParam),
+    queryFn: ({ pageParam }) => fetchRecentNews(pageParam),
     initialPageParam: 1,
     getNextPageParam: (lastPage) => {
       if (lastPage) {
@@ -14,10 +14,10 @@ const useInfiniteNews = () => {
     },
   });
 
-  const allNews = data?.pages[0];
+  const newsData = data?.pages.flatMap((page) => page?.data) || [];
 
   return {
-    allNews,
+    newsData,
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,

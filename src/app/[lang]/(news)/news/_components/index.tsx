@@ -7,7 +7,7 @@ import useInfiniteNews from "@/hooks/useInfiniteNews";
 
 export default function News({ popularNews, interestStockNews }: any) {
   const [currentPage, setCurrentPage] = useState(1);
-  const { allNews, fetchNextPage, hasNextPage, isFetchingNextPage, status } = useInfiniteNews();
+  const { newsData, fetchNextPage, hasNextPage, isFetchingNextPage, status } = useInfiniteNews();
 
   const handleFetchNextPage = () => {
     if (hasNextPage && !isFetchingNextPage) {
@@ -51,7 +51,7 @@ export default function News({ popularNews, interestStockNews }: any) {
         <h2 className="heading_4 font-bold text-navy-900">최신 뉴스</h2>
         <div className="flex gap-[2rem]">
           <NewsInfinityList
-            newsItems={allNews}
+            newsItems={newsData}
             lineClamp={"lineClamp-4"}
             variant="border"
             style="max-h-[85rem]"

@@ -59,6 +59,7 @@ export default function NewsInfinityList({
       }
     };
   }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
+
   return (
     <div
       className={cn(`flex w-full flex-col overflow-y-scroll scrollbar-hide ${selectedVariantStyles.border} ${style}`)}
@@ -71,8 +72,8 @@ export default function NewsInfinityList({
               <NewsItemSkeleton variant={lineClamp} /> {index < 3 && <hr />}
             </Fragment>
           ))}
-      {newsItems?.data &&
-        newsItems?.data?.map((newsItem: any, index: any) => (
+      {newsItems &&
+        newsItems.map((newsItem: any, index: any) => (
           <Fragment key={newsItem._id}>
             <NewsItem
               _id={newsItem._id}
@@ -83,8 +84,8 @@ export default function NewsInfinityList({
               publisher={newsItem.publisher}
               variant={lineClamp}
             />
-            {index === newsItems?.data?.length - 1 && <div ref={lastNewsItemRef} />}
-            {index < newsItems?.data?.length - 1 && <hr />}
+            {index === newsItems.length - 1 && <div ref={lastNewsItemRef} />}
+            {index < newsItems.length - 1 && <hr />}
           </Fragment>
         ))}
     </div>
