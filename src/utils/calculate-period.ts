@@ -17,19 +17,19 @@ const calculatePeriod = (period: keyof TMappedPeriod) => {
 
   switch (period) {
     case "일":
-      startDateTime = formatDateTime(new Date(new Date().setFullYear(currentDate.getFullYear() - 1)));
+      startDateTime = formatDateTime(new Date(new Date().setMonth(currentDate.getMonth() - 3)));
       break;
     case "주":
-      startDateTime = formatDateTime(new Date(new Date().setFullYear(currentDate.getFullYear() - 3)));
+      startDateTime = formatDateTime(new Date(new Date().setFullYear(currentDate.getFullYear() - 1)));
       break;
     case "월":
-      startDateTime = formatDateTime(new Date(new Date().setFullYear(currentDate.getFullYear() - 5)));
+      startDateTime = formatDateTime(new Date(new Date().setFullYear(currentDate.getFullYear() - 3)));
       break;
     case "분기":
-      startDateTime = formatDateTime(new Date(new Date().setFullYear(currentDate.getFullYear() - 7)));
+      startDateTime = formatDateTime(new Date(new Date().setFullYear(currentDate.getFullYear() - 5)));
       break;
     case "년":
-      startDateTime = formatDateTime(new Date(new Date().setFullYear(currentDate.getFullYear() - 10)));
+      startDateTime = formatDateTime(new Date(new Date().setFullYear(currentDate.getFullYear() - 7)));
       break;
     default:
       break;

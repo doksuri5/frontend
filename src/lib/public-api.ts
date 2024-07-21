@@ -1,6 +1,4 @@
 import { ApiRequestBody, ApiResponse, ResponseReturnType } from "@/types/ApiType";
-import { redirect } from "next/navigation";
-import { cookies } from "next/headers";
 import { ZodSchema } from "zod";
 import { revalidateTag } from "next/cache";
 import { TStockTags } from "@/actions/stock";
@@ -58,17 +56,8 @@ const request = ({
     try {
       const requestBody = requestSchema && body ? ApiRequestBody(requestSchema, body, false) : body;
 
-      const sid = cookies().get("connect.sid");
-
-      if (combinedOptions.isLoggedIn && !sid) {
-        redirect("/login");
-      }
-
       const defaultHeaders = {
         "Content-Type": "application/json",
-        ...(sid && {
-          Cookie: `${sid.name}=${sid.value}`,
-        }),
       };
 
       const requestHeaders = {
@@ -125,7 +114,7 @@ const request = ({
   };
 };
 
-export const api = {
+export const publicFetchApi = {
   /**
    * POST
    * @param endpoint api endpoint ex) /getPopularSearches (/api 제외, / 로 시작)
