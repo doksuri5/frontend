@@ -16,7 +16,7 @@ const parseData = (
     {
       id: "1",
       subject: "주가",
-      A: metrics.closePriceChange * 10,
+      A: ((metrics.closePriceChange + 50) / 100) * 100,
       fullMark: 100,
     },
     {

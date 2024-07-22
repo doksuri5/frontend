@@ -36,26 +36,10 @@ const MyStockItem = ({ data }: TMyStockItemProps) => {
   };
 
   return (
-    <div className="flex_col rounded-[1.6rem] bg-white px-[3.2rem]">
-      <div className="mb-[1.6rem] mt-[3.2rem] w-full">
-        <div className="flex_row justify-start gap-[.8rem]">
-          <Image src={`/icons/stocks/${STOCK_NAMES[data.reutersCode]}.svg`} alt="아이콘" width={32} height={32} />
-          <strong className="body_1 text-grayscale-900">{data.stockName}</strong>
-          <span className="body_3 text-grayscale-600">{data.symbolCode}</span>
-        </div>
-        <div className="flex_row justify-start gap-[.8rem]">
-          <span className="body_4 font-medium text-grayscale-900">{`${cashSymbol.get(data.nationType) || ""}${data.closePrice}`}</span>
-          <span className={`${getTextColor(data.compareToPreviousClosePrice)}`}>
-            {formatValueWithIndicator(data.compareToPreviousClosePrice)}
-          </span>
-          <span className={`${getTextColor(data.fluctuationsRatio)}`}>
-            {formatValueWithSign(data.fluctuationsRatio) + "%"}
-          </span>
-        </div>
-      </div>
-      <SimpleReportCard isShowHeader={false} reutersCode={data.reutersCode} />
+    <div className="flex flex-col justify-start gap-2 rounded-[1.6rem] bg-white px-[3.2rem] py-[3rem]">
+      <SimpleReportCard isShowHeader={true} titleSize="lg" reutersCode={data.reutersCode} />
       {/* 버튼 */}
-      <div className="flex_row my-[1.6rem] w-full gap-[.8rem]">
+      <div className="flex_row mt-[1.6rem] w-full gap-[.8rem]">
         <Button
           className="flex-1"
           variant="textButton"

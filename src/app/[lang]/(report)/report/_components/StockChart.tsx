@@ -1,7 +1,6 @@
 "use client";
 
 import { StockChartDataType, TMappedPeriod } from "@/types/StockDataType";
-import { set } from "mongoose";
 import { useEffect, useState } from "react";
 import { Area, AreaChart, Tooltip, XAxis, YAxis } from "recharts";
 

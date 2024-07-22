@@ -17,9 +17,11 @@ import CountUp from "react-countup";
 const SimpleReportCard = ({
   reutersCode,
   isShowHeader = true,
+  titleSize = "md",
 }: {
   reutersCode: TReutersCodes;
   isShowHeader?: boolean;
+  titleSize?: "md" | "lg";
 }) => {
   const [stockAnalysis, setStockAnalysis] = useState<StockAIReportDataType>();
   const [isLoading, setIsLoading] = useState(false);
@@ -38,27 +40,42 @@ const SimpleReportCard = ({
 
   if (!stockAnalysis || isLoading) {
     if (isShowHeader) {
-      return (
-        <section className="h-[28rem] flex-1 rounded-[1.6rem] bg-white p-[3.2rem]">
-          <Skeleton className="h-[20rem] w-full" />
-        </section>
-      );
+      return <Skeleton className="h-[20rem] w-full" />;
     }
 
     return <Skeleton className="h-[20rem] w-full" />;
   }
 
   return (
-    <section className="h-[28rem] flex-1 rounded-[1.6rem] bg-white p-[3.2rem]">
+    <>
       {isShowHeader && (
         <>
           <div className="flex items-center gap-[0.8rem]">
             <Image src={`/icons/stocks/${STOCK_NAMES[reutersCode]}.svg`} alt="icon" width={30} height={30} />
-            <h3 className="body_3 font-bold">{stockAnalysis.metrics.stockName}</h3>
-            <h3 className="body_5 font-normal text-grayscale-600">{stockAnalysis.metrics.symbolCode}</h3>
+            <h3
+              className={cn("font-bold", {
+                body_1: titleSize === "lg",
+                body_3: titleSize === "md",
+              })}
+            >
+              {stockAnalysis.metrics.stockName}
+            </h3>
+            <h3
+              className={cn("font-normal text-grayscale-600", {
+                body_3: titleSize === "lg",
+                body_5: titleSize === "md",
+              })}
+            >
+              {stockAnalysis.metrics.symbolCode}
+            </h3>
           </div>
           <div className="flex items-center gap-[0.8rem]">
-            <div className="body_5 text-right font-medium">
+            <div
+              className={cn("text-right font-medium", {
+                body_4: titleSize === "lg",
+                body_5: titleSize === "md",
+              })}
+            >
               <span>${stockAnalysis.metrics.closePrice}</span>
             </div>
             <div
@@ -71,7 +88,9 @@ const SimpleReportCard = ({
                 {formatOnlyIndicator(stockAnalysis.metrics.closePriceChange)}
                 <CountUp end={Math.abs(stockAnalysis.metrics.closePriceChange)} decimals={2} />
               </span>
-              <span>{stockAnalysis.metrics.fluctuationsRatio}%</span>
+              <span>
+                <CountUp end={Math.abs(stockAnalysis.metrics.fluctuationsRatio)} decimals={2} />%
+              </span>
             </div>
           </div>
         </>
@@ -128,7 +147,7 @@ const SimpleReportCard = ({
           </li>
         </ul>
       </div>
-    </section>
+    </>
   );
 };
 
