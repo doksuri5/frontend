@@ -12,7 +12,7 @@ const PopularNews = ({ popularNewsData }: TPopularNewsType) => {
   return (
     <div className="flex flex-col gap-[2.4rem]">
       <h2 className="heading_4 font-bold text-navy-900">
-        {t("todaysPopularNews", { defaultMessage: "오늘 인기있는 뉴스" })}
+        {t("news.todaysPopularNews", { defaultMessage: "오늘 인기있는 뉴스" })}
       </h2>
       <div className="flex min-w-[120px] gap-[2rem]">
         <Card
