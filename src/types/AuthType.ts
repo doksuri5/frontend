@@ -58,12 +58,22 @@ const kakaoRegisterSchema = googleRegisterSchema.extend({
 });
 
 const passwordSchema = z.object({
-  password: z.string().regex(/^(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+\[\]{};':",.<>\/?\-]).{8,20}$/, {
-    message: "8-20자 이내 숫자, 특수문자, 영문자 중 2가지 이상을 조합",
-  }),
-  passwordChk: z.string().regex(/^(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+\[\]{};':",.<>\/?\-]).{8,20}$/, {
-    message: "8-20자 이내 숫자, 특수문자, 영문자 중 2가지 이상을 조합",
-  }),
+  password: z
+    .string()
+    .regex(
+      /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\[\]{};':",.<>\/?\-]).{8,20}$|^(?=.*[a-zA-Z])(?=.*\d).{8,20}$|^(?=.*[a-zA-Z])(?=.*[!@#$%^&*()_+\[\]{};':",.<>\/?\-]).{8,20}$|^(?=.*\d)(?=.*[!@#$%^&*()_+\[\]{};':",.<>\/?\-]).{8,20}$/,
+      {
+        message: "8-20자 이내 숫자, 특수문자, 영문자 중 2가지 이상을 조합",
+      },
+    ),
+  passwordChk: z
+    .string()
+    .regex(
+      /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\[\]{};':",.<>\/?\-]).{8,20}$|^(?=.*[a-zA-Z])(?=.*\d).{8,20}$|^(?=.*[a-zA-Z])(?=.*[!@#$%^&*()_+\[\]{};':",.<>\/?\-]).{8,20}$|^(?=.*\d)(?=.*[!@#$%^&*()_+\[\]{};':",.<>\/?\-]).{8,20}$/,
+      {
+        message: "8-20자 이내 숫자, 특수문자, 영문자 중 2가지 이상을 조합",
+      },
+    ),
 });
 
 const regularRegisterSchema = kakaoRegisterSchema
@@ -88,7 +98,9 @@ export const registerSchema = (isSocialLogin: "google" | "kakao" | "regular") =>
 
 // 프로필
 export const profileSchema = z.object({
-  nickname: z.string().regex(/^[a-zA-Z0-9가-힣\s]+$/, { message: "특수기호가 포함될 수 없습니다." }),
+  nickname: z
+    .string()
+    .regex(/^[A-Za-z0-9-_ㄱ-ㅎㅏ-ㅣ가-힣]+$/, { message: "'_', '-'를 제외한 특수 문자는 사용할 수 없습니다." }),
   tags: z
     .array(
       z.object({
