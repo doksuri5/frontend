@@ -38,16 +38,16 @@ export default async function RootLayout({
   return (
     <html lang={params.lang} className={pretendard.className}>
       <body>
-      <NextIntlClientProvider messages={dictionary}>
-        <AuthSession>
-          <Header isLoggedIn={isLoggedIn} />
-          <main className="relative m-auto min-h-[100vh] max-w-[120rem] pt-[8rem]">
-            <ToastContainer position="top-center" limit={1} />
-            <QueryProvider>{children}</QueryProvider>
-          </main>
-          {isLoggedIn && <ChatBot />}
-        </AuthSession>
-</NextIntlClientProvider>
+        <NextIntlClientProvider messages={dictionary}>
+          <AuthSession>
+            <Header isLoggedIn={isLoggedIn} />
+            <main className="relative m-auto min-h-[100vh] max-w-[120rem] pt-[8rem]">
+              <ToastContainer position="top-center" limit={1} />
+              <QueryProvider>{children}</QueryProvider>
+            </main>
+            {isLoggedIn && <ChatBot />}
+          </AuthSession>
+        </NextIntlClientProvider>
       </body>
     </html>
   );
