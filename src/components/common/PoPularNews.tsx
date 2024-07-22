@@ -1,3 +1,4 @@
+import { getDateWithoutTime } from "@/utils/getDateWithoutTime";
 import Card from "./Card";
 import { CardNewsDataType } from "@/types";
 
@@ -16,7 +17,7 @@ const PopularNews = ({ popularNewsData }: TPopularNewsType) => {
           image={popularNewsData[0]?.image}
           title={popularNewsData[0].title}
           content={popularNewsData[0].description}
-          date={popularNewsData[0].date}
+          date={getDateWithoutTime(popularNewsData[0].date)}
           publisher={popularNewsData[0].publisher}
           style="w-1/2 h-full"
         />
@@ -26,7 +27,7 @@ const PopularNews = ({ popularNewsData }: TPopularNewsType) => {
             image={popularNewsData[1]?.image}
             title={popularNewsData[1].title}
             content={popularNewsData[1].description}
-            date={popularNewsData[1].date}
+            date={getDateWithoutTime(popularNewsData[1].date)}
             publisher={popularNewsData[1].publisher}
             variant="fullMediaCard"
             size="small"
@@ -36,7 +37,7 @@ const PopularNews = ({ popularNewsData }: TPopularNewsType) => {
             image={popularNewsData[2]?.image}
             title={popularNewsData[2].title}
             content={popularNewsData[2].description}
-            date={popularNewsData[2].date}
+            date={getDateWithoutTime(popularNewsData[2].date)}
             publisher={popularNewsData[2].publisher}
             variant="fullMediaCard"
             size="small"
