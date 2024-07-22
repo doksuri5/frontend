@@ -1,3 +1,4 @@
+import { MyStockStoreProvider } from "@/providers/MyStockProvider";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -10,5 +11,9 @@ export default function MyStockLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <>{children}</>;
+  return (
+    <>
+      <MyStockStoreProvider>{children}</MyStockStoreProvider>
+    </>
+  );
 }

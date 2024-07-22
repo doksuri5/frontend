@@ -10,6 +10,7 @@ type TIStockItemProps = StockDataType & {
   iconSize?: number;
   style?: string;
   variant?: "stock" | "findStock";
+  clickNone?: boolean;
 };
 
 const variantStyles = {
@@ -33,14 +34,20 @@ const variantStyles = {
   },
 };
 
-export default function StockItem({ iconSize = 50, style, variant = "stock", ...props }: TIStockItemProps) {
+export default function StockItem({
+  iconSize = 50,
+  style,
+  variant = "stock",
+  clickNone = false,
+  ...props
+}: TIStockItemProps) {
   const { stockName, symbolCode, closePrice, compareToPreviousClosePrice, fluctuationsRatio, reutersCode } = props;
   const fluctuationPriceColor = getTextColor(compareToPreviousClosePrice);
 
   const selectedVariantStyles = variantStyles[variant];
 
   return (
-    <Link href={`${REPORT_PATH}/${reutersCode}`}>
+    <Link href={`${REPORT_PATH}/${reutersCode}`} className={`${clickNone && "pointer-events-none"}`}>
       <div
         className={cn(
           `flex items-center justify-between text-grayscale-900 ${selectedVariantStyles.weight} ${selectedVariantStyles.height} ${style}`,
