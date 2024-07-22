@@ -43,7 +43,7 @@ export default function News({ popularNews, interestStockNews }: any) {
                   title={news.title}
                   image={news.image}
                   content={news.description}
-                  publisher={news.newspaperCompany}
+                  publisher={news.publisher}
                 />
               ))
             ) : (
