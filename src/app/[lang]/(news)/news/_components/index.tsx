@@ -36,6 +36,7 @@ export default function News({ popularNews, interestStockNews }: any) {
               interestStockNews.value.map((news: any) => (
                 <Card
                   key={news._id}
+                  _id={news._id}
                   variant="halfMediaCard"
                   style="w-1/3"
                   date={news.date}
