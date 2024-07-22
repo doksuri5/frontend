@@ -62,6 +62,7 @@ export const middleware = async (req: NextRequest) => {
     `/${locale}/find-email`,
     `/${locale}/find-password`,
     `/${locale}/exist`,
+    `/${locale}/withdraw`,
   ]);
 
   // 로그인이 필요한 경로이고 유저가 로그인 하지 않은 경우 로그인 페이지로 넘기기
