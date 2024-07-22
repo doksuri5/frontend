@@ -74,6 +74,7 @@ export default function FindEmailForm() {
             placeholder="이름을 입력해주세요."
             disabled={isPending}
             variant={errors.name || formResultError ? "error" : "default"}
+            caption={errors.name?.message}
             {...control.register("name")}
           />
           <Input
