@@ -104,6 +104,7 @@ export default function Card({
               <Image
                 fill
                 sizes={`${size === "large" ? "min-h-[42rem]" : "min-h-[20rem]"}`}
+                className="object-cover"
                 src={image || (size === "large" ? LargeRect : SmallRect)}
                 alt="news-image"
               />
