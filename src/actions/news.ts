@@ -1,9 +1,9 @@
+"use server";
+
 import { publicFetchApi } from "@/lib/public-api";
-import { SearchStockNewsSchema, SearchStockNewsDataType } from "@/types/NewsDataType2";
 import { z } from "zod";
 import { truncateBackstring } from "@/utils/truncateBackstring";
 import { cookies } from "next/headers";
-
 import { NewsDataType, SearchStockNewsSchema, SearchStockNewsDataType } from "@/types/NewsDataType2";
 
 export const getSearchNews = publicFetchApi.get({
