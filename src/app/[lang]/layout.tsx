@@ -11,8 +11,6 @@ import QueryProvider from "@/providers/QueryProvider";
 import { i18n, type Locale } from "../../i18n";
 import { getDictionary } from "@/get-dictionary";
 
-// import { i18n, type Locale } from "@/lib/i18n-config";
-
 import { ChatBot } from "@/components/common";
 import { NextIntlClientProvider } from "next-intl";
 
