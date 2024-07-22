@@ -257,7 +257,7 @@ export default function ProfileSetUpForm() {
             <Image
               src={avatar ? avatar : "/icons/avatar_default.svg"}
               fill
-              alt="프로필 이미지"
+              alt="avatar"
               priority
               className="object-cover"
             />

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { toast } from "react-toastify";
 
 import { Input, Button, Modal, FormResultError } from "@/components/common";
 import CommonLoginBtn from "./CommonLoginBtn";
@@ -126,7 +125,7 @@ export default function FindPasswordForm() {
                 <dt className="body_2 my-[.8rem] font-bold text-navy-900">SNS 로그인으로 가입된 계정입니다.</dt>
                 <dd className="flex_row_center">
                   <span className="mr-[.8rem] inline-flex">
-                    <Image src={`/icons/icon_${snsType}.svg`} alt={"간편 로그인 로고"} width={20} height={20} />
+                    <Image src={`/icons/icon_${snsType}.svg`} alt="SNS logo" width={20} height={20} />
                   </span>
                   {snsTypeName(snsType)} 로그인 해주세요.
                 </dd>
