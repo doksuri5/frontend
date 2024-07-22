@@ -207,7 +207,7 @@ export default function ProfileSetUpForm() {
     }
 
     if (data.tags) {
-      formData.append("reuters_code", JSON.stringify(data.tags.map((item) => item.value)));
+      formData.append("reuters_code", JSON.stringify(data.tags.map((item: TOption) => item.value)));
     }
 
     formData.append("nickname", data.nickname);
