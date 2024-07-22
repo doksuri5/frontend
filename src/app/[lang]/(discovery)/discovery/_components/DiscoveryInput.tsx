@@ -6,11 +6,12 @@ import { Input } from "@/components/common";
 import { saveRecentSearch } from "@/actions/stock";
 import SearchIcon from "@/public/icons/search_icon.svg?component";
 
-const DiscoveryInput = ({ params }: { params: string }) => {
+const DiscoveryInput = () => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
+  const params = useSearchParams().get("search") || "";
 
   const moveLink = async () => {
     const params = new URLSearchParams(searchParams.toString());
@@ -26,11 +27,17 @@ const DiscoveryInput = ({ params }: { params: string }) => {
     }
 
     const newPath = `${pathname}?${params.toString()}`;
-    router.push(newPath);
+    router.replace(newPath);
   };
 
   return (
-    <section className="relative h-[5.6rem] w-full">
+    <form
+      className="relative h-[5.6rem] w-full"
+      onSubmit={(e) => {
+        e.preventDefault();
+        moveLink();
+      }}
+    >
       <SearchIcon className="absolute left-[1.6rem] top-[1.6rem] z-10 cursor-pointer" onClick={moveLink} />
       <Input
         ref={inputRef}
@@ -39,9 +46,8 @@ const DiscoveryInput = ({ params }: { params: string }) => {
         inputGroupClass="w-full h-[5.6rem]"
         inputClass="text-navy-900 h-[5.6rem] pl-[4.4rem] rounded-[0.8rem]"
         placeholder="종목을 검색해주세요"
-        onKeyUp={(e) => e.key === "Enter" && moveLink()}
       />
-    </section>
+    </form>
   );
 };
 

@@ -30,7 +30,7 @@ export default function Report({ reutersCode }: { reutersCode: TReutersCodes }) 
         <AIAnalystReport reutersCode={reutersCode} />
       </div>
       <Suspense fallback={<PopularNewsSkeleton />}>
-        <PopularNewsComponent popularNewsData={DUMMY_POPULAR_NEWS_ITEMS} />
+        {/* <PopularNewsComponent popularNewsData={DUMMY_POPULAR_NEWS_ITEMS} /> */}
       </Suspense>
     </div>
   );

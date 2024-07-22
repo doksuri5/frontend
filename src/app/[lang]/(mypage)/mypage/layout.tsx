@@ -11,7 +11,7 @@ const menuList = [
 ];
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname();
+  const pathname = usePathname().slice(3);
 
   return (
     <>

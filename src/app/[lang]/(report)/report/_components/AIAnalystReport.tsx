@@ -4,7 +4,7 @@ import { getStockAnalysis } from "@/actions/stock-analysis";
 import { STOCK_NAMES, TReutersCodes } from "@/constants/stockCodes";
 import { StockAIReportDataType } from "@/types/StockDataType";
 import { cn } from "@/utils/cn";
-import { formatOnlyIndicator, formatValueWithSign, getTextColor } from "@/utils/stockPriceUtils";
+import { formatOnlyIndicator, getTextColor } from "@/utils/stockPriceUtils";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import AIAnalystReportSkeleton from "./skeleton/AIAnalystReportSkeleton";

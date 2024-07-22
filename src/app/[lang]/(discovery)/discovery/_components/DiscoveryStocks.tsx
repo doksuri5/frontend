@@ -1,16 +1,17 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { StockItem, StockItemSkeleton } from "@/components/common";
+import { useEffect, useState, startTransition } from "react";
+import { StockItem } from "@/components/common";
 import DiscoverySection from "./DiscoverySection";
 import { StockDataType } from "@/types";
 import { getSearchStocks } from "@/actions/search";
+import { useSearchParams } from "next/navigation";
 
-const DiscoveryStocks = ({ params }: { params: string }) => {
+const DiscoveryStocks = () => {
   const [stockList, setStockList] = useState<StockDataType[]>([]);
-  const [isRander, setIsRender] = useState(false);
   const [showMoreItems, setShowMoreItems] = useState(false);
   const [maxDisplayedItems, setMaxDisplayedItems] = useState(4);
+  const params = useSearchParams().get("search") || "";
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,12 +20,12 @@ const DiscoveryStocks = ({ params }: { params: string }) => {
         if (response.ok) setStockList(response.data);
       } catch (error) {
         console.error("Failed to fetch stock data:", error);
-      } finally {
-        setIsRender(true);
       }
     };
 
-    fetchData();
+    startTransition(async () => {
+      await fetchData();
+    });
   }, [params]);
 
   const handleShowMore = () => {
@@ -39,32 +40,24 @@ const DiscoveryStocks = ({ params }: { params: string }) => {
   return (
     <DiscoverySection title="주식" subTag={subTag}>
       <div className="flex_col rounded-[1.6rem] bg-white p-[2.4rem]">
-        {!isRander ? (
+        <>
           <div className="grid w-full grid-cols-2 gap-x-[1.6rem] gap-y-[.8rem]">
-            {Array.from({ length: 4 }).map((_, idx) => (
-              <StockItemSkeleton key={idx} variant="findStock" />
+            {displayedStockList.map((stock: StockDataType) => (
+              <StockItem key={stock.stockName} variant="findStock" {...stock} />
             ))}
           </div>
-        ) : (
-          <>
-            <div className="grid w-full grid-cols-2 gap-x-[1.6rem] gap-y-[.8rem]">
-              {displayedStockList.map((stock: StockDataType) => (
-                <StockItem key={stock.stockName} variant="findStock" {...stock} />
-              ))}
-            </div>
-            {stockList.length > maxDisplayedItems && (
-              <>
-                <hr className="mb-[1.6rem] mt-[1.8rem]" />
-                <p
-                  className="body_4 w-full cursor-pointer px-[1rem] text-center font-medium text-grayscale-400"
-                  onClick={handleShowMore}
-                >
-                  더보기
-                </p>
-              </>
-            )}
-          </>
-        )}
+          {stockList.length > maxDisplayedItems && (
+            <>
+              <hr className="mb-[1.6rem] mt-[1.8rem]" />
+              <p
+                className="body_4 w-full cursor-pointer px-[1rem] text-center font-medium text-grayscale-400"
+                onClick={handleShowMore}
+              >
+                더보기
+              </p>
+            </>
+          )}
+        </>
       </div>
     </DiscoverySection>
   );

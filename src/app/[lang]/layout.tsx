@@ -1,4 +1,4 @@
-import { cookies, headers } from "next/headers";
+import { cookies } from "next/headers";
 import { pretendard } from "@/fonts";
 import { ToastContainer } from "react-toastify";
 
@@ -7,8 +7,12 @@ import "../globals.css";
 
 import Header from "@/components/layout/Header";
 import QueryProvider from "@/providers/QueryProvider";
-import { i18n, type Locale } from "../../i18n-config";
+
+import { i18n, type Locale } from "../../i18n";
+import { getDictionary } from "@/get-dictionary";
+
 import { ChatBot } from "@/components/common";
+import { NextIntlClientProvider } from "next-intl";
 
 import AuthSession from "@/providers/AuthSession";
 
@@ -16,7 +20,7 @@ export async function generateStaticParams() {
   return i18n.locales.map((locale) => ({ lang: locale }));
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
   params,
 }: Readonly<{
@@ -27,17 +31,21 @@ export default function RootLayout({
   const connectCookie = cookieStore.get("connect.sid")?.value;
   const isLoggedIn = connectCookie ? true : false;
 
+  const dictionary = await getDictionary(`${params.lang}`);
+
   return (
     <html lang={params.lang} className={pretendard.className}>
       <body>
-        <AuthSession>
-          <Header isLoggedIn={isLoggedIn} />
-          <main className="relative m-auto min-h-[100vh] max-w-[120rem] pt-[8rem]">
-            <ToastContainer position="top-center" limit={1} />
-            <QueryProvider>{children}</QueryProvider>
-          </main>
-          <ChatBot />
-        </AuthSession>
+        <NextIntlClientProvider messages={dictionary}>
+          <AuthSession>
+            <Header isLoggedIn={isLoggedIn} />
+            <main className="relative m-auto min-h-[100vh] max-w-[120rem] pt-[8rem]">
+              <ToastContainer position="top-center" limit={1} />
+              <QueryProvider>{children}</QueryProvider>
+            </main>
+            {isLoggedIn && <ChatBot />}
+          </AuthSession>
+        </NextIntlClientProvider>
       </body>
     </html>
   );
