@@ -1,9 +1,10 @@
 import { match } from "path-to-regexp";
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
-import { i18n } from "./lib/i18n-config";
+import { i18n } from "./i18n";
 import { match as matchLocale } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
+import { auth } from "./auth";
 
 // 로그인 세션 확인 여부 체크
 async function checkLogin() {
@@ -17,7 +18,13 @@ function requiresAuth(pathname: string, urls: string[]) {
   return urls.some((url) => !!match(url)(pathname));
 }
 
-function getLocale(request: NextRequest): string | undefined {
+export async function getLocale(request: NextRequest): Promise<string | undefined> {
+  // 사용자 세션 확인
+  const userSession = await auth();
+  if (userSession?.user.language && i18n.locales.includes(userSession.user.language)) {
+    return userSession.user.language;
+  }
+
   // Negotiator expects plain object so we need to transform headers
   const negotiatorHeaders: Record<string, string> = {};
   request.headers.forEach((value, key) => (negotiatorHeaders[key] = value));
@@ -38,7 +45,7 @@ export const middleware = async (req: NextRequest) => {
   const url = req.nextUrl.clone();
 
   // Check if there is any supported locale in the pathname
-  const locale = getLocale(req) || i18n.defaultLocale;
+  const locale = (await getLocale(req)) || i18n.defaultLocale;
   const pathnameIsMissingLocale = i18n.locales.every(
     (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`,
   );

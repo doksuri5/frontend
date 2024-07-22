@@ -7,6 +7,7 @@ import ProfileEditModal from "@/app/[lang]/(mypage)/mypage/_components/ProfileEd
 import VerifyModal from "@/app/[lang]/(mypage)/mypage/_components/VerifyModal";
 import WithdrawModal from "@/app/[lang]/(mypage)/mypage/_components/WithdrawModal";
 import MyPageMain from "@/app/[lang]/(mypage)/mypage/_components/MyPageMain";
+import LanguageSettingMain from "@/app/[lang]/(mypage)/mypage/_components/LanguageSettingMain";
 
 export {
   EditPrivacyForm,
@@ -18,4 +19,5 @@ export {
   WithdrawModal,
   PolicyMain,
   MyPageMain,
+  LanguageSettingMain,
 };

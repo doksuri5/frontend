@@ -1,11 +1,8 @@
-import { fetchInterestStockNews, fetchPopularNews, fetchRecentNews } from "@/actions/news";
+import { fetchInterestStockNews, fetchPopularNews } from "@/actions/news";
 import News from "@/app/[lang]/(news)/news/_components";
-import { Locale } from "@/lib/i18n-config";
 
-export default async function NewsPage({ params: { lang } }: { params: { lang: Locale } }) {
-  // const dictionary = await getDictionary(lang);
-
+export default async function NewsPage() {
   const [newsData, interestStockNews] = await Promise.allSettled([fetchPopularNews(), fetchInterestStockNews()]);
 
-  return <News popularNews={newsData} interestStockNews={interestStockNews} />;
+  return <News popularNews={newsData} interestStockNews={interestStockNews} />
 }
