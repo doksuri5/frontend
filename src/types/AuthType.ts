@@ -1,22 +1,35 @@
 import { boolean, z } from "zod";
 
+// 공통
+const nameSchema = z.string().regex(/^[a-zA-Z가-힣\s]+$/, { message: "숫자나 특수기호가 포함될 수 없습니다." });
+const emailSchema = z.string().email({ message: "올바른 이메일 형식이 아닙니다." });
+const phoneSchema = z.string().regex(/^\d{10,12}$/, { message: "유효한 휴대폰 번호를 입력해주세요." });
+const basePasswordSchema = z
+  .string()
+  .regex(
+    /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\[\]{};':",.<>\/?\-]).{8,20}$|^(?=.*[a-zA-Z])(?=.*\d).{8,20}$|^(?=.*[a-zA-Z])(?=.*[!@#$%^&*()_+\[\]{};':",.<>\/?\-]).{8,20}$|^(?=.*\d)(?=.*[!@#$%^&*()_+\[\]{};':",.<>\/?\-]).{8,20}$/,
+    {
+      message: "8-20자 이내 숫자, 특수문자, 영문자 중 2가지 이상을 조합",
+    },
+  );
+
 // 로그인
 export const loginSchema = z.object({
-  email: z.string().email({ message: "올바른 이메일 형식이 아닙니다." }),
+  email: emailSchema,
   password: z.string().min(1, { message: "비밀번호를 입력해주세요." }),
   authLogin: z.boolean().optional(),
 });
 
-// 아이디 찾기
+// 이메일 찾기
 export const findIdSchema = z.object({
-  name: z.string().min(1),
-  phone: z.string().regex(/^\d{10,12}$/, { message: "유효한 휴대폰 번호를 입력해주세요." }),
+  name: nameSchema,
+  phone: phoneSchema,
 });
 
 // 비밀번호 찾기
 export const findPasswordSchema = z.object({
-  name: z.string().min(1),
-  email: z.string().email({ message: "올바른 이메일 형식이 아닙니다." }),
+  name: nameSchema,
+  email: emailSchema,
 });
 
 // 생일
@@ -44,13 +57,13 @@ const birthDateSchema = z
 
 //회원가입
 const baseRegisterSchema = z.object({
-  phone: z.string().regex(/^\d{10,12}$/, { message: "유효한 휴대폰 번호를 입력해주세요." }),
+  phone: phoneSchema,
   birth: birthDateSchema,
 });
 
 const googleRegisterSchema = baseRegisterSchema.extend({
-  name: z.string().regex(/^[a-zA-Z가-힣\s]+$/, { message: "숫자나 특수기호가 포함될 수 없습니다." }),
-  email: z.string().email({ message: "올바른 이메일 형식이 아닙니다." }),
+  name: nameSchema,
+  email: emailSchema,
 });
 
 const kakaoRegisterSchema = googleRegisterSchema.extend({
@@ -58,22 +71,8 @@ const kakaoRegisterSchema = googleRegisterSchema.extend({
 });
 
 const passwordSchema = z.object({
-  password: z
-    .string()
-    .regex(
-      /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\[\]{};':",.<>\/?\-]).{8,20}$|^(?=.*[a-zA-Z])(?=.*\d).{8,20}$|^(?=.*[a-zA-Z])(?=.*[!@#$%^&*()_+\[\]{};':",.<>\/?\-]).{8,20}$|^(?=.*\d)(?=.*[!@#$%^&*()_+\[\]{};':",.<>\/?\-]).{8,20}$/,
-      {
-        message: "8-20자 이내 숫자, 특수문자, 영문자 중 2가지 이상을 조합",
-      },
-    ),
-  passwordChk: z
-    .string()
-    .regex(
-      /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\[\]{};':",.<>\/?\-]).{8,20}$|^(?=.*[a-zA-Z])(?=.*\d).{8,20}$|^(?=.*[a-zA-Z])(?=.*[!@#$%^&*()_+\[\]{};':",.<>\/?\-]).{8,20}$|^(?=.*\d)(?=.*[!@#$%^&*()_+\[\]{};':",.<>\/?\-]).{8,20}$/,
-      {
-        message: "8-20자 이내 숫자, 특수문자, 영문자 중 2가지 이상을 조합",
-      },
-    ),
+  password: basePasswordSchema,
+  passwordChk: basePasswordSchema,
 });
 
 const regularRegisterSchema = kakaoRegisterSchema
@@ -128,17 +127,15 @@ const updatesSchema = z.object({
   date: z.string(),
 });
 
+const baseAgreeSchema = z.object({
+  content: z.string(),
+  lastUpdated: z.string(),
+  updates: z.array(updatesSchema).default([]),
+});
+
 export const AgreeSchema = z.object({
-  termsOfService: z.object({
-    content: z.string(),
-    lastUpdated: z.string(),
-    updates: z.array(updatesSchema).default([]),
-  }),
-  privacyPolicy: z.object({
-    content: z.string(),
-    lastUpdated: z.string(),
-    updates: z.array(updatesSchema).default([]),
-  }),
+  termsOfService: baseAgreeSchema,
+  privacyPolicy: baseAgreeSchema,
   id: z.string(),
 });
 
