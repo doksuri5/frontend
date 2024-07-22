@@ -33,7 +33,6 @@ export const fetchPopularNews = async () => {
       let refinedData = (data as any[]).map(
         ({ content_img, title, description, published_time, publisher, index }) => ({
           image: content_img,
-          // TODO: 시간 포맷팅하기
           date: published_time,
           _id: index,
           title: title.ko,
@@ -107,8 +106,7 @@ export const fetchRecentNews = async (pageParam = 1) => {
       let refinedData = (data.recent_news as any[]).map(
         ({ content_img, title, published_time, publisher, index, content }) => ({
           image: content_img,
-          // TODO:  시간 포맷팅하기
-          date: published_time,
+          publishedTime: published_time,
           _id: index,
           title: title.ko,
           publisher: publisher.ko,
