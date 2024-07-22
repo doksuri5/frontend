@@ -2,6 +2,7 @@ import { match } from "path-to-regexp";
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { i18n } from "./i18n";
+// import { i18n } from "./lib/i18n-config";
 import { match as matchLocale } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
 import { auth } from "./auth";
@@ -69,6 +70,7 @@ export const middleware = async (req: NextRequest) => {
     `/${locale}/find-email`,
     `/${locale}/find-password`,
     `/${locale}/exist`,
+    `/${locale}/withdraw`,
   ]);
 
   // 로그인이 필요한 경로이고 유저가 로그인 하지 않은 경우 로그인 페이지로 넘기기
@@ -87,6 +89,7 @@ export const middleware = async (req: NextRequest) => {
   // header에 pathname 추가
   const requestHeaders = new Headers(req.headers);
   requestHeaders.set("x-pathname", pathname);
+  requestHeaders.set("x-path-locale", locale);
   return NextResponse.next({
     request: {
       headers: requestHeaders,

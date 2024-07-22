@@ -55,7 +55,7 @@ export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalPro
     return () => {
       if (timer) clearTimeout(timer);
     };
-  }, [timeLeft]);
+  }, [customAlert, timeLeft]);
 
   const startTimer = () => {
     setTimeLeft(180);
@@ -65,7 +65,7 @@ export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalPro
     if (seconds === null) return "";
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
-    return `${minutes}:${remainingSeconds < 10 ? `0${remainingSeconds}` : remainingSeconds}`;
+    return `0${minutes}:${remainingSeconds < 10 ? `0${remainingSeconds}` : remainingSeconds}`;
   };
 
   const handleVerifyPassword = async () => {
@@ -221,10 +221,12 @@ export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalPro
                     onChange={(e) => setCode(e.target.value)}
                     labelName="인증 코드 입력"
                     placeholder="인증 코드를 입력해주세요"
+                    suffix={
+                      <div className="text-[1.4rem] text-blue-500">
+                        {timeLeft !== null && formatTime(timeLeft)}
+                      </div>
+                    }
                   />
-                  <div className="flex justify-end text-[1.4rem] text-blue-500">
-                    {timeLeft !== null && formatTime(timeLeft)}
-                  </div>
                   <Button
                     size="lg"
                     bgColor={code ? "bg-navy-900" : "bg-grayscale-200"}

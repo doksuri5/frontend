@@ -11,6 +11,8 @@ type TChartData = {
 
 export default function StockChart({ chartData, period }: TChartData) {
   const [isClient, setIsClient] = useState(false);
+  const [isTooltipActive, setIsTooltipActive] = useState(false);
+  const [defaultIndex, setDefaultIndex] = useState<number>();
 
   useEffect(() => {
     const error = console.error;
@@ -21,14 +23,23 @@ export default function StockChart({ chartData, period }: TChartData) {
       error(...args);
     };
 
+    const timeId = setTimeout(() => {
+      setIsTooltipActive(true);
+      setDefaultIndex(chartData.length - 1);
+    }, 500);
+
     setIsClient(true);
-  }, []);
+
+    return () => {
+      clearTimeout(timeId);
+    };
+  }, [chartData.length]);
 
   const interval = {
-    일: 1,
-    주: 5,
-    월: 2,
-    분기: 2,
+    일: 6,
+    주: 4,
+    월: 7,
+    분기: 4,
     년: 1,
   };
 
@@ -51,7 +62,7 @@ export default function StockChart({ chartData, period }: TChartData) {
         tickFormatter={(tick: string) => {
           const year = tick.slice(0, 4);
           const month = tick.slice(4, 6);
-          return `${year}/${month}`;
+          return `${period === "일" ? "" : `${year}/`}${month}${period === "일" ? `/${tick.slice(6, 8)}` : ""}`;
         }}
         tick={{ fontSize: 12, fontWeight: 400, fill: "#9F9F9F", dx: -10 }} // 레이블 스타일
         tickLine={false} // 레이블 선 스타일
@@ -63,7 +74,7 @@ export default function StockChart({ chartData, period }: TChartData) {
         tickLine={false}
         tick={{ fontSize: 12, fontWeight: 400, fill: "#9F9F9F" }} // 레이블 스타일
       />
-      <Tooltip />
+      <Tooltip defaultIndex={defaultIndex} active={isTooltipActive} />
       <Area type="monotone" dataKey="closePrice" stroke="#47B4E1" fillOpacity={1} fill="url(#customGradient)" />
     </AreaChart>
   );

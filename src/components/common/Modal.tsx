@@ -32,6 +32,7 @@ type TModalProps = {
   onClose: () => void;
   title?: string;
   children: ReactNode;
+  prevIcon?: boolean;
   closeIcon?: boolean;
   isBackdropClosable?: boolean;
 };
@@ -43,6 +44,7 @@ export default function Modal({
   onClose,
   title,
   children,
+  prevIcon = false,
   closeIcon = false,
   isBackdropClosable = false,
 }: TModalProps) {

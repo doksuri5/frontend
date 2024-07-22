@@ -9,13 +9,11 @@ const nextConfig = {
       fullUrl: true,
     },
   },
-  experimental: {
-    instrumentationHook: true,
-  },
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "imgnews.pstatic.net" },
       { protocol: "https", hostname: "doksuri5-s3.s3.ap-northeast-2.amazonaws.com" },
+      { protocol: "https", hostname: "cdn.news.einfomax.co.kr" },
     ],
   },
   webpack(config) {

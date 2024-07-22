@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/common";
 import { cn } from "@/utils/cn";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 import StockChart from "./StockChart";
 import clsx from "clsx";
 import { getStockChartData } from "@/actions/stock";
@@ -10,37 +10,70 @@ import { TReutersCodes } from "@/constants/stockCodes";
 import StockChartSectionSkeleton from "./skeleton/StockChartSectionSkeleton";
 import { MAPPED_PERIOD, StockChartDataType, TMappedPeriod } from "@/types/StockDataType";
 import calculatePeriod from "@/utils/calculate-period";
-
+import isUSMarketOpen from "@/utils/check-us-market-open";
 type TChartData = {
   reutersCode: TReutersCodes;
 };
 
 export default function StockChartSection({ reutersCode }: TChartData) {
   const [period, setPeriod] = useState<keyof TMappedPeriod>("일");
-  const [isLoading, setIsLoading] = useState(false);
   const chartButton: (keyof TMappedPeriod)[] = ["일", "주", "월", "분기", "년"] as const;
   const [chartData, setChartData] = useState<StockChartDataType[]>();
+  const [isPending, startTransition] = useTransition();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const [startDateTime, endDateTime] = calculatePeriod(period);
-      setIsLoading(true);
-      const response = await getStockChartData(undefined, {
-        params: `${reutersCode}/${MAPPED_PERIOD[period]}`,
-        queryString: [`startDateTime=${startDateTime}`, `endDateTime=${endDateTime}`],
+  useEffect(
+    function fetchStockDataByPeriod() {
+      const fetchData = async () => {
+        const [startDateTime, endDateTime] = calculatePeriod(period);
+        const response = await getStockChartData(undefined, {
+          params: `${reutersCode}/${MAPPED_PERIOD[period]}`,
+          queryString: [`startDateTime=${startDateTime}`, `endDateTime=${endDateTime}`],
+        });
+
+        if (!response.data && !response.ok) {
+          return;
+        }
+
+        setChartData(response.data);
+      };
+      startTransition(async () => {
+        await fetchData();
       });
+    },
+    [period, reutersCode],
+  );
 
-      if (!response.data && !response.ok) {
-        return;
+  useEffect(
+    function setEventSourceForSSE() {
+      if (isUSMarketOpen()) {
+        const eventSource = new EventSource(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/stock-sse/${reutersCode}/${MAPPED_PERIOD[period]}`,
+        );
+
+        eventSource.onmessage = (event) => {
+          const newData = JSON.parse(event.data);
+          setChartData((prev) => {
+            if (prev) {
+              return [...prev.filter((data) => data.localDate !== newData.localDate), newData];
+            }
+            return prev;
+          });
+        };
+
+        eventSource.onerror = (error) => {
+          console.error("EventSource failed:", error);
+          eventSource.close();
+        };
+
+        return () => {
+          eventSource.close();
+        };
       }
+    },
+    [period, reutersCode],
+  );
 
-      setChartData(response.data);
-    };
-    fetchData();
-    setIsLoading(false);
-  }, [period, reutersCode]);
-
-  if (isLoading && !chartData) {
+  if (isPending && !chartData) {
     return <StockChartSectionSkeleton />;
   }
 

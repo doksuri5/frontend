@@ -7,15 +7,15 @@ type TDiscoveryProps = {
 };
 
 export default function page({ searchParams }: TDiscoveryProps) {
-  const param = searchParams.search;
+  const params = searchParams.search;
 
   return (
     <article className="flex_col m-auto max-w-[59rem] gap-[3.2rem] py-[5.6rem]">
       <DiscoveryInput />
-      {param ? (
+      {params ? (
         <>
-          <DiscoveryStocks param={param} />
-          <DiscoveryNews param={param} />
+          <DiscoveryStocks />
+          <DiscoveryNews />
         </>
       ) : (
         <>

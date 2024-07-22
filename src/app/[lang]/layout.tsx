@@ -1,4 +1,4 @@
-import { cookies, headers } from "next/headers";
+import { cookies } from "next/headers";
 import { pretendard } from "@/fonts";
 import { ToastContainer } from "react-toastify";
 
@@ -7,8 +7,12 @@ import "../globals.css";
 
 import Header from "@/components/layout/Header";
 import QueryProvider from "@/providers/QueryProvider";
+
 import { i18n, type Locale } from "../../i18n";
 import { getDictionary } from "@/get-dictionary";
+
+// import { i18n, type Locale } from "@/lib/i18n-config";
+
 import { ChatBot } from "@/components/common";
 import { NextIntlClientProvider } from "next-intl";
 
@@ -34,16 +38,16 @@ export default async function RootLayout({
   return (
     <html lang={params.lang} className={pretendard.className}>
       <body>
-        <NextIntlClientProvider messages={dictionary}>
-          <AuthSession>
-            <Header isLoggedIn={isLoggedIn} />
-            <main className="relative m-auto min-h-[100vh] max-w-[120rem] pt-[8rem]">
-              <ToastContainer position="top-center" limit={1} />
-              <QueryProvider>{children}</QueryProvider>
-            </main>
-            <ChatBot />
-          </AuthSession>
-        </NextIntlClientProvider>
+      <NextIntlClientProvider messages={dictionary}>
+        <AuthSession>
+          <Header isLoggedIn={isLoggedIn} />
+          <main className="relative m-auto min-h-[100vh] max-w-[120rem] pt-[8rem]">
+            <ToastContainer position="top-center" limit={1} />
+            <QueryProvider>{children}</QueryProvider>
+          </main>
+          {isLoggedIn && <ChatBot />}
+        </AuthSession>
+</NextIntlClientProvider>
       </body>
     </html>
   );
