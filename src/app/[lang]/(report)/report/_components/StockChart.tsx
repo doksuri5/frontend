@@ -11,8 +11,6 @@ type TChartData = {
 
 export default function StockChart({ chartData, period }: TChartData) {
   const [isClient, setIsClient] = useState(false);
-  const [isTooltipActive, setIsTooltipActive] = useState(false);
-  const [defaultIndex, setDefaultIndex] = useState<number>();
 
   useEffect(() => {
     const error = console.error;
@@ -23,17 +21,8 @@ export default function StockChart({ chartData, period }: TChartData) {
       error(...args);
     };
 
-    const timeId = setTimeout(() => {
-      setIsTooltipActive(true);
-      setDefaultIndex(chartData.length - 1);
-    }, 500);
-
     setIsClient(true);
-
-    return () => {
-      clearTimeout(timeId);
-    };
-  }, [chartData.length]);
+  }, []);
 
   const interval = {
     일: 6,
@@ -74,7 +63,7 @@ export default function StockChart({ chartData, period }: TChartData) {
         tickLine={false}
         tick={{ fontSize: 12, fontWeight: 400, fill: "#9F9F9F" }} // 레이블 스타일
       />
-      <Tooltip defaultIndex={defaultIndex} active={isTooltipActive} />
+      <Tooltip />
       <Area type="monotone" dataKey="closePrice" stroke="#47B4E1" fillOpacity={1} fill="url(#customGradient)" />
     </AreaChart>
   );

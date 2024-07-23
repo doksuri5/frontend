@@ -35,7 +35,7 @@ export default function StockAIReport({ reutersCode }: TStockAIReport) {
         <h2 className="body_1 font-bold text-navy-900">종목 AI 리포트</h2>
         <h2 className="heading_3 font-medium text-grayscale-700">{totalScore ?? 0}점</h2>
       </div>
-      <SimpleReportCard isShowHeader={false} reutersCode={reutersCode} />
+      <SimpleReportCard isShowHeader={false} reutersCode={reutersCode} isShowPrice={false} />
     </div>
   );
 }
