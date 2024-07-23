@@ -1,4 +1,5 @@
 import { StaticImageData } from "next/image";
+import { z } from "zod";
 
 export interface CardNewsDataType {
   _id?: string;
@@ -24,3 +25,9 @@ export interface NewsDetailType extends NewsItemType {
   view: string;
   aiSummary: string;
 }
+
+export const NewsSummarySchema = z.object({
+  newsSummary: z.string(),
+});
+
+export type NewsSummaryType = z.infer<typeof NewsSummarySchema>;

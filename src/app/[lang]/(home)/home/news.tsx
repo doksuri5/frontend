@@ -30,19 +30,17 @@ const News = ({ popularNews, interestNews }: { popularNews: any; interestNews: a
           ))}
         </ul>
         <p className="body_1 pb-[1.6rem] pt-[4.8rem]">주요 뉴스</p>
-        <ul className="flex flex-col gap-[1.6rem] divide-y rounded-[1.6rem] border p-[4.8rem]">
-          <div className="pb-[3.2rem] pt-[1.6rem] shadow-sm">
-            <NewsItem
-              variant="lineClamp-4"
-              _id={popularNews[0]._id}
-              image={popularNews[0].image}
-              title={popularNews[0].title}
-              description={popularNews[0].description}
-              publishedTime={popularNews[0].date}
-              publisher={popularNews[0].publisher}
-            />
-          </div>
-        </ul>
+        <div className="flex flex-col gap-[1.6rem] divide-y rounded-[1.6rem] border p-[4.8rem]">
+          <NewsItem
+            variant="lineClamp-4"
+            _id={popularNews[0]._id}
+            image={popularNews[0].image}
+            title={popularNews[0].title}
+            description={popularNews[0].description}
+            publishedTime={popularNews[0].date}
+            publisher={popularNews[0].publisher}
+          />
+        </div>
         <p className="body_1 pb-[1.6rem] pt-[4.8rem]">최신 뉴스</p>
         <div className="flex gap-[2rem]">
           <NewsInfinityList
