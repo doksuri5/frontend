@@ -6,10 +6,6 @@ import NaverProvider from "next-auth/providers/naver";
 import KakaoProvider from "next-auth/providers/kakao";
 import GoogleProvider from "next-auth/providers/google";
 
-import connectDB from "./lib/db";
-import { User } from "./lib/schema";
-import { compare } from "bcryptjs";
-
 import { EXIST_PATH, LOGIN_PATH, MAIN_PATH, LOGIN_ERROR_PATH } from "./routes/path";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
@@ -30,19 +26,20 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         const { email, password, autoLogin } = credentials;
 
         try {
-          await connectDB();
-          const user = await User.findOne({ email, is_delete: false }).select("+password");
-
-          if (!user) {
-            console.log("Credentials Login Fail : 가입되지 않은 회원");
+          const fetchResponse = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/userCheck`, {
+            method: "POST",
+            body: JSON.stringify({ email, pw: password }),
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+          });
+          const responseData = await fetchResponse.json();
+          if (!responseData.ok) {
             return null;
           }
 
-          const isMatched = await compare(String(password), user.password);
-          if (!isMatched) {
-            console.log("Credentials Login Fail : 비밀번호 불일치");
-            return null;
-          }
+          const user = responseData.data;
 
           const autoLoginCheck = autoLogin === "true" ? true : false;
           await loginCookie(user.sns_id, user.email, autoLoginCheck, "local"); // 로그인 시 쿠키 발급
@@ -113,15 +110,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   callbacks: {
     async signIn({ user, account, profile }) {
       try {
-        await connectDB();
-
         let socialUserOption;
 
         if (account?.provider === "credentials") {
           user.role = "user";
         } else if (account?.provider === "naver" || account?.provider === "google") {
           socialUserOption = {
-            email: user.email,
+            email: user.email as string,
             sns_id: account.providerAccountId,
             login_type: account.provider,
             is_delete: false,
@@ -134,15 +129,18 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           };
         }
 
-        const existingUser = await User.findOne(
-          {
-            email: user.email,
-            is_delete: false,
-          },
-          { email: 1 },
-        );
+        // 기존 사용자 확인
+        const existingUserData = await fetchApi(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/getUser`, {
+          email: user.email as string,
+          is_delete: false,
+        });
+        const existingUser = existingUserData.data;
 
-        const socialUser = await User.findOne(socialUserOption);
+        // 소셜 사용자 확인
+        const socialUserData =
+          socialUserOption &&
+          (await fetchApi(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/getSocialUser`, socialUserOption));
+        const socialUser = socialUserData?.data;
 
         if (socialUser) {
           // SNS 로그인
@@ -207,10 +205,28 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
 });
 
+interface IbodyType {
+  sns_id?: string;
+  email?: string;
+  autoLoginCheck?: boolean;
+  login_type?: string;
+  is_delete?: boolean;
+}
+const fetchApi = async (url: string, body: IbodyType) => {
+  const response = await fetch(url, {
+    method: "POST",
+    body: JSON.stringify(body),
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+  });
+  return response.json();
+};
+
 const loginCookie = async (sns_id: string, email: string, autoLoginCheck: boolean, login_type: string) => {
   // 로그인 완료 시 백엔드 통신 (쿠키 저장)
   const body = { sns_id, email, autoLoginCheck, login_type };
-  // console.log(body);
   const fetchResponse = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/login`, {
     method: "POST",
     body: JSON.stringify(body),
