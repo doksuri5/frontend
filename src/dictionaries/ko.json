@@ -1,5 +1,5 @@
 {
-  "header":{
+  "header": {
     "discovery": "발견",
     "news": "뉴스",
     "interestStocks": "관심종목",
@@ -7,7 +7,7 @@
     "login": "로그인",
     "logout": "로그아웃"
   },
-  "stocks":{
+  "stocks": {
     "stockApple": "애플",
     "stockMicroSoft": "마이크로소프트",
     "stockAmazon": "아마존",
@@ -15,7 +15,7 @@
     "stockGoogle": "구글",
     "stockTesla": "테슬라"
   },
-  "news":{
+  "news": {
     "todaysPopularNews": "오늘 인기있는 뉴스",
     "newsRelatedInterestStock": "관심 종목과 관련된 뉴스",
     "latestNews": "최신 뉴스",
@@ -23,7 +23,7 @@
     "relatedArticles": "관련 기사",
     "AISummary": "아잇나우 AI요약"
   },
-  "report":{
+  "report": {
     "stock": "주식",
     "addInterestStock": "관심종목 추가",
     "removeInterestStock": "관심종목 해제",
@@ -45,5 +45,8 @@
     "interestLevel": "관심도",
     "delete": "삭제하기",
     "viewDetails": "자세히 보기"
+  },
+  "chatBot": {
+    "initMessage": "안녕하세요! 나우챗봇입니다. 무엇을 도와드릴까요?"
   }
 }

@@ -1,23 +1,17 @@
-"use client";
-
 import ReportHeader from "./ReportHeader";
 import StockDetail from "./StockDetail";
 import StockChartSection from "./StockChartSection";
 import AIAnalystReport from "./AIAnalystReport";
 import StockAIReport from "./StockAIReport";
-import { DUMMY_POPULAR_NEWS_ITEMS } from "@/app/[lang]/(news)/news/_components";
-import { lazy, Suspense } from "react";
+import { Suspense } from "react";
 import PopularNewsSkeleton from "@/components/common/skeleton/PopularNewsSkeleton";
 import { TReutersCodes } from "@/constants/stockCodes";
+import { PopularNews } from "@/components/common";
+import { fetchPopularNews } from "@/actions/news";
 
-const PopularNewsComponent = lazy(
-  () =>
-    new Promise<{ default: React.ComponentType<any> }>((resolve) =>
-      setTimeout(() => resolve(import("@/components/common/PoPularNews")), 2000),
-    ),
-);
+export default async function Report({ reutersCode }: { reutersCode: TReutersCodes }) {
+  const newsData = await fetchPopularNews();
 
-export default function Report({ reutersCode }: { reutersCode: TReutersCodes }) {
   return (
     <div className="flex flex-col gap-[2.4rem] pb-[12rem] pt-[4.7rem]">
       <ReportHeader reutersCode={reutersCode} />
@@ -30,7 +24,7 @@ export default function Report({ reutersCode }: { reutersCode: TReutersCodes }) 
         <AIAnalystReport reutersCode={reutersCode} />
       </div>
       <Suspense fallback={<PopularNewsSkeleton />}>
-        {/* <PopularNewsComponent popularNewsData={DUMMY_POPULAR_NEWS_ITEMS} /> */}
+        <PopularNews popularNewsData={newsData ?? []} />
       </Suspense>
     </div>
   );

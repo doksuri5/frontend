@@ -68,7 +68,6 @@ export const fetchInterestStockNews = async () => {
       if (data.length > 0) {
         let refinedData = (data as any[]).map(({ content_img, title, published_time, publisher, index }) => ({
           image: content_img,
-          // TODO: 시간 포맷팅하기
           date: published_time,
           _id: index,
           title: title.ko,
@@ -143,7 +142,6 @@ export const fetchNewsDetail = async (index: any) => {
 
       let refinedNews = {
         image: news.content_img,
-        // TODO: 시간 포맷팅하기
         publishedTime: news.published_time,
         _id: news.index,
         title: news.title.ko,

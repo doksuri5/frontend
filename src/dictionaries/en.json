@@ -44,5 +44,8 @@
     "interestLevel": "Interest Level",
     "delete": "Delete",
     "viewDetails": "View Details"
+  },
+  "chatBot": {
+    "initMessage": "Hello! I'm NowChatBot. How can I help you?"
   }
 }
