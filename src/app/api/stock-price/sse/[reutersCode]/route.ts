@@ -11,25 +11,29 @@ export const GET = async (request: NextRequest, { params }: { params: { reutersC
     }
 
     const interval = 10000;
-    let keepAlive = true;
     const symbolCode = reutersCode.replace(".O", "");
 
     const encoder = new TextEncoder();
 
     const fetchStockPrice = async () => {
-      const quoteSummary = await yahooFinance.quoteSummary(symbolCode, {
-        modules: ["price"],
-      });
+      try {
+        const quoteSummary = await yahooFinance.quoteSummary(symbolCode, {
+          modules: ["price"],
+        });
 
-      const data = {
-        symbolCode: quoteSummary.price?.symbol,
-        closePrice: quoteSummary.price?.regularMarketPrice,
-        fluctuationsRatio: quoteSummary.price?.regularMarketChangePercent,
-        compareToPreviousClosePrice: quoteSummary.price?.regularMarketChange,
-      };
-
-      return data;
+        const data = {
+          symbolCode: quoteSummary.price?.symbol,
+          closePrice: quoteSummary.price?.regularMarketPrice,
+          fluctuationsRatio: (quoteSummary.price?.regularMarketChangePercent ?? 0) * 100,
+          compareToPreviousClosePrice: quoteSummary.price?.regularMarketChange,
+        };
+        return data;
+      } catch (error) {
+        console.error(error);
+      }
     };
+
+    let keepAlive = true;
 
     const customReadable = new ReadableStream({
       start(controller) {
@@ -44,8 +48,6 @@ export const GET = async (request: NextRequest, { params }: { params: { reutersC
 
           if (keepAlive) {
             setTimeout(sendStockData, interval);
-          } else {
-            controller.close();
           }
         };
 
