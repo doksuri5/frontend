@@ -104,7 +104,7 @@ export const getStockChartData = api.get({
   baseOptions: {
     isFetchFromRouteHandler: true,
     next: {
-      revalidate: 10,
+      revalidate: 60,
     },
   },
 })<undefined, StockChartDataType>;

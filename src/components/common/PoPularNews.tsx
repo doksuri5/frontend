@@ -1,14 +1,20 @@
+import { getDateWithoutTime } from "@/utils/getDateWithoutTime";
 import Card from "./Card";
 import { CardNewsDataType } from "@/types";
+import { useTranslations } from "next-intl";
 
 type TPopularNewsType = {
   popularNewsData: CardNewsDataType[];
 };
 
 const PopularNews = ({ popularNewsData }: TPopularNewsType) => {
+  const t = useTranslations();
+
   return (
     <div className="flex flex-col gap-[2.4rem]">
-      <h2 className="heading_4 font-bold text-navy-900">오늘 인기있는 뉴스</h2>
+      <h2 className="heading_4 font-bold text-navy-900">
+        {t("news.todaysPopularNews", { defaultMessage: "오늘 인기있는 뉴스" })}
+      </h2>
       <div className="flex min-w-[120px] gap-[2rem]">
         <Card
           variant="fullMediaCard"
@@ -16,7 +22,7 @@ const PopularNews = ({ popularNewsData }: TPopularNewsType) => {
           image={popularNewsData[0]?.image}
           title={popularNewsData[0].title}
           content={popularNewsData[0].description}
-          date={popularNewsData[0].date}
+          date={getDateWithoutTime(popularNewsData[0].date)}
           publisher={popularNewsData[0].publisher}
           style="w-1/2 h-full"
         />
@@ -26,7 +32,7 @@ const PopularNews = ({ popularNewsData }: TPopularNewsType) => {
             image={popularNewsData[1]?.image}
             title={popularNewsData[1].title}
             content={popularNewsData[1].description}
-            date={popularNewsData[1].date}
+            date={getDateWithoutTime(popularNewsData[1].date)}
             publisher={popularNewsData[1].publisher}
             variant="fullMediaCard"
             size="small"
@@ -36,7 +42,7 @@ const PopularNews = ({ popularNewsData }: TPopularNewsType) => {
             image={popularNewsData[2]?.image}
             title={popularNewsData[2].title}
             content={popularNewsData[2].description}
-            date={popularNewsData[2].date}
+            date={getDateWithoutTime(popularNewsData[2].date)}
             publisher={popularNewsData[2].publisher}
             variant="fullMediaCard"
             size="small"

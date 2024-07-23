@@ -2,6 +2,9 @@ import type { NextRequest } from "next/server";
 import { createOpenAI } from "@ai-sdk/openai";
 import { streamText } from "ai";
 import { auth } from "@/auth";
+import { AI_MODEL, LANGUAGE_MAP } from "@/constants/ai-info";
+
+export const dynamic = "force-dynamic";
 
 export const maxDuration = 30;
 
@@ -10,14 +13,14 @@ export const POST = async (req: NextRequest) => {
   const session = await auth();
 
   const ai = createOpenAI({
-    apiKey: process.env.OPENAI_KEY,
+    apiKey: process.env.OPENAI_API_KEY,
   });
 
-  const model = ai.chat("gpt-3.5-turbo");
+  const model = ai.chat(AI_MODEL);
   // add finance tools to the model
   const result = await streamText({
     model,
-    system: `You are a helpful stock analyst. Answer my questions about the stock market. but short and sweet. answer in ${session?.user.language ?? "ko"} language.`,
+    system: `You are a helpful stock analyst. Answer my questions about the stock market. please answer in ${LANGUAGE_MAP[session?.user.language ?? "ko"]}.`,
     messages,
   });
 

@@ -30,14 +30,12 @@ export default function StockAIReport({ reutersCode }: TStockAIReport) {
   if (!totalScore) return <StockAIReportSkeleton />;
 
   return (
-    <section className="min-h-[29.5rem] min-w-[43rem]">
-      <div className="min-h-[29.5rem] flex-1 rounded-[1.6rem] bg-white p-[3.2rem]">
-        <div className="flex justify-between gap-[0.8rem]">
-          <h2 className="body_1 font-bold text-navy-900">종목 AI 리포트</h2>
-          <h2 className="heading_3 font-medium text-grayscale-700">{totalScore ?? 0}점</h2>
-        </div>
-        <SimpleReportCard isShowHeader={false} reutersCode={reutersCode} />
+    <div className="flex_col min-h-[28rem] min-w-[43rem] flex-1 rounded-[1.6rem] bg-white p-[3.2rem]">
+      <div className="flex w-full justify-between gap-[0.8rem]">
+        <h2 className="body_1 font-bold text-navy-900">종목 AI 리포트</h2>
+        <h2 className="heading_3 font-medium text-grayscale-700">{totalScore ?? 0}점</h2>
       </div>
-    </section>
+      <SimpleReportCard isShowHeader={false} reutersCode={reutersCode} isShowPrice={false} />
+    </div>
   );
 }

@@ -1,13 +1,14 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { cn } from "@/utils/cn";
 import { Modal, Button, Dropdown, Input, Alert } from "@/components/common";
 import useUserStore from "@/stores/useUserStore";
-import { cn } from "@/utils/cn";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import useAlert from "@/hooks/use-alert";
 import { passwordCert } from "../_api/privacyApi";
 import { deleteGoogleUserAccount, deleteKakaoUserAccount, deleteNaverUserAccount, withdraw } from "../_api/withdrawApi";
-import useAlert from "@/hooks/use-alert";
+import useToast from "@/hooks/use-toast";
 
 const withdrawReasons = [
   { value: "inconvenient_service", text: "이용이 불편하고 장애가 많아서" },
@@ -30,6 +31,7 @@ export interface IWithdrawForm {
 export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) {
   const { userStoreData } = useUserStore();
   const { alertInfo, customAlert } = useAlert();
+  const { showLoadingToast, updateToast } = useToast();
   const router = useRouter();
 
   const [password, setPassword] = useState("");
@@ -83,12 +85,12 @@ export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) 
   };
 
   const handleWithdraw = async () => {
-    if (userStoreData?.login_type === "local") {
-      const passwordResponse = await handleVerifyPassword();
-      if (!passwordResponse) return;
-    } else {
+    const loadingToastId = showLoadingToast("회원 탈퇴 처리 중...");
+
+    if (userStoreData?.login_type !== "local"){
       const socialResult = await handleSocialAccountWithdraw(userStoreData!.login_type);
       if (!socialResult) {
+        updateToast(loadingToastId, `${userStoreData!.login_type.toUpperCase()} 로그인 회원 탈퇴 도중 오류 발생`, "error");
         customAlert({
           title: `${userStoreData!.login_type.toUpperCase()} 로그인 회원 탈퇴 도중 오류가 발생했습니다.`,
           subText: "잠시 후 다시 시도해 주세요.",
@@ -97,6 +99,15 @@ export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) 
         return;
       }
     }
+
+    if (userStoreData?.login_type === "local") {
+      const passwordResponse = await handleVerifyPassword();
+      if (!passwordResponse) {
+        updateToast(loadingToastId, "비밀번호 검증 실패", "error");
+        return
+      };
+    }
+    
 
     const formData = {
       email: userStoreData?.email,
@@ -108,6 +119,7 @@ export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) 
       const response = await withdraw(formData);
 
       if (!response.ok) {
+        updateToast(loadingToastId, "회원 탈퇴 처리 중 오류 발생", "error");
         customAlert({
           title: "회원 탈퇴 처리 중 오류가 발생했습니다.",
           subText: "잠시 후 다시 시도해 주세요.",
@@ -116,8 +128,10 @@ export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) 
         return;
       }
 
-      router.push("/withdraw");
+      updateToast(loadingToastId, "회원 탈퇴가 성공적으로 처리되었습니다.", "success");
+      router.replace("/withdraw")
     } catch (err) {
+      updateToast(loadingToastId, "회원 탈퇴 처리 중 오류 발생", "error");
       customAlert({
         title: "회원 탈퇴 처리 중 오류가 발생했습니다.",
         subText: err instanceof Error ? err.message : "알 수 없는 오류가 발생했습니다.",

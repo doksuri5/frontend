@@ -45,16 +45,20 @@ export default function StockChartSection({ reutersCode }: TChartData) {
 
   useEffect(
     function setEventSourceForSSE() {
-      if (isUSMarketOpen()) {
-        const eventSource = new EventSource(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/api/stock-sse/${reutersCode}/${MAPPED_PERIOD[period]}`,
-        );
+      if (isUSMarketOpen() && period === "일") {
+        const eventSource = new EventSource(`${process.env.NEXT_PUBLIC_BASE_URL}/api/stock-price/sse/${reutersCode}`);
 
         eventSource.onmessage = (event) => {
           const newData = JSON.parse(event.data);
+
           setChartData((prev) => {
             if (prev) {
-              return [...prev.filter((data) => data.localDate !== newData.localDate), newData];
+              const parsedData = {
+                ...prev[prev.length - 1],
+                closePrice: newData.closePrice,
+              };
+
+              return prev.slice(0, -1).concat(parsedData);
             }
             return prev;
           });

@@ -20,6 +20,10 @@ export async function withdraw(formData: IWithdrawForm) {
     });
 
     const data = await response.json();
+
+    if (data.ok) {
+      cookieStore.delete("connect.sid")
+    }
     return data;
   }
 }

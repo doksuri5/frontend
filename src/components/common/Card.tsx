@@ -74,7 +74,7 @@ export default function Card({
         <Link href={`${NEWS_PATH}/${_id}`}>
           <div className={cn(`flex min-h-[36rem] min-w-[38.8rem] flex-col overflow-hidden rounded-[1.6rem] ${style}`)}>
             <div className="relative min-h-[23.6rem] w-[100%]">
-              <Image src={image || Rectangle} alt="news-image" className="object-cover" fill />
+              <Image src={image || Rectangle} alt="news-image" className="object-cover" sizes="388px" fill />
             </div>
             <div className="flex w-full flex-col gap-[.8rem] rounded-b-[1.6rem] bg-grayscale-0 px-[2.4rem] py-[1.6rem] font-medium">
               <div className="body_3 line-clamp-2 h-[5.6rem] cursor-pointer text-ellipsis text-grayscale-900">
@@ -104,6 +104,7 @@ export default function Card({
               <Image
                 fill
                 sizes={`${size === "large" ? "min-h-[42rem]" : "min-h-[20rem]"}`}
+                className="object-cover"
                 src={image || (size === "large" ? LargeRect : SmallRect)}
                 alt="news-image"
               />
