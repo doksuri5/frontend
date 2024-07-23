@@ -5,6 +5,7 @@ import { Card, CardSkeleton, PopularNews, PopularNewsSkeleton } from "@/componen
 import NewsInfinityList from "@/app/[lang]/(news)/news/_components/NewsInfinityList";
 import { Suspense, useState } from "react";
 import useInfiniteNews from "@/hooks/useInfiniteNews";
+import { getTimeDifference } from "@/utils/getTimeDifference";
 
 export default function News({ popularNews, interestStockNews }: any) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -36,13 +37,14 @@ export default function News({ popularNews, interestStockNews }: any) {
               interestStockNews.value.map((news: any) => (
                 <Card
                   key={news._id}
+                  _id={news._id}
                   variant="halfMediaCard"
                   style="w-1/3"
-                  date={news.date}
+                  date={`${getTimeDifference(news.date)}`}
                   title={news.title}
                   image={news.image}
                   content={news.description}
-                  publisher={news.newspaperCompany}
+                  publisher={news.publisher}
                 />
               ))
             ) : (
