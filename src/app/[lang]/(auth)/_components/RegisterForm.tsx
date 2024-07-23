@@ -69,6 +69,7 @@ export default function RegisterForm() {
     setTimeExpired(false); // 타이머 만료 상태 초기화
     setValue("emailCertification", "");
     clearErrors("emailCertification");
+    setIsEmailShow(false);
 
     if (valid) {
       try {
@@ -85,7 +86,7 @@ export default function RegisterForm() {
             cache: "no-store",
           })
         ).json();
-
+        setIsEmailShow(true);
         if (response.ok) {
           updateToast(toast, "이메일 전송이 완료되었습니다.", "success");
           setIsOpen(true); // 팝업 노출
