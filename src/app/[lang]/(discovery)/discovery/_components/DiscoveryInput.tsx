@@ -21,7 +21,7 @@ const DiscoveryInput = () => {
 
     if (search.trim() !== "") {
       const response = await saveRecentSearch({ stockName: search });
-      if (response.ok) params.set("search", search);
+      if (response.ok) params.set("search", encodeURIComponent(search));
     } else {
       params.delete("search");
     }
