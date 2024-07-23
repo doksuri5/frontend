@@ -25,7 +25,7 @@ const ReportCardContent = ({ reutersCode }: { reutersCode: TReutersCodes }) => {
   }, [reutersCode]);
 
   if (!stockAnalysis || isLoading) {
-    return <Skeleton className="h-[20rem] w-full" />;
+    return <Skeleton className="h-[18rem] w-full" />;
   }
 
   return (
