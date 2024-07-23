@@ -63,7 +63,6 @@ const News = ({ popularNews, interestNews }: { popularNews: any; interestNews: a
     }
   };
 
-  console.log(popularNews);
   return (
     <section>
       <h2 className="heading_4 pb-[2.4rem] font-bold">스팩님을 위한 주식 뉴스</h2>
