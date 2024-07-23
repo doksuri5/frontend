@@ -142,6 +142,8 @@ export const AgreeSchema = z.object({
   id: z.string(),
 });
 
+export type TLanguages = "ko" | "en" | "ch" | "fr" | "jp";
+
 export type TLoginSchema = z.infer<typeof loginSchema>;
 export type TFindEmailSchema = z.infer<typeof findIdSchema>;
 export type TFindPasswordSchema = z.infer<typeof findPasswordSchema>;

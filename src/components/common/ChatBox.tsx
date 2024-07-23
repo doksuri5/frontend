@@ -7,6 +7,8 @@ import CloseIcon from "@/public/icons/close_icon.svg?component";
 import { useChat } from "ai/react";
 import Image from "next/image";
 import { generateId } from "ai";
+import { useTranslations } from "next-intl";
+import { useSession } from "next-auth/react";
 
 type ChatBoxProps = {
   close: () => void;
@@ -14,18 +16,16 @@ type ChatBoxProps = {
 
 export default function ChatBox({ close }: ChatBoxProps) {
   const messagesContainerRef = useRef<HTMLDivElement>(null);
+  const t = useTranslations();
 
   const { messages, input, handleInputChange, handleSubmit } = useChat({
     initialMessages: [
       {
         id: generateId(),
         role: "assistant",
-        content: "안녕하세요! 나우챗봇입니다. 무엇을 도와드릴까요?",
+        content: `${t("chatBot.initMessage", { defaultMessage: "안녕하세요! 나우챗봇입니다. 무엇을 도와드릴까요?" })}`,
       },
     ],
-    body: {
-      stop: ["<|eot_id|>"],
-    },
   });
 
   useEffect(() => {
