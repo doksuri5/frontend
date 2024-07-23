@@ -6,6 +6,8 @@ import useDraggable from "@/hooks/use-draggable";
 import { useRef } from "react";
 import NewsImage from "@/public/icons/news.jpg";
 import { NewsItemType } from "@/types";
+import NewsInfinityList from "../../(news)/news/_components/NewsInfinityList";
+import useInfiniteNews from "@/hooks/useInfiniteNews";
 
 const NEWS = [
   {
@@ -51,9 +53,15 @@ const DUMMY_NEWS_ITEMS = [...Array(3)].map(
   }),
 );
 
-const News = () => {
+const News = ({ popularNews, interestNews }: { popularNews: any; interestNews: any }) => {
   const ref = useRef(null);
   const draggableOptions = useDraggable(ref);
+  const { newsData, fetchNextPage, hasNextPage, isFetchingNextPage, status } = useInfiniteNews();
+  const handleFetchNextPage = () => {
+    if (hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
+    }
+  };
 
   return (
     <section>
@@ -61,7 +69,7 @@ const News = () => {
       <div className="flex flex-col rounded-[1.6rem] bg-white p-[4.8rem]">
         <p className="body_1 pb-[1.6rem]">관심종목</p>
         <ul className="flex gap-[2rem] overflow-x-scroll scrollbar-hide" ref={ref} {...draggableOptions()}>
-          {NEWS.map((item) => (
+          {interestNews.map((item: any) => (
             <Card key={item.id} variant="iconCard" date={item.date} title={item.title} />
           ))}
         </ul>
@@ -69,33 +77,29 @@ const News = () => {
         <ul className="flex flex-col gap-[1.6rem] divide-y rounded-[1.6rem] border p-[4.8rem]">
           <div className="pb-[3.2rem] pt-[1.6rem] shadow-sm">
             <NewsItem
-              _id={DUMMY_NEWS_ITEMS[0]._id}
+              _id={popularNews[0]._id}
               variant="lineClamp-4"
-              image={DUMMY_NEWS_ITEMS[0].image}
-              title={DUMMY_NEWS_ITEMS[0].title}
-              description={DUMMY_NEWS_ITEMS[0].description}
-              publishedTime={DUMMY_NEWS_ITEMS[0].publishedTime}
-              publisher={DUMMY_NEWS_ITEMS[0].publisher}
-              key={DUMMY_NEWS_ITEMS[0].title}
+              image={popularNews[0].image}
+              title={popularNews[0].title}
+              description={popularNews[0].description}
+              publishedTime={popularNews[0].date}
+              publisher={popularNews[0].publisher}
             />
           </div>
         </ul>
         <p className="body_1 pb-[1.6rem] pt-[4.8rem]">최신 뉴스</p>
-        <ul className="flex flex-col gap-[1.6rem] divide-y rounded-[1.6rem] border p-[4.8rem]">
-          {DUMMY_NEWS_ITEMS.map((newsItem) => (
-            <div className="pb-[3.2rem] pt-[1.6rem] shadow-sm" key={newsItem._id}>
-              <NewsItem
-                _id={newsItem._id}
-                image={newsItem.image}
-                title={newsItem.title}
-                description={newsItem.description}
-                publishedTime={newsItem.publishedTime}
-                publisher={newsItem.publisher}
-                key={newsItem.title}
-              />
-            </div>
-          ))}
-        </ul>
+        <div className="flex gap-[2rem]">
+          <NewsInfinityList
+            newsItems={newsData}
+            lineClamp={"lineClamp-4"}
+            variant="border"
+            style="max-h-[85rem]"
+            fetchNextPage={handleFetchNextPage}
+            hasNextPage={hasNextPage}
+            isFetchingNextPage={isFetchingNextPage}
+            status={status}
+          />
+        </div>
       </div>
     </section>
   );

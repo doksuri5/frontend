@@ -4,6 +4,7 @@ import AiReports from "./_components/ai-reports";
 import { getDetailInterestStocks } from "@/actions/stock";
 import { StockItem } from "@/components/common";
 import { cn } from "@/utils/cn";
+import { fetchInterestStockNews, fetchPopularNews } from "@/actions/news";
 
 export const dynamic = "force-dynamic";
 
@@ -15,6 +16,7 @@ const getInterestStocks = async () => {
 
 export default async function HomePage() {
   const data = await getInterestStocks();
+  const [newsData, interestStockNews] = await Promise.allSettled([fetchPopularNews(), fetchInterestStockNews()]);
 
   return (
     <div className="flex h-full flex-col gap-[4.8rem] bg-background-100 pb-[10rem]">
@@ -48,7 +50,10 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
-      <News />
+      <News
+        popularNews={newsData.status === "fulfilled" && newsData.value}
+        interestNews={interestStockNews.status === "fulfilled" && interestStockNews.value}
+      />
     </div>
   );
 }

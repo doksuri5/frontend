@@ -3,17 +3,15 @@
 import WarningIcon from "@/public/icons/warning_icon.svg?component";
 import { Card, CardSkeleton, PopularNews, PopularNewsSkeleton } from "@/components/common";
 import NewsInfinityList from "@/app/[lang]/(news)/news/_components/NewsInfinityList";
-import { Suspense, useState } from "react";
+import { Suspense } from "react";
 import useInfiniteNews from "@/hooks/useInfiniteNews";
 import { getTimeDifference } from "@/utils/getTimeDifference";
 
 export default function News({ popularNews, interestStockNews }: any) {
-  const [currentPage, setCurrentPage] = useState(1);
   const { newsData, fetchNextPage, hasNextPage, isFetchingNextPage, status } = useInfiniteNews();
 
   const handleFetchNextPage = () => {
     if (hasNextPage && !isFetchingNextPage) {
-      setCurrentPage((prevPage) => prevPage + 1);
       fetchNextPage();
     }
   };

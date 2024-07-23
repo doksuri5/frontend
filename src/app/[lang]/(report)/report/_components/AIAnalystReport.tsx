@@ -3,12 +3,10 @@
 import { getStockAnalysis } from "@/actions/stock-analysis";
 import { STOCK_NAMES, TReutersCodes } from "@/constants/stockCodes";
 import { StockAIReportDataType } from "@/types/StockDataType";
-import { cn } from "@/utils/cn";
-import { formatOnlyIndicator, getTextColor } from "@/utils/stockPriceUtils";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import AIAnalystReportSkeleton from "./skeleton/AIAnalystReportSkeleton";
-import CountUp from "react-countup";
+import StockPrice from "@/components/common/StockPrice";
 
 type TAIAnalystReport = {
   reutersCode: TReutersCodes;
@@ -41,18 +39,7 @@ export default function AIAnalystReport({ reutersCode }: TAIAnalystReport) {
         <Image src={`/icons/stocks/${STOCK_NAMES[reutersCode]}.svg`} alt="icon" width={30} height={30} />
         <h3 className="body_3 font-bold">{aiData.metrics.stockName}</h3>
         <h3 className="body_3 font-normal">{aiData.metrics.symbolCode}</h3>
-        <div className="body_4 font-medium">
-          <span>${aiData.metrics.closePrice}</span>
-        </div>
-        <div className={cn(`body_4 flex gap-[0.8rem] font-normal ${getTextColor(aiData.metrics.closePriceChange)}`)}>
-          <span>
-            {formatOnlyIndicator(aiData.metrics.closePriceChange)}
-            <CountUp end={Math.abs(aiData.metrics.closePriceChange)} decimals={2} />
-          </span>
-          <span>
-            <CountUp end={Math.abs(aiData.metrics.fluctuationsRatio)} decimals={2} />%
-          </span>
-        </div>
+        <StockPrice reutersCode={reutersCode} />
       </div>
       <p className="body_4 font-medium">{aiData.report}</p>
     </section>
