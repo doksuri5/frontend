@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Select, { components, MultiValue } from "react-select";
@@ -54,6 +54,7 @@ export default function ProfileSetUpForm() {
   const [isPending, startTransition] = useTransition();
   const [isOpenOfInvestPropensity, setIsOpenOfInvestPropensity] = useState(false);
   const [isOpenOfSuggestion, setIsOpenOfSuggestion] = useState(false);
+  const [isReadyToSubmit, setIsReadyToSubmit] = useState(false);
 
   const router = useRouter();
   const { data: session } = useSession();
@@ -67,7 +68,17 @@ export default function ProfileSetUpForm() {
     watch: watchProfile,
     setError,
     setValue,
+    getValues,
   } = useZodSchemaForm<TProfileSchema>(profileSchema, { isAgreeCreditInfo: false });
+
+  // 폼 제출 제어
+  useEffect(() => {
+    if (isReadyToSubmit) {
+      handleProfileSubmit(onProfileSetUpSubmit)();
+      setIsReadyToSubmit(false); // 제출 후 상태 초기화
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isReadyToSubmit]);
 
   const isAgreeCreditInfo = watchProfile("isAgreeCreditInfo");
 
@@ -161,6 +172,8 @@ export default function ProfileSetUpForm() {
 
   // 가입하기 버튼 클릭시 실행되는 이벤트
   const onProfileSetUpSubmit = async (data: TProfileSchema) => {
+    if (!isReadyToSubmit) return;
+
     const formData = new FormData();
 
     const additionalData = registerFormData();
@@ -199,9 +212,9 @@ export default function ProfileSetUpForm() {
 
     formData.append("nickname", data.nickname);
 
-    formData.append("isAgreeCreditInfo", JSON.stringify(data.isAgreeCreditInfo));
+    formData.append("isAgreeCreditInfo", JSON.stringify(getValues("isAgreeCreditInfo")));
 
-    formData.append("investPropensity", JSON.stringify(data.investPropensity));
+    formData.append("investPropensity", JSON.stringify(getValues("investPropensity")));
 
     const PATH = session?.user.role ? "registerSocial" : "register";
 
@@ -225,9 +238,19 @@ export default function ProfileSetUpForm() {
     }
   };
 
+  // 가입하기 버튼 클릭했을 때 실행되는 함수
+  const handleSubmitButton = (e: any) => {
+    e.preventDefault();
+    if (isProfileValid && isNicknameChk && !isAgreeCreditInfo) {
+      setIsOpenOfSuggestion(true); // 투자 성향 권유 모달 열기
+    } else {
+      setIsReadyToSubmit(true); // 폼 제출 트리거
+    }
+  };
+
   return (
     <>
-      <form onSubmit={(e: React.FormEvent<HTMLFormElement>) => e.preventDefault()}>
+      <form onSubmit={handleProfileSubmit(onProfileSetUpSubmit)}>
         {/* 프로필 이미지 */}
         <div className="flex_col_center relative mx-[auto] mb-[2.4rem] h-[12rem] w-[12rem]">
           <figure className="relative h-full w-full overflow-hidden rounded-[50%]">
@@ -351,7 +374,10 @@ export default function ProfileSetUpForm() {
         {isOpenOfInvestPropensity && (
           <Modal
             isOpen={isOpenOfInvestPropensity}
-            onClose={() => setIsOpenOfInvestPropensity(false)}
+            onClose={() => {
+              setIsOpenOfInvestPropensity(false);
+              setIsOpenOfSuggestion(false);
+            }}
             closeIcon={true}
             panelStyle="w-[80rem] py-[1.6rem] px-[3.2rem] rounded-[2rem]"
           >
@@ -361,14 +387,12 @@ export default function ProfileSetUpForm() {
         {/* 가입하기 버튼 */}
         <Button
           variant="textButton"
+          type="submit"
           size="lg"
           bgColor={isProfileValid && isNicknameChk && !isPending ? "bg-navy-900" : "bg-grayscale-200"}
           className={cn(`mt-[4rem] ${isProfileValid && isNicknameChk && !isPending ? "text-white" : "text-gray-300"}`)}
           disabled={(!isProfileValid && !isNicknameChk) || isPending}
-          onClick={() => {
-            if (!isAgreeCreditInfo) setIsOpenOfSuggestion(true);
-            else handleProfileSubmit(onProfileSetUpSubmit)();
-          }}
+          onClick={handleSubmitButton}
         >
           가입하기
         </Button>
@@ -391,6 +415,8 @@ export default function ProfileSetUpForm() {
                   bgColor="bg-grayscale-200"
                   size="md"
                   onClick={() => {
+                    setIsOpenOfSuggestion(false);
+                    setIsReadyToSubmit(true);
                     handleProfileSubmit(onProfileSetUpSubmit)();
                   }}
                 >
