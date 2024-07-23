@@ -343,8 +343,10 @@ export default function ProfileSetUpForm() {
         className={cn(`mt-[4rem] ${isProfileValid && isNicknameChk && !isPending ? "text-white" : "text-gray-300"}`)}
         disabled={(!isProfileValid && !isNicknameChk) || isPending}
         onClick={() => {
-          if (!isAgreeCreditInfo) setIsOpenOfSuggestion(true);
-          else handleProfileSubmit(onProfileSetUpSubmit)();
+          if (isProfileValid && isNicknameChk) {
+            if (!isAgreeCreditInfo) setIsOpenOfSuggestion(true);
+            else handleProfileSubmit(onProfileSetUpSubmit)();
+          }
         }}
       >
         가입하기
