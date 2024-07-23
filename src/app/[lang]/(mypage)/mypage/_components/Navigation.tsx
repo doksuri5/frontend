@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import React from 'react';
+import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -18,7 +18,7 @@ const Navigation = () => {
         {menuList.map((item) => (
           <li
             key={item.key}
-            className={`items-center flex h-[6rem] w-[100%] border-l-[.8rem] px-[2.4rem] py-[1.6rem] ${pathname === item.url ? "border-grayscale-900 font-bold" : "border-grayscale-0"}`}
+            className={`flex h-[6rem] w-[100%] items-center border-l-[.8rem] px-[2.4rem] py-[1.6rem] ${pathname === item.url ? "border-grayscale-900 font-bold" : "border-grayscale-0"}`}
           >
             <Link className="w-full" href={item.url}>
               {item.key}

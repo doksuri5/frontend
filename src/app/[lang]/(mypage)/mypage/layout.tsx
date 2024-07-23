@@ -1,9 +1,9 @@
-import React from 'react';
-import { Suspense, lazy } from 'react';
+import React from "react";
+import { Suspense, lazy } from "react";
 
-const Navigation = lazy(() => import('./_components/Navigation'));
+const Navigation = lazy(() => import("./_components/Navigation"));
 
-export default function Layout({ children }: {children:React.ReactNode}) {
+export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <header className="heading_4 pb-[2rem] pt-[5.6rem] font-bold text-gray-900">마이페이지</header>
