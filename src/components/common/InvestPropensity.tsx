@@ -55,7 +55,10 @@ export default function InvestPropensity({ onSubmit, initialData }: TInvestPrope
   const isAllFieldsFilled = areAllFieldsFilled(fieldValues);
 
   const handleFormSubmit = (data: any) => {
-    if (isChecked && isAllFieldsFilled) onSubmit(data);
+    if (!initialData && isChecked && isAllFieldsFilled) onSubmit(data);
+    else if (initialData !== undefined) {
+      if ((isChecked && isAllFieldsFilled) || !isChecked) onSubmit(data);
+    }
   };
 
   return (
@@ -120,9 +123,11 @@ export default function InvestPropensity({ onSubmit, initialData }: TInvestPrope
         ))}
         <Button
           type="submit"
-          disabled={!isAllFieldsFilled || !isChecked}
-          bgColor={isAllFieldsFilled && isChecked ? "bg-navy-900" : "bg-grayscale-200"}
-          className={cn(`my-12 text-white ${isAllFieldsFilled && isChecked ? "text-white" : "text-gray-300"}`)}
+          disabled={!initialData ? !isAllFieldsFilled || !isChecked : false}
+          bgColor={(!initialData && isAllFieldsFilled && isChecked) || initialData ? "bg-navy-900" : "bg-grayscale-200"}
+          className={cn(
+            `my-12 text-white ${(!initialData && isAllFieldsFilled && isChecked) || initialData ? "text-white" : "text-gray-300"}`,
+          )}
         >
           제출하기
         </Button>
