@@ -15,7 +15,15 @@ export interface IUserPrivacy {
   login_type: string;
 }
 
-export interface IUserData extends IUserProfile, IUserPrivacy {}
+export interface IUserPropensity {
+  user_propensity: {
+    is_agree_credit_info: boolean;
+    // TODO: any 수정하기
+    invest_propensity: any;
+  };
+}
+
+export interface IUserData extends IUserProfile, IUserPrivacy, IUserPropensity {}
 
 type UserStoreState = {
   userStoreData: IUserData | null;
