@@ -8,7 +8,6 @@ import { useChat } from "ai/react";
 import Image from "next/image";
 import { generateId } from "ai";
 import { useTranslations } from "next-intl";
-import { useSession } from "next-auth/react";
 
 type ChatBoxProps = {
   close: () => void;

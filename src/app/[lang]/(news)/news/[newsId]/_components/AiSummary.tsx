@@ -6,7 +6,7 @@ import { NewsSummarySchema } from "@/types/NewsDataType";
 import { experimental_useObject as useObject } from "ai/react";
 
 const AiSummary = ({ content }: { content: string }) => {
-  const { object, submit } = useObject({
+  const { object, submit, isLoading } = useObject({
     api: "/api/ai/summary",
     schema: NewsSummarySchema,
   });
@@ -18,6 +18,7 @@ const AiSummary = ({ content }: { content: string }) => {
         size="md"
         bgColor="bg-navy-900"
         className="h-[3.6rem] max-w-[17.6rem]"
+        disabled={isLoading}
         onClick={() => {
           submit({ content });
         }}
