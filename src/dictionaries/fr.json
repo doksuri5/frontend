@@ -21,7 +21,8 @@
     "latestNews": "Dernières nouvelles",
     "relatedStocks": "Actions liées aux nouvelles actuelles",
     "relatedArticles": "Articles connexes",
-    "AISummary": "AightNow Résumé AI"
+    "AISummary": "AightNow Résumé AI",
+    "AISummaryContent":"Contenu du Résumé IA"
   },
   "report": {
     "stock": "Action",

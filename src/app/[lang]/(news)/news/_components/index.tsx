@@ -6,9 +6,11 @@ import NewsInfinityList from "@/app/[lang]/(news)/news/_components/NewsInfinityL
 import { Suspense } from "react";
 import useInfiniteNews from "@/hooks/useInfiniteNews";
 import { getTimeDifference } from "@/utils/getTimeDifference";
+import { useTranslations } from "next-intl";
 
 export default function News({ popularNews, interestStockNews }: any) {
   const { newsData, fetchNextPage, hasNextPage, isFetchingNextPage, status } = useInfiniteNews();
+  const t = useTranslations();
 
   const handleFetchNextPage = () => {
     if (hasNextPage && !isFetchingNextPage) {
@@ -22,7 +24,9 @@ export default function News({ popularNews, interestStockNews }: any) {
         {popularNews.value.length > 0 && <PopularNews popularNewsData={popularNews.value} />}
       </Suspense>
       <div className="flex w-full flex-col gap-[2.4rem]">
-        <h2 className="heading_4 font-bold text-navy-900">관심종목과 관련된 뉴스</h2>
+        <h2 className="heading_4 font-bold text-navy-900">
+          {t("news.newsRelatedInterestStock", { defaultMessage: "관심종목과 관련된 뉴스" })}
+        </h2>
         <div className="flex gap-[2rem]">
           <Suspense
             fallback={Array(3)
@@ -55,7 +59,9 @@ export default function News({ popularNews, interestStockNews }: any) {
         </div>
       </div>
       <div className="flex w-full flex-col gap-[2.4rem]">
-        <h2 className="heading_4 font-bold text-navy-900">최신 뉴스</h2>
+        <h2 className="heading_4 font-bold text-navy-900">
+          {t("news.latestNews", { defaultMessage: "최신 뉴스" })}
+        </h2>
         <div className="flex gap-[2rem]">
           <NewsInfinityList
             newsItems={newsData}
