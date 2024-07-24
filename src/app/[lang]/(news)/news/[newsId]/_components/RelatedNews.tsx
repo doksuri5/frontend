@@ -2,11 +2,13 @@
 
 import { FindNews, FindNewsSkeleton } from "@/components/common";
 import { TIFindNewsProps } from "@/components/common/List/FindNews";
+import { useTranslations } from "next-intl";
 import { Fragment, useEffect, useState } from "react";
 
 export default function RelatedNews({ relatedNews }: any) {
   const [newsData, setNewsData] = useState<TIFindNewsProps[]>([]);
   const [loading, setLoading] = useState(true);
+  const t = useTranslations();
 
   useEffect(() => {
     setNewsData(relatedNews);
@@ -15,7 +17,7 @@ export default function RelatedNews({ relatedNews }: any) {
 
   return (
     <section className="min-h-[31rem] min-w-[38.4rem] rounded-[1.6rem] bg-white p-[3.2rem]">
-      <h2 className="body_3 pb-[1rem] font-bold text-navy-900">관련 기사</h2>
+      <h2 className="body_3 pb-[1rem] font-bold text-navy-900">{t("news.relatedArticles", { defaultMessage: "관련 기사" })}</h2>
       {loading &&
         Array(4)
           .fill(0)
