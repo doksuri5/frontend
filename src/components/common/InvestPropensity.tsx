@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import CheckBox from "./CheckBox";
 import { Button } from "./Button";
@@ -7,12 +7,40 @@ import CreditInfoAgree from "@/app/[lang]/(auth)/_components/CreditInfoAgree";
 import { cn } from "@/utils/cn";
 import { InvestPropensityQuestions } from "@/data/InvestPropensityQuestions";
 
-export default function InvestPropensity({ onSubmit }: any) {
-  const [isChecked, setIsChecked] = useState(false);
-  const [isEnabled, setIsEnabled] = useState(false);
-  const { register, handleSubmit, watch } = useForm();
+type TInvestPropensityProps = {
+  onSubmit?: any;
+  initialData?: {
+    investPropensity: {
+      1: string;
+      2: string;
+      3: string;
+      4: string;
+      5: string[];
+    };
+    isAgreeCreditInfo: boolean;
+  };
+};
+
+type FormValues = {
+  "1": string;
+  "2": string;
+  "3": string;
+  "4": string;
+  "5": string[];
+};
+
+export default function InvestPropensity({ onSubmit, initialData }: TInvestPropensityProps) {
+  const [isChecked, setIsChecked] = useState(initialData?.isAgreeCreditInfo || false);
+  const [isEnabled, setIsEnabled] = useState(initialData?.isAgreeCreditInfo || false);
+  const { register, handleSubmit, watch, reset } = useForm<FormValues>({
+    values: initialData?.investPropensity || { 1: "", 2: "", 3: "", 4: "", 5: [] },
+  });
 
   const fieldValues = watch();
+
+  const resetFormValues = () => {
+    reset({ "1": "", "2": "", "3": "", "4": "", "5": [] });
+  };
 
   // 모든 필드가 응답되었는지 확인하는 함수
   const areAllFieldsFilled = (values: any) => {
@@ -38,6 +66,9 @@ export default function InvestPropensity({ onSubmit }: any) {
         <CheckBox
           checked={isChecked}
           setChecked={() => {
+            // 동의에서 비동의로 바꾼 경우 체크한 문항 모두 reset
+            if (isChecked === true) resetFormValues();
+
             setIsChecked(!isChecked);
             setIsEnabled(!isEnabled);
           }}
@@ -55,7 +86,7 @@ export default function InvestPropensity({ onSubmit }: any) {
             </legend>
             <ul className="flex flex-col gap-3">
               {question.options.map((option, idx) => {
-                const fieldName = String(questionIndex + 1);
+                const fieldName = `${questionIndex + 1}` as keyof FormValues;
                 const fieldValue = watch(fieldName);
 
                 const isOptionChecked = question.isCheckbox
