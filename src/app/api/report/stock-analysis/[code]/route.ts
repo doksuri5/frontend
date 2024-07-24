@@ -7,6 +7,7 @@ import { kv } from "@vercel/kv";
 import yahooFinance from "yahoo-finance2";
 import { unstable_noStore as noStore } from "next/cache";
 import { auth } from "@/auth";
+import { AI_MODEL } from "@/constants/ai-info";
 
 export const maxDuration = 30;
 
@@ -50,10 +51,10 @@ export const GET = async (request: NextRequest, { params }: { params: { code: st
     };
 
     const ai = createOpenAI({
-      apiKey: process.env.OPENAI_KEY,
+      apiKey: process.env.OPENAI_API_KEY,
     });
 
-    const model = ai.chat("gpt-3.5-turbo");
+    const model = ai.chat(AI_MODEL);
 
     const response = await generateObject({
       model,

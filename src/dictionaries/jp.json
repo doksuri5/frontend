@@ -44,5 +44,8 @@
     "interestLevel": "関心度",
     "delete": "削除",
     "viewDetails": "詳細を見る"
+  },
+  "chatBot": {
+    "initMessage": "こんにちは！私はNowChatBotです。何をお手伝いしましょうか？"
   }
 }
