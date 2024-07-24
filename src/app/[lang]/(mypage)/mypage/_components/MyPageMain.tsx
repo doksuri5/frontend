@@ -8,6 +8,7 @@ import useDisclosure from "@/hooks/use-disclosure";
 import { createProfileImgURL } from "../_utils/profileUtils";
 import { useEffect } from "react";
 import useUserStore, { IUserData } from "@/stores/useUserStore";
+import InvestPropensityModal from "./InvestPropensityModal";
 
 type TMyPageMainProps = {
   userData: IUserData;
@@ -16,11 +17,17 @@ type TMyPageMainProps = {
 export default function MyPageMain({ userData }: TMyPageMainProps) {
   const { setUserStoreData } = useUserStore();
 
+  let propensityData = {
+    isAgreeCreditInfo: userData.user_propensity.is_agree_credit_info,
+    investPropensity: JSON.parse(userData.user_propensity.invest_propensity),
+  };
+
   // 모달 관련 상태 관리
   const profileModal = useDisclosure();
   const verifyModal = useDisclosure();
   const privacyModal = useDisclosure();
   const withdrawModal = useDisclosure();
+  const propensityInvestModal = useDisclosure();
 
   // 개인정보 수정 모달을 여는 함수
   const handleOpenPrivacyWithdrawModal = () => {
@@ -102,6 +109,27 @@ export default function MyPageMain({ userData }: TMyPageMainProps) {
         openWithdrawModal={handleOpenWithdrawModal}
       />
       <WithdrawModal isOpen={withdrawModal.isOpen} onClose={withdrawModal.close} />
+
+      {/* 투자 성향 진단 설정 */}
+      <section className="flex flex-row items-center justify-between">
+        <div className="flex flex-col gap-[.8rem]">
+          <h1 className="body_2 font-bold text-gray-900">투자 성향 진단</h1>
+          <div>고객님의 투자성향과 목적에 맞게 고객님께 적합한 상품을 안내해 드립니다.</div>
+        </div>
+        <Button
+          variant="textButton"
+          size="sm"
+          className="w-[16rem] text-grayscale-0"
+          onClick={propensityInvestModal.open}
+        >
+          투자 성향 진단 수정
+        </Button>
+      </section>
+      <InvestPropensityModal
+        isOpen={propensityInvestModal.isOpen}
+        onClose={propensityInvestModal.close}
+        propensityData={propensityData}
+      />
     </main>
   );
 }
