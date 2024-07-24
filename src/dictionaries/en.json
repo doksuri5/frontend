@@ -21,7 +21,8 @@
     "latestNews": "Latest News",
     "relatedStocks": "Stocks Related to Current News",
     "relatedArticles": "Related Articles",
-    "AISummary": "AightNow AI Summary"
+    "AISummary": "AightNow AI Summary", 
+    "AISummaryContent":"AI Summary Content"
   },
   "report": {
     "stock": "Stock",

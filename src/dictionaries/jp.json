@@ -21,7 +21,8 @@
     "latestNews": "最新ニュース",
     "relatedStocks": "現在のニュースに関連する株式",
     "relatedArticles": "関連記事",
-    "AISummary": "AightNow AI要約"
+    "AISummary": "AightNow AI要約",
+    "AISummaryContent":"AI要約内容"
   },
   "report": {
     "stock": "株式",

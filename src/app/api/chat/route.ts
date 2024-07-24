@@ -17,7 +17,6 @@ export const POST = async (req: NextRequest) => {
   });
 
   const model = ai.chat(AI_MODEL);
-  // add finance tools to the model
   const result = await streamText({
     model,
     system: `You are a helpful stock analyst. Answer my questions about the stock market. please answer in ${LANGUAGE_MAP[session?.user.language ?? "ko"]}.`,
