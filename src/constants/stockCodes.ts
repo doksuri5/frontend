@@ -13,6 +13,19 @@ const STOCK_CODES: { [key: string]: TReutersCodes } = {
   UNITY: "U",
 };
 
+type SymbolToReuters = {
+  [key in any]: string;
+};
+
+export const SYMBOL_TO_REUTERS: SymbolToReuters = {
+  AAPL: "AAPL.O",
+  MSFT: "MSFT.O",
+  TSLA: "TSLA.O",
+  AMZN: "AMZN.O",
+  GOOGL: "GOOGL.O",
+  U: "U",
+};
+
 const STOCK_NAMES: { [key in TReutersCodes]: string } = {
   "GOOGL.O": "alphabet",
   "AMZN.O": "amazon",

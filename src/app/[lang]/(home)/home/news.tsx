@@ -21,7 +21,7 @@ const News = ({ popularNews, interestNews }: { popularNews: any; interestNews: a
 
   return (
     <section>
-      <h2 className="heading_4 pb-[2.4rem] font-bold">{session.data?.user.name}님을 위한 주식 뉴스</h2>
+      <h2 className="heading_4 pb-[2.4rem] font-bold">{session.data?.user.name ?? "김스팩"}님을 위한 주식 뉴스</h2>
       <div className="flex flex-col rounded-[1.6rem] bg-white p-[4.8rem]">
         <p className="body_1 pb-[1.6rem]">관심종목</p>
         <ul className="flex gap-[2rem] overflow-x-scroll scrollbar-hide" ref={ref} {...draggableOptions()}>
