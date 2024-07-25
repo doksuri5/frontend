@@ -6,8 +6,10 @@ import { Input } from "./Input";
 import CloseIcon from "@/public/icons/close_icon.svg?component";
 import { useChat } from "ai/react";
 import Image from "next/image";
-import { generateId } from "ai";
+import { generateId, ToolInvocation } from "ai";
 import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
+import { SYMBOL_TO_REUTERS, TReutersCodes } from "@/constants/stockCodes";
 
 type ChatBoxProps = {
   close: () => void;
@@ -15,6 +17,7 @@ type ChatBoxProps = {
 
 export default function ChatBox({ close }: ChatBoxProps) {
   const messagesContainerRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
   const t = useTranslations();
 
   const { messages, input, handleInputChange, handleSubmit } = useChat({
@@ -60,6 +63,41 @@ export default function ChatBox({ close }: ChatBoxProps) {
               <div
                 className={`inline-block rounded-lg p-[0.8rem] ${message.role === "user" ? "bg-grayscale-100 text-black" : "bg-gray-200 text-gray-800"}`}
               >
+                {message.toolInvocations?.map((toolInvocation: ToolInvocation) => {
+                  const toolCallId = toolInvocation.toolCallId;
+
+                  if (toolInvocation.toolName === "getStockInformation") {
+                    return (
+                      <div key={toolCallId}>
+                        <div>
+                          {"result" in toolInvocation && (
+                            <div className="flex gap-[1.6rem]">
+                              <div>Stock: {toolInvocation.result.quoteSummary.price.stockName}</div>
+                              <div>Price: ${toolInvocation.result.quoteSummary.price.regularMarketPrice}</div>
+                              <div>Change: {toolInvocation.result.quoteSummary.price.regularMarketChange}%</div>
+                              <div>Volume: {toolInvocation.result.description}</div>
+                              <div>
+                                <p>이 종목에 대한 분석이 필요하신가요?</p>
+                                <Button
+                                  variant="textButton"
+                                  size="sm"
+                                  bgColor="bg-navy-900"
+                                  onClick={() => {
+                                    router.push(
+                                      `/report/${SYMBOL_TO_REUTERS[toolInvocation.result.quoteSummary.price.symbol]}`,
+                                    );
+                                  }}
+                                >
+                                  분석 페이지로 이동
+                                </Button>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  }
+                })}
                 {message.content}
               </div>
             </div>
