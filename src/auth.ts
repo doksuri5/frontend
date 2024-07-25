@@ -8,6 +8,9 @@ import GoogleProvider from "next-auth/providers/google";
 
 import { EXIST_PATH, LOGIN_PATH, MAIN_PATH, LOGIN_ERROR_PATH } from "./routes/path";
 
+import { userCheck } from "./actions/auth";
+import { UserLoginType } from "./types/AuthType";
+
 export const { handlers, signIn, signOut, auth } = NextAuth({
   pages: {
     signIn: LOGIN_PATH,
@@ -24,33 +27,25 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
       async authorize(credentials) {
         const { email, password, autoLogin } = credentials;
-
         try {
-          const fetchResponse = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/userCheck`, {
-            method: "POST",
-            body: JSON.stringify({ email, pw: password }),
-            headers: {
-              "Content-Type": "application/json",
-            },
-            credentials: "include",
-          });
-          const responseData = await fetchResponse.json();
-          if (!responseData.ok) {
+          const responseData = await userCheck({ email, pw: password } as UserLoginType);
+          if (!responseData) {
             return null;
           }
 
           const user = responseData.data;
+          console.log(user);
 
           const autoLoginCheck = autoLogin === "true" ? true : false;
-          await loginCookie(user.sns_id, user.email, autoLoginCheck, "local"); // 로그인 시 쿠키 발급
+          await loginCookie(user.snsId, user.email, autoLoginCheck, "local"); // 로그인 시 쿠키 발급
 
           return {
-            id: user._id,
+            id: user.id,
             name: user.name,
             email: user.email,
             role: "user",
             language: user.language,
-            login_type: user.login_type,
+            login_type: user.loginType,
           };
         } catch (error) {
           console.log("Credentials DB 연결 오류:", error);
