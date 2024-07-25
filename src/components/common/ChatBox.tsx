@@ -9,7 +9,8 @@ import Image from "next/image";
 import { generateId, ToolInvocation } from "ai";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
-import { SYMBOL_TO_REUTERS, TReutersCodes } from "@/constants/stockCodes";
+import { SYMBOL_TO_REUTERS } from "@/constants/stockCodes";
+import Spinner from "./Spinner";
 
 type ChatBoxProps = {
   close: () => void;
@@ -20,7 +21,7 @@ export default function ChatBox({ close }: ChatBoxProps) {
   const router = useRouter();
   const t = useTranslations();
 
-  const { messages, input, handleInputChange, handleSubmit } = useChat({
+  const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat({
     initialMessages: [
       {
         id: generateId(),
@@ -71,13 +72,13 @@ export default function ChatBox({ close }: ChatBoxProps) {
                       <div key={toolCallId}>
                         <div>
                           {"result" in toolInvocation && (
-                            <div className="flex gap-[1.6rem]">
-                              <div>Stock: {toolInvocation.result.quoteSummary.price.stockName}</div>
-                              <div>Price: ${toolInvocation.result.quoteSummary.price.regularMarketPrice}</div>
-                              <div>Change: {toolInvocation.result.quoteSummary.price.regularMarketChange}%</div>
-                              <div>Volume: {toolInvocation.result.description}</div>
+                            <div className="flex flex-col gap-[1.6rem] p-[0.8rem]">
+                              <p>Stock Name: {toolInvocation.result.quoteSummary.price.shortName}</p>
+                              <p>Price: ${toolInvocation.result.quoteSummary.price.regularMarketPrice}</p>
+                              <p>Change: {toolInvocation.result.quoteSummary.price.regularMarketChange}%</p>
+                              <p>Volume: {toolInvocation.result.description}</p>
                               <div>
-                                <p>이 종목에 대한 분석이 필요하신가요?</p>
+                                <p className="pb-[0.8rem] font-bold">이 종목에 대한 분석이 필요하신가요?</p>
                                 <Button
                                   variant="textButton"
                                   size="sm"
@@ -99,6 +100,7 @@ export default function ChatBox({ close }: ChatBoxProps) {
                   }
                 })}
                 {message.content}
+                {isLoading && <Spinner />}
               </div>
             </div>
           </div>
