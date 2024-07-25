@@ -66,7 +66,18 @@ export default function LanguageSettingMain({ userLanguage }: { userLanguage: st
       }
 
       // 성공 후처리
-      await update({ language: lang });
+      const userLanguage = response.data.language;
+      
+      await update({ language: userLanguage });
+      setSelectedLang(userLanguage);
+      
+      // 각 언어의 active 상태 업데이트
+      const updatedLangList = langList.map((langItem: ILanguageInform) => ({
+        ...langItem,
+        active: langItem.value === userLanguage,
+      }));
+      setLangList(updatedLangList);
+
       customAlert({
         title: "언어가 변경되었습니다.",
         subText: "",
@@ -74,14 +85,6 @@ export default function LanguageSettingMain({ userLanguage }: { userLanguage: st
           router.refresh();
         },
       });
-      setSelectedLang(lang);
-
-      // 각 언어의 active 상태 업데이트
-      const updatedLangList = langList.map((langItem: ILanguageInform) => ({
-        ...langItem,
-        active: langItem.value === lang,
-      }));
-      setLangList(updatedLangList);
 
       // 언어 설정 후 페이지 링크 변경
       changeURL(lang);
