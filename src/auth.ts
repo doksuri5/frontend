@@ -110,52 +110,54 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   callbacks: {
     async signIn({ user, account, profile }) {
       try {
-        let socialUserOption;
-
         if (account?.provider === "credentials") {
           user.role = "user";
-        } else if (account?.provider === "naver" || account?.provider === "google") {
+        } else if (account?.provider === "naver" || account?.provider === "google" || account?.provider === "kakao") {
+          let socialUserOption;
+
           socialUserOption = {
             email: user.email as string,
             sns_id: account.providerAccountId,
             login_type: account.provider,
             is_delete: false,
           };
-        } else if (account?.provider === "kakao") {
-          socialUserOption = {
-            sns_id: account.providerAccountId,
-            login_type: account.provider,
+
+          if (account?.provider === "kakao") {
+            socialUserOption = {
+              sns_id: account.providerAccountId,
+              login_type: account.provider,
+              is_delete: false,
+            };
+          }
+
+          // 기존 사용자 확인
+          const existingUserData = await fetchApi(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/getUser`, {
+            email: user.email as string,
             is_delete: false,
-          };
-        }
+          });
+          const existingUser = existingUserData.data;
 
-        // 기존 사용자 확인
-        const existingUserData = await fetchApi(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/getUser`, {
-          email: user.email as string,
-          is_delete: false,
-        });
-        const existingUser = existingUserData.data;
+          // 소셜 사용자 확인
+          const socialUserData =
+            socialUserOption &&
+            (await fetchApi(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/getSocialUser`, socialUserOption));
+          const socialUser = socialUserData?.data;
 
-        // 소셜 사용자 확인
-        const socialUserData =
-          socialUserOption &&
-          (await fetchApi(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/getSocialUser`, socialUserOption));
-        const socialUser = socialUserData?.data;
-
-        if (socialUser) {
-          // SNS 로그인
-          user.role = "user";
-          if (account && account?.provider !== "credentials") {
-            user.email = socialUser.email;
-            user.language = socialUser.language;
-            await loginCookie(account.providerAccountId, socialUser.email, false, account.provider); // 로그인 시 쿠키 발급
+          if (socialUser) {
+            // SNS 로그인
+            user.role = "user";
+            if (account) {
+              user.email = socialUser.email;
+              user.language = socialUser.language;
+              await loginCookie(account.providerAccountId, socialUser.email, false, account.provider); // 로그인 시 쿠키 발급
+            }
+          } else {
+            // SNS 회원가입
+            if (existingUser) {
+              return EXIST_PATH;
+            }
+            user.role = (account && account.provider) || "user";
           }
-        } else {
-          // SNS 회원가입
-          if (existingUser) {
-            return EXIST_PATH;
-          }
-          user.role = (account && account.provider) || "user";
         }
         user.id = (account && account.providerAccountId) || user.id;
         return true;
