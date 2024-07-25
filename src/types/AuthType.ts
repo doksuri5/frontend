@@ -142,6 +142,29 @@ export const AgreeSchema = z.object({
   id: z.string(),
 });
 
+export const userLoginSchema = z.object({
+  email: z.string().email(),
+  pw: z.string().min(1),
+});
+
+export const userInfoSchema = z.object({
+  id: z.string(),
+  snsId: z.string(),
+  name: z.string(),
+  email: z.string().email(),
+  birth: z.string(),
+  phone: z.string().min(10).max(11),
+  gender: z.union([z.literal("M"), z.literal("F"), z.null()]),
+  profile: z.string().optional().default(""),
+  nickname: z.string(),
+  language: z.union([z.literal("ko"), z.literal("en"), z.literal("ch"), z.literal("fr"), z.literal("jp")]),
+  loginType: z.literal("local"),
+  isDelete: z.boolean(),
+  updated_at: z.union([z.string(), z.null(), z.undefined()]),
+  deleted_at: z.union([z.string(), z.null(), z.undefined()]),
+  created_at: z.union([z.string().datetime(), z.undefined()]),
+});
+
 export type TLanguages = "ko" | "en" | "ch" | "fr" | "jp";
 
 export type TLoginSchema = z.infer<typeof loginSchema>;
@@ -159,3 +182,6 @@ export type TRegisterSchemaType = TBaseRegisterSchema &
 export type TProfileSchema = z.infer<typeof profileSchema>;
 
 export type AgreeDataType = z.infer<typeof AgreeSchema>;
+
+export type UserInfoDataType = z.infer<typeof userInfoSchema>;
+export type UserLoginType = z.infer<typeof userLoginSchema>;
