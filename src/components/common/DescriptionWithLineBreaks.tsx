@@ -9,6 +9,7 @@ export default function DescriptionWithLineBreaks({ description }: TDescriptionW
     <React.Fragment key={index}>
       {line}
       <br />
+      <br />
     </React.Fragment>
   ));
 }

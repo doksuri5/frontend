@@ -41,6 +41,11 @@ export const GET = async (request: NextRequest, { params }: { params: { reutersC
           try {
             const data = await fetchStockPrice();
             const message = JSON.stringify(data);
+
+            if (!message) {
+              return;
+            }
+
             controller.enqueue(encoder.encode(`data: ${message}\n\n`));
           } catch (error) {
             controller.error(error);

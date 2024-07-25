@@ -35,15 +35,11 @@ const useStockPrice = (reutersCode: string) => {
         const eventSource = new EventSource(`${process.env.NEXT_PUBLIC_BASE_URL}/api/stock-price/sse/${reutersCode}`);
 
         eventSource.onmessage = (event) => {
-          if (!event.data) {
-            return;
-          }
           const newData = JSON.parse(event.data);
           setStock(newData);
         };
 
         eventSource.onerror = (error) => {
-          console.error("EventSource failed:", error);
           eventSource.close();
         };
 

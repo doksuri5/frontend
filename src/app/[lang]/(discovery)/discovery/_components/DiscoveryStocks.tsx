@@ -24,7 +24,7 @@ const DiscoveryStocks = () => {
     };
 
     startTransition(async () => {
-      await fetchData();
+      if (params !== "") await fetchData();
     });
   }, [params]);
 

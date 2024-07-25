@@ -38,6 +38,8 @@ export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) 
   const [selectedReason, setSelectedReason] = useState(withdrawReasons[0]);
   const [otherReason, setOtherReason] = useState("");
 
+  const [isProcessing, setIsProcessing] = useState(false);
+
   useEffect(() => {
     if (!isOpen) {
       setPassword("");
@@ -85,17 +87,23 @@ export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) 
   };
 
   const handleWithdraw = async () => {
+    setIsProcessing(true);
     const loadingToastId = showLoadingToast("회원 탈퇴 처리 중...");
 
-    if (userStoreData?.login_type !== "local"){
+    if (userStoreData?.login_type !== "local") {
       const socialResult = await handleSocialAccountWithdraw(userStoreData!.login_type);
       if (!socialResult) {
-        updateToast(loadingToastId, `${userStoreData!.login_type.toUpperCase()} 로그인 회원 탈퇴 도중 오류 발생`, "error");
+        updateToast(
+          loadingToastId,
+          `${userStoreData!.login_type.toUpperCase()} 로그인 회원 탈퇴 도중 오류 발생`,
+          "error",
+        );
         customAlert({
           title: `${userStoreData!.login_type.toUpperCase()} 로그인 회원 탈퇴 도중 오류가 발생했습니다.`,
           subText: "잠시 후 다시 시도해 주세요.",
           onClose: () => {},
         });
+        setIsProcessing(false);
         return;
       }
     }
@@ -104,10 +112,10 @@ export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) 
       const passwordResponse = await handleVerifyPassword();
       if (!passwordResponse) {
         updateToast(loadingToastId, "비밀번호 검증 실패", "error");
-        return
-      };
+        setIsProcessing(false);
+        return;
+      }
     }
-    
 
     const formData = {
       email: userStoreData?.email,
@@ -125,11 +133,12 @@ export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) 
           subText: "잠시 후 다시 시도해 주세요.",
           onClose: () => {},
         });
+        setIsProcessing(false);
         return;
       }
 
       updateToast(loadingToastId, "회원 탈퇴가 성공적으로 처리되었습니다.", "success");
-      router.replace("/withdraw")
+      router.replace("/withdraw");
     } catch (err) {
       updateToast(loadingToastId, "회원 탈퇴 처리 중 오류 발생", "error");
       customAlert({
@@ -137,6 +146,7 @@ export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) 
         subText: err instanceof Error ? err.message : "알 수 없는 오류가 발생했습니다.",
         onClose: () => {},
       });
+      setIsProcessing(false);
     }
   };
 
@@ -186,12 +196,14 @@ export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) 
           </div>
           <Button
             size="lg"
-            bgColor={userStoreData?.login_type !== "local" || password ? "bg-navy-900" : "bg-grayscale-200"}
+            bgColor={
+              !isProcessing && (userStoreData?.login_type !== "local" || password) ? "bg-navy-900" : "bg-grayscale-200"
+            }
             className={cn(
-              `${userStoreData?.login_type !== "local" || password ? "text-grayscale-0" : "text-gray-300"} mt-[6.4rem] w-full`,
+              `${!isProcessing && (userStoreData?.login_type !== "local" || password) ? "text-grayscale-0" : "text-gray-300"} mt-[6.4rem] w-full`,
             )}
             onClick={handleWithdraw}
-            disabled={userStoreData?.login_type === "local" ? !password : false}
+            disabled={isProcessing || (userStoreData?.login_type === "local" && !password)}
           >
             회원탈퇴
           </Button>

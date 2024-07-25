@@ -1,7 +1,10 @@
 import { Skeleton } from "@/components/common";
 import AI_Summary from "@/public/icons/AI_Summary.svg?component";
+import { useTranslations } from "next-intl";
 
 export default function NewsDetailSkeleton() {
+  const t = useTranslations();
+
   return (
     <div className="flex min-w-[79.2rem] flex-col gap-[3.2rem] rounded-[1.6rem] bg-white p-[3.2rem]">
       <div>
@@ -14,7 +17,7 @@ export default function NewsDetailSkeleton() {
       <section>
         <div className="flex gap-[1.2rem]">
           <AI_Summary />
-          <span className="body_4 font-semibold">아잇나우 AI요약</span>
+          <span className="body_4 font-semibold">{t("news.AISummary", { defaultMessage: "아잇나우 AI요약" })}</span>
         </div>
         <Skeleton className="mt-[2.4rem] h-[14.4rem] w-full" />
       </section>

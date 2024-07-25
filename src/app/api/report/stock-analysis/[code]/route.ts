@@ -78,7 +78,8 @@ export const GET = async (request: NextRequest, { params }: { params: { code: st
         The company's forward PER is ${metrics.forwardPER}.
         The company's dividend yield is ${metrics.dividendYield}.
         The company's current price is ${metrics.currentPrice}.
-        The company's current price ratio is ${metrics.currentPriceRatio}.        if per is higher than 20.36, the company is considered overvalued. and forward per is higher than 22.93, the company is considered overvalued.
+        The company's current price ratio is ${metrics.currentPriceRatio}.
+        if per is higher than 20.36, the company is considered overvalued. and forward per is higher than 22.93, the company is considered overvalued.
         if company forward per is lower then trailing per, It can be expected to grow gradually.
         summarize description for introduce for investor of this company in ${session?.user.language ?? "ko"} language just introduction not use data.
         please provide a report on the profitability, interest, and growth potential of the company and the reason for your analysis in ${session?.user.language ?? "ko"} language.

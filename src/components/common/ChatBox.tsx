@@ -6,9 +6,11 @@ import { Input } from "./Input";
 import CloseIcon from "@/public/icons/close_icon.svg?component";
 import { useChat } from "ai/react";
 import Image from "next/image";
-import { generateId } from "ai";
+import { generateId, ToolInvocation } from "ai";
 import { useTranslations } from "next-intl";
-import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { SYMBOL_TO_REUTERS } from "@/constants/stockCodes";
+import Spinner from "./Spinner";
 
 type ChatBoxProps = {
   close: () => void;
@@ -16,9 +18,10 @@ type ChatBoxProps = {
 
 export default function ChatBox({ close }: ChatBoxProps) {
   const messagesContainerRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
   const t = useTranslations();
 
-  const { messages, input, handleInputChange, handleSubmit } = useChat({
+  const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat({
     initialMessages: [
       {
         id: generateId(),
@@ -61,7 +64,43 @@ export default function ChatBox({ close }: ChatBoxProps) {
               <div
                 className={`inline-block rounded-lg p-[0.8rem] ${message.role === "user" ? "bg-grayscale-100 text-black" : "bg-gray-200 text-gray-800"}`}
               >
+                {message.toolInvocations?.map((toolInvocation: ToolInvocation) => {
+                  const toolCallId = toolInvocation.toolCallId;
+
+                  if (toolInvocation.toolName === "getStockInformation") {
+                    return (
+                      <div key={toolCallId}>
+                        <div>
+                          {"result" in toolInvocation && (
+                            <div className="flex flex-col gap-[1.6rem] p-[0.8rem]">
+                              <p>Stock Name: {toolInvocation.result.quoteSummary.price.shortName}</p>
+                              <p>Price: ${toolInvocation.result.quoteSummary.price.regularMarketPrice}</p>
+                              <p>Change: {toolInvocation.result.quoteSummary.price.regularMarketChange}%</p>
+                              <p>Volume: {toolInvocation.result.description}</p>
+                              <div>
+                                <p className="pb-[0.8rem] font-bold">이 종목에 대한 분석이 필요하신가요?</p>
+                                <Button
+                                  variant="textButton"
+                                  size="sm"
+                                  bgColor="bg-navy-900"
+                                  onClick={() => {
+                                    router.push(
+                                      `/report/${SYMBOL_TO_REUTERS[toolInvocation.result.quoteSummary.price.symbol]}`,
+                                    );
+                                  }}
+                                >
+                                  분석 페이지로 이동
+                                </Button>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  }
+                })}
                 {message.content}
+                {isLoading && <Spinner />}
               </div>
             </div>
           </div>

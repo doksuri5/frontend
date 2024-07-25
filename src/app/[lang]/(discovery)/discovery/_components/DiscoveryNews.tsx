@@ -27,7 +27,7 @@ const DiscoveryNews = () => {
       }
     };
     startTransition(async () => {
-      await fetchNews();
+      if (params !== "") await fetchNews();
     });
   }, [params]);
 
