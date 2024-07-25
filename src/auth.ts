@@ -144,6 +144,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             if (account) {
               user.email = socialUser.email;
               user.language = socialUser.language;
+              user.name = socialUser.name;
               await loginCookie(account.providerAccountId, socialUser.email, false, account.provider); // 로그인 시 쿠키 발급
             }
           } else {
@@ -185,7 +186,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return token;
     },
     async session({ session, token }) {
-      // console.log("session-session", session, "session-token", token);
+      console.log("session-session", session, "session-token", token);
       if (token.sub && session.user) {
         session.user.id = token.sub;
         session.user.name = token.name;
