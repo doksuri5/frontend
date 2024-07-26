@@ -40,6 +40,9 @@ export const getStocksByReutersCode = api.get({
   responseSchema: StockSchema,
   baseOptions: {
     isDataArray: false,
+    next: {
+      revalidate: 60,
+    },
   },
 })<undefined, StockDataType, false>;
 
