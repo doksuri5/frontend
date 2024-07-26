@@ -46,6 +46,7 @@ export default function InvestPropensity({ onSubmit, initialData }: TInvestPrope
   const areAllFieldsFilled = (values: any) => {
     // 해당 폼에 처음 진입했을 때는 빈 객체로 존재하기 때문에 빈 객체인지 여부를 체크함
     if (Object.keys(values).length === 0) return false;
+
     return !Object.values(values).some((value, index) => {
       if (index === 4 && Array.isArray(value)) return value.length === 0;
       else return value === undefined;
