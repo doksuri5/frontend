@@ -21,7 +21,7 @@ const useStockPrice = (reutersCode: string) => {
         setStock(data.data);
       };
 
-      if (!isUSMarketOpen()) {
+      if (!isUSMarketOpen() || process.env.NODE_ENV === "development") {
         fetchStockPrice();
       }
     },
@@ -30,7 +30,9 @@ const useStockPrice = (reutersCode: string) => {
 
   useEffect(
     function setEventSourceForSSE() {
-      if (isUSMarketOpen()) {
+      // event source 객체는 로컬에서 작동시키지 않습니다. 이유는 http 1.1 프로토콜을 사용할 경우 event source 객체는 최대 6개의 동시 연결을 허용하기 때문입니다.
+      // 로컬에서 event source 객체가 6개 이상 생성되는 매우 느려집니다. 이를 방지하기 위해 event source 객체를 사용하지 않습니다.
+      if (isUSMarketOpen() && process.env.NODE_ENV === "production") {
         setIsLoading(true);
         const eventSource = new EventSource(`${process.env.NEXT_PUBLIC_BASE_URL}/api/stock-price/sse/${reutersCode}`);
 

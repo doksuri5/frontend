@@ -21,8 +21,8 @@
     "latestNews": "Latest News",
     "relatedStocks": "Stocks Related to Current News",
     "relatedArticles": "Related Articles",
-    "AISummary": "AightNow AI Summary", 
-    "AISummaryContent":"AI Summary Content"
+    "AISummary": "AightNow AI Summary",
+    "AISummaryContent": "AI Summary Content"
   },
   "report": {
     "stock": "Stock",
@@ -47,6 +47,12 @@
     "viewDetails": "View Details"
   },
   "chatBot": {
-    "initMessage": "Hello! I'm NowChatBot. How can I help you?"
+    "initMessage": "Hello! I'm NowChatBot. How can I help you?",
+    "linkComment": "Need analysis on this stock?",
+    "linkCommentStockName": "Stock Name",
+    "linkCommentStockPrice": "Current Stock Price",
+    "linkCommentStockPriceChange": "Price Change",
+    "linkCommentStockDescription": "Description",
+    "linkButton": "Go to Analysis Page"
   }
 }

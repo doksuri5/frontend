@@ -26,7 +26,7 @@ const News = ({ popularNews, interestNews }: { popularNews: any; interestNews: a
         <p className="body_1 pb-[1.6rem]">관심종목</p>
         <ul className="flex gap-[2rem] overflow-x-scroll scrollbar-hide" ref={ref} {...draggableOptions()}>
           {interestNews.map((item: any) => (
-            <Card key={item.id} variant="iconCard" date={item.date} title={item.title} />
+            <Card key={item._id} variant="iconCard" date={item.date} title={item.title} />
           ))}
         </ul>
         <p className="body_1 pb-[1.6rem] pt-[4.8rem]">주요 뉴스</p>
