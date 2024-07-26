@@ -22,7 +22,7 @@
     "relatedStocks": "Actions liées aux nouvelles actuelles",
     "relatedArticles": "Articles connexes",
     "AISummary": "AightNow Résumé AI",
-    "AISummaryContent":"Contenu du Résumé IA"
+    "AISummaryContent": "Contenu du Résumé IA"
   },
   "report": {
     "stock": "Action",
@@ -47,6 +47,12 @@
     "viewDetails": "Voir les détails"
   },
   "chatBot": {
-    "initMessage": "Bonjour! Je suis NowChatBot. Comment puis-je vous aider?"
+    "initMessage": "Bonjour! Je suis NowChatBot. Comment puis-je vous aider?",
+    "linkComment": "Besoin d'une analyse sur cette action?",
+    "linkCommentStockName": "Nom de l'action",
+    "linkCommentStockPrice": "Prix actuel de l'action",
+    "linkCommentStockPriceChange": "Changement de prix",
+    "linkCommentStockDescription": "Description",
+    "linkButton": "Aller à la page d'analyse"
   }
 }
