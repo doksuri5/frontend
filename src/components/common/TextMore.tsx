@@ -1,8 +1,11 @@
 "use client";
 
+import { useReportStore } from "@/providers/ReportProvider";
 import { useState, useRef, useEffect, ReactNode } from "react";
 
 const TextMore = ({ children }: { children: ReactNode }) => {
+  const setIsExtended = useReportStore((state) => state.setIsExtended);
+
   const [moreText, setMoreText] = useState(false);
   const [overFlow, setOverFlow] = useState(false);
   const textRef = useRef<HTMLParagraphElement>(null);
@@ -26,6 +29,7 @@ const TextMore = ({ children }: { children: ReactNode }) => {
 
   const toggleMoreText = () => {
     setMoreText(!moreText);
+    setIsExtended(!moreText);
   };
 
   return (
