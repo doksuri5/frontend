@@ -139,11 +139,31 @@ export const AgreeSchema = z.object({
   id: z.string(),
 });
 
+// 로그인 확인 요청
 export const userLoginSchema = z.object({
   email: z.string().email(),
   pw: z.string().min(1),
 });
 
+// 일반 로그인 확인 요청
+export const existingUserSchema = z.object({
+  email: z.string().email(),
+  isDelete: z.boolean(),
+});
+
+export const existingUserInfoSchema = z.object({
+  id: z.string(),
+  email: emailSchema,
+});
+
+export const socialUserOptionSchema = z.object({
+  snsId: z.union([z.string(), z.number()]),
+  loginType: z.enum(["local", "kakao", "google", "naver"]),
+  isDelete: z.boolean(),
+  email: z.string().email().optional(),
+});
+
+// 유저 응답 정보
 export const userInfoSchema = z.object({
   id: z.string(),
   snsId: z.string(),
@@ -155,7 +175,7 @@ export const userInfoSchema = z.object({
   profile: z.string().optional().default(""),
   nickname: z.string(),
   language: z.union([z.literal("ko"), z.literal("en"), z.literal("ch"), z.literal("fr"), z.literal("jp")]),
-  loginType: z.literal("local"),
+  loginType: z.enum(["local", "kakao", "google", "naver"]),
   isDelete: z.boolean(),
   updated_at: z.union([z.string(), z.null(), z.undefined()]),
   deleted_at: z.union([z.string(), z.null(), z.undefined()]),
@@ -182,3 +202,8 @@ export type AgreeDataType = z.infer<typeof AgreeSchema>;
 
 export type UserInfoDataType = z.infer<typeof userInfoSchema>;
 export type UserLoginType = z.infer<typeof userLoginSchema>;
+
+export type ExistingUserType = z.infer<typeof existingUserSchema>;
+export type ExistingUserDataType = z.infer<typeof existingUserInfoSchema>;
+
+export type SocialUserOptionsType = z.infer<typeof socialUserOptionSchema>;

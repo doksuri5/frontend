@@ -1,27 +1,22 @@
 import NextAuth, { type DefaultSession } from "next-auth";
+import { JWT as BaseJWT } from "next-auth/jwt";
 
-import { JWT } from "next-auth/jwt";
-
-export type ExtendedUser = DefaultSession["user"] & {
+// 공통 인터페이스 정의
+interface UserAttributes {
   role: string;
   phone?: string;
   birth?: string;
   language: "ko" | "en" | "ch" | "jp" | "fr";
   login_type: "local" | "naver" | "kakao" | "google";
-};
+  nickname?: string;
+}
 
-export declare module "next-auth/jwt" {
-  interface JWT {
-    user: ExtendedUser;
+export type ExtendedUser = DefaultSession["user"] & UserAttributes;
+
+declare module "next-auth/jwt" {
+  interface JWT extends UserAttributes {
     accessToken?: string;
-  }
-
-  interface User {
-    role: string;
-    phone?: string;
-    birth?: string;
-    language: "ko" | "en" | "ch" | "jp" | "fr";
-    login_type: "local" | "naver" | "kakao" | "google";
+    email: string;
   }
 }
 
@@ -30,12 +25,5 @@ declare module "next-auth" {
     user: ExtendedUser;
     accessToken?: string;
   }
-
-  interface User {
-    role: string;
-    phone?: string;
-    birth?: string;
-    language: "ko" | "en" | "ch" | "jp" | "fr";
-    login_type: "local" | "naver" | "kakao" | "google";
-  }
+  interface User extends UserAttributes {}
 }
