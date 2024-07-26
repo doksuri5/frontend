@@ -1,6 +1,4 @@
-import Link from "next/link";
 import Image from "next/image";
-import { Button } from "@/components/common";
 import CommonLoginBtn from "../(auth)/_components/CommonLoginBtn";
 
 export default function HomeRootPage() {
