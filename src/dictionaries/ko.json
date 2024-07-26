@@ -22,7 +22,7 @@
     "relatedStocks": "현재 뉴스와 관련된 주식",
     "relatedArticles": "관련 기사",
     "AISummary": "아잇나우 AI요약",
-    "AISummaryContent":"AI 요약내용"
+    "AISummaryContent": "AI 요약내용"
   },
   "report": {
     "stock": "주식",
@@ -48,6 +48,12 @@
     "viewDetails": "자세히 보기"
   },
   "chatBot": {
-    "initMessage": "안녕하세요! 나우챗봇입니다. 무엇을 도와드릴까요?"
+    "initMessage": "안녕하세요! 나우챗봇입니다. 무엇을 도와드릴까요?",
+    "linkComment": "이 종목에 대한 분석이 필요하신가요?",
+    "linkCommentStockName": "주식 이름",
+    "linkCommentStockPrice": "현재 주가",
+    "linkCommentStockPriceChange": "가격 변동",
+    "linkCommentStockDescription": "설명",
+    "linkButton": "분석 페이지로 이동"
   }
 }
