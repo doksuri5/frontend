@@ -129,13 +129,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           // 기존 사용자 확인
           const existingUserRes = await existingUserChk({ email: user.email as string, isDelete: false });
           const existingUser = existingUserRes.data;
-          console.log("existingUser", existingUser);
 
           // 소셜 사용자 확인
           const socialUserRes = socialUserOption && (await socialUserChk({ ...socialUserOption }));
           const socialUser = socialUserRes?.data;
-
-          console.log("socialUser", socialUser);
 
           if (socialUser) {
             // SNS 로그인
