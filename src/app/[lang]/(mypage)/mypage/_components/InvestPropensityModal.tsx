@@ -1,6 +1,7 @@
 import { Modal } from "@/components/common";
 import InvestPropensity from "@/components/common/InvestPropensity";
 import { modifyPropensity } from "../_api/investPropensityApi";
+import { revalidatePropensity } from "../_api/investPropensityActions";
 
 type TInvestPropensityModalProps = {
   isOpen: boolean;
@@ -15,6 +16,7 @@ export default function InvestPropensityModal({ isOpen, onClose, propensityData 
       await modifyPropensity({ isAgreeCreditInfo: JSON.stringify(false), investPropensity: JSON.stringify(null) });
     else await modifyPropensity({ isAgreeCreditInfo: JSON.stringify(true), investPropensity: JSON.stringify(data) });
 
+    await revalidatePropensity();
     onClose();
   };
 

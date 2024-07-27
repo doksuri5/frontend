@@ -18,6 +18,7 @@ const fetchUserData = async () => {
         },
         credentials: "include",
         cache: "no-cache",
+        next: { tags: ["investPropensity"] },
       })
     ).json();
 
