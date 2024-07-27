@@ -1,31 +1,44 @@
 "use client";
 
-import { getRecentSearchDetails, getStocks } from "@/actions/stock";
-import SearchItem from "@/app/[lang]/(mystock)/mystock/_components/SearchItem";
-import { StockDataType } from "@/types";
 import { useEffect, useState } from "react";
+import SearchItem from "./SearchItem";
+import SearchItemSkeleton from "./_skeleton/SearchItemSkeleton";
+import { getSearchStocks } from "@/actions/search";
+import { StockDataType } from "@/types";
 
 type TMyStockSearchResultProps = {
-  value: string;
+  search: string;
 };
 
-const MyStockSearchResult = ({ value }: TMyStockSearchResultProps) => {
+const MyStockSearchResult = ({ search }: TMyStockSearchResultProps) => {
   const [lists, setLists] = useState<StockDataType[]>([]);
+  const [isRender, setIsRender] = useState(true);
 
   useEffect(() => {
-    async function fetchData() {
-      const res = await getStocks();
-      setLists(res?.data.filter((data) => data.stockName.includes(value)));
-    }
+    const fetchData = async () => {
+      const res = await getSearchStocks(undefined, { params: search });
+      if (res.ok) {
+        setLists(res.data);
+        setIsRender(false);
+      }
+    };
 
     fetchData();
-  }, [value]);
+  }, [search]);
 
   return (
     <div className="flex flex-col gap-[1.6rem]">
       <h3 className="body_3 font-medium text-navy-900">검색 결과</h3>
-      <div className="flex_col gap-[1.6rem]">
-        {lists && lists.map((data) => <SearchItem key={data.id} data={data} />)}
+      <div className="flex_col h-[34rem] gap-[1.6rem] overflow-auto scrollbar-hide">
+        {isRender ? (
+          <>
+            {Array.from({ length: 3 }).map((_, idx) => (
+              <SearchItemSkeleton key={idx} />
+            ))}
+          </>
+        ) : (
+          <>{lists && lists.map((data) => <SearchItem key={data.id} data={data} />)}</>
+        )}
       </div>
     </div>
   );

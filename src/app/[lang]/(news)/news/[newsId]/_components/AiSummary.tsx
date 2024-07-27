@@ -1,8 +1,9 @@
 "use client";
 
-import { Button } from "@/components/common";
+import { Button, Skeleton } from "@/components/common";
 import AI_Summary from "@/public/icons/AI_Summary.svg?component";
 import { NewsSummarySchema } from "@/types/NewsDataType";
+import debounce from "@/utils/debounce";
 import { experimental_useObject as useObject } from "ai/react";
 import { useTranslations } from "next-intl";
 
@@ -13,6 +14,10 @@ const AiSummary = ({ content }: { content: string }) => {
   });
   const t = useTranslations();
 
+  const handleOnClick = debounce(() => {
+    submit({ content });
+  }, 500);
+
   return (
     <>
       <Button
@@ -21,9 +26,7 @@ const AiSummary = ({ content }: { content: string }) => {
         bgColor="bg-navy-900"
         className="h-[3.6rem] max-w-[17.6rem]"
         disabled={isLoading}
-        onClick={() => {
-          submit({ content });
-        }}
+        onClick={handleOnClick}
       >
         <div className="flex items-center">
           <AI_Summary />
@@ -34,7 +37,9 @@ const AiSummary = ({ content }: { content: string }) => {
         <section>
           <div className="flex gap-[1.2rem]">
             <AI_Summary />
-            <span className="body_4 font-semibold">{t("news.AISummaryContent", { defaultMessage: "AI 요약내용" })}</span>
+            <span className="body_4 font-semibold">
+              {t("news.AISummaryContent", { defaultMessage: "AI 요약내용" })}
+            </span>
           </div>
           <div className="body_4 pt-[2.4rem] font-normal leading-[2.6rem]">{object?.newsSummary}</div>
         </section>

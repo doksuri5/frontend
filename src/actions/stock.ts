@@ -14,6 +14,8 @@ import {
   StockDataType,
   StockPopularSearchDataType,
   StockSchema,
+  StockOverViewSchema,
+  StockOverViewDataType,
 } from "@/types/StockDataType";
 
 export type TStockTags =
@@ -38,8 +40,20 @@ export const getStocksByReutersCode = api.get({
   responseSchema: StockSchema,
   baseOptions: {
     isDataArray: false,
+    next: {
+      revalidate: 60,
+    },
   },
 })<undefined, StockDataType, false>;
+
+export const getStockDescription = api.get({
+  endpoint: "/stock",
+  responseSchema: StockOverViewSchema,
+  baseOptions: {
+    isFetchFromRouteHandler: true,
+    isDataArray: false,
+  },
+})<undefined, StockOverViewDataType, false>;
 
 // 주식 종목 전체 리스트 가져오기
 export const getDetailInterestStocks = api.get({
