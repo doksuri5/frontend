@@ -10,7 +10,7 @@ import SearchIcon from "@/public/icons/search_icon.svg?component";
 const DiscoveryInput = () => {
   const searchParams = useSearchParams();
   const initialSearchQuery = searchParams.get("search") || "";
-  const { inputValue, debouncedValue, setInputValue } = useDebouncedSearch(initialSearchQuery);
+  const { inputValue, debouncedValue, setInputValue } = useDebouncedSearch(decodeURIComponent(initialSearchQuery));
   const router = useRouter();
   const pathname = usePathname();
   const [isVisible, setIsVisible] = useState(false);
@@ -27,7 +27,7 @@ const DiscoveryInput = () => {
     }
 
     const newPath = `${pathname}?${params.toString()}`;
-    router.replace(newPath);
+    router.push(newPath);
   };
 
   return (

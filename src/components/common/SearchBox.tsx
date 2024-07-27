@@ -81,7 +81,9 @@ const SearchBox = ({ inputValue, onSelect }: TSearchBox) => {
           </ul>
         ) : (
           <div className="flex flex-col gap-[1rem] text-navy-700">
-            <h3 className="body_3 font-bold">&quot;{inputValue}&quot; 검색 결과가 없습니다.</h3>
+            <h3 className="body_3 flex gap-[.8rem] font-bold">
+              &quot;<span className="block max-w-[35rem] truncate">{inputValue}</span>&quot; 검색 결과가 없습니다.
+            </h3>
             <p className="body_5">단어의 철자가 정확한지 확인해 주세요.</p>
           </div>
         )}
