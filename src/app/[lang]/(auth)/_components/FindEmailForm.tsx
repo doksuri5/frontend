@@ -12,6 +12,7 @@ import useFormResultError from "@/hooks/useFormResultError";
 import { TFindEmailSchema, findIdSchema } from "@/types/AuthType";
 
 import { cn } from "@/utils/cn";
+import CommonSpinnerBtn from "./commonSpinnerBtn";
 
 export default function FindEmailForm() {
   const {
@@ -90,11 +91,11 @@ export default function FindEmailForm() {
           <Button
             type="submit"
             size="lg"
-            bgColor={isValid && !isPending ? "bg-navy-900" : "bg-grayscale-200"}
-            className={cn(`mt-[4rem] ${isValid && !isPending ? "text-white" : "text-gray-300"}`)}
+            bgColor={isValid ? "bg-navy-900" : "bg-grayscale-200"}
+            className={cn(`mt-[4rem] ${isValid ? "text-white" : "text-gray-300"}`)}
             disabled={!isValid || isPending}
           >
-            이메일 찾기
+            {isPending ? <CommonSpinnerBtn /> : "이메일 찾기"}
           </Button>
         </form>
       )}
