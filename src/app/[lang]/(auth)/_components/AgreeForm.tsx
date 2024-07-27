@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
 
-import { Button, CheckBox } from "@/components/common";
+import { Button, CheckBox, FormResultError } from "@/components/common";
 
 import AgreeContent from "./AgreeContent";
 
@@ -19,6 +19,8 @@ import { getAgreeContent } from "@/actions/auth";
 
 import { AgreeDataType } from "@/types/AuthType";
 
+import useFormResultError from "@/hooks/useFormResultError";
+
 import { REGISTER_PATH } from "@/routes/path";
 
 export default function AgreeForm() {
@@ -26,6 +28,7 @@ export default function AgreeForm() {
   const [terms, setTerms] = useState(false);
   const [privacy, setPrivacy] = useState(false);
   const [agreeData, setAgreeData] = useState<AgreeDataType | undefined>(undefined);
+  const { formResultError, setFormResultError } = useFormResultError(agreedAll);
 
   const { data: session } = useSession();
 
@@ -35,6 +38,7 @@ export default function AgreeForm() {
     setAgreedAll(checked);
     setTerms(checked);
     setPrivacy(checked);
+    setFormResultError("");
   };
 
   const individualChangeHandler = (setter: React.Dispatch<React.SetStateAction<boolean>>) => (checked: boolean) => {
@@ -44,10 +48,16 @@ export default function AgreeForm() {
       setAgreedAll(false);
     } else {
       setAgreedAll((setter === setTerms && privacy) || (setter === setPrivacy && terms) || (terms && privacy));
+      setFormResultError("");
     }
   };
 
   const nextStepHandler = () => {
+    if (!agreedAll) {
+      setFormResultError("필수 약관 동의를 체크해주세요.");
+      return;
+    }
+
     if (agreedAll) {
       if (session) {
         signOut({ callbackUrl: REGISTER_PATH, redirect: true });
@@ -114,17 +124,18 @@ export default function AgreeForm() {
             className="w-full justify-end"
           />
         </div>
-        <Button
-          type="button"
-          size="lg"
-          bgColor={`${agreedAll ? "bg-navy-900" : "bg-grayscale-200"}`}
-          disabled={!agreedAll}
-          className={`${agreedAll ? "text-grayscale-0" : "text-grayscale-300"} mt-[4rem]`}
-          onClick={nextStepHandler}
-        >
-          다음
-        </Button>
       </div>
+      <p className="mt-[1.6rem]">{formResultError && <FormResultError message={formResultError} />}</p>
+      <Button
+        type="button"
+        size="lg"
+        bgColor={`${agreedAll ? "bg-navy-900" : "bg-grayscale-200"}`}
+        disabled={!agreedAll}
+        className={`${agreedAll ? "text-grayscale-0" : "text-grayscale-300"} ${formResultError ? "mt-[1.6rem]" : "mt-[4rem]"}`}
+        onClick={nextStepHandler}
+      >
+        다음
+      </Button>
     </>
   );
 }
