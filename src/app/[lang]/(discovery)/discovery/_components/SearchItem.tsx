@@ -13,7 +13,7 @@ const SearchItem = ({ search, deleteSearch }: { search: SearchTextDataType; dele
 
   const moveLink = (search: string) => {
     const params = new URLSearchParams(searchParams.toString());
-    params.set("search", search);
+    params.set("search", encodeURIComponent(search));
 
     const newPath = `${pathname}?${params.toString()}`;
     router.push(newPath);
@@ -31,7 +31,7 @@ const SearchItem = ({ search, deleteSearch }: { search: SearchTextDataType; dele
         </span>
       </div>
       <div className="flex_row gap-[.8rem]">
-        <span className="body_5 text-grayscale-400">{search.searchDate.split("T")[0].slice(5)}</span>
+        <span className="body_5 text-grayscale-400">{search.searchDate.split("T")[0].slice(5).replace("-", ".")}</span>
         <button type="button" onClick={deleteSearch}>
           <CloseIcon />
         </button>

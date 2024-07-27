@@ -47,7 +47,7 @@ const MyStockRecentSearches = ({ setSearchText }: TMyStockRecentSearchedProps) =
           전체삭제
         </span>
       </div>
-      <ul className="flex gap-[2rem] overflow-x-scroll scrollbar-hide" ref={ref} {...draggableOptions()}>
+      <ul className="flex touch-none gap-[2rem] overflow-x-scroll scrollbar-hide" ref={ref} {...draggableOptions()}>
         {stockItemList.map((stock) => (
           <div
             key={stock.id}

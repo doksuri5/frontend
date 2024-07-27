@@ -47,7 +47,13 @@
     "viewDetails": "Voir les détails"
   },
   "chatBot": {
-    "initMessage": "Bonjour! Je suis NowChatBot. Comment puis-je vous aider?"
+    "initMessage": "Bonjour! Je suis NowChatBot. Comment puis-je vous aider?",
+    "linkComment": "Besoin d'une analyse sur cette action?",
+    "linkCommentStockName": "Nom de l'action",
+    "linkCommentStockPrice": "Prix actuel de l'action",
+    "linkCommentStockPriceChange": "Changement de prix",
+    "linkCommentStockDescription": "Description",
+    "linkButton": "Aller à la page d'analyse"
   },
   "mypage": {
     "editPrivacy": "Modifier les informations personnelles",
