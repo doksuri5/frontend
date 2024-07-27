@@ -34,6 +34,17 @@ const config: Config = {
             backgroundColor: "#C0C8D9",
           },
         },
+        whiteChangeColor: {
+          "0%": {
+            backgroundColor: "#FFFFFF",
+          },
+          "50%": {
+            backgroundColor: "#FFFFFF59",
+          },
+          "100%": {
+            backgroundColor: "#FFFFFF59",
+          },
+        },
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

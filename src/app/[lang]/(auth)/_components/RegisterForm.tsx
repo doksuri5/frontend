@@ -4,7 +4,7 @@ import { useState, useEffect, useTransition } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
-import { Input, Button, Modal } from "@/components/common";
+import { Input, Button, Modal, ButtonSpinner } from "@/components/common";
 import Timer from "./Timer";
 
 import useZodSchemaForm from "@/hooks/useZodSchemaForm";
@@ -17,6 +17,8 @@ import { cn } from "@/utils/cn";
 import { TRegisterSchemaType, registerSchema } from "@/types/AuthType";
 
 import { PROFILE_SETUP_PATH } from "@/routes/path";
+import Loading from "./Loading";
+import CommonSpinnerBtn from "./commonSpinnerBtn";
 
 export default function RegisterForm() {
   const { setForm } = useRegisterStore((state) => ({
@@ -318,13 +320,13 @@ export default function RegisterForm() {
         <Button
           type="submit"
           size="lg"
-          bgColor={isRegisterValid && emailCodeChkComplete && !isPending ? "bg-navy-900" : "bg-grayscale-200"}
+          bgColor={isRegisterValid && emailCodeChkComplete ? "bg-navy-900" : "bg-grayscale-200"}
           className={cn(
-            `mt-[4rem] ${isRegisterValid && emailCodeChkComplete && !isPending ? "text-white" : "text-gray-300"}`,
+            `relative mt-[4rem] ${isRegisterValid && emailCodeChkComplete ? "text-white" : "text-gray-300"}`,
           )}
           disabled={(!isRegisterValid && !socialGoogle && !emailCodeChkComplete) || isPending}
         >
-          다음
+          {isPending ? <CommonSpinnerBtn /> : `다음`}
         </Button>
       </form>
       {/* 이메일 인증 안내 팝업 */}
