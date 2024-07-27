@@ -1,15 +1,16 @@
-import { useTranslations } from "next-intl";
-import React from "react";
+import { getDictionary } from "@/get-dictionary";
+import { Locale } from "@/i18n";
 import { Suspense, lazy } from "react";
 
 const Navigation = lazy(() => import("./_components/Navigation"));
 
-export default function Layout({ children }: { children: React.ReactNode }) {
-  const t = useTranslations();
+export default async function Layout({ children, params: { lang } }: { children: React.ReactNode, params: { lang: Locale } }) {
+  const dictionary = await getDictionary(lang);
+
   return (
     <>
       <header className="heading_4 pb-[2rem] pt-[5.6rem] font-bold text-gray-900">
-        {t("header.myPage", { defaultMessage: "마이페이지" })}
+        {dictionary.header.myPage}
       </header>
       <div className="flex flex-row gap-[2.7rem] pb-[11.2rem]">
         <aside className="min-h-[72rem] min-w-[28.5rem] rounded-[1.6rem] bg-grayscale-0">

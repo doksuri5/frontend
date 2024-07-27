@@ -25,6 +25,7 @@ export interface IOption {
 type TEditProfileFormProps = {
   closeModal: () => void;
 };
+
 export interface FormData {
   profile: File | string;
   nickname: string;
@@ -280,7 +281,7 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
                 disabled={nickname === "" || (isNicknameAvailable && activeDuplicateBtn)}
                 onClick={handleDuplicateCheck}
               >
-                중복 확인
+                {t("mypage.duplicateCheck", { defaultMessage: "중복 확인" })}
               </Button>
             }
           />
@@ -343,7 +344,7 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
           className={`mt-[4rem] ${formValid ? "text-white" : "text-gray-300"}`}
           disabled={!formValid}
         >
-          수정하기
+          {t("mypage.edit", { defaultMessage: "수정하기" })}
         </Button>
       </form>
 
