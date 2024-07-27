@@ -1,5 +1,5 @@
 import { STOCK_NAMES } from "@/constants/stockCodes";
-import { DISCOVERY_PATH, REPORT_PATH } from "@/routes/path";
+import { REPORT_PATH } from "@/routes/path";
 import { StockDataType } from "@/types";
 import { cn } from "@/utils/cn";
 import { formatValueWithIndicator, formatValueWithSign, getTextColor } from "@/utils/stockPriceUtils";
