@@ -122,7 +122,7 @@ export default function MyPageMain({ userData }: TMyPageMainProps) {
           className="w-[16rem] text-grayscale-0"
           onClick={propensityInvestModal.open}
         >
-          투자 성향 진단 수정
+          투자 성향 진단 {propensityData.isAgreeCreditInfo ? "수정" : "등록"}
         </Button>
       </section>
       <InvestPropensityModal
