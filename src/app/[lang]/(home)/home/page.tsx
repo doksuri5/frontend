@@ -5,18 +5,9 @@ import { getDetailInterestStocks, getRecentSearchDetails } from "@/actions/stock
 import { StockItem } from "@/components/common";
 import { cn } from "@/utils/cn";
 import { fetchInterestStockNews, fetchPopularNews } from "@/actions/news";
-import { getRecentSearches } from "@/actions/search";
-
-export const dynamic = "force-dynamic";
-
-const getInterestStocks = async () => {
-  const res = await getDetailInterestStocks();
-
-  return res.data;
-};
 
 export default async function HomePage() {
-  const data = await getInterestStocks();
+  const data = (await getDetailInterestStocks()).data;
   const recentSearches = (await getRecentSearchDetails()).data;
 
   const [newsData, interestStockNews] = await Promise.allSettled([fetchPopularNews(), fetchInterestStockNews()]);

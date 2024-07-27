@@ -47,7 +47,13 @@
     "viewDetails": "查看详情"
   },
   "chatBot": {
-    "initMessage": "你好！我是NowChatBot。我能帮你什么？"
+    "initMessage": "你好！我是NowChatBot。我能帮你什么？",
+    "linkComment": "需要这个股票的分析吗？",
+    "linkCommentStockName": "股票名称",
+    "linkCommentStockPrice": "当前股价",
+    "linkCommentStockPriceChange": "价格变动",
+    "linkCommentStockDescription": "描述",
+    "linkButton": "转到分析页面"
   },
   "mypage": {
     "editPrivacy": "编辑个人信息",

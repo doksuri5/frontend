@@ -47,7 +47,13 @@
     "viewDetails": "View Details"
   },
   "chatBot": {
-    "initMessage": "Hello! I'm NowChatBot. How can I help you?"
+    "initMessage": "Hello! I'm NowChatBot. How can I help you?",
+    "linkComment": "Need analysis on this stock?",
+    "linkCommentStockName": "Stock Name",
+    "linkCommentStockPrice": "Current Stock Price",
+    "linkCommentStockPriceChange": "Price Change",
+    "linkCommentStockDescription": "Description",
+    "linkButton": "Go to Analysis Page"
   },
   "mypage": {
     "editPrivacy": "Edit Personal Information",

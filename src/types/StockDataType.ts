@@ -218,11 +218,27 @@ export const StockPriceSchema = z.object({
   compareToPreviousClosePrice: z.number(),
 });
 
+export const StockOverViewSchema = z.object({
+  corporateOverview: z.string(),
+  summaries: z.object({
+    summary: z.string(),
+    representativeName: z.string(),
+    representativeId: z.string(),
+    nation: z.string(),
+    employees: z.number(),
+    employeesLastUpdated: z.string(),
+    city: z.string(),
+    address: z.string(),
+    url: z.string(),
+  }),
+});
+
 export type FetchedNaverStockDataType = z.infer<typeof FetchedNaverStockSchema>;
 export type InterestStockDataType = z.infer<typeof InterestStockSchema>;
 export type InterestStockItemDataType = z.infer<typeof InterestStockItemSchema>;
 export type StockChartDataType = z.infer<typeof StockChartDataSchema>;
 export type StockPriceDataType = z.infer<typeof StockPriceSchema>;
+export type StockOverViewDataType = z.infer<typeof StockOverViewSchema>;
 
 export type StockDataType = z.infer<typeof StockSchema>;
 export type StockAIReportDataType = z.infer<typeof StockAIReportSchema>;

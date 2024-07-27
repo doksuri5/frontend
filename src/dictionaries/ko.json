@@ -47,7 +47,13 @@
     "viewDetails": "자세히 보기"
   },
   "chatBot": {
-    "initMessage": "안녕하세요! 나우챗봇입니다. 무엇을 도와드릴까요?"
+    "initMessage": "안녕하세요! 나우챗봇입니다. 무엇을 도와드릴까요?",
+    "linkComment": "이 종목에 대한 분석이 필요하신가요?",
+    "linkCommentStockName": "주식 이름",
+    "linkCommentStockPrice": "현재 주가",
+    "linkCommentStockPriceChange": "가격 변동",
+    "linkCommentStockDescription": "설명",
+    "linkButton": "분석 페이지로 이동"
   },
   "mypage": {
     "editPrivacy": "개인정보 수정",

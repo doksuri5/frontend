@@ -10,7 +10,8 @@ import { generateId, ToolInvocation } from "ai";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { SYMBOL_TO_REUTERS } from "@/constants/stockCodes";
-import Spinner from "./Spinner";
+import CircleSpinner from "./CircleSpinner";
+import CountUp from "react-countup";
 
 type ChatBoxProps = {
   close: () => void;
@@ -71,14 +72,33 @@ export default function ChatBox({ close }: ChatBoxProps) {
                     return (
                       <div key={toolCallId}>
                         <div>
-                          {"result" in toolInvocation && (
-                            <div className="flex flex-col gap-[1.6rem] p-[0.8rem]">
-                              <p>Stock Name: {toolInvocation.result.quoteSummary.price.shortName}</p>
-                              <p>Price: ${toolInvocation.result.quoteSummary.price.regularMarketPrice}</p>
-                              <p>Change: {toolInvocation.result.quoteSummary.price.regularMarketChange}%</p>
-                              <p>Volume: {toolInvocation.result.description}</p>
+                          {"result" in toolInvocation ? (
+                            <div className="flex flex-col gap-[0.8rem] p-[0.8rem]">
+                              <p>
+                                {t("chatBot.linkCommentStockName")} :{" "}
+                                <strong>{toolInvocation.result.quoteSummary.price.shortName}</strong>
+                              </p>
+                              <p>
+                                {t("chatBot.linkCommentStockPrice")} :{" "}
+                                <strong>${toolInvocation.result.quoteSummary.price.regularMarketPrice}</strong>
+                              </p>
+                              <p>
+                                {t("chatBot.linkCommentStockPriceChange")} :{" "}
+                                <strong>
+                                  <CountUp
+                                    end={toolInvocation.result.quoteSummary.price.regularMarketChange}
+                                    decimals={2}
+                                  />
+                                  %
+                                </strong>
+                              </p>
+                              <p>
+                                {t("chatBot.linkCommentStockDescription")} : {toolInvocation.result.description}
+                              </p>
                               <div>
-                                <p className="pb-[0.8rem] font-bold">이 종목에 대한 분석이 필요하신가요?</p>
+                                <p className="pb-[0.8rem] font-bold">
+                                  {t("chatBot.linkComment", { defaultMessage: "이 종목에 대한 분석이 필요하신가요?" })}
+                                </p>
                                 <Button
                                   variant="textButton"
                                   size="sm"
@@ -89,9 +109,13 @@ export default function ChatBox({ close }: ChatBoxProps) {
                                     );
                                   }}
                                 >
-                                  분석 페이지로 이동
+                                  {t("chatBot.linkButton", { defaultMessage: "분석 페이지로 이동" })}
                                 </Button>
                               </div>
+                            </div>
+                          ) : (
+                            <div className="flex_row_center flex h-[1.6rem] w-[1.6rem]">
+                              <CircleSpinner />
                             </div>
                           )}
                         </div>
@@ -100,7 +124,6 @@ export default function ChatBox({ close }: ChatBoxProps) {
                   }
                 })}
                 {message.content}
-                {isLoading && <Spinner />}
               </div>
             </div>
           </div>

@@ -47,7 +47,13 @@
     "viewDetails": "詳細を見る"
   },
   "chatBot": {
-    "initMessage": "こんにちは！私はNowChatBotです。何をお手伝いしましょうか？"
+    "initMessage": "こんにちは！私はNowChatBotです。何をお手伝いしましょうか？",
+    "linkComment": "この株式の分析が必要ですか？",
+    "linkCommentStockName": "株式名",
+    "linkCommentStockPrice": "現在の株価",
+    "linkCommentStockPriceChange": "価格変動",
+    "linkCommentStockDescription": "説明",
+    "linkButton": "分析ページに移動"
   },
   "mypage": {
     "editPrivacy": "個人情報の編集",

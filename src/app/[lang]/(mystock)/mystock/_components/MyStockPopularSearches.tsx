@@ -16,7 +16,7 @@ const MyStockPopularSearches = () => {
   useEffect(() => {
     async function fetchData() {
       const res = await getPopularSearches();
-      setPopularList(res.data);
+      if (res.ok) setPopularList(res.data);
     }
 
     try {
@@ -31,8 +31,8 @@ const MyStockPopularSearches = () => {
   return (
     <div className="flex flex-col gap-[1.6rem]">
       <h3 className="body_3 font-medium text-navy-900">인기 검색어</h3>
-      <div className="grid w-full grid-flow-col grid-rows-5 gap-[2.4rem] rounded-[1.6rem] border border-navy-100 p-[2.4rem]">
-        {!isRender ? (
+      <div className="grid h-[35rem] w-full grid-flow-col grid-rows-5 gap-[2.4rem] rounded-[1.6rem] border border-navy-100 p-[2.4rem]">
+        {!isRender || popularList.length === 0 ? (
           <>
             {Array.from({ length: 6 }).map((_, idx) => (
               <PopularSearchItemDetailSkeleton key={idx} />
