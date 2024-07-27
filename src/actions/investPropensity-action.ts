@@ -2,6 +2,6 @@
 
 import { revalidateTag } from "next/cache";
 
-export async function revalidatePropensity() {
+export async function revalidateInvestPropensity() {
   revalidateTag("investPropensity");
 }
