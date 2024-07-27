@@ -23,6 +23,7 @@ type TWithdrawModalProps = {
   isOpen: boolean;
   onClose: () => void;
 };
+
 export interface IWithdrawForm {
   email: string | undefined;
   reason: string;

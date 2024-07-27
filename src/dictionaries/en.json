@@ -130,7 +130,15 @@
       "enterEmail": "Enter Email",
       "withdrawalReason": "Reason for Withdrawal",
       "selectWithdrawalReason": "Select Reason for Withdrawal",
-      "enterOtherReason": "Enter Other Reason"
+      "enterOtherReason": "Enter Other Reason",
+      "otherReason": "Other Reason",
+      "passwordPlaceholder": "Enter Password",
+      "enterCode": "Enter Verification Code",
+      "promptCode": "Please Enter Verification Code",
+      "newPassword": "Please Enter a New Password",
+      "confirmPassword": "Please Confirm Your Password Again",
+      "enterPhone": "Enter Phone Number Without Hyphens",
+      "enterBirth": "Enter Birthdate in 6 Digits (Example: 991231)"
     }
   }
 }

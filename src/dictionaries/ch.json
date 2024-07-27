@@ -130,7 +130,15 @@
       "enterEmail": "请输入电子邮件",
       "withdrawalReason": "退出原因",
       "selectWithdrawalReason": "选择退出原因",
-      "enterOtherReason": "输入其他原因"
+      "enterOtherReason": "输入其他原因",
+      "otherReason": "其他原因",
+      "passwordPlaceholder": "输入密码",
+      "enterCode": "输入验证码",
+      "promptCode": "请输入验证码",
+      "newPassword": "请输入新密码",
+      "confirmPassword": "请再次确认密码",
+      "enterPhone": "请输入不包括‘-’的手机号码",
+      "enterBirth": "请输入六位生日数字(例如 : 991231)"
     }
   }
 }
