@@ -1,61 +1,32 @@
 import { match } from "path-to-regexp";
 import { NextRequest, NextResponse } from "next/server";
-import { cookies } from "next/headers";
 import { i18n } from "./i18n";
-import { match as matchLocale } from "@formatjs/intl-localematcher";
-import Negotiator from "negotiator";
+import checkLogin from "./utils/check-login";
+import createMiddleware from "next-intl/middleware";
 import { auth } from "./auth";
-
-// 로그인 세션 확인 여부 체크
-async function checkLogin() {
-  const cookieStore = cookies();
-  const session = cookieStore.get("connect.sid")?.value;
-  return !!session; // 세션이 있으면 true, 없으면 false 반환
-}
-
 // 로그인이 필요한 경로인지 체크
 function requiresAuth(pathname: string, urls: string[]) {
   return urls.some((url) => !!match(url)(pathname));
 }
 
-export async function getLocale(request: NextRequest): Promise<string | undefined> {
-  // 사용자 세션 확인
-  const userSession = await auth();
-  if (userSession?.user.language && i18n.locales.includes(userSession.user.language)) {
-    return userSession.user.language;
+const intlMiddleware = createMiddleware({
+  locales: i18n.locales,
+  defaultLocale: "ko",
+});
+
+const getLocale = async () => {
+  const session = await auth();
+  if (session?.user.language && i18n.locales.includes(session.user.language)) {
+    return session.user.language;
   }
 
-  // Negotiator expects plain object so we need to transform headers
-  const negotiatorHeaders: Record<string, string> = {};
-  request.headers.forEach((value, key) => (negotiatorHeaders[key] = value));
-
-  // @ts-ignore locales are readonly
-  const locales: string[] = i18n.locales;
-
-  // Use negotiator and intl-localematcher to get best locale
-  let languages = new Negotiator({ headers: negotiatorHeaders }).languages(locales);
-
-  const locale = matchLocale(languages, locales, i18n.defaultLocale);
-
-  return locale;
-}
+  return i18n.defaultLocale;
+};
 
 export const middleware = async (req: NextRequest) => {
   const pathname = req.nextUrl.pathname;
-  const url = req.nextUrl.clone();
-
-  // Check if there is any supported locale in the pathname
-  const locale = (await getLocale(req)) || i18n.defaultLocale;
-  const pathnameIsMissingLocale = i18n.locales.every(
-    (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`,
-  );
-
-  // Redirect if there is no locale
-  if (pathnameIsMissingLocale) {
-    return NextResponse.redirect(new URL(`/${locale}${pathname}`, req.url));
-  }
-
-  const isAuthenticated = await checkLogin();
+  const locale = await getLocale();
+  const isAuthenticated = checkLogin();
 
   const isAuthPath = requiresAuth(pathname, [
     `/${locale}`,
@@ -85,15 +56,10 @@ export const middleware = async (req: NextRequest) => {
     return NextResponse.redirect(new URL(`/${locale}/home`, req.url));
   }
 
-  // header에 pathname 추가
-  const requestHeaders = new Headers(req.headers);
-  requestHeaders.set("x-pathname", pathname);
-  requestHeaders.set("x-path-locale", locale);
-  return NextResponse.next({
-    request: {
-      headers: requestHeaders,
-    },
-  });
+  const response = intlMiddleware(req);
+  response.headers.set("x-pathname", pathname);
+
+  return response;
 };
 
 export const config = {
