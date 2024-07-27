@@ -17,7 +17,7 @@ type TVerifyModalProps = {
 };
 
 export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalProps) {
-  const t = useTranslations();
+  const t = useTranslations("user.form");
   const { userStoreData } = useUserStore();
   const { alertInfo, customAlert } = useAlert();
   const { showLoadingToast, updateToast } = useToast();
@@ -169,8 +169,8 @@ export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalPro
         onClose={onClose}
         title={
           userStoreData?.login_type === "local"
-            ? t("mypage.passwordAuthentication", { defaultMessage: "비밀번호 인증" })
-            : t("mypage.emailVerification", { defaultMessage: "이메일 인증" })
+            ? t("passwordAuth", { defaultMessage: "비밀번호 인증" })
+            : t("emailVerify", { defaultMessage: "이메일 인증" })
         }
         isBackdropClosable={true}
         panelStyle="px-[10.2rem] py-[8rem] rounded-[3.2rem] w-[59rem] items-center justify-center"
@@ -183,9 +183,9 @@ export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalPro
                 name="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                labelName="현재 비밀번호 입력"
+                labelName={t("inputCurrentPassword", { defaultMessage: "현재 비밀번호 입력" })}
                 type="password"
-                placeholder="비밀번호를 입력해주세요"
+                placeholder={t("enterPassword", { defaultMessage: "비밀번호를 입력해주세요" })}
               />
               <Button
                 size="lg"
@@ -194,7 +194,7 @@ export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalPro
                 onClick={handleVerifyPassword}
                 disabled={!password}
               >
-                {t("mypage.edit", { defaultMessage: "수정하기" })}
+                {t("edit", { defaultMessage: "수정하기" })}
               </Button>
             </div>
           ) : (
@@ -204,8 +204,8 @@ export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalPro
                 name="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                labelName="이메일 입력"
-                placeholder="이메일을 입력해주세요"
+                labelName={t("inputEmail", { defaultMessage: "이메일 입력" })}
+                placeholder={t("enterEmail", { defaultMessage: "이메일을 입력해주세요" })}
               />
               {!visibleCodeField && (
                 <Button
@@ -215,7 +215,7 @@ export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalPro
                   onClick={handleVerifyEmail}
                   disabled={!email}
                 >
-                  {t("mypage.sendVerificationCode", { defaultMessage: "인증 코드 발송" })}
+                  {t("sendCode", { defaultMessage: "인증 코드 발송" })}
                 </Button>
               )}
               {visibleCodeField && (
@@ -238,7 +238,7 @@ export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalPro
                     onClick={handleVerifyCode}
                     disabled={!code}
                   >
-                    {t("mypage.verifyCode", { defaultMessage: "인증 코드 확인" })}
+                    {t("verifyCode", { defaultMessage: "인증 코드 확인" })}
                   </Button>
                 </div>
               )}

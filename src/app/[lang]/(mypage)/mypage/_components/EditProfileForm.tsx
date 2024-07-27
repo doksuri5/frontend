@@ -281,7 +281,7 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
                 disabled={nickname === "" || (isNicknameAvailable && activeDuplicateBtn)}
                 onClick={handleDuplicateCheck}
               >
-                {t("mypage.duplicateCheck", { defaultMessage: "중복 확인" })}
+                {t("user.form.checkDuplicate", { defaultMessage: "중복 확인" })}
               </Button>
             }
           />
@@ -298,7 +298,7 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
             options={stockList}
             className="basic-multi-select"
             classNamePrefix="tag"
-            placeholder="#관심 종목을 추가해주세요."
+            placeholder={t("user.form.addFavoriteStock", { defaultMessage: "#관심 종목을 추가해주세요." })}
             noOptionsMessage={() => "검색된 결과가 없습니다."}
             onChange={handleStocksChange}
             components={{
@@ -321,7 +321,7 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
               bgColor={gender === "M" ? "bg-navy-900" : "bg-white"}
               onClick={() => setValue("gender", "M", { shouldDirty: true })}
             >
-              {t("user.man", { defaultMessage: "남성" })}
+              {t("user.male", { defaultMessage: "남성" })}
             </Button>
             <Button
               type="button"
@@ -330,7 +330,7 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
               bgColor={gender === "F" ? "bg-navy-900" : "bg-white"}
               onClick={() => setValue("gender", "F", { shouldDirty: true })}
             >
-              {t("user.woman", { defaultMessage: "여성" })}
+              {t("user.female", { defaultMessage: "여성" })}
             </Button>
           </p>
         </div>
@@ -344,7 +344,7 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
           className={`mt-[4rem] ${formValid ? "text-white" : "text-gray-300"}`}
           disabled={!formValid}
         >
-          {t("mypage.edit", { defaultMessage: "수정하기" })}
+          {t("user.form.edit", { defaultMessage: "수정하기" })}
         </Button>
       </form>
 

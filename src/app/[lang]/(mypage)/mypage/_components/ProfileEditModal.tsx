@@ -8,13 +8,13 @@ type TProfileEditModalProps = {
 };
 
 export default function ProfileEditModal({ isOpen, onClose }: TProfileEditModalProps) {
-  const t = useTranslations();
+  const t = useTranslations("mypage");
 
   return (
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      title={t("mypage.editProfile", { defaultMessage: "프로필 수정" })}
+      title={t("editProfile", { defaultMessage: "프로필 수정" })}
       isBackdropClosable={true}
       panelStyle="px-[10.2rem] py-[8rem] rounded-[3.2rem] w-[59rem] items-center justify-center"
     >

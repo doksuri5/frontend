@@ -22,14 +22,15 @@ interface ILanguageInform {
 }
 
 export default function LanguageSettingMain({ userLanguage }: { userLanguage: string | undefined }) {
-  const t = useTranslations();
+  const t = useTranslations("mypage");
+  const lt = useTranslations("lang");
 
   const languageList = [
-    { icon: <Korea />, label: t("lang.korean", { defaultMessage: "한국어" }), active: false, value: "ko" },
-    { icon: <USA />, label: t("lang.english", { defaultMessage: "영어" }), active: false, value: "en" },
-    { icon: <China />, label: t("lang.chinese", { defaultMessage: "중국어" }), active: false, value: "ch" },
-    { icon: <Japan />, label: t("lang.japanese", { defaultMessage: "일본어" }), active: false, value: "jp" },
-    { icon: <French />, label: t("lang.french", { defaultMessage: "프랑스어" }), active: false, value: "fr" },
+    { icon: <Korea />, label: lt("korean", { defaultMessage: "한국어" }), active: false, value: "ko" },
+    { icon: <USA />, label: lt("english", { defaultMessage: "영어" }), active: false, value: "en" },
+    { icon: <China />, label: lt("chinese", { defaultMessage: "중국어" }), active: false, value: "ch" },
+    { icon: <Japan />, label: lt("japanese", { defaultMessage: "일본어" }), active: false, value: "jp" },
+    { icon: <French />, label: lt("french", { defaultMessage: "프랑스어" }), active: false, value: "fr" },
   ];
 
   const { update } = useSession();
@@ -62,7 +63,7 @@ export default function LanguageSettingMain({ userLanguage }: { userLanguage: st
       if (!response.ok) {
         customAlert({
           title: "언어 변경에 실패했습니다.",
-          subText: "잠시 후 다시 시도해 주세요.",
+          subText: t("popup.retryLater", { defaultMessage: "잠시 후 다시 시도해 주세요." }),
           onClose: () => {},
         });
         return;
@@ -94,7 +95,7 @@ export default function LanguageSettingMain({ userLanguage }: { userLanguage: st
     } catch (err) {
       customAlert({
         title: "언어 설정 도중 오류가 발생했습니다.",
-        subText: err instanceof Error ? err.message : "알 수 없는 오류가 발생했습니다.",
+        subText: err instanceof Error ? err.message : t("popup.unknownIssue", { defaultMessage: "알 수 없는 오류가 발생했습니다." }),
         onClose: () => {},
       });
     }
@@ -124,10 +125,10 @@ export default function LanguageSettingMain({ userLanguage }: { userLanguage: st
       <section className="flex w-[100%] flex-col gap-[2.4rem]">
         <div className="flex flex-col gap-[.8rem]">
           <div className="body_2 font-bold text-gray-900">
-            {t("mypage.languageSettings", { defaultMessage: "언어 설정" })}
+            {t("languageSettings", { defaultMessage: "언어 설정" })}
           </div>
           <div>
-            {t("mypage.chooseLanguageForTranslation", {
+            {t("selectTranslationLang", {
               defaultMessage:
                 "이 설정에서 번역할 언어를 선택하시면 뉴스 및 리포트에서 설정하신 언어로 번역한 정보를 확인할 수 있습니다.",
             })}

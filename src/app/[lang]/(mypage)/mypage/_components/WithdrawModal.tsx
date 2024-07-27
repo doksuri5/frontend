@@ -158,15 +158,15 @@ export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) 
       <Modal
         isOpen={isOpen}
         onClose={onClose}
-        title="회원탈퇴"
+        title={t("mypage.withdraw", { defaultMessage: "회원탈퇴" })}
         isBackdropClosable={true}
         panelStyle="px-[10.2rem] py-[8rem] rounded-[3.2rem] w-[59rem] items-center justify-center"
       >
         <div className="flex w-full flex-col">
           <div className="mb-[2.9rem] mt-[4rem] flex flex-col gap-[1.6rem]">
             <Dropdown
-              label="회원탈퇴 사유"
-              placeholder="회원탈퇴 사유를 선택해주세요"
+              label={t("user.form.withdrawalReason", { defaultMessage: "회원탈퇴 사유" })}
+              placeholder={t("user.form.selectWithdrawalReason", { defaultMessage: "회원탈퇴 사유를 선택해주세요" })}
               selected={selectedReason}
               setSelected={setSelectedReason}
               options={withdrawReasons}
@@ -178,7 +178,7 @@ export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) 
                   className="h-[10rem] w-full resize-none rounded-[0.8rem] border border-gray-300 p-[1.6rem] text-grayscale-900 focus:outline-blue-500"
                   value={otherReason}
                   onChange={(e) => setOtherReason(e.target.value)}
-                  placeholder="기타 사유를 입력해주세요"
+                  placeholder={t("user.form.enterOtherReason", { defaultMessage: "기타 사유를 입력해주세요." })}
                 />
               </div>
             )}
@@ -190,7 +190,7 @@ export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) 
                 onChange={(e) => setPassword(e.target.value)}
                 inputGroupClass="w-full h-[5.6rem]"
                 inputClass="p-[1.6rem] rounded-[0.8rem] text-grayscale-900 font-normal"
-                placeholder="비밀번호를 입력해주세요"
+                placeholder={t("user.form.enterPassword", { defaultMessage: "비밀번호를 입력해주세요." })}
                 labelClass="body_4 font-medium text-navy-900"
               />
             ) : (
@@ -208,7 +208,7 @@ export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) 
             onClick={handleWithdraw}
             disabled={isProcessing || (userStoreData?.login_type === "local" && !password)}
           >
-            {t("mypage.withdrawal", { defaultMessage: "회원탈퇴" })}
+            {t("mypage.withdraw", { defaultMessage: "회원탈퇴" })}
           </Button>
         </div>
       </Modal>
