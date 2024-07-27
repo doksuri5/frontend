@@ -12,6 +12,7 @@ import DarkLogo from "@/public/icons/dark_logo.svg?component";
 
 import { DISCOVERY_PATH, MAIN_PATH, HOME_PATH, MY_PAGE_PATH, MY_STOCK_PATH, NEWS_PATH } from "@/routes/path";
 import { logoutAction } from "@/actions/auth-action";
+import { useTranslations } from "next-intl";
 
 type THeaderProps = {
   isLoggedIn: boolean;
@@ -19,12 +20,13 @@ type THeaderProps = {
 
 const Header = ({ isLoggedIn }: THeaderProps) => {
   const pathname = usePathname();
+  const t = useTranslations("header");
 
   const buttonList = [
-    { text: "발견", url: DISCOVERY_PATH },
-    { text: "뉴스", url: NEWS_PATH },
-    { text: "관심종목", url: MY_STOCK_PATH },
-    { text: "마이페이지", url: MY_PAGE_PATH },
+    { text: t("discovery", { defaultMessage: "발견" }), url: DISCOVERY_PATH },
+    { text: t("news", { defaultMessage: "뉴스" }), url: NEWS_PATH },
+    { text: t("interestStocks", { defaultMessage: "관심종목" }), url: MY_STOCK_PATH },
+    { text: t("myPage", { defaultMessage: "마이페이지" }), url: MY_PAGE_PATH },
   ];
 
   const handleLogOut = async () => {
@@ -62,7 +64,7 @@ const Header = ({ isLoggedIn }: THeaderProps) => {
             className="body_5 w-[10.2rem] font-medium"
             onClick={handleLogOut}
           >
-            로그아웃
+            {t("logout", { defaultMessage: "로그아웃" })}
           </Button>
         )}
       </div>
