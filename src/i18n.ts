@@ -6,7 +6,7 @@ function getBasePath(path: string) {
   const regex = /^(\/[^\/]+)(\/.*)/;
   const match = path.match(regex);
   if (match) {
-    return match[1].substring(1);;
+    return match[1].substring(1);
   }
   return null;
 }
