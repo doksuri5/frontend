@@ -8,6 +8,7 @@ import useUserStore from "@/stores/useUserStore";
 import useAlert from "@/hooks/use-alert";
 import useToast from "@/hooks/use-toast";
 import { toast } from "react-toastify";
+import { useTranslations } from "next-intl";
 
 type TVerifyModalProps = {
   isOpen: boolean;
@@ -16,6 +17,7 @@ type TVerifyModalProps = {
 };
 
 export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalProps) {
+  const t = useTranslations();
   const { userStoreData } = useUserStore();
   const { alertInfo, customAlert } = useAlert();
   const { showLoadingToast, updateToast } = useToast();
@@ -165,7 +167,11 @@ export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalPro
       <Modal
         isOpen={isOpen}
         onClose={onClose}
-        title={userStoreData?.login_type === "local" ? "비밀번호 인증" : "이메일 인증"}
+        title={
+          userStoreData?.login_type === "local"
+            ? t("mypage.passwordAuthentication", { defaultMessage: "비밀번호 인증" })
+            : t("mypage.emailVerification", { defaultMessage: "이메일 인증" })
+        }
         isBackdropClosable={true}
         panelStyle="px-[10.2rem] py-[8rem] rounded-[3.2rem] w-[59rem] items-center justify-center"
       >
@@ -188,7 +194,7 @@ export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalPro
                 onClick={handleVerifyPassword}
                 disabled={!password}
               >
-                수정하기
+                {t("mypage.edit", { defaultMessage: "수정하기" })}
               </Button>
             </div>
           ) : (
@@ -209,7 +215,7 @@ export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalPro
                   onClick={handleVerifyEmail}
                   disabled={!email}
                 >
-                  인증 코드 발송
+                  {t("mypage.sendVerificationCode", { defaultMessage: "인증 코드 발송" })}
                 </Button>
               )}
               {visibleCodeField && (
@@ -222,9 +228,7 @@ export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalPro
                     labelName="인증 코드 입력"
                     placeholder="인증 코드를 입력해주세요"
                     suffix={
-                      <div className="text-[1.4rem] text-blue-500">
-                        {timeLeft !== null && formatTime(timeLeft)}
-                      </div>
+                      <div className="text-[1.4rem] text-blue-500">{timeLeft !== null && formatTime(timeLeft)}</div>
                     }
                   />
                   <Button
@@ -234,7 +238,7 @@ export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalPro
                     onClick={handleVerifyCode}
                     disabled={!code}
                   >
-                    인증 코드 확인
+                    {t("mypage.verifyCode", { defaultMessage: "인증 코드 확인" })}
                   </Button>
                 </div>
               )}

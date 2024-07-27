@@ -22,7 +22,7 @@
     "relatedStocks": "Actions liées aux nouvelles actuelles",
     "relatedArticles": "Articles connexes",
     "AISummary": "AightNow Résumé AI",
-    "AISummaryContent":"Contenu du Résumé IA"
+    "AISummaryContent": "Contenu du Résumé IA"
   },
   "report": {
     "stock": "Action",
@@ -48,5 +48,59 @@
   },
   "chatBot": {
     "initMessage": "Bonjour! Je suis NowChatBot. Comment puis-je vous aider?"
+  },
+  "mypage": {
+    "editPersonalInformation": "Éditer les Informations Personnelles",
+    "languageSettings": "Paramètres de Langue",
+    "termsOfService": "Conditions d'Utilisation",
+    "profileSettings": "Paramètres du Profil",
+    "manageAndModifyProfile": "Créez et modifiez le profil affiché lors de l'utilisation des services. Configurez votre profil.",
+    "editProfile": "Éditer le Profil",
+    "profile": "Profil",
+    "accountSettings": "Paramètres du Compte",
+    "manageAndModifyAccount": "Gérez et modifiez le compte utilisé pour l'accès aux services. Liez des comptes pour utiliser divers services.",
+    "modifyAccountInformation": "Éditer Compte",
+    "withdrawal": "Désinscription",
+    "chooseLanguageForTranslation": "Sélectionnez une langue pour la traduction dans ce paramètre afin de voir les informations traduites dans la langue choisie dans les nouvelles et les rapports.",
+    "privacyPolicy": "Politique de Confidentialité",
+    "fold": "Replier",
+    "expandToView": "Voir Plus",
+
+    "duplicateCheck": "Vérification de doublon",
+    "edit": "Modifier",
+    "passwordAuthentication": "Authentification par mot de passe",
+    "currentPasswordInput": "Entrer le mot de passe actuel",
+    "enterPassword": "Veuillez entrer le mot de passe",
+    "modifyInformation": "Modifier les informations",
+    "newPasswordInput": "Entrer le nouveau mot de passe",
+    "confirmNewPassword": "Confirmer le nouveau mot de passe",
+    "reasonForWithdrawal": "Raison du retrait",
+    "inconvenientService": "Service incommode et problématique",
+    "betterServiceElsewhere": "Meilleur service ailleurs",
+    "lowUsageFrequency": "Faible fréquence d'utilisation",
+    "contentDissatisfaction": "Mécontentement du contenu",
+    "other": "Autre",
+    "emailVerification": "Vérification de l'e-mail",
+    "inputEmail": "Entrer l'e-mail",
+    "enterEmail": "Veuillez entrer votre e-mail",
+    "sendVerificationCode": "Envoyer le code de vérification",
+    "verifyCode": "Vérifier le Code de Vérification"
+  },
+  "lang": {
+    "korean": "Coréen",
+    "english": "Anglais",
+    "chinese": "Chinois",
+    "japanese": "Japonais",
+    "french": "Français"
+  },
+  "user": {
+    "email": "Email",
+    "name": "Nom",
+    "dateOfBirth": "Date de naissance",
+    "nickname": "Surnom",
+    "gender": "Genre",
+    "man": "Homme",
+    "woman": "Femme",
+    "phone": "Numéro de téléphone"
   }
 }

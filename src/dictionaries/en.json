@@ -21,8 +21,8 @@
     "latestNews": "Latest News",
     "relatedStocks": "Stocks Related to Current News",
     "relatedArticles": "Related Articles",
-    "AISummary": "AightNow AI Summary", 
-    "AISummaryContent":"AI Summary Content"
+    "AISummary": "AightNow AI Summary",
+    "AISummaryContent": "AI Summary Content"
   },
   "report": {
     "stock": "Stock",
@@ -48,5 +48,59 @@
   },
   "chatBot": {
     "initMessage": "Hello! I'm NowChatBot. How can I help you?"
+  },
+  "mypage": {
+    "editPersonalInformation": "Edit Personal Information",
+    "languageSettings": "Language Settings",
+    "termsOfService": "Terms of Service",
+    "profileSettings": "Profile Settings",
+    "manageAndModifyProfile": "Create and modify the profile displayed during service use. Set up your profile.",
+    "editProfile": "Edit Profile",
+    "profile": "Profile",
+    "accountSettings": "Account Settings",
+    "manageAndModifyAccount": "Manage and modify the account used for service access. Link accounts to utilize various services.",
+    "modifyAccountInformation": "Edit Account",
+    "withdrawal": "Account Withdrawal",
+    "chooseLanguageForTranslation": "Choose a language for translation in this setting to view information translated into the selected language in news and reports.",
+    "privacyPolicy": "Privacy Policy",
+    "fold": "Fold",
+    "expandToView": "Expand to View",
+
+    "duplicateCheck": "Duplicate Check",
+    "edit": "Edit",
+    "passwordAuthentication": "Password Authentication",
+    "currentPasswordInput": "Enter Current Password",
+    "enterPassword": "Please Enter Password",
+    "modifyInformation": "Modify Information",
+    "newPasswordInput": "Enter New Password",
+    "confirmNewPassword": "Confirm New Password",
+    "reasonForWithdrawal": "Reason for Withdrawal",
+    "inconvenientService": "Service is inconvenient and problematic",
+    "betterServiceElsewhere": "Better service elsewhere",
+    "lowUsageFrequency": "Low usage frequency",
+    "contentDissatisfaction": "Dissatisfaction with content",
+    "other": "Other",
+    "emailVerification": "Email Verification",
+    "inputEmail": "Enter Email",
+    "enterEmail": "Please Enter Your Email",
+    "sendVerificationCode": "Send Verification Code",
+    "verifyCode": "Verify Verification Code"
+  },
+  "lang": {
+    "korean": "Korean",
+    "english": "English",
+    "chinese": "Chinese",
+    "japanese": "Japanese",
+    "french": "French"
+  },
+  "user": {
+    "email": "Email",
+    "name": "Name",
+    "dateOfBirth": "Date of Birth",
+    "nickname": "Nickname",
+    "gender": "Gender",
+    "man": "Male",
+    "woman": "Female",
+    "phone": "Phone Number"
   }
 }

@@ -15,6 +15,7 @@ import useUserStore from "@/stores/useUserStore";
 import reduceImageSize from "@/utils/reduce-image-size";
 import { updateUserProfile } from "../_api/profileApi";
 import useAlert from "@/hooks/use-alert";
+import { useTranslations } from "next-intl";
 
 export interface IOption {
   value: string;
@@ -32,6 +33,7 @@ export interface FormData {
 }
 
 export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
+  const t = useTranslations();
   const { userStoreData } = useUserStore();
   const { alertInfo, customAlert } = useAlert();
   const router = useRouter();
@@ -244,7 +246,7 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
         <div>
           <Input
             id="nickname"
-            labelName="닉네임"
+            labelName={t("user.nickname", { defaultMessage: "닉네임" })}
             variant={errors.nickname ? "error" : "default" || isNicknameAvailable ? "success" : "default"}
             caption={
               nicknameChange
@@ -286,7 +288,7 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
 
         {/* 관심 종목 */}
         <div className="mt-[1.6rem]">
-          <p className="body-4 text-navy-900">관심 종목</p>
+          <p className="body-4 text-navy-900">{t("header.interestStocks", { defaultMessage: "관심종목" })}</p>
           <Select
             instanceId={"tags"}
             isMulti
@@ -309,7 +311,7 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
 
         {/* 성별 */}
         <div className="mt-[1.6rem]">
-          <p className="body-4 text-navy-900">성별</p>
+          <p className="body-4 text-navy-900">{t("user.gender", { defaultMessage: "성별" })}</p>
           <p className="flex_row gap-[.8rem]">
             <Button
               type="button"
@@ -318,7 +320,7 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
               bgColor={gender === "M" ? "bg-navy-900" : "bg-white"}
               onClick={() => setValue("gender", "M", { shouldDirty: true })}
             >
-              남성
+              {t("user.man", { defaultMessage: "남성" })}
             </Button>
             <Button
               type="button"
@@ -327,7 +329,7 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
               bgColor={gender === "F" ? "bg-navy-900" : "bg-white"}
               onClick={() => setValue("gender", "F", { shouldDirty: true })}
             >
-              여성
+              {t("user.woman", { defaultMessage: "여성" })}
             </Button>
           </p>
         </div>

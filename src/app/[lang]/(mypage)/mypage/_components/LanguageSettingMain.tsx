@@ -12,6 +12,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { languageSetting } from "../_api/languageApi";
 import useAlert from "@/hooks/use-alert";
+import { useTranslations } from "next-intl";
 
 interface ILanguageInform {
   icon: JSX.Element;
@@ -20,15 +21,17 @@ interface ILanguageInform {
   value: string;
 }
 
-const languageList = [
-  { icon: <Korea />, label: "한국어", active: false, value: "ko" },
-  { icon: <USA />, label: "영어", active: false, value: "en" },
-  { icon: <China />, label: "중국어", active: false, value: "ch" },
-  { icon: <Japan />, label: "일본어", active: false, value: "jp" },
-  { icon: <French />, label: "프랑스어", active: false, value: "fr" },
-];
-
 export default function LanguageSettingMain({ userLanguage }: { userLanguage: string | undefined }) {
+  const t = useTranslations();
+
+  const languageList = [
+    { icon: <Korea />, label: t("lang.korean", { defaultMessage: "한국어" }), active: false, value: "ko" },
+    { icon: <USA />, label: t("lang.english", { defaultMessage: "영어" }), active: false, value: "en" },
+    { icon: <China />, label: t("lang.chinese", { defaultMessage: "중국어" }), active: false, value: "ch" },
+    { icon: <Japan />, label: t("lang.japanese", { defaultMessage: "일본어" }), active: false, value: "jp" },
+    { icon: <French />, label: t("lang.french", { defaultMessage: "프랑스어" }), active: false, value: "fr" },
+  ];
+
   const { update } = useSession();
   const { alertInfo, customAlert } = useAlert();
 
@@ -67,10 +70,10 @@ export default function LanguageSettingMain({ userLanguage }: { userLanguage: st
 
       // 성공 후처리
       const userLanguage = response.data.language;
-      
+
       await update({ language: userLanguage });
       setSelectedLang(userLanguage);
-      
+
       // 각 언어의 active 상태 업데이트
       const updatedLangList = langList.map((langItem: ILanguageInform) => ({
         ...langItem,
@@ -120,9 +123,14 @@ export default function LanguageSettingMain({ userLanguage }: { userLanguage: st
     <>
       <section className="flex w-[100%] flex-col gap-[2.4rem]">
         <div className="flex flex-col gap-[.8rem]">
-          <div className="body_2 font-bold text-gray-900">언어 설정</div>
+          <div className="body_2 font-bold text-gray-900">
+            {t("mypage.languageSettings", { defaultMessage: "언어 설정" })}
+          </div>
           <div>
-            이 설정에서 번역할 언어를 선택하시면 뉴스 및 리포트에서 설정하신 언어로 번역한 정보를 확인할 수 있습니다.
+            {t("mypage.chooseLanguageForTranslation", {
+              defaultMessage:
+                "이 설정에서 번역할 언어를 선택하시면 뉴스 및 리포트에서 설정하신 언어로 번역한 정보를 확인할 수 있습니다.",
+            })}
           </div>
         </div>
         <div className="flex flex-row flex-wrap gap-[1rem]">

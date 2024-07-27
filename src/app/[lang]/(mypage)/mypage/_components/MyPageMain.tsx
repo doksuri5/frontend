@@ -8,12 +8,14 @@ import useDisclosure from "@/hooks/use-disclosure";
 import { createProfileImgURL } from "../_utils/profileUtils";
 import { useEffect } from "react";
 import useUserStore, { IUserData } from "@/stores/useUserStore";
+import { useTranslations } from "next-intl";
 
 type TMyPageMainProps = {
   userData: IUserData;
 };
 
 export default function MyPageMain({ userData }: TMyPageMainProps) {
+  const t = useTranslations();
   const { setUserStoreData } = useUserStore();
 
   // 모달 관련 상태 관리
@@ -47,15 +49,22 @@ export default function MyPageMain({ userData }: TMyPageMainProps) {
       {/* 프로필 수정 */}
       <section className="flex flex-row items-center justify-between">
         <div className="flex flex-col gap-[.8rem]">
-          <h1 className="body_2 font-bold text-gray-900">프로필 설정</h1>
-          <div>서비스 사용시 보여지는 프로필을 생성 및 변경합니다. 프로필을 설정해보세요.</div>
+          <h1 className="body_2 font-bold text-gray-900">
+            {t("mypage.profileSettings", { defaultMessage: "프로필 설정" })}
+          </h1>
+          <div>
+            {" "}
+            {t("mypage.manageAndModifyProfile", {
+              defaultMessage: "서비스 사용시 보여지는 프로필을 생성 및 변경합니다. 프로필을 설정해보세요.",
+            })}
+          </div>
         </div>
         <Button variant="textButton" size="sm" className="w-[16rem] text-grayscale-0" onClick={profileModal.open}>
-          프로필 수정
+          {t("mypage.editProfile", { defaultMessage: "프로필 수정" })}
         </Button>
       </section>
       <section className="flex flex-row gap-[12.2rem]">
-        <h3 className="body_4 font-medium text-black">프로필</h3>
+        <h3 className="body_4 font-medium text-black"> {t("mypage.profile", { defaultMessage: "프로필" })}</h3>
         <div className="flex flex-row items-center gap-[1.6rem]">
           {/* 프로필 이미지 */}
           <div className="flex h-[5.6rem] w-[5.6rem] overflow-hidden rounded-[50%]">
@@ -76,23 +85,38 @@ export default function MyPageMain({ userData }: TMyPageMainProps) {
       {/* 계정 설정 */}
       <section className="flex flex-row items-center justify-between">
         <div className="flex flex-col gap-[.8rem]">
-          <h1 className="body_2 font-bold text-gray-900">계정 설정</h1>
-          <div>서비스 이용시 사용되는 계정을 생성 및 변경합니다. 계정을 연동하여 다양한 서비스를 이용해보세요.</div>
+          <h1 className="body_2 font-bold text-gray-900">
+            {t("mypage.accountSettings", { defaultMessage: "계정 설정" })}
+          </h1>
+          <div>
+            {t("mypage.manageAndModifyAccount", {
+              defaultMessage:
+                "서비스 이용시 사용되는 계정을 생성 및 변경합니다. 계정을 연동하여 다양한 서비스를 이용해보세요.",
+            })}
+          </div>
         </div>
         <Button variant="textButton" size="sm" className="w-[16rem] text-grayscale-0" onClick={verifyModal.open}>
-          {userData?.login_type === "local" ? "계정정보 수정" : "회원탈퇴"}
+          {userData?.login_type === "local"
+            ? t("mypage.modifyAccountInformation", { defaultMessage: "계정정보 수정" })
+            : t("mypage.withdrawal", { defaultMessage: "회원탈퇴" })}
         </Button>
       </section>
       <div className="flex flex-row items-center">
-        <div className="body_3 w-[14.4rem] font-medium text-grayscale-900">이메일</div>
+        <div className="body_3 w-[14.4rem] font-medium text-grayscale-900">
+          {t("user.email", { defaultMessage: "이메일" })}
+        </div>
         <div className="body_4 font-medium text-grayscale-600">{userData?.email}</div>
       </div>
       <div className="flex flex-row items-center">
-        <div className="body_3 w-[14.4rem] font-medium text-grayscale-900">이름</div>
+        <div className="body_3 w-[14.4rem] font-medium text-grayscale-900">
+          {t("user.name", { defaultMessage: "이름" })}
+        </div>
         <div className="body_4 font-medium text-grayscale-600">{userData?.name}</div>
       </div>
       <div className="flex flex-row items-center">
-        <div className="body_3 w-[14.4rem] font-medium text-grayscale-900">생년월일</div>
+        <div className="body_3 w-[14.4rem] font-medium text-grayscale-900">
+          {t("user.dateOfBirth", { defaultMessage: "생년월일" })}
+        </div>
         <div className="body_4 font-medium text-grayscale-600">{userData?.birth}</div>
       </div>
       <VerifyModal isOpen={verifyModal.isOpen} onClose={verifyModal.close} onEdit={handleOpenPrivacyWithdrawModal} />

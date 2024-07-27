@@ -22,7 +22,7 @@
     "relatedStocks": "현재 뉴스와 관련된 주식",
     "relatedArticles": "관련 기사",
     "AISummary": "아잇나우 AI요약",
-    "AISummaryContent":"AI 요약내용"
+    "AISummaryContent": "AI 요약내용"
   },
   "report": {
     "stock": "주식",
@@ -49,5 +49,60 @@
   },
   "chatBot": {
     "initMessage": "안녕하세요! 나우챗봇입니다. 무엇을 도와드릴까요?"
+  },
+  "mypage": {
+    "editPersonalInformation": "개인정보 수정",
+    "languageSettings": "언어 설정",
+    "termsOfService": "서비스 이용약관",
+
+    "profileSettings": "프로필 설정",
+    "manageAndModifyProfile": "서비스 사용시 보여지는 프로필을 생성 및 변경합니다. 프로필을 설정해보세요.",
+    "editProfile": "프로필 수정",
+    "profile": "프로필",
+    "accountSettings": "계정 설정",
+    "manageAndModifyAccount": "서비스 이용시 사용되는 계정을 생성 및 변경합니다. 계정을 연동하여 다양한 서비스를 이용해보세요.",
+    "modifyAccountInformation": "계정정보 수정",
+    "withdrawal": "회원 탈퇴",
+    "chooseLanguageForTranslation": "이 설정에서 번역할 언어를 선택하시면 뉴스 및 리포트에서 설정하신 언어로 번역한 정보를 확인할 수 있습니다.",
+    "privacyPolicy": "개인정보 처리방침",
+    "fold": "접기",
+    "expandToView": "펼쳐서 보기",
+
+    "duplicateCheck": "중복 확인",
+    "edit": "수정하기",
+    "passwordAuthentication": "비밀번호 인증",
+    "currentPasswordInput": "현재 비밀번호 입력",
+    "enterPassword": "비밀번호를 입력해주세요",
+    "modifyInformation": "정보 수정",
+    "newPasswordInput": "새 비밀번호 입력",
+    "confirmNewPassword": "새 비밀번호 확인",
+    "reasonForWithdrawal": "회원탈퇴 사유",
+    "inconvenientService": "이용이 불편하고 장애가 많아서",
+    "betterServiceElsewhere": "다른 서비스가 더 좋아서",
+    "lowUsageFrequency": "사용 빈도가 낮아서",
+    "contentDissatisfaction": "콘텐츠 불만",
+    "other": "기타",
+    "emailVerification": "이메일 인증",
+    "inputEmail": "이메일 입력",
+    "enterEmail": "이메일을 입력해주세요",
+    "sendVerificationCode": "인증 코드 발송",
+    "verifyCode": "인증코드 확인"
+  },
+  "lang": {
+    "korean": "한국어",
+    "english": "영어",
+    "chinese": "중국어",
+    "japanese": "일본어",
+    "french": "프랑스어"
+  },
+  "user": {
+    "email": "이메일",
+    "name": "이름",
+    "dateOfBirth": "생년월일",
+    "nickname": "닉네임",
+    "gender": "성별",
+    "man": "남성",
+    "woman": "여성",
+    "phone": "휴대폰번호"
   }
 }

@@ -1,5 +1,6 @@
 import { Modal, Button } from "@/components/common";
 import EditPrivacyForm from "@/app/[lang]/(mypage)/mypage/_components/EditPrivacyForm";
+import { useTranslations } from "next-intl";
 
 type TPrivacyEditModalProps = {
   isOpen: boolean;
@@ -8,6 +9,8 @@ type TPrivacyEditModalProps = {
 };
 
 export default function PrivacyEditModal({ isOpen, onClose, openWithdrawModal }: TPrivacyEditModalProps) {
+  const t = useTranslations();
+
   return (
     <Modal
       isOpen={isOpen}
@@ -25,7 +28,7 @@ export default function PrivacyEditModal({ isOpen, onClose, openWithdrawModal }:
           className="w-[6.4rem] text-warning-100 underline"
           onClick={openWithdrawModal}
         >
-          회원 탈퇴
+          {t("mypage.withdrawal", { defaultMessage: "회원 탈퇴" })}
         </Button>
       </div>
     </Modal>

@@ -22,7 +22,7 @@
     "relatedStocks": "現在のニュースに関連する株式",
     "relatedArticles": "関連記事",
     "AISummary": "AightNow AI要約",
-    "AISummaryContent":"AI要約内容"
+    "AISummaryContent": "AI要約内容"
   },
   "report": {
     "stock": "株式",
@@ -48,5 +48,58 @@
   },
   "chatBot": {
     "initMessage": "こんにちは！私はNowChatBotです。何をお手伝いしましょうか？"
+  },
+  "mypage": {
+    "editPersonalInformation": "個人情報の編集",
+    "languageSettings": "言語設定",
+    "termsOfService": "サービス利用規約",
+    "profileSettings": "プロファイル設定",
+    "manageAndModifyProfile": "サービス利用時に表示されるプロファイルを作成・変更します。プロファイルを設定してください。",
+    "editProfile": "プロファイルの編集",
+    "profile": "プロファイル",
+    "accountSettings": "アカウント設定",
+    "manageAndModifyAccount": "サービス利用時のアカウントを作成・変更します。アカウントを連携して様々なサービスを利用してください。",
+    "modifyAccountInformation": "アカウント情報の編集",
+    "withdrawal": "アカウントの退会",
+    "chooseLanguageForTranslation": "この設定で翻訳言語を選択すると、ニュースやレポートで選択した言語に翻訳された情報を確認できます。",
+    "privacyPolicy": "プライバシーポリシー",
+    "fold": "たたむ",
+    "expandToView": "詳細表示",
+    "duplicateCheck": "重複確認",
+    "edit": "編集",
+    "passwordAuthentication": "パスワード認証",
+    "currentPasswordInput": "現在のパスワード入力",
+    "enterPassword": "パスワードを入力してください",
+    "modifyInformation": "情報修正",
+    "newPasswordInput": "新しいパスワード入力",
+    "confirmNewPassword": "新しいパスワード確認",
+    "reasonForWithdrawal": "退会理由",
+    "inconvenientService": "サービスが不便で問題が多い",
+    "betterServiceElsewhere": "他のサービスがより良い",
+    "lowUsageFrequency": "使用頻度が低い",
+    "contentDissatisfaction": "コンテンツ不満",
+    "other": "その他",
+    "emailVerification": "メール認証",
+    "inputEmail": "メール入力",
+    "enterEmail": "メールアドレスを入力してください",
+    "sendVerificationCode": "認証コードを送信",
+    "verifyCode": "認証コードを確認"
+  },
+  "lang": {
+    "korean": "韓国語",
+    "english": "英語",
+    "chinese": "中国語",
+    "japanese": "日本語",
+    "french": "フランス語"
+  },
+  "user": {
+    "email": "メール",
+    "name": "名前",
+    "dateOfBirth": "生年月日",
+    "nickname": "ニックネーム",
+    "gender": "性別",
+    "man": "男性",
+    "woman": "女性",
+    "phone": "電話番号"
   }
 }

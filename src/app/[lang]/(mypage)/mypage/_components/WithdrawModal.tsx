@@ -9,6 +9,7 @@ import useAlert from "@/hooks/use-alert";
 import { passwordCert } from "../_api/privacyApi";
 import { deleteGoogleUserAccount, deleteKakaoUserAccount, deleteNaverUserAccount, withdraw } from "../_api/withdrawApi";
 import useToast from "@/hooks/use-toast";
+import { useTranslations } from "next-intl";
 
 const withdrawReasons = [
   { value: "inconvenient_service", text: "이용이 불편하고 장애가 많아서" },
@@ -29,6 +30,8 @@ export interface IWithdrawForm {
 }
 
 export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) {
+  const t = useTranslations();
+
   const { userStoreData } = useUserStore();
   const { alertInfo, customAlert } = useAlert();
   const { showLoadingToast, updateToast } = useToast();
@@ -170,7 +173,7 @@ export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) 
             />
             {selectedReason.value === "other" && (
               <div>
-                <label className="body_4 font-medium text-navy-900">탈퇴 사유</label>
+                <label className="body_4 font-medium text-navy-900">기타 사유</label>
                 <textarea
                   className="h-[10rem] w-full resize-none rounded-[0.8rem] border border-gray-300 p-[1.6rem] text-grayscale-900 focus:outline-blue-500"
                   value={otherReason}
@@ -205,7 +208,7 @@ export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) 
             onClick={handleWithdraw}
             disabled={isProcessing || (userStoreData?.login_type === "local" && !password)}
           >
-            회원탈퇴
+            {t("mypage.withdrawal", { defaultMessage: "회원탈퇴" })}
           </Button>
         </div>
       </Modal>
