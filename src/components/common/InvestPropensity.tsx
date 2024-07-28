@@ -1,15 +1,15 @@
 import { useForm } from "react-hook-form";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import CheckBox from "./CheckBox";
 import { Button } from "./Button";
 import CreditInfoAgree from "@/app/[lang]/(auth)/_components/CreditInfoAgree";
 import { cn } from "@/utils/cn";
 import { InvestPropensityQuestions } from "@/data/InvestPropensityQuestions";
+import { TInvestPropensityDetails } from "@/types/investPropensityType";
 
 type TInvestPropensityProps = {
-  onSubmit?: any;
-  initialData?: {
+  onSubmit: (data: TInvestPropensityDetails) => Promise<void>;
     investPropensity: {
       1: string;
       2: string;
@@ -43,7 +43,7 @@ export default function InvestPropensity({ onSubmit, initialData }: TInvestPrope
   };
 
   // 모든 필드가 응답되었는지 확인하는 함수
-  const areAllFieldsFilled = (values: any) => {
+  const areAllFieldsFilled = (values: FormValues) => {
     // 해당 폼에 처음 진입했을 때는 빈 객체로 존재하기 때문에 빈 객체인지 여부를 체크함
     if (Object.keys(values).length === 0) return false;
 
@@ -55,7 +55,7 @@ export default function InvestPropensity({ onSubmit, initialData }: TInvestPrope
 
   const isAllFieldsFilled = areAllFieldsFilled(fieldValues);
 
-  const handleFormSubmit = (data: any) => {
+  const handleFormSubmit = (data: FormValues) => {
     if (!initialData && isChecked && isAllFieldsFilled) onSubmit(data);
     else if (initialData !== undefined) {
       if ((isChecked && isAllFieldsFilled) || !isChecked) onSubmit(data);
