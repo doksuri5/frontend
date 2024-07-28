@@ -1,17 +1,30 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 import SearchItem from "./SearchItem";
-import { Alert } from "@/components/common";
+import { Alert, Skeleton } from "@/components/common";
 import { SearchTextDataType } from "@/types/SearchDataType";
-import { deleteRecentSearchTextList } from "@/actions/search";
+import { deleteRecentSearchTextList, getRecentSearches } from "@/actions/search";
 import WarningIcon from "@/public/icons/warning_icon.svg?component";
+import RecentSearchItemSkeleton from "./_skeleton/RecentSearchItemSkeleton";
 
 const RecentSearches = ({ recentSearches }: { recentSearches: SearchTextDataType[] }) => {
   const t = useTranslations("discovery");
   const [showAlert, setShowAlert] = useState(false);
   const [searchItems, setSearchItems] = useState(recentSearches);
+  const [isPending, startTransition] = useTransition();
+
+  useEffect(() => {
+    const fetchRecentSearches = async () => {
+      const response = await getRecentSearches();
+      if (response.ok) setSearchItems(response.data);
+    };
+
+    startTransition(async () => {
+      await fetchRecentSearches();
+    });
+  }, [recentSearches]);
 
   // 전체 삭제
   const handleDeleteSearch = async () => {
@@ -31,6 +44,15 @@ const RecentSearches = ({ recentSearches }: { recentSearches: SearchTextDataType
   const handleAlertShow = () => {
     if (recentSearches.length !== 0) setShowAlert(true);
   };
+
+  if (isPending)
+    return (
+      <div className="flex_col relative min-h-[20rem] rounded-[1.6rem] bg-white p-[2.4rem]">
+        {Array.from({ length: 5 }).map((_, index) => (
+          <RecentSearchItemSkeleton key={index} />
+        ))}
+      </div>
+    );
 
   return (
     <>
