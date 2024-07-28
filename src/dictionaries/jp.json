@@ -7,6 +7,220 @@
     "login": "ログイン",
     "logout": "ログアウト"
   },
+  "auth": {
+    "title": {
+      "login": "ログイン",
+      "register": "登録",
+      "termsAgreement": "利用規約に同意",
+      "profileSetup": "プロフィール設定",
+      "findPassword": "パスワードを探す",
+      "findEmail": "メールを探す",
+      "registrationComplete": "登録完了",
+      "registerComplete": "登録完了"
+    },
+    "label": {
+      "name": "名前",
+      "email": "メールアドレス",
+      "password": "パスワードを入力",
+      "confirmPassword": "パスワードを確認",
+      "phone": "携帯電話番号",
+      "birthDate": "生年月日",
+      "profileImage": "プロフィール画像",
+      "nickname": "ニックネーム",
+      "interestStock": "関心銘柄",
+      "gender": "性別"
+    },
+    "placeholder": {
+      "email": "メールアドレスを入力してください。",
+      "password": "パスワードを入力してください。",
+      "name": "名前を入力してください。",
+      "phone": "ハイフンなしの携帯電話番号を入力してください。",
+      "emailVerificationCode": "メール認証コード6桁を入力",
+      "confirmPassword": "パスワードを再度入力してください。",
+      "birthDate": "生年月日6桁を入力してください（例：991231）",
+      "nickname": "ニックネームを入力してください。",
+      "addInterestStock": "#関心銘柄を追加してください。",
+      "registeredEmail": "登録時に使用したメールアドレスを入力してください。"
+    },
+    "sns": {
+      "kakao": "カカオ",
+      "naver": "ネイバー",
+      "google": "グーグル",
+      "local": "一般"
+    },
+    "commonValidation": {
+      "noSpecialCharsOrNumbers": "数字や特殊文字は含めないでください。",
+      "invalidEmailFormat": "有効なメールアドレス形式ではありません。",
+      "invalidPhoneNumber": "有効な携帯電話番号を入力してください。",
+      "passwordRequirements": "8-20文字で、数字、特殊文字、英字のうち2つ以上を組み合わせてください。",
+      "enterPassword": "パスワードを入力してください。",
+      "birthDateLength": "生年月日は6桁である必要があります。",
+      "invalidDate": "無効な日付です。",
+      "enterVerificationCode": "認証コード6桁を入力してください。",
+      "passwordMismatch": "パスワードが一致しません。再度確認して入力してください。",
+      "invalidSpecialChars": "‘_’, ‘-’以外の特殊文字は使用できません。",
+      "selectInterestStock": "関心銘柄を選択してください。"
+    },
+    "commonBtn": {
+      "next": "次へ",
+      "register": "登録する",
+      "confirm": "確認",
+      "issueTempPassword": "仮パスワード発行",
+      "pleaseWait": "少々お待ちください。"
+    },
+    "login": {
+      "autoLogin": "自動ログイン",
+      "notMemberYet": "まだ会員ではありませんか？",
+      "signup": "今すぐ登録",
+      "or": "または",
+      "loggingIn": "ログイン中...",
+      "loginFailed": "ログインに失敗しました。",
+      "checkEmailPassword": "メールアドレスまたはパスワードを確認してください。",
+      "loginSuccessful": "ログイン成功。"
+    },
+    "termsAgreement": {
+      "checkRequiredTerms": "必須の利用規約にチェックしてください。",
+      "agreeAll": "利用規約、プライバシーポリシーに同意します。",
+      "termsOfService": "利用規約（必須）",
+      "privacyPolicy": "プライバシーポリシー（必須）",
+      "agree": "同意する"
+    },
+    "register": {
+      "sendingEmail": "メールを送信中...",
+      "emailSent": "メールの送信が完了しました。",
+      "emailSendFailed": "メールの送信に失敗しました。",
+      "resendEmail": "メールを再送信",
+      "requestEmail": "メールをリクエスト",
+      "verificationExpired": "認証時間が切れました。再度メールをリクエストしてください。",
+      "emailVerified": "メール認証が完了しました。",
+      "verifyCode": "コード認証",
+      "codeSent": "認証コードを送信しました。",
+      "codeSentToEmail": "入力したメールアドレスに認証コードを送信しました。",
+      "checkEmailToContinue": "メールを確認して登録を続行してください。",
+      "alreadyRegisteredEmail": "このメールアドレスは既に登録されています。"
+    },
+    "registerComplete": {
+      "registrationComplete": "登録が完了しました。",
+      "loginToContinue": "ログインしてご利用ください。"
+    },
+    "profileSetUp": {
+      "profileImage": "プロフィール画像",
+      "uploadLimit": "1MB以下の画像ファイルのみアップロードできます。",
+      "nicknameAvailable": "使用可能なニックネームです。",
+      "signupError": "一時的なエラーのため、登録に失敗しました。",
+      "retrySignup": "もう一度登録をお試しください。",
+      "changeNickname": "ニックネームを変更",
+      "checkDuplicate": "重複を確認",
+      "noSearchResults": "検索結果がありません。",
+      "addAtLeastOneInterestStock": "関心銘柄を少なくとも1つ追加してください。",
+      "male": "男性",
+      "female": "女性",
+      "registerInvestmentPreference": "投資の好みを登録して",
+      "registerInvestmentPreferenceInfo": "より正確な情報を受け取ることができます！",
+      "registerInvestmentPreferenceButton": "投資の好みを登録",
+      "noInvestmentPreference": "投資の好みを登録していません。",
+      "confirmNoInvestmentPreference": "登録せずにこのまま進みますか？",
+      "signupWithoutPreference": "登録せずに進む",
+      "registerInvestmentPreferenceAgain": "投資の好みを再度登録"
+    },
+    "findPassword": {
+      "issuingTempPassword": "仮パスワードを発行中...",
+      "tempPasswordIssued": "仮パスワードの発行が完了しました。",
+      "tempPasswordIssueFailed": "仮パスワードの発行に失敗しました。",
+      "snsLoginAccount": "SNSログインで登録されたアカウントです。",
+      "tempPasswordGenerated": "仮パスワードが発行されました。",
+      "pleaseLogin": "ログインしてください。",
+      "checkEmailForTempPassword": "メールを確認し、仮パスワードで再ログイン後、パスワードを変更してください。"
+    },
+    "findEmailComplete": {
+      "emailMatchesPhone": "携帯電話番号に一致するメールです。",
+      "snsLogin": "SNSログイン",
+      "email": "メール",
+      "registrationDate": "登録日"
+    },
+    "exist": {
+      "alreadyRegisteredEmail": "このメールアドレスは既に登録されています。",
+      "snsSignupNotAllowed": "このSNSアカウントでは登録できません。",
+      "checkAccountInfoThroughFindEmail": "メールを探してアカウント情報を確認してください。"
+    },
+    "loginError": {
+      "errorTitle": "ログインエラー",
+      "temporaryError": "一時的なエラーのため、ログインに失敗しました。",
+      "tryAgain": "もう一度お試しください。"
+    },
+    "metadata": {
+      "login": {
+        "description": "アカウントにログインしてサービスを利用してください。",
+        "keywords": "ログイン, アカウントアクセス, ユーザー認証",
+        "openGraph": {
+          "description": "アカウントにログインしてサービスを利用してください。"
+        },
+        "twitter": {
+          "description": "アカウントにログインしてサービスを利用してください。"
+        }
+      },
+      "termsAgreement": {
+        "description": "利用規約とポリシーを確認して同意してください。",
+        "keywords": "利用規約同意, 利用規約, ポリシー, 同意",
+        "openGraph": {
+          "description": "利用規約とポリシーを確認して同意してください。"
+        },
+        "twitter": {
+          "description": "利用規約とポリシーを確認して同意してください。"
+        }
+      },
+      "register": {
+        "description": "新しいアカウントを作成してサービスを利用してください。",
+        "keywords": "登録, サインアップ, アカウント作成, 新規アカウント",
+        "openGraph": {
+          "description": "新しいアカウントを作成してサービスを利用してください。"
+        },
+        "twitter": {
+          "description": "新しいアカウントを作成してサービスを利用してください。"
+        }
+      },
+      "registerComplete": {
+        "description": "登録が完了しました。サービスを利用してください。",
+        "keywords": "登録完了, アカウント作成, 新規アカウント",
+        "openGraph": {
+          "description": "登録が完了しました。サービスを利用してください。"
+        },
+        "twitter": {
+          "description": "登録が完了しました。サービスを利用してください。"
+        }
+      },
+      "profileSetup": {
+        "description": "プロフィール情報を入力し、投資の好みを登録してください。",
+        "keywords": "登録, プロフィール設定, 投資の好み, 個人情報, 投資",
+        "openGraph": {
+          "description": "プロフィール情報を入力し、投資の好みを登録してください。"
+        },
+        "twitter": {
+          "description": "プロフィール情報を入力し、投資の好みを登録してください。"
+        }
+      },
+      "findEmail": {
+        "description": "アカウントに登録されているメールアドレスを探してください。",
+        "keywords": "メールを探す, アカウントメール, メール復元, メール確認",
+        "openGraph": {
+          "description": "アカウントに登録されているメールアドレスを探してください。"
+        },
+        "twitter": {
+          "description": "アカウントに登録されているメールアドレスを探してください。"
+        }
+      },
+      "findPassword": {
+        "description": "アカウントの仮パスワードを取得してください。",
+        "keywords": "パスワードを探す, 仮パスワード, パスワードリセット, アカウントセキュリティ",
+        "openGraph": {
+          "description": "アカウントの仮パスワードを取得してください。"
+        },
+        "twitter": {
+          "description": "アカウントの仮パスワードを取得してください。"
+        }
+      }
+    }
+  },
   "stocks": {
     "stockApple": "アップル",
     "stockMicroSoft": "マイクロソフト",

@@ -7,6 +7,220 @@
     "login": "Login",
     "logout": "Logout"
   },
+  "auth": {
+    "title": {
+      "login": "Login",
+      "register": "Sign Up",
+      "termsAgreement": "Agree to Terms",
+      "profileSetup": "Set Up Profile",
+      "findPassword": "Find Password",
+      "findEmail": "Find Email",
+      "registrationComplete": "Registration Complete",
+      "registerComplete": "Registration Complete"
+    },
+    "label": {
+      "name": "Name",
+      "email": "Email Address",
+      "password": "Enter Password",
+      "confirmPassword": "Confirm Password",
+      "phone": "Phone Number",
+      "birthDate": "Date of Birth",
+      "profileImage": "Profile Image",
+      "nickname": "Nickname",
+      "interestStock": "Interested Stock",
+      "gender": "Gender"
+    },
+    "placeholder": {
+      "email": "Please enter your email.",
+      "password": "Please enter your password.",
+      "name": "Please enter your name.",
+      "phone": "Enter your phone number without dashes.",
+      "emailVerificationCode": "Enter the 6-digit email verification code.",
+      "confirmPassword": "Please re-enter your password.",
+      "birthDate": "Enter your date of birth (e.g., 991231).",
+      "nickname": "Please enter your nickname.",
+      "addInterestStock": "Add interested stock with #.",
+      "registeredEmail": "Enter the email address you used during registration."
+    },
+    "sns": {
+      "kakao": "Kakao",
+      "naver": "Naver",
+      "google": "Google",
+      "local": "Local"
+    },
+    "commonValidation": {
+      "noSpecialCharsOrNumbers": "No special characters or numbers allowed.",
+      "invalidEmailFormat": "Invalid email format.",
+      "invalidPhoneNumber": "Please enter a valid phone number.",
+      "passwordRequirements": "Password must be 8-20 characters with a mix of numbers, special characters, and letters.",
+      "enterPassword": "Please enter a password.",
+      "birthDateLength": "Date of birth must be 6 digits.",
+      "invalidDate": "Invalid date.",
+      "enterVerificationCode": "Please enter the 6-digit verification code.",
+      "passwordMismatch": "Passwords do not match. Please check and try again.",
+      "invalidSpecialChars": "Only '_', '-' special characters are allowed.",
+      "selectInterestStock": "Please select an interested stock."
+    },
+    "commonBtn": {
+      "next": "Next",
+      "register": "Register",
+      "confirm": "Confirm",
+      "issueTempPassword": "Issue Temporary Password",
+      "pleaseWait": "Please wait."
+    },
+    "login": {
+      "autoLogin": "Auto Login",
+      "notMemberYet": "Not a member yet?",
+      "signup": "Sign up now",
+      "or": "Or",
+      "loggingIn": "Logging in...",
+      "loginFailed": "Login failed.",
+      "checkEmailPassword": "Please check your email or password and try again.",
+      "loginSuccessful": "Login successful."
+    },
+    "termsAgreement": {
+      "checkRequiredTerms": "Please check the required terms.",
+      "agreeAll": "I agree to the Terms of Service and Privacy Policy.",
+      "termsOfService": "Terms of Service (Required)",
+      "privacyPolicy": "Privacy Policy (Required)",
+      "agree": "Agree"
+    },
+    "register": {
+      "sendingEmail": "Sending email...",
+      "emailSent": "Email sent successfully.",
+      "emailSendFailed": "Failed to send email.",
+      "resendEmail": "Resend email",
+      "requestEmail": "Request email",
+      "verificationExpired": "Verification time expired. Please request a new email.",
+      "emailVerified": "Email verified.",
+      "verifyCode": "Verify code",
+      "codeSent": "Verification code sent.",
+      "codeSentToEmail": "Verification code sent to your email.",
+      "checkEmailToContinue": "Please check your email to continue registration.",
+      "alreadyRegisteredEmail": "This email is already registered."
+    },
+    "registerComplete": {
+      "registrationComplete": "Registration complete.",
+      "loginToContinue": "Please log in to continue."
+    },
+    "profileSetUp": {
+      "profileImage": "Profile Image",
+      "uploadLimit": "Only image files up to 1MB are allowed.",
+      "nicknameAvailable": "Nickname is available.",
+      "signupError": "Signup failed due to a temporary error.",
+      "retrySignup": "Please try signing up again.",
+      "changeNickname": "Change Nickname",
+      "checkDuplicate": "Check for duplicates",
+      "noSearchResults": "No results found.",
+      "addAtLeastOneInterestStock": "Please add at least one interested stock.",
+      "male": "Male",
+      "female": "Female",
+      "registerInvestmentPreference": "Register your investment preference",
+      "registerInvestmentPreferenceInfo": "to receive more accurate information!",
+      "registerInvestmentPreferenceButton": "Register Investment Preference",
+      "noInvestmentPreference": "You haven't registered an investment preference.",
+      "confirmNoInvestmentPreference": "Do you want to continue without registering an investment preference?",
+      "signupWithoutPreference": "Sign up without registering",
+      "registerInvestmentPreferenceAgain": "Register Investment Preference"
+    },
+    "findPassword": {
+      "issuingTempPassword": "Issuing temporary password...",
+      "tempPasswordIssued": "Temporary password issued.",
+      "tempPasswordIssueFailed": "Failed to issue temporary password.",
+      "snsLoginAccount": "Account registered via SNS login.",
+      "tempPasswordGenerated": "Temporary password has been generated.",
+      "pleaseLogin": "Please log in.",
+      "checkEmailForTempPassword": "Check your email to log in with the temporary password and change your password."
+    },
+    "findEmailComplete": {
+      "emailMatchesPhone": "Email matching the phone number.",
+      "snsLogin": "SNS Login",
+      "email": "Email",
+      "registrationDate": "Registration Date"
+    },
+    "exist": {
+      "alreadyRegisteredEmail": "This email is already registered.",
+      "snsSignupNotAllowed": "You cannot sign up with this SNS account.",
+      "checkAccountInfoThroughFindEmail": "Please check your account information through find email."
+    },
+    "loginError": {
+      "errorTitle": "Login Error",
+      "temporaryError": "Login failed due to a temporary error.",
+      "tryAgain": "Please try again."
+    },
+    "metadata": {
+      "login": {
+        "description": "Log in to your account to use our services.",
+        "keywords": "login, account access, user authentication",
+        "openGraph": {
+          "description": "Log in to your account to use our services."
+        },
+        "twitter": {
+          "description": "Log in to your account to use our services."
+        }
+      },
+      "termsAgreement": {
+        "description": "Check and agree to the user terms and policies.",
+        "keywords": "terms agreement, user terms, policies, consent",
+        "openGraph": {
+          "description": "Check and agree to the user terms and policies."
+        },
+        "twitter": {
+          "description": "Check and agree to the user terms and policies."
+        }
+      },
+      "register": {
+        "description": "Create a new account and start using our services.",
+        "keywords": "sign up, register, account creation, new account",
+        "openGraph": {
+          "description": "Create a new account and start using our services."
+        },
+        "twitter": {
+          "description": "Create a new account and start using our services."
+        }
+      },
+      "registerComplete": {
+        "description": "Your registration is complete. Start using our services.",
+        "keywords": "registration complete, account creation, new account",
+        "openGraph": {
+          "description": "Your registration is complete. Start using our services."
+        },
+        "twitter": {
+          "description": "Your registration is complete. Start using our services."
+        }
+      },
+      "profileSetup": {
+        "description": "Enter your personal information and register your investment preferences.",
+        "keywords": "sign up, profile setup, investment preference, personal information, investment",
+        "openGraph": {
+          "description": "Enter your personal information and register your investment preferences."
+        },
+        "twitter": {
+          "description": "Enter your personal information and register your investment preferences."
+        }
+      },
+      "findEmail": {
+        "description": "Find the email associated with your account.",
+        "keywords": "find email, account email, email recovery, email confirmation",
+        "openGraph": {
+          "description": "Find the email associated with your account."
+        },
+        "twitter": {
+          "description": "Find the email associated with your account."
+        }
+      },
+      "findPassword": {
+        "description": "Get a temporary password for your account.",
+        "keywords": "find password, temporary password, password reset, account security",
+        "openGraph": {
+          "description": "Get a temporary password for your account."
+        },
+        "twitter": {
+          "description": "Get a temporary password for your account."
+        }
+      }
+    }
+  },
   "stocks": {
     "stockApple": "Apple",
     "stockMicroSoft": "Microsoft",

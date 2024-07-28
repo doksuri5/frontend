@@ -13,10 +13,10 @@
       "register": "회원가입",
       "termsAgreement": "약관동의",
       "profileSetup": "프로필 설정",
-      "findId": "아이디 찾기",
       "findPassword": "비밀번호 찾기",
       "findEmail": "이메일 찾기",
-      "registrationComplete": "가입이 완료되었습니다."
+      "registrationComplete": "가입이 완료되었습니다.",
+      "registerComplete": "가입이 완료되었습니다."
     },
     "label": {
       "name": "이름",
@@ -96,7 +96,12 @@
       "verifyCode": "코드 인증",
       "codeSent": "인증 코드를 전송했습니다.",
       "codeSentToEmail": "작성한 이메일주소로 인증 코드를 전송했습니다.",
-      "checkEmailToContinue": "메일 확인 후 회원가입을 계속 진행해주세요."
+      "checkEmailToContinue": "메일 확인 후 회원가입을 계속 진행해주세요.",
+      "alreadyRegisteredEmail": "이미 가입된 이메일 입니다."
+    },
+    "registerComplete": {
+      "registrationComplete": "회원가입이 완료되었습니다.",
+      "loginToContinue": "로그인 후 이용해주세요!"
     },
     "profileSetUp": {
       "profileImage": "프로필 이미지",
@@ -143,7 +148,7 @@
       "temporaryError": "일시적인 오류로 인해 로그인에 실패하였습니다.",
       "tryAgain": "다시 한번 시도해주세요."
     },
-    "meta": {
+    "metadata": {
       "login": {
         "description": "로그인 페이지에서 계정에 접속하여 서비스를 이용하세요.",
         "keywords": "로그인, 계정 접속, 사용자 인증",
@@ -174,7 +179,17 @@
           "description": "회원가입 페이지에서 새로운 계정을 만들고 서비스를 이용해보세요."
         }
       },
-      "profileSetUp": {
+      "registerComplete": {
+        "description": "회원가입이 완료되었습니다. 서비스를 이용해보세요.",
+        "keywords": "회원가입완료, 가입완료, 계정 생성, 새로운 계정",
+        "openGraph": {
+          "description": "회원가입이 완료되었습니다. 서비스를 이용해보세요."
+        },
+        "twitter": {
+          "description": "회원가입이 완료되었습니다. 서비스를 이용해보세요."
+        }
+      },
+      "profileSetup": {
         "description": "프로필 설정 페이지에서 개인 정보를 입력하고 투자 성향을 등록하세요.",
         "keywords": "회원가입, 프로필 설정, 투자성향 등록, 개인 정보, 투자 성향",
         "openGraph": {

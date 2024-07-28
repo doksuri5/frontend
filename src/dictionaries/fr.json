@@ -7,6 +7,220 @@
     "login": "Connexion",
     "logout": "Déconnexion"
   },
+  "auth": {
+    "title": {
+      "login": "Connexion",
+      "register": "Inscription",
+      "termsAgreement": "Accepter les Conditions",
+      "profileSetup": "Configurer le Profil",
+      "findPassword": "Trouver le Mot de Passe",
+      "findEmail": "Trouver l'Email",
+      "registrationComplete": "Inscription Terminée",
+      "registerComplete": "Inscription Terminée"
+    },
+    "label": {
+      "name": "Nom",
+      "email": "Adresse Email",
+      "password": "Entrer le Mot de Passe",
+      "confirmPassword": "Confirmer le Mot de Passe",
+      "phone": "Numéro de Téléphone",
+      "birthDate": "Date de Naissance",
+      "profileImage": "Image de Profil",
+      "nickname": "Pseudo",
+      "interestStock": "Actions Intéressées",
+      "gender": "Genre"
+    },
+    "placeholder": {
+      "email": "Veuillez entrer votre email.",
+      "password": "Veuillez entrer votre mot de passe.",
+      "name": "Veuillez entrer votre nom.",
+      "phone": "Entrez votre numéro de téléphone sans tirets.",
+      "emailVerificationCode": "Entrez le code de vérification de l'email à 6 chiffres",
+      "confirmPassword": "Veuillez entrer à nouveau votre mot de passe.",
+      "birthDate": "Entrez votre date de naissance (ex : 991231)",
+      "nickname": "Veuillez entrer votre pseudo.",
+      "addInterestStock": "Ajoutez des actions intéressées avec #.",
+      "registeredEmail": "Entrez l'adresse email utilisée lors de l'inscription."
+    },
+    "sns": {
+      "kakao": "Kakao",
+      "naver": "Naver",
+      "google": "Google",
+      "local": "Local"
+    },
+    "commonValidation": {
+      "noSpecialCharsOrNumbers": "Ne peut pas contenir de chiffres ou de caractères spéciaux.",
+      "invalidEmailFormat": "Format de l'email invalide.",
+      "invalidPhoneNumber": "Veuillez entrer un numéro de téléphone valide.",
+      "passwordRequirements": "Le mot de passe doit être de 8 à 20 caractères et contenir au moins deux types parmi chiffres, caractères spéciaux, lettres.",
+      "enterPassword": "Veuillez entrer un mot de passe.",
+      "birthDateLength": "La date de naissance doit être de 6 chiffres.",
+      "invalidDate": "Date invalide.",
+      "enterVerificationCode": "Veuillez entrer le code de vérification à 6 chiffres.",
+      "passwordMismatch": "Les mots de passe ne correspondent pas. Veuillez vérifier et réessayer.",
+      "invalidSpecialChars": "Seuls les caractères spéciaux '_', '-' sont autorisés.",
+      "selectInterestStock": "Veuillez sélectionner une action intéressée."
+    },
+    "commonBtn": {
+      "next": "Suivant",
+      "register": "S'inscrire",
+      "confirm": "Confirmer",
+      "issueTempPassword": "Émettre un Mot de Passe Temporaire",
+      "pleaseWait": "Veuillez patienter."
+    },
+    "login": {
+      "autoLogin": "Connexion Automatique",
+      "notMemberYet": "Pas encore membre ?",
+      "signup": "Inscrivez-vous maintenant",
+      "or": "Ou",
+      "loggingIn": "Connexion en cours...",
+      "loginFailed": "Échec de la connexion.",
+      "checkEmailPassword": "Veuillez vérifier votre email ou mot de passe et réessayer.",
+      "loginSuccessful": "Connexion réussie."
+    },
+    "termsAgreement": {
+      "checkRequiredTerms": "Veuillez cocher les conditions requises.",
+      "agreeAll": "J'accepte les Conditions d'Utilisation et la Politique de Confidentialité.",
+      "termsOfService": "Conditions d'Utilisation (Obligatoire)",
+      "privacyPolicy": "Politique de Confidentialité (Obligatoire)",
+      "agree": "Accepter"
+    },
+    "register": {
+      "sendingEmail": "Envoi de l'email en cours...",
+      "emailSent": "Email envoyé avec succès.",
+      "emailSendFailed": "Échec de l'envoi de l'email.",
+      "resendEmail": "Renvoyer l'email",
+      "requestEmail": "Demander un email",
+      "verificationExpired": "Le temps de vérification a expiré. Veuillez demander un nouvel email.",
+      "emailVerified": "Email vérifié avec succès.",
+      "verifyCode": "Vérifier le Code",
+      "codeSent": "Code de vérification envoyé.",
+      "codeSentToEmail": "Le code de vérification a été envoyé à votre adresse email.",
+      "checkEmailToContinue": "Veuillez vérifier votre email pour continuer l'inscription.",
+      "alreadyRegisteredEmail": "Cet email est déjà enregistré."
+    },
+    "registerComplete": {
+      "registrationComplete": "Inscription terminée.",
+      "loginToContinue": "Veuillez vous connecter pour continuer."
+    },
+    "profileSetUp": {
+      "profileImage": "Image de Profil",
+      "uploadLimit": "Seuls les fichiers image de moins de 1MB sont autorisés.",
+      "nicknameAvailable": "Le pseudo est disponible.",
+      "signupError": "Échec de l'inscription en raison d'une erreur temporaire.",
+      "retrySignup": "Veuillez réessayer de vous inscrire.",
+      "changeNickname": "Changer de Pseudo",
+      "checkDuplicate": "Vérifier la disponibilité",
+      "noSearchResults": "Aucun résultat trouvé.",
+      "addAtLeastOneInterestStock": "Veuillez ajouter au moins une action intéressée.",
+      "male": "Homme",
+      "female": "Femme",
+      "registerInvestmentPreference": "Enregistrez votre préférence d'investissement",
+      "registerInvestmentPreferenceInfo": "pour recevoir des informations plus précises !",
+      "registerInvestmentPreferenceButton": "Enregistrer la Préférence d'Investissement",
+      "noInvestmentPreference": "Vous n'avez pas enregistré de préférence d'investissement.",
+      "confirmNoInvestmentPreference": "Voulez-vous continuer sans enregistrer de préférence d'investissement ?",
+      "signupWithoutPreference": "S'inscrire sans enregistrer",
+      "registerInvestmentPreferenceAgain": "Enregistrer de Nouveau la Préférence d'Investissement"
+    },
+    "findPassword": {
+      "issuingTempPassword": "Émission du mot de passe temporaire en cours...",
+      "tempPasswordIssued": "Mot de passe temporaire émis avec succès.",
+      "tempPasswordIssueFailed": "Échec de l'émission du mot de passe temporaire.",
+      "snsLoginAccount": "Compte enregistré via une connexion SNS.",
+      "tempPasswordGenerated": "Mot de passe temporaire généré.",
+      "pleaseLogin": "Veuillez vous connecter.",
+      "checkEmailForTempPassword": "Vérifiez votre email pour vous connecter avec le mot de passe temporaire et changez votre mot de passe."
+    },
+    "findEmailComplete": {
+      "emailMatchesPhone": "Email correspondant au numéro de téléphone.",
+      "snsLogin": "Connexion SNS",
+      "email": "Email",
+      "registrationDate": "Date d'Inscription"
+    },
+    "exist": {
+      "alreadyRegisteredEmail": "Cet email est déjà enregistré.",
+      "snsSignupNotAllowed": "L'inscription avec ce compte SNS est interdite.",
+      "checkAccountInfoThroughFindEmail": "Veuillez vérifier les informations du compte via la recherche d'email."
+    },
+    "loginError": {
+      "errorTitle": "Erreur de Connexion",
+      "temporaryError": "Échec de la connexion en raison d'une erreur temporaire.",
+      "tryAgain": "Veuillez réessayer."
+    },
+    "metadata": {
+      "login": {
+        "description": "Connectez-vous à votre compte pour utiliser nos services.",
+        "keywords": "connexion, accès au compte, authentification utilisateur",
+        "openGraph": {
+          "description": "Connectez-vous à votre compte pour utiliser nos services."
+        },
+        "twitter": {
+          "description": "Connectez-vous à votre compte pour utiliser nos services."
+        }
+      },
+      "termsAgreement": {
+        "description": "Vérifiez et acceptez les conditions d'utilisation et les politiques de confidentialité.",
+        "keywords": "acceptation des conditions, conditions d'utilisation, politique, consentement",
+        "openGraph": {
+          "description": "Vérifiez et acceptez les conditions d'utilisation et les politiques de confidentialité."
+        },
+        "twitter": {
+          "description": "Vérifiez et acceptez les conditions d'utilisation et les politiques de confidentialité."
+        }
+      },
+      "register": {
+        "description": "Créez un nouveau compte et commencez à utiliser nos services.",
+        "keywords": "inscription, création de compte, nouveau compte",
+        "openGraph": {
+          "description": "Créez un nouveau compte et commencez à utiliser nos services."
+        },
+        "twitter": {
+          "description": "Créez un nouveau compte et commencez à utiliser nos services."
+        }
+      },
+      "registerComplete": {
+        "description": "Votre inscription est terminée. Commencez à utiliser nos services.",
+        "keywords": "inscription terminée, création de compte, nouveau compte",
+        "openGraph": {
+          "description": "Votre inscription est terminée. Commencez à utiliser nos services."
+        },
+        "twitter": {
+          "description": "Votre inscription est terminée. Commencez à utiliser nos services."
+        }
+      },
+      "profileSetup": {
+        "description": "Entrez vos informations personnelles et enregistrez vos préférences d'investissement.",
+        "keywords": "inscription, configuration de profil, préférence d'investissement, informations personnelles, investissement",
+        "openGraph": {
+          "description": "Entrez vos informations personnelles et enregistrez vos préférences d'investissement."
+        },
+        "twitter": {
+          "description": "Entrez vos informations personnelles et enregistrez vos préférences d'investissement."
+        }
+      },
+      "findEmail": {
+        "description": "Trouvez l'email associé à votre compte.",
+        "keywords": "trouver email, email de compte, récupération d'email, confirmation d'email",
+        "openGraph": {
+          "description": "Trouvez l'email associé à votre compte."
+        },
+        "twitter": {
+          "description": "Trouvez l'email associé à votre compte."
+        }
+      },
+      "findPassword": {
+        "description": "Obtenez un mot de passe temporaire pour votre compte.",
+        "keywords": "trouver mot de passe, mot de passe temporaire, réinitialisation de mot de passe, sécurité du compte",
+        "openGraph": {
+          "description": "Obtenez un mot de passe temporaire pour votre compte."
+        },
+        "twitter": {
+          "description": "Obtenez un mot de passe temporaire pour votre compte."
+        }
+      }
+    }
+  },
   "stocks": {
     "stockApple": "Apple",
     "stockMicroSoft": "Microsoft",

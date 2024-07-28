@@ -7,6 +7,220 @@
     "login": "登录",
     "logout": "登出"
   },
+  "auth": {
+    "title": {
+      "login": "登录",
+      "register": "注册",
+      "termsAgreement": "同意条款",
+      "profileSetup": "设置个人资料",
+      "findPassword": "找回密码",
+      "findEmail": "找回邮箱",
+      "registrationComplete": "注册完成",
+      "registerComplete": "注册完成"
+    },
+    "label": {
+      "name": "姓名",
+      "email": "邮箱地址",
+      "password": "输入密码",
+      "confirmPassword": "确认密码",
+      "phone": "手机号",
+      "birthDate": "出生日期",
+      "profileImage": "个人资料图片",
+      "nickname": "昵称",
+      "interestStock": "感兴趣的股票",
+      "gender": "性别"
+    },
+    "placeholder": {
+      "email": "请输入邮箱地址。",
+      "password": "请输入密码。",
+      "name": "请输入姓名。",
+      "phone": "请输入手机号（不含“-”）。",
+      "emailVerificationCode": "请输入6位邮箱验证码",
+      "confirmPassword": "请再次输入密码。",
+      "birthDate": "请输入出生日期6位数（例：991231）",
+      "nickname": "请输入昵称。",
+      "addInterestStock": "添加感兴趣的股票#。",
+      "registeredEmail": "请输入注册时使用的邮箱地址。"
+    },
+    "sns": {
+      "kakao": "Kakao",
+      "naver": "Naver",
+      "google": "Google",
+      "local": "本地"
+    },
+    "commonValidation": {
+      "noSpecialCharsOrNumbers": "不能包含数字或特殊字符。",
+      "invalidEmailFormat": "邮箱格式不正确。",
+      "invalidPhoneNumber": "请输入有效的手机号。",
+      "passwordRequirements": "密码必须是8-20个字符，并且包含数字、特殊字符、字母中的两种以上。",
+      "enterPassword": "请输入密码。",
+      "birthDateLength": "出生日期必须是6位数。",
+      "invalidDate": "日期无效。",
+      "enterVerificationCode": "请输入6位验证码。",
+      "passwordMismatch": "密码不匹配。请检查后再输入。",
+      "invalidSpecialChars": "仅允许使用“_”和“-”特殊字符。",
+      "selectInterestStock": "请选择感兴趣的股票。"
+    },
+    "commonBtn": {
+      "next": "下一步",
+      "register": "注册",
+      "confirm": "确认",
+      "issueTempPassword": "生成临时密码",
+      "pleaseWait": "请稍候。"
+    },
+    "login": {
+      "autoLogin": "自动登录",
+      "notMemberYet": "还不是会员？",
+      "signup": "现在注册",
+      "or": "或者",
+      "loggingIn": "登录中...",
+      "loginFailed": "登录失败。",
+      "checkEmailPassword": "请检查您的邮箱或密码并重试。",
+      "loginSuccessful": "登录成功。"
+    },
+    "termsAgreement": {
+      "checkRequiredTerms": "请勾选必需的条款。",
+      "agreeAll": "我同意服务条款和隐私政策。",
+      "termsOfService": "服务条款（必需）",
+      "privacyPolicy": "隐私政策（必需）",
+      "agree": "同意"
+    },
+    "register": {
+      "sendingEmail": "发送邮件中...",
+      "emailSent": "邮件发送成功。",
+      "emailSendFailed": "邮件发送失败。",
+      "resendEmail": "重新发送邮件",
+      "requestEmail": "请求邮件",
+      "verificationExpired": "验证时间已过期。请重新请求邮件。",
+      "emailVerified": "邮箱验证成功。",
+      "verifyCode": "验证代码",
+      "codeSent": "验证码已发送。",
+      "codeSentToEmail": "验证码已发送到您的邮箱。",
+      "checkEmailToContinue": "请检查您的邮件以继续注册。",
+      "alreadyRegisteredEmail": "该邮箱已被注册。"
+    },
+    "registerComplete": {
+      "registrationComplete": "注册完成。",
+      "loginToContinue": "请登录以继续。"
+    },
+    "profileSetUp": {
+      "profileImage": "个人资料图片",
+      "uploadLimit": "仅允许上传不超过1MB的图片文件。",
+      "nicknameAvailable": "昵称可用。",
+      "signupError": "由于临时错误，注册失败。",
+      "retrySignup": "请重试注册。",
+      "changeNickname": "更改昵称",
+      "checkDuplicate": "检查重复",
+      "noSearchResults": "无搜索结果。",
+      "addAtLeastOneInterestStock": "请至少添加一个感兴趣的股票。",
+      "male": "男",
+      "female": "女",
+      "registerInvestmentPreference": "注册您的投资偏好",
+      "registerInvestmentPreferenceInfo": "以获取更准确的信息！",
+      "registerInvestmentPreferenceButton": "注册投资偏好",
+      "noInvestmentPreference": "您还没有注册投资偏好。",
+      "confirmNoInvestmentPreference": "您是否要在不注册投资偏好的情况下继续？",
+      "signupWithoutPreference": "在不注册的情况下注册",
+      "registerInvestmentPreferenceAgain": "重新注册投资偏好"
+    },
+    "findPassword": {
+      "issuingTempPassword": "生成临时密码中...",
+      "tempPasswordIssued": "临时密码已生成。",
+      "tempPasswordIssueFailed": "生成临时密码失败。",
+      "snsLoginAccount": "此账户通过SNS登录注册。",
+      "tempPasswordGenerated": "临时密码已生成。",
+      "pleaseLogin": "请登录。",
+      "checkEmailForTempPassword": "请检查您的邮件，使用临时密码登录并更改密码。"
+    },
+    "findEmailComplete": {
+      "emailMatchesPhone": "与手机号匹配的邮箱。",
+      "snsLogin": "SNS 登录",
+      "email": "邮箱",
+      "registrationDate": "注册日期"
+    },
+    "exist": {
+      "alreadyRegisteredEmail": "该邮箱已被注册。",
+      "snsSignupNotAllowed": "无法使用该SNS账户注册。",
+      "checkAccountInfoThroughFindEmail": "请通过找回邮箱确认账户信息。"
+    },
+    "loginError": {
+      "errorTitle": "登录错误",
+      "temporaryError": "由于临时错误，登录失败。",
+      "tryAgain": "请再试一次。"
+    },
+    "metadata": {
+      "login": {
+        "description": "登录您的账户以使用我们的服务。",
+        "keywords": "登录，账户访问，用户验证",
+        "openGraph": {
+          "description": "登录您的账户以使用我们的服务。"
+        },
+        "twitter": {
+          "description": "登录您的账户以使用我们的服务。"
+        }
+      },
+      "termsAgreement": {
+        "description": "检查并同意用户条款和政策。",
+        "keywords": "同意条款，用户条款，政策，同意",
+        "openGraph": {
+          "description": "检查并同意用户条款和政策。"
+        },
+        "twitter": {
+          "description": "检查并同意用户条款和政策。"
+        }
+      },
+      "register": {
+        "description": "创建一个新账户并开始使用我们的服务。",
+        "keywords": "注册，账户创建，新账户",
+        "openGraph": {
+          "description": "创建一个新账户并开始使用我们的服务。"
+        },
+        "twitter": {
+          "description": "创建一个新账户并开始使用我们的服务。"
+        }
+      },
+      "registerComplete": {
+        "description": "您的注册已完成。开始使用我们的服务。",
+        "keywords": "注册完成，账户创建，新账户",
+        "openGraph": {
+          "description": "您的注册已完成。开始使用我们的服务。"
+        },
+        "twitter": {
+          "description": "您的注册已完成。开始使用我们的服务。"
+        }
+      },
+      "profileSetup": {
+        "description": "输入您的个人信息并注册您的投资偏好。",
+        "keywords": "注册，设置个人资料，投资偏好，个人信息，投资",
+        "openGraph": {
+          "description": "输入您的个人信息并注册您的投资偏好。"
+        },
+        "twitter": {
+          "description": "输入您的个人信息并注册您的投资偏好。"
+        }
+      },
+      "findEmail": {
+        "description": "找回与您的账户关联的邮箱。",
+        "keywords": "找回邮箱，账户邮箱，邮箱恢复，确认邮箱",
+        "openGraph": {
+          "description": "找回与您的账户关联的邮箱。"
+        },
+        "twitter": {
+          "description": "找回与您的账户关联的邮箱。"
+        }
+      },
+      "findPassword": {
+        "description": "获取您账户的临时密码。",
+        "keywords": "找回密码，临时密码，重设密码，账户安全",
+        "openGraph": {
+          "description": "获取您账户的临时密码。"
+        },
+        "twitter": {
+          "description": "获取您账户的临时密码。"
+        }
+      }
+    }
+  },
   "stocks": {
     "stockApple": "苹果",
     "stockMicroSoft": "微软",
