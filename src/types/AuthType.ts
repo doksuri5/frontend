@@ -207,3 +207,5 @@ export type ExistingUserType = z.infer<typeof existingUserSchema>;
 export type ExistingUserDataType = z.infer<typeof existingUserInfoSchema>;
 
 export type SocialUserOptionsType = z.infer<typeof socialUserOptionSchema>;
+
+export type TFunction = (key: string, options?: { defaultMessage?: string }) => string;
