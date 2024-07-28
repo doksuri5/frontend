@@ -4,6 +4,7 @@ import { useState, useTransition } from "react";
 import { Controller } from "react-hook-form";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 import { Button, CheckBox, Input, FormResultError } from "@/components/common";
 
@@ -25,6 +26,7 @@ const cssConfig = {
 };
 
 export default function LoginForm() {
+  const t = useTranslations("auth");
   const {
     control,
     handleSubmit,
@@ -39,16 +41,18 @@ export default function LoginForm() {
 
   const onLoginSubmit = async (values: TLoginSchema) => {
     if (isValid) {
-      const toast = showLoadingToast("로그인 중입니다.");
+      const toast = showLoadingToast(t("login.loggingIn", { defaultMessage: "로그인 중입니다." }));
       setFormResultError("");
       try {
         startTransition(async () => {
           const response = await loginAction(values);
           if (!!response.error) {
-            updateToast(toast, "로그인 실패하였습니다.", "error");
-            setFormResultError("이메일 또는 비밀번호를 다시 한번 확인해주세요.");
+            updateToast(toast, t("login.loginFailed", { defaultMessage: "로그인 실패하였습니다." }), "error");
+            setFormResultError(
+              t("login.checkEmailPassword", { defaultMessage: "이메일 또는 비밀번호를 다시 한번 확인해주세요." }),
+            );
           } else {
-            updateToast(toast, "로그인 성공하였습니다.", "success");
+            updateToast(toast, t("login.loginSuccessful", { defaultMessage: "로그인 성공하였습니다." }), "success");
             router.replace(HOME_PATH);
           }
         });
@@ -64,7 +68,7 @@ export default function LoginForm() {
         <Input
           id="email"
           type="text"
-          placeholder="이메일을 입력해주세요."
+          placeholder={t("placeholder.email", { defaultMessage: "이메일을 입력해주세요." })}
           disabled={isPending}
           {...control.register("email")}
           variant={errors.email || formResultError ? "error" : "default"}
@@ -73,7 +77,7 @@ export default function LoginForm() {
         <Input
           id="password"
           type="password"
-          placeholder="비밀번호를 입력해주세요."
+          placeholder={t("placeholder.password", { defaultMessage: "비밀번호를 입력해주세요." })}
           disabled={isPending}
           inputGroupClass="mt-[1.6rem]"
           {...control.register("password")}
@@ -85,7 +89,7 @@ export default function LoginForm() {
             control={control}
             render={({ field: { onChange, value } }) => (
               <CheckBox
-                label="자동로그인"
+                label={t("login.autoLogin", { defaultMessage: "자동 로그인" })}
                 checked={!!value}
                 setChecked={(checked) => {
                   setChecked(checked);
@@ -97,10 +101,10 @@ export default function LoginForm() {
           />
           <div className={cn("flex_row_center ml-auto")}>
             <p className={cn(cssConfig.link, "py-[1.6rem]")}>
-              <Link href={FIND_EMAIL_PATH}>이메일 찾기</Link>
+              <Link href={FIND_EMAIL_PATH}>{t("title.findEmail", { defaultMessage: "이메일 찾기" })}</Link>
             </p>
             <p className={cn(cssConfig.link, "relative ml-[2rem]", cssConfig.line)}>
-              <Link href={FIND_PASSWORD_PATH}>비밀번호 찾기</Link>
+              <Link href={FIND_PASSWORD_PATH}>{t("title.findPassword", { defaultMessage: "비밀번호 찾기" })}</Link>
             </p>
           </div>
         </div>
@@ -112,7 +116,7 @@ export default function LoginForm() {
           className={isValid && !isPending ? "text-white" : "text-gray-300"}
           disabled={!isValid || isPending}
         >
-          로그인
+          {t("title.login", { defaultMessage: "로그인" })}
         </Button>
       </form>
     </>
