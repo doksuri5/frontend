@@ -72,7 +72,9 @@ export default function LoginForm() {
           disabled={isPending}
           {...control.register("email")}
           variant={errors.email || formResultError ? "error" : "default"}
-          caption={errors.email?.message}
+          caption={
+            errors.email?.message && t("commonValidation.invalidEmailFormat", { defaultMessage: errors.email?.message })
+          }
         />
         <Input
           id="password"

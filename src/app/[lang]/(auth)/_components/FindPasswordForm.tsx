@@ -106,14 +106,19 @@ export default function FindPasswordForm() {
     <>
       <form className="auth_form_layout" onSubmit={handleSubmit(onFindPasswordSubmit)}>
         <Input
+          {...control.register("name")}
           id="name"
           labelName={t("label.name", { defaultMessage: "이름" })}
           placeholder={t("placeholder.name", { defaultMessage: "이름을 입력해주세요." })}
           disabled={isPending}
           variant={errors.name || formResultError ? "error" : "default"}
-          {...control.register("name")}
+          caption={
+            errors.name?.message &&
+            t("commonValidation.noSpecialCharsOrNumbers", { defaultMessage: errors.name?.message })
+          }
         />
         <Input
+          {...control.register("email")}
           id="email"
           labelName={t("label.email", { defaultMessage: "이메일 주소" })}
           placeholder={t("placeholder.registeredEmail", {
@@ -121,8 +126,9 @@ export default function FindPasswordForm() {
           })}
           disabled={isPending}
           variant={errors.email || formResultError ? "error" : "default"}
-          caption={errors.email?.message}
-          {...control.register("email")}
+          caption={
+            errors.email?.message && t("commonValidation.invalidEmailFormat", { defaultMessage: errors.email?.message })
+          }
         />
         {formResultError && <FormResultError message={formResultError} />}
         <Button

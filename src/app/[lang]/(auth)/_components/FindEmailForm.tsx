@@ -77,7 +77,10 @@ export default function FindEmailForm() {
             placeholder={t("placeholder.name", { defaultMessage: "이름을 입력해주세요." })}
             disabled={isPending}
             variant={errors.name || formResultError ? "error" : "default"}
-            caption={errors.name?.message}
+            caption={
+              errors.name?.message &&
+              t("commonValidation.noSpecialCharsOrNumbers", { defaultMessage: errors.name?.message })
+            }
             {...control.register("name")}
           />
           <Input
@@ -87,7 +90,10 @@ export default function FindEmailForm() {
             disabled={isPending}
             variant={errors.phone || formResultError ? "error" : "default"}
             {...control.register("phone")}
-            caption={errors.phone?.message}
+            caption={
+              errors.phone?.message &&
+              t("commonValidation.invalidPhoneNumber", { defaultMessage: errors.phone?.message })
+            }
           />
           {formResultError && <FormResultError message={formResultError} />}
           <Button
