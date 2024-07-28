@@ -229,7 +229,7 @@ export default function ProfileSetUpForm() {
             })
           ).json();
           if (response.ok) {
-            router.push(REGISTER_COMPLETE_PATH);
+            router.replace(REGISTER_COMPLETE_PATH);
           }
         });
       } catch (e) {
@@ -301,25 +301,30 @@ export default function ProfileSetUpForm() {
             control={profileControl}
             disabled={isPending}
             render={({ field }) => (
-              <Select
-                {...field}
-                instanceId={"tags"}
-                isMulti
-                options={options}
-                className="basic-multi-select"
-                classNamePrefix="tag"
-                placeholder="#관심 종목을 추가해주세요."
-                noOptionsMessage={() => "검색된 결과가 없습니다."}
-                components={{
-                  IndicatorsContainer: () => null,
-                  IndicatorSeparator: () => null,
-                  Input: (props) => <components.Input {...props} aria-activedescendant={undefined} />,
-                }}
-                onChange={(selected: MultiValue<TOption>) => {
-                  field.onChange(selected);
-                  setValue("tags", selected as unknown as TOption[], { shouldValidate: true });
-                }}
-              />
+              <>
+                <Select
+                  {...field}
+                  instanceId={"tags"}
+                  isMulti
+                  options={options}
+                  className={`basic-multi-select ${profileErrors.tags ? "error" : ""}`}
+                  classNamePrefix="tag"
+                  placeholder="#관심 종목을 추가해주세요."
+                  noOptionsMessage={() => "검색된 결과가 없습니다."}
+                  components={{
+                    IndicatorsContainer: () => null,
+                    IndicatorSeparator: () => null,
+                    Input: (props) => <components.Input {...props} aria-activedescendant={undefined} />,
+                  }}
+                  onChange={(selected: MultiValue<TOption>) => {
+                    field.onChange(selected);
+                    setValue("tags", selected as unknown as TOption[], { shouldValidate: true });
+                  }}
+                />
+                {profileErrors.tags && (
+                  <span className="caption pt-[0.4rem] text-warning-100">관심 종목은 최소 1개 추가해주세요.</span>
+                )}
+              </>
             )}
           />
         </div>
@@ -330,7 +335,8 @@ export default function ProfileSetUpForm() {
             <Button
               type="button"
               variant="textButton"
-              size="md"
+              size="sm"
+              className="h-[48px]"
               bgColor={isGender === "M" ? "bg-navy-900" : "bg-white"}
               value="M"
               onClick={() => isGenderActive("M")}
@@ -341,7 +347,8 @@ export default function ProfileSetUpForm() {
             <Button
               type="button"
               variant="textButton"
-              size="md"
+              size="sm"
+              className="h-[48px]"
               bgColor={isGender === "F" ? "bg-navy-900" : "bg-white"}
               value="F"
               onClick={() => isGenderActive("F")}
@@ -391,7 +398,7 @@ export default function ProfileSetUpForm() {
           size="lg"
           bgColor={isProfileValid && isNicknameChk && !isPending ? "bg-navy-900" : "bg-grayscale-200"}
           className={cn(`mt-[4rem] ${isProfileValid && isNicknameChk && !isPending ? "text-white" : "text-gray-300"}`)}
-          disabled={(!isProfileValid && !isNicknameChk) || isPending}
+          disabled={!(isProfileValid && isNicknameChk) || isPending}
           onClick={handleSubmitButton}
         >
           가입하기

@@ -107,7 +107,7 @@ export const profileSchema = z.object({
         label: z.string(),
       }),
     )
-    .min(1, "관심 종목을 최소 하나 선택해야 합니다."),
+    .min(1, { message: "관심종목을 선택해주세요." }),
   isAgreeCreditInfo: z.boolean(),
   investPropensity: z
     .object({
