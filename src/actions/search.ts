@@ -16,6 +16,9 @@ export type TRecentTags = "/getRecentSearches";
 export const getRecentSearches = api.get({
   endpoint: `/getRecentSearches`,
   responseSchema: SearchTextSchema,
+  baseOptions: {
+    cache: "no-store",
+  },
 })<undefined, SearchTextDataType>;
 
 export const getSearchStocks = api.get({
