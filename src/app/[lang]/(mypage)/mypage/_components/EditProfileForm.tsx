@@ -288,7 +288,7 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
 
         {/* 관심 종목 */}
         <div className="mt-[1.6rem]">
-          <p className="body-4 text-navy-900">{t("header.interestStocksaaaa", { defaultMessage: "관심종목" })}</p>
+          <p className="body-4 text-navy-900">{t("header.interestStocks", { defaultMessage: "관심종목" })}</p>
           <Select
             instanceId={"tags"}
             isMulti

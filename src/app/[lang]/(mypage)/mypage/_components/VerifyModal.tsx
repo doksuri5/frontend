@@ -47,7 +47,7 @@ export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalPro
       customAlert({
         title: "인증 코드가 만료되었습니다.",
         subText: "인증 코드를 다시 요청해주세요.",
-        onClose: () => {},
+        onClose: () => { },
       });
       setVisibleCodeField(false);
       setTimeLeft(null);
@@ -81,14 +81,14 @@ export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalPro
         customAlert({
           title: "비밀번호 인증에 실패했습니다.",
           subText: "비밀번호를 다시 확인해 주세요.",
-          onClose: () => {},
+          onClose: () => { },
         });
       }
     } catch (err) {
       customAlert({
         title: "비밀번호 인증 도중 오류가 발생했습니다.",
         subText: err instanceof Error ? err.message : "알 수 없는 오류가 발생했습니다.",
-        onClose: () => {},
+        onClose: () => { },
       });
     }
   };
@@ -125,7 +125,7 @@ export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalPro
         customAlert({
           title: "이메일 인증에 실패했습니다.",
           subText: "이메일을 확인 후 다시 시도해 주세요.",
-          onClose: () => {},
+          onClose: () => { },
         });
       }
     } catch (err) {
@@ -134,7 +134,7 @@ export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalPro
       customAlert({
         title: "이메일 인증 도중 오류가 발생했습니다.",
         subText: err instanceof Error ? err.message : "알 수 없는 오류가 발생했습니다.",
-        onClose: () => {},
+        onClose: () => { },
       });
     }
   };
@@ -150,14 +150,14 @@ export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalPro
         customAlert({
           title: "인증코드가 일치하지 않습니다.",
           subText: "인증코드를 다시 확인해 주세요.",
-          onClose: () => {},
+          onClose: () => { },
         });
       }
     } catch (err) {
       customAlert({
         title: "인증코드 확인 도중 오류가 발생했습니다.",
         subText: err instanceof Error ? err.message : "알 수 없는 오류가 발생했습니다.",
-        onClose: () => {},
+        onClose: () => { },
       });
     }
   };
@@ -225,8 +225,8 @@ export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalPro
                     name="code"
                     value={code}
                     onChange={(e) => setCode(e.target.value)}
-                    labelName="인증 코드 입력"
-                    placeholder="인증 코드를 입력해주세요"
+                    labelName={t("enterCode", { defaultMessage: "인증 코드 입력" })}
+                    placeholder={t("promptCode", { defaultMessage: "인증 코드를 입력해주세요" })}
                     suffix={
                       <div className="text-[1.4rem] text-blue-500">{timeLeft !== null && formatTime(timeLeft)}</div>
                     }

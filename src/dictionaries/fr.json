@@ -154,13 +154,13 @@
       "selectWithdrawalReason": "Sélectionnez la raison du retrait",
       "enterOtherReason": "Entrez une autre raison",
       "otherReason": "Autre Raison",
-      "passwordPlaceholder": "Entrez le Mot de Passe",
+      "passwordLabel": "Entrez le Mot de Passe",
       "enterCode": "Entrez le Code de Vérification",
       "promptCode": "Veuillez Entrer le Code de Vérification",
       "newPassword": "Veuillez Entrer un Nouveau Mot de Passe",
       "confirmPassword": "Veuillez Confirmer Votre Mot de Passe",
       "enterPhone": "Entrez le Numéro de Téléphone Sans Tirets",
-      "enterBirth": "Entrez la Date de Naissance en 6 Chiffres (Exemple : 991231)"
+      "enterBirth": "Entrez la Date de Naissance en 6 Chiffres (Exemple: 991231)"
     }
   }
 }

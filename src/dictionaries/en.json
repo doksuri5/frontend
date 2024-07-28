@@ -154,7 +154,7 @@
       "selectWithdrawalReason": "Select Reason for Withdrawal",
       "enterOtherReason": "Enter Other Reason",
       "otherReason": "Other Reason",
-      "passwordPlaceholder": "Enter Password",
+      "passwordLabel": "Enter Password",
       "enterCode": "Enter Verification Code",
       "promptCode": "Please Enter Verification Code",
       "newPassword": "Please Enter a New Password",

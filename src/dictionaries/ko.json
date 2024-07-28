@@ -153,13 +153,13 @@
       "selectWithdrawalReason": "회원탈퇴 사유를 선택해주세요.",
       "enterOtherReason": "기타 사유를 입력해주세요.",
       "otherReason": "기타 사유",
-      "passwordPlaceholder": "비밀번호 입력",
+      "passwordLabel": "비밀번호 입력",
       "enterCode": "인증 코드 입력",
       "promptCode": "인증 코드를 입력해주세요",
       "newPassword": "변경할 비밀번호를 입력해주세요.",
       "confirmPassword": "비밀번호를 한번 더 확인해 주세요.",
       "enterPhone": "-를 제외한 휴대폰번호를 입력해주세요.",
-      "enterBirth": "생년월일 6자리를 입력해주세요.(예시 : 991231)"
+      "enterBirth": "생년월일 6자리를 입력해주세요.(예시: 991231)"
     }
   }
 }

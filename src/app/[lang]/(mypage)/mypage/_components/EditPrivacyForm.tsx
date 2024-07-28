@@ -75,7 +75,7 @@ export default function EditPrivacyForm({ closeModal }: TEditPrivacyFormProps) {
       customAlert({
         title: "회원 정보 수정 중 오류가 발생했습니다.",
         subText: err instanceof Error ? err.message : "알 수 없는 오류가 발생했습니다.",
-        onClose: () => {},
+        onClose: () => { },
       });
     }
   };
@@ -89,7 +89,7 @@ export default function EditPrivacyForm({ closeModal }: TEditPrivacyFormProps) {
             type="password"
             id="password"
             labelName={t("user.form.inputNewPassword", { defaultMessage: "새 비밀번호 입력" })}
-            placeholder="변경할 비밀번호를 입력해주세요."
+            placeholder={t("user.form.newPassword", { defaultMessage: "변경할 비밀번호를 입력해주세요." })}
             {...register("password", {
               minLength: {
                 value: 8,
@@ -116,7 +116,7 @@ export default function EditPrivacyForm({ closeModal }: TEditPrivacyFormProps) {
             type="password"
             id="passwordChk"
             labelName={t("user.form.confirmNewPassword", { defaultMessage: "새 비밀번호 확인" })}
-            placeholder="비밀번호를 다시 한번 입력해주세요."
+            placeholder={t("user.form.confirmPassword", { defaultMessage: "비밀번호를 한번 더 확인해 주세요." })}
             {...register("passwordChk", {
               validate: (value) => value === password || "동일한 비밀번호가 아닙니다. 다시 확인 후 입력해주세요.",
             })}
@@ -129,7 +129,7 @@ export default function EditPrivacyForm({ closeModal }: TEditPrivacyFormProps) {
           <Input
             id="phone"
             labelName={t("user.phone", { defaultMessage: "휴대폰번호" })}
-            placeholder="-를 제외한 휴대폰번호를 입력해주세요."
+            placeholder={t("user.form.enterPhone", { defaultMessage: "-를 제외한 휴대폰번호를 입력해주세요." })}
             {...register("phone", {
               required: "휴대폰 번호를 입력해주세요.",
               validate: {
@@ -146,7 +146,7 @@ export default function EditPrivacyForm({ closeModal }: TEditPrivacyFormProps) {
           <Input
             id="birth"
             labelName={t("user.birth", { defaultMessage: "생년월일" })}
-            placeholder="생년월일 6자리를 입력해주세요.(예시 : 991231)"
+            placeholder={t("user.form.enterBirth", { defaultMessage: "생년월일 6자리를 입력해주세요.(예시: 991231)" })}
             {...register("birth", {
               required: "생년월일을 입력해주세요.",
               validate: {

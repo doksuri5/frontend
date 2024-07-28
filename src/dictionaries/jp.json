@@ -154,13 +154,13 @@
       "selectWithdrawalReason": "退会理由を選択してください",
       "enterOtherReason": "その他の理由を入力してください",
       "otherReason": "その他の理由",
-      "passwordPlaceholder": "パスワードを入力してください",
+      "passwordLabel": "パスワードを入力してください",
       "enterCode": "認証コードを入力してください",
       "promptCode": "認証コードを入力してください",
       "newPassword": "新しいパスワードを入力してください",
       "confirmPassword": "パスワードをもう一度確認してください",
       "enterPhone": "ハイフンなしで携帯番号を入力してください",
-      "enterBirth": "生年月日6桁を入力してください(例 : 991231)"
+      "enterBirth": "生年月日6桁を入力してください(例: 991231)"
     }
   }
 }

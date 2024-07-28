@@ -72,7 +72,7 @@ export default function MyPageMain({ userData }: TMyPageMainProps) {
               src={userData?.profile ? createProfileImgURL(userData.profile, false) : Profile}
               width={120}
               height={120}
-              alt="프로필 이미지"
+              alt={ut("form.profileImage", { defaultMessage: "프로필 이미지" })}
               priority
               className="flex items-center justify-center object-cover"
             />
