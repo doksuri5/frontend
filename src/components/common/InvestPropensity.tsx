@@ -10,6 +10,7 @@ import { TInvestPropensityDetails } from "@/types/investPropensityType";
 
 type TInvestPropensityProps = {
   onSubmit: (data: TInvestPropensityDetails) => Promise<void>;
+  initialData?: {
     investPropensity: {
       1: string;
       2: string;
