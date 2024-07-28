@@ -13,7 +13,7 @@ export default function LoginPage() {
   const t = useTranslations("auth");
   return (
     <>
-      <CommonLayout title="로그인">
+      <CommonLayout title={t("title.login", { defaultMessage: "로그인" })}>
         <LoginForm />
         <dl className={cn("flex_row justify-between")}>
           <dt className={cn("body_5 text-grayscale-900")}>
