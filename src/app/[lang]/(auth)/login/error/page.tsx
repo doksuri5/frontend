@@ -5,7 +5,7 @@ import CommonLoginBtn from "../../_components/CommonLoginBtn";
 import Image from "next/image";
 
 export default function Page() {
-  const t = useTranslations("loginError");
+  const t = useTranslations("auth.loginError");
 
   return (
     <>
