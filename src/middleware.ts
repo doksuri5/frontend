@@ -35,7 +35,18 @@ const getLocale = async (request: NextRequest) => {
 
 export const middleware = async (req: NextRequest) => {
   const pathname = req.nextUrl.pathname;
+
+  // Check if there is any supported locale in the pathname
   const locale = (await getLocale(req)) || i18n.defaultLocale;
+  const pathnameIsMissingLocale = i18n.locales.every(
+    (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`,
+  );
+
+  // Redirect if there is no locale
+  if (pathnameIsMissingLocale) {
+    return NextResponse.redirect(new URL(`/${locale}${pathname}`, req.url));
+  }
+
   const isAuthenticated = checkLogin();
 
   const isAuthPath = requiresAuth(pathname, [
@@ -55,6 +66,7 @@ export const middleware = async (req: NextRequest) => {
 
   // 로그인이 필요한 경로이고 유저가 로그인 하지 않은 경우 로그인 페이지로 넘기기
   if (!isAuthPath && !isAuthenticated) {
+    console.log(isAuthPath, isAuthenticated)
     const response = NextResponse.redirect(new URL(`/${locale}/login`, req.url));
     response.cookies.delete("authjs.session-token");
 
