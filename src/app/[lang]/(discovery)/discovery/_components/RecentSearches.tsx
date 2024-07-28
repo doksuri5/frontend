@@ -1,19 +1,19 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useEffect, useState, useTransition } from "react";
+import { useEffect, useState, startTransition, useCallback } from "react";
 import SearchItem from "./SearchItem";
-import { Alert, Skeleton } from "@/components/common";
+import { Alert } from "@/components/common";
 import { SearchTextDataType } from "@/types/SearchDataType";
 import { deleteRecentSearchTextList, getRecentSearches } from "@/actions/search";
-import WarningIcon from "@/public/icons/warning_icon.svg?component";
 import RecentSearchItemSkeleton from "./_skeleton/RecentSearchItemSkeleton";
+import WarningIcon from "@/public/icons/warning_icon.svg?component";
 
-const RecentSearches = ({ recentSearches }: { recentSearches: SearchTextDataType[] }) => {
+const RecentSearches = () => {
   const t = useTranslations("discovery");
   const [showAlert, setShowAlert] = useState(false);
-  const [searchItems, setSearchItems] = useState(recentSearches);
-  const [isPending, startTransition] = useTransition();
+  const [searchItems, setSearchItems] = useState<SearchTextDataType[]>([]);
+  const [isRendering, setIsRendering] = useState(false);
 
   useEffect(() => {
     const fetchRecentSearches = async () => {
@@ -23,12 +23,13 @@ const RecentSearches = ({ recentSearches }: { recentSearches: SearchTextDataType
 
     startTransition(async () => {
       await fetchRecentSearches();
+      setIsRendering(true);
     });
-  }, [recentSearches]);
+  }, []);
 
   // 전체 삭제
-  const handleDeleteSearch = async () => {
-    if (recentSearches.length !== 0) {
+  const handleDeleteSearch = useCallback(async () => {
+    if (searchItems.length !== 0) {
       try {
         await deleteRecentSearchTextList();
         setSearchItems([]);
@@ -38,14 +39,14 @@ const RecentSearches = ({ recentSearches }: { recentSearches: SearchTextDataType
         setShowAlert(false);
       }
     }
-  };
+  }, [searchItems]);
 
   // Alert Show
-  const handleAlertShow = () => {
-    if (recentSearches.length !== 0) setShowAlert(true);
-  };
+  const handleAlertShow = useCallback(() => {
+    if (searchItems.length !== 0) setShowAlert(true);
+  }, [searchItems]);
 
-  if (isPending)
+  if (!isRendering)
     return (
       <div className="flex_col relative min-h-[20rem] rounded-[1.6rem] bg-white p-[2.4rem]">
         {Array.from({ length: 5 }).map((_, index) => (
@@ -64,7 +65,7 @@ const RecentSearches = ({ recentSearches }: { recentSearches: SearchTextDataType
         >
           {t("allDeleteButton")}
         </button>
-        {searchItems.length === 0 ? (
+        {isRendering && searchItems.length === 0 ? (
           <div className="flex_row_col flex-1 gap-2 rounded-lg bg-white">
             <WarningIcon />
             <p className="body_4 font-medium text-navy-900">{t("NoneRecentSearch")}</p>
@@ -72,13 +73,12 @@ const RecentSearches = ({ recentSearches }: { recentSearches: SearchTextDataType
         ) : (
           <ul className="h-[18rem] w-full overflow-y-scroll scrollbar-hide">
             {searchItems.map((search) => (
-              <SearchItem key={search.searchText} search={search} />
+              <SearchItem key={search.searchText} search={search} setSearchItems={setSearchItems} />
             ))}
           </ul>
         )}
       </div>
 
-      {/* Alert 컴포넌트 */}
       {showAlert && (
         <Alert
           variant="fnButton"
