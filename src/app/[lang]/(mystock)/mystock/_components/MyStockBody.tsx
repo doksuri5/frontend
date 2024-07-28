@@ -8,9 +8,13 @@ const MyStockBody = ({ dataList }: { dataList: StockDataType[] }) => {
   return (
     <article className="pb-[5.6rem] pt-[2.4rem]">
       <Suspense
-        fallback={Array.from({ length: 3 }).map((_, idx) => (
-          <MyStockItemSkeleton key={idx} />
-        ))}
+        fallback={
+          <div className="grid w-full grid-cols-3 gap-x-[1.9rem] gap-y-[2.4rem]">
+            {Array.from({ length: 3 }).map((_, idx) => (
+              <MyStockItemSkeleton key={idx} />
+            ))}
+          </div>
+        }
       >
         {dataList && dataList.length === 0 ? (
           <div className="flex_row_col mt-[15rem] gap-2">
