@@ -1,5 +1,5 @@
 import { getTranslations } from "next-intl/server";
-import { DiscoveryInput, DiscoveryParams, DiscoverySection, PopularSearches, RecentSearches } from "./_components";
+import { DiscoverySection, PopularSearches, RecentSearches } from "./_components";
 import { getPopularSearchesName, getRecentSearches } from "@/actions/search";
 import { PopularSearchesNameDataType, SearchTextDataType } from "@/types/SearchDataType";
 
@@ -10,14 +10,8 @@ const getCurrentHourString = (): string => {
   return `${formattedHour}:00`;
 };
 
-type TDiscoveryProps = {
-  searchParams: {
-    search: string;
-  };
-};
-export default async function Page({ searchParams }: TDiscoveryProps) {
+export default async function Page() {
   const t = await getTranslations("discovery");
-  const params = searchParams.search;
 
   const [recentSearchesResult, popularSearchesResult] = await Promise.allSettled([
     getRecentSearches(undefined),
@@ -32,28 +26,21 @@ export default async function Page({ searchParams }: TDiscoveryProps) {
       : [];
 
   return (
-    <article className="flex_col m-auto max-w-[59rem] gap-[3.2rem] py-[5.6rem]">
-      <DiscoveryInput />
-      {params && params.trim() !== "" ? (
-        <DiscoveryParams params={params} />
-      ) : (
-        <>
-          <DiscoverySection titleKey="recentSearchTitle" titleStyle="justify-between" sectionStyle="h-[27rem]">
-            <RecentSearches recentSearches={recentSearches} />
-          </DiscoverySection>
-          <DiscoverySection
-            titleKey="popularSearchTitle"
-            sectionStyle="h-[29rem]"
-            subTag={
-              <span
-                className={`body_5 font-medium text-grayscale-600 underline`}
-              >{`${getCurrentHourString()} ${t("standard")}`}</span>
-            }
-          >
-            <PopularSearches popularSearches={popularSearches} />
-          </DiscoverySection>
-        </>
-      )}
-    </article>
+    <>
+      <DiscoverySection titleKey="recentSearchTitle" titleStyle="justify-between" sectionStyle="h-[27rem]">
+        <RecentSearches recentSearches={recentSearches} />
+      </DiscoverySection>
+      <DiscoverySection
+        titleKey="popularSearchTitle"
+        sectionStyle="h-[29rem]"
+        subTag={
+          <span
+            className={`body_5 font-medium text-grayscale-600 underline`}
+          >{`${getCurrentHourString()} ${t("standard")}`}</span>
+        }
+      >
+        <PopularSearches popularSearches={popularSearches} />
+      </DiscoverySection>
+    </>
   );
 }
