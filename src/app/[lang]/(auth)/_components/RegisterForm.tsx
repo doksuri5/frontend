@@ -1,8 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import { useState, useEffect, useTransition } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 import { Input, Button, Modal } from "@/components/common";
 import Timer from "./Timer";
@@ -19,11 +21,22 @@ import { TRegisterSchemaType, registerSchema } from "@/types/AuthType";
 
 import { PROFILE_SETUP_PATH } from "@/routes/path";
 
+const getEmailErrorMsg = (error: string) => {
+  switch (error) {
+    case "올바른 이메일 형식이 아닙니다.":
+      return "commonValidation.invalidEmailFormat";
+    case "이미 가입된 이메일입니다.":
+      return "commonValidation.alreadyRegisteredEmail";
+    default:
+      return "";
+  }
+};
+
 export default function RegisterForm() {
   const { setForm } = useRegisterStore((state) => ({
     setForm: state.setForm,
   }));
-
+  const t = useTranslations("auth");
   const router = useRouter();
   const { data: session } = useSession();
 
@@ -74,7 +87,7 @@ export default function RegisterForm() {
 
     if (valid) {
       try {
-        const toast = showLoadingToast("이메일을 전송중입니다.");
+        const toast = showLoadingToast(t("register.sendingEmail", { defaultMessage: "이메일을 전송중입니다." }));
         const response = await (
           await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/sendEmail`, {
             method: "POST",
@@ -89,13 +102,17 @@ export default function RegisterForm() {
         ).json();
         setIsEmailShow(true);
         if (response.ok) {
-          updateToast(toast, "이메일 전송이 완료되었습니다.", "success");
+          updateToast(toast, t("register.emailSent", { defaultMessage: "이메일 전송이 완료되었습니다." }), "success");
           setIsOpen(true); // 팝업 노출
           setTimeCount(180); // 타이머 시간
           setIsRunning(true); // 타이머 시작
           setIsEmailCertificationShow(true); // 이메일 인증 코드 필드 보여줌
         } else {
-          updateToast(toast, "이메일 전송이 실패되었습니다.", "error");
+          updateToast(
+            toast,
+            t("register.emailSendFailed", { defaultMessage: "이메일 전송이 실패되었습니다." }),
+            "error",
+          );
           setError("email", { type: "manual", message: response.message });
         }
       } catch (e) {
@@ -171,7 +188,11 @@ export default function RegisterForm() {
 
   useEffect(() => {
     if (password && passwordChk && password !== passwordChk) {
-      setPasswordError("동일한 비밀번호가 아닙니다. 다시 확인 후 입력해주세요.");
+      setPasswordError(
+        t("commonValidation.passwordMismatch", {
+          defaultMessage: "동일한 비밀번호가 아닙니다. 다시 확인 후 입력해주세요.",
+        }),
+      );
     } else {
       setPasswordError("");
     }
@@ -183,11 +204,14 @@ export default function RegisterForm() {
         {/* 이름 */}
         <Input
           id="name"
-          labelName="이름"
-          placeholder="이름을 입력해주세요."
+          labelName={t("label.name", { defaultMessage: "이름" })}
+          placeholder={t("placeholder.name", { defaultMessage: "이름을 입력해주세요." })}
           {...registerControl.register("name")}
           variant={registerErrors.name ? "error" : "default"}
-          caption={registerErrors.name?.message}
+          caption={
+            registerErrors.name?.message &&
+            t("commonValidation.noSpecialCharsOrNumbers", { defaultMessage: registerErrors.name?.message })
+          }
           defaultValue={socialGoogle ? String(session?.user.name) : ""}
           disabled={socialGoogle || isPending}
         />
@@ -195,10 +219,10 @@ export default function RegisterForm() {
           {/* 이메일 인증 */}
           <Input
             id="email"
-            labelName="이메일 주소"
-            placeholder="이메일 주소를 입력해주세요."
+            labelName={t("label.email", { defaultMessage: "이메일 주소" })}
+            placeholder={t("placeholder.email", { defaultMessage: "이메일 주소를 입력해주세요." })}
             variant={registerErrors.email ? "error" : "default"}
-            caption={registerErrors.email?.message}
+            caption={t(getEmailErrorMsg(registerErrors.email?.message ?? ""))}
             {...registerControl.register("email")}
             defaultValue={socialGoogle ? String(session?.user.email) : ""}
             disabled={socialGoogle || isPending}
@@ -216,7 +240,9 @@ export default function RegisterForm() {
                 disabled={!watchRegister("email")}
                 onClick={emailVerificationHandler}
               >
-                {isEmailCertificationShow ? "이메일 재요청" : "이메일 요청"}
+                {isEmailCertificationShow
+                  ? t("register.resendEmail", { defaultMessage: "이메일 재요청" })
+                  : t("register.requestEmail", { defaultMessage: "이메일 요청" })}
               </Button>
             }
           />
@@ -225,7 +251,7 @@ export default function RegisterForm() {
             <div className="relative">
               <Input
                 id="emailCertification"
-                placeholder="이메일 인증 코드 6자리 입력"
+                placeholder={t("placeholder.emailVerificationCode", { defaultMessage: "이메일 인증 코드 6자리 입력" })}
                 disabled={isPending}
                 {...registerControl.register("emailCertification")}
                 inputGroupClass="mt-[.8rem]"
@@ -240,9 +266,11 @@ export default function RegisterForm() {
                 }
                 caption={
                   timeExpired
-                    ? "인증 시간이 만료되었습니다. 이메일 요청을 다시 시도해주세요."
+                    ? t("register.verificationExpired", {
+                        defaultMessage: "인증 시간이 만료되었습니다. 이메일 요청을 다시 시도해주세요.",
+                      })
                     : emailCodeChkComplete
-                      ? "* 이메일 인증이 완료되었습니다."
+                      ? `* ${t("register.emailVerified", { defaultMessage: "이메일 인증이 완료되었습니다." })}`
                       : registerErrors.emailCertification
                         ? registerErrors.emailCertification.message
                         : ""
@@ -264,7 +292,7 @@ export default function RegisterForm() {
                     disabled={!watchRegister("emailCertification")}
                     onClick={emailCodeCheckHandler}
                   >
-                    코드 인증
+                    {t("register.verifyCode", { defaultMessage: "코드 인증" })}
                   </Button>
                 }
               />
@@ -278,42 +306,55 @@ export default function RegisterForm() {
             <Input
               type="password"
               id="password"
-              labelName="비밀번호 입력"
-              placeholder="비밀번호를 입력해주세요."
-              disabled={isPending}
-              caption="*  8-20자 이내 숫자, 특수문자, 영문자 중 2가지 이상을 조합"
+              labelName={t("label.password", { defaultMessage: "비밀번호 입력" })}
+              placeholder={t("placeholder.password", { defaultMessage: "비밀번호를 입력해주세요." })}
               {...registerControl.register("password")}
+              disabled={isPending}
+              caption={`* ${t("commonValidation.passwordRequirements", { defaultMessage: "8-20자 이내 숫자, 특수문자, 영문자 중 2가지 이상을 조합" })}`}
               variant={registerErrors.password ? "error" : "default"}
             />
             <Input
               type="password"
+              labelName={t("label.confirmPassword", { defaultMessage: "비밀번호 확인" })}
               id="passwordChk"
-              labelName="비밀번호 확인"
-              placeholder="비밀번호를 다시 한번 입력해주세요."
+              placeholder={t("placeholder.confirmPassword", { defaultMessage: "비밀번호를 다시 한번 입력해주세요." })}
               {...registerControl.register("passwordChk")}
               variant={registerErrors.passwordChk || passwordError ? "error" : "default"}
-              caption={registerErrors.passwordChk?.message || passwordError}
+              caption={
+                (registerErrors.passwordChk?.message &&
+                  t("commonValidation.passwordRequirements", {
+                    defaultMessage: "8-20자 이내 숫자, 특수문자, 영문자 중 2가지 이상을 조합",
+                  })) ||
+                passwordError
+              }
             />
           </>
         )}
         {/* 휴대폰번호 */}
         <Input
           id="phone"
-          labelName="휴대폰번호"
-          placeholder="-를 제외한 휴대폰번호를 입력해주세요."
+          labelName={t("label.phone", { defaultMessage: "휴대폰번호" })}
+          placeholder={t("placeholder.phone", { defaultMessage: "-를 제외한 휴대폰번호를 입력해주세요." })}
           disabled={isPending}
           {...registerControl.register("phone")}
           variant={registerErrors.phone ? "error" : "default"}
+          caption={
+            registerErrors.phone?.message &&
+            t("commonValidation.invalidPhoneNumber", { defaultMessage: registerErrors.phone?.message })
+          }
         />
         {/* 생년월일 */}
         <Input
           id="birth"
-          labelName="생년월일"
-          placeholder="생년월일 6자리를 입력해주세요.(예시 : 991231)"
+          labelName={t("label.birthDate", { defaultMessage: "생년월일" })}
+          placeholder={t("placeholder.birthDate", { defaultMessage: "생년월일 6자리를 입력해주세요.(예시 : 991231)" })}
           {...registerControl.register("birth")}
           disabled={isPending}
           variant={registerErrors.birth ? "error" : "default"}
-          caption={registerErrors.birth?.message}
+          caption={
+            registerErrors.birth?.message &&
+            t("commonValidation.invalidDate", { defaultMessage: registerErrors.birth?.message })
+          }
         />
         {/* 페이지 이동 버튼 */}
         <Button
@@ -325,22 +366,24 @@ export default function RegisterForm() {
           )}
           disabled={(!isRegisterValid && !socialGoogle && !emailCodeChkComplete) || isPending}
         >
-          {isPending ? <CommonLoadingBtn /> : `다음`}
+          {isPending ? <CommonLoadingBtn /> : t("commonBtn.next", { defaultMessage: "다음" })}
         </Button>
       </form>
       {/* 이메일 인증 안내 팝업 */}
       {isOpen && (
         <Modal isOpen={isOpen} onClose={closeModal} panelStyle="w-[38.6rem] py-[1.6rem] px-[3.2rem] rounded-[2rem]">
           <dl className="flex_col_center mb-[3.2rem]">
-            <dt className="body_2 my-[.8rem] font-bold text-navy-900">인증 코드를 전송했습니다.</dt>
+            <dt className="body_2 my-[.8rem] font-bold text-navy-900">
+              {t("register.codeSent", { defaultMessage: "인증 코드를 전송했습니다." })}
+            </dt>
             <dd className="text-center">
-              작성한 이메일주소로 인증 코드를 전송했습니다.
+              {t("register.codeSentToEmail", { defaultMessage: "작성한 이메일주소로 인증 코드를 전송했습니다." })}
               <br />
-              메일 확인 후 회원가입을 계속 진행해주세요.
+              {t("register.checkEmailToContinue", { defaultMessage: "메일 확인 후 회원가입을 계속 진행해주세요." })}
             </dd>
           </dl>
           <Button type="button" variant="textButton" size="md" className="text-grayscale-0" onClick={closeModal}>
-            확인
+            {t("commonBtn.confirm", { defaultMessage: "확인" })}
           </Button>
         </Modal>
       )}
