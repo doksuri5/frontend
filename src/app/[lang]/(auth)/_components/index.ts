@@ -2,6 +2,7 @@ import AgreeContent from "./AgreeContent";
 import AgreeForm from "./AgreeForm";
 import CommonAgreeLayout from "./CommonAgreeLayout";
 import CommonLayout from "./CommonLayout";
+import CommonLoadingBtn from "./CommonLoadingBtn";
 import CommonLoginBtn from "./CommonLoginBtn";
 import CommonTitle from "./CommonTitle";
 import CreditInfoAgree from "./CreditInfoAgree";
@@ -20,6 +21,7 @@ export {
   AgreeForm,
   CommonAgreeLayout,
   CommonLayout,
+  CommonLoadingBtn,
   CommonLoginBtn,
   CommonTitle,
   CreditInfoAgree,

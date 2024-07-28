@@ -9,6 +9,7 @@ import { Button, CheckBox, Input, FormResultError } from "@/components/common";
 
 import useZodSchemaForm from "@/hooks/useZodSchemaForm";
 import useFormResultError from "@/hooks/useFormResultError";
+import useToast from "@/hooks/use-toast";
 
 import { TLoginSchema, loginSchema } from "@/types/AuthType";
 
@@ -33,18 +34,22 @@ export default function LoginForm() {
   const [_, setChecked] = useState(false);
   const { formResultError, setFormResultError } = useFormResultError(isValid);
   const [isPending, startTransition] = useTransition();
+  const { showLoadingToast, updateToast } = useToast();
   const router = useRouter();
 
   const onLoginSubmit = async (values: TLoginSchema) => {
     if (isValid) {
+      const toast = showLoadingToast("로그인 중입니다.");
       setFormResultError("");
       try {
         startTransition(async () => {
           const response = await loginAction(values);
           if (!!response.error) {
+            updateToast(toast, "로그인 실패하였습니다.", "error");
             setFormResultError("이메일 또는 비밀번호를 다시 한번 확인해주세요.");
           } else {
-            router.push(HOME_PATH);
+            updateToast(toast, "로그인 성공하였습니다.", "success");
+            router.replace(HOME_PATH);
           }
         });
       } catch (e) {

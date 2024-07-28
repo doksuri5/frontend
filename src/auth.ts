@@ -8,8 +8,8 @@ import GoogleProvider from "next-auth/providers/google";
 
 import { EXIST_PATH, LOGIN_PATH, MAIN_PATH, LOGIN_ERROR_PATH } from "./routes/path";
 
-import { userCheck } from "./actions/auth";
-import { UserLoginType } from "./types/AuthType";
+import { existingUserChk, socialUserChk, userCheck } from "./actions/auth";
+import { SocialUserOptionsType, UserLoginType } from "./types/AuthType";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   pages: {
@@ -28,13 +28,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       async authorize(credentials) {
         const { email, password, autoLogin } = credentials;
         try {
-          const responseData = await userCheck({ email, pw: password } as UserLoginType);
-          if (!responseData) {
+          // 기존 회원인지 확인
+          const response = await userCheck({ email, pw: password } as UserLoginType);
+          if (!response) {
             return null;
           }
-
-          const user = responseData.data;
-          console.log(user);
+          const user = response.data;
 
           const autoLoginCheck = autoLogin === "true" ? true : false;
           await loginCookie(user.snsId, user.email, autoLoginCheck, "local"); // 로그인 시 쿠키 발급
@@ -42,6 +41,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           return {
             id: user.id,
             name: user.name,
+            nickname: user.nickname,
             email: user.email,
             role: "user",
             language: user.language,
@@ -78,6 +78,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           role: "user",
           language: "ko",
           login_type: "kakao",
+          email: "", // 임시로 빈 문자열
         };
       },
     }),
@@ -108,35 +109,30 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         if (account?.provider === "credentials") {
           user.role = "user";
         } else if (account?.provider === "naver" || account?.provider === "google" || account?.provider === "kakao") {
-          let socialUserOption;
+          let socialUserOption: SocialUserOptionsType;
 
           socialUserOption = {
             email: user.email as string,
-            sns_id: account.providerAccountId,
-            login_type: account.provider,
-            is_delete: false,
+            snsId: account.providerAccountId,
+            loginType: account.provider,
+            isDelete: false,
           };
 
           if (account?.provider === "kakao") {
             socialUserOption = {
-              sns_id: account.providerAccountId,
-              login_type: account.provider,
-              is_delete: false,
+              snsId: account.providerAccountId,
+              loginType: account.provider,
+              isDelete: false,
             };
           }
 
           // 기존 사용자 확인
-          const existingUserData = await fetchApi(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/getUser`, {
-            email: user.email as string,
-            is_delete: false,
-          });
-          const existingUser = existingUserData.data;
+          const existingUserRes = await existingUserChk({ email: user.email as string, isDelete: false });
+          const existingUser = existingUserRes.data;
 
           // 소셜 사용자 확인
-          const socialUserData =
-            socialUserOption &&
-            (await fetchApi(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/getSocialUser`, socialUserOption));
-          const socialUser = socialUserData?.data;
+          const socialUserRes = socialUserOption && (await socialUserChk({ ...socialUserOption }));
+          const socialUser = socialUserRes?.data;
 
           if (socialUser) {
             // SNS 로그인
@@ -145,6 +141,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
               user.email = socialUser.email;
               user.language = socialUser.language;
               user.name = socialUser.name;
+              user.nickname = socialUser.nickname;
               await loginCookie(account.providerAccountId, socialUser.email, false, account.provider); // 로그인 시 쿠키 발급
             }
           } else {
@@ -169,7 +166,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         token.sub = user.id;
         token.role = user.role;
         token.name = user.name;
-        token.email = user.email;
+        token.nickname = user.nickname;
+        token.email = user.email as string;
         token.phone = user.phone;
         token.birth = user.birth;
         token.language = user.language;
@@ -190,13 +188,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (token.sub && session.user) {
         session.user.id = token.sub;
         session.user.name = token.name;
-        session.user.role = token.role as string;
-        session.user.email = token.email as string;
-        session.user.phone = token.phone as string;
-        session.user.birth = token.birth as string;
-        session.user.language = token.language as "ko" | "en" | "ch" | "jp" | "fr";
-        session.user.login_type = token.login_type as "local" | "naver" | "kakao" | "google";
-        session.accessToken = token.accessToken as string;
+        session.user.nickname = token.nickname;
+        session.user.role = token.role;
+        session.user.email = token.email;
+        session.user.phone = token.phone;
+        session.user.birth = token.birth;
+        session.user.language = token.language;
+        session.user.login_type = token.login_type;
+        session.accessToken = token.accessToken;
       }
       return session;
     },

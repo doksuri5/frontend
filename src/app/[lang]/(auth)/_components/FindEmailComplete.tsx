@@ -32,7 +32,7 @@ export default function FindEmailComplete({ responseData }: TFindEmailCompletePr
               <span className="inline-flex">
                 <Image
                   src={`/icons/icon_${login_type}.svg`}
-                  alt={"간편 로그인 로고"}
+                  alt="SNS logo"
                   width={20}
                   height={20}
                   className="mr-[.4rem]"

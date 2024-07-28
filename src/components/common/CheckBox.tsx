@@ -32,9 +32,9 @@ export default function CheckBox({
   ...props
 }: TCheckProps) {
   return (
-    <Checkbox checked={checked} onChange={setChecked} className={cn("flex_row", className)}>
+    <Checkbox checked={checked} onChange={setChecked} className={cn("flex_row cursor-pointer", className)}>
       {variants === "radio" && (
-        <label className={cn("body_3 text-grayscale-900", labelClass)} htmlFor={props.id}>
+        <label className={cn("body_3 cursor-pointer text-grayscale-900", labelClass)} htmlFor={props.id}>
           {label}
         </label>
       )}
@@ -46,7 +46,7 @@ export default function CheckBox({
       />
       <input type="checkbox" id={props.id} checked={checked} className="hidden" readOnly {...props} />
       {variants === "default" && (
-        <label className={cn("body_5 ml-[0.4rem] text-grayscale-900")} htmlFor={props.id}>
+        <label className={cn("body_5 ml-[0.4rem] cursor-pointer text-grayscale-900")} htmlFor={props.id}>
           {label}
         </label>
       )}
