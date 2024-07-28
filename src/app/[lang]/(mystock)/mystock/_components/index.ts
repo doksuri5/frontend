@@ -6,6 +6,7 @@ import SearchItem from "./SearchItem";
 import MyStockBody from "./MyStockBody";
 import MyStockPopularSearches from "./MyStockPopularSearches";
 import MyStockRecentSearches from "./MyStockRecentSearches";
+import ModalButton from './ModalButton';
 
 export {
   MyStockHeader,
@@ -16,4 +17,5 @@ export {
   SearchItem,
   MyStockPopularSearches,
   MyStockRecentSearches,
+  ModalButton
 };
