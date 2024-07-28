@@ -18,8 +18,13 @@ export interface IUserPrivacy {
 export interface IUserPropensity {
   user_propensity: {
     is_agree_credit_info: boolean;
-    // TODO: any 수정하기
-    invest_propensity: any;
+    invest_propensity: {
+      1: string;
+      2: string;
+      3: string;
+      4: string;
+      5: string[];
+    };
   };
 }
 
