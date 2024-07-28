@@ -1,34 +1,25 @@
 import { getTranslations } from "next-intl/server";
 import { DiscoverySection, PopularSearches, RecentSearches } from "./_components";
-import { getPopularSearchesName, getRecentSearches } from "@/actions/search";
-import { PopularSearchesNameDataType, SearchTextDataType } from "@/types/SearchDataType";
-
-const getCurrentHourString = (): string => {
-  const now = new Date();
-  const hours = now.getHours();
-  const formattedHour = hours.toString().padStart(2, "0");
-  return `${formattedHour}:00`;
-};
+import { getPopularSearchesName } from "@/actions/search";
+import { PopularSearchesNameDataType } from "@/types/SearchDataType";
 
 export default async function Page() {
   const t = await getTranslations("discovery");
 
-  const [recentSearchesResult, popularSearchesResult] = await Promise.allSettled([
-    getRecentSearches(undefined),
-    getPopularSearchesName(),
-  ]);
+  const popularSearchesResult = await getPopularSearchesName();
+  const popularSearches: PopularSearchesNameDataType[] = popularSearchesResult.ok ? popularSearchesResult.data : [];
 
-  const recentSearches: SearchTextDataType[] =
-    recentSearchesResult.status === "fulfilled" && recentSearchesResult.value.ok ? recentSearchesResult.value.data : [];
-  const popularSearches: PopularSearchesNameDataType[] =
-    popularSearchesResult.status === "fulfilled" && popularSearchesResult.value.ok
-      ? popularSearchesResult.value.data
-      : [];
+  const getCurrentHourString = (): string => {
+    const now = new Date();
+    const hours = now.getHours();
+    const formattedHour = hours.toString().padStart(2, "0");
+    return `${formattedHour}:00`;
+  };
 
   return (
     <>
       <DiscoverySection titleKey="recentSearchTitle" titleStyle="justify-between" sectionStyle="h-[27rem]">
-        <RecentSearches recentSearches={recentSearches} />
+        <RecentSearches />
       </DiscoverySection>
       <DiscoverySection
         titleKey="popularSearchTitle"
