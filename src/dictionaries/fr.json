@@ -54,5 +54,21 @@
     "linkCommentStockPriceChange": "Changement de prix",
     "linkCommentStockDescription": "Description",
     "linkButton": "Aller à la page d'analyse"
+  },
+  "discovery": {
+    "inputPlaceholder": "Recherchez des actions",
+    "recentSearchTitle": "Recherches récentes",
+    "allDeleteButton": "Tout supprimer",
+    "popularSearchTitle": "Recherches populaires",
+    "standard": "Norme",
+    "NoneRecentSearch": "Aucune recherche récente.",
+    "searchStockTitle": "Actions",
+    "searchNewsTitle": "Actualités",
+    "moreItem": "Plus",
+    "alert": {
+      "alertTitle": "Voulez-vous supprimer toutes les recherches récentes ?",
+      "alertButtonText": "Supprimer",
+      "alertCancleText": "Annuler"
+    }
   }
 }

@@ -54,5 +54,21 @@
     "linkCommentStockPriceChange": "价格变动",
     "linkCommentStockDescription": "描述",
     "linkButton": "转到分析页面"
+  },
+  "discovery": {
+    "inputPlaceholder": "请搜索股票",
+    "recentSearchTitle": "最近搜索",
+    "allDeleteButton": "全部删除",
+    "popularSearchTitle": "热门搜索",
+    "standard": "标准",
+    "NoneRecentSearch": "没有最近的搜索.",
+    "searchStockTitle": "股票",
+    "searchNewsTitle": "新闻",
+    "moreItem": "更多",
+    "alert": {
+      "alertTitle": "您确定要删除所有最近的搜索吗？",
+      "alertButtonText": "删除",
+      "alertCancleText": "取消"
+    }
   }
 }

@@ -54,5 +54,21 @@
     "linkCommentStockPriceChange": "価格変動",
     "linkCommentStockDescription": "説明",
     "linkButton": "分析ページに移動"
+  },
+  "discovery": {
+    "inputPlaceholder": "銘柄を検索してください",
+    "recentSearchTitle": "最近の検索",
+    "allDeleteButton": "全削除",
+    "popularSearchTitle": "人気の検索",
+    "standard": "基準",
+    "NoneRecentSearch": "最近の検索はありません.",
+    "searchStockTitle": "株式",
+    "searchNewsTitle": "ニュース",
+    "moreItem": "もっと見る",
+    "alert": {
+      "alertTitle": "最近の検索履歴をすべて削除しますか？",
+      "alertButtonText": "削除",
+      "alertCancleText": "キャンセル"
+    }
   }
 }
