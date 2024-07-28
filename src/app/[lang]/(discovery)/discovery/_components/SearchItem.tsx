@@ -1,6 +1,6 @@
 "use client";
 
-import { memo } from "react";
+import { Dispatch, memo, SetStateAction } from "react";
 import { useRouter } from "next/navigation";
 import { deleteRecentSearchTextItem } from "@/actions/search";
 import { SearchTextDataType } from "@/types/SearchDataType";
@@ -9,8 +9,9 @@ import CloseIcon from "@/public/icons/close_icon.svg?component";
 
 type TSearchItemProps = {
   search: SearchTextDataType;
+  setSearchItems: Dispatch<SetStateAction<SearchTextDataType[]>>;
 };
-const SearchItem = ({ search }: TSearchItemProps) => {
+const SearchItem = ({ search, setSearchItems }: TSearchItemProps) => {
   const router = useRouter();
 
   const moveLink = (searchText: string) => {
@@ -21,6 +22,7 @@ const SearchItem = ({ search }: TSearchItemProps) => {
   const handleDeleteSearchItem = async (searchText: string) => {
     try {
       await deleteRecentSearchTextItem(undefined, { params: searchText });
+      setSearchItems((prevItems) => prevItems.filter((item) => item.searchText !== searchText));
     } catch (error) {
       console.error("Fetch Error", error);
     }
