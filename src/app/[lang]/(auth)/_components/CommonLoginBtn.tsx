@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/common";
 
@@ -14,7 +15,8 @@ type TCommonLoginBtnProps = {
   path?: string;
 };
 
-export default function CommonLoginBtn({ className, text = "로그인", path = LOGIN_PATH }: TCommonLoginBtnProps) {
+export default function CommonLoginBtn({ className, text, path = LOGIN_PATH }: TCommonLoginBtnProps) {
+  const t = useTranslations("auth.title");
   const router = useRouter();
 
   const onClickHandler = () => {
@@ -23,7 +25,7 @@ export default function CommonLoginBtn({ className, text = "로그인", path = L
 
   return (
     <Button type="button" size="lg" className={cn("text-white", className)} onClick={onClickHandler}>
-      {text}
+      {text || t("login", { defaultMessage: "로그인" })}
     </Button>
   );
 }
