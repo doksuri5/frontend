@@ -5,6 +5,7 @@ import { useState, useTransition } from "react";
 import { Button, FormResultError, Input } from "@/components/common";
 
 import FindEmailComplete from "./FindEmailComplete";
+import CommonSpinnerBtn from "./CommonSpinnerBtn";
 
 import useZodSchemaForm from "@/hooks/useZodSchemaForm";
 import useFormResultError from "@/hooks/useFormResultError";
@@ -12,7 +13,6 @@ import useFormResultError from "@/hooks/useFormResultError";
 import { TFindEmailSchema, findIdSchema } from "@/types/AuthType";
 
 import { cn } from "@/utils/cn";
-import CommonSpinnerBtn from "./commonSpinnerBtn";
 
 export default function FindEmailForm() {
   const {
