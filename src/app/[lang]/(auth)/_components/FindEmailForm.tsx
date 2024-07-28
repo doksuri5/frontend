@@ -5,6 +5,7 @@ import { useState, useTransition } from "react";
 import { Button, FormResultError, Input } from "@/components/common";
 
 import FindEmailComplete from "./FindEmailComplete";
+import CommonLoadingBtn from "./CommonLoadingBtn";
 
 import useZodSchemaForm from "@/hooks/useZodSchemaForm";
 import useFormResultError from "@/hooks/useFormResultError";
@@ -74,6 +75,7 @@ export default function FindEmailForm() {
             placeholder="이름을 입력해주세요."
             disabled={isPending}
             variant={errors.name || formResultError ? "error" : "default"}
+            caption={errors.name?.message}
             {...control.register("name")}
           />
           <Input
@@ -89,11 +91,11 @@ export default function FindEmailForm() {
           <Button
             type="submit"
             size="lg"
-            bgColor={isValid && !isPending ? "bg-navy-900" : "bg-grayscale-200"}
-            className={cn(`mt-[4rem] ${isValid && !isPending ? "text-white" : "text-gray-300"}`)}
+            bgColor={isValid ? "bg-navy-900" : "bg-grayscale-200"}
+            className={cn(`mt-[4rem] ${isValid ? "text-white" : "text-gray-300"}`)}
             disabled={!isValid || isPending}
           >
-            이메일 찾기
+            {isPending ? <CommonLoadingBtn /> : "이메일 찾기"}
           </Button>
         </form>
       )}
