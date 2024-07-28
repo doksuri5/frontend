@@ -1,39 +1,33 @@
 "use client";
 
-import { useState } from "react";
-import Image from "next/image";
-import { Alert, Button } from "@/components/common";
-import { StockDataType } from "@/types";
-import { formatValueWithIndicator, formatValueWithSign, getTextColor } from "@/utils/stockPriceUtils";
+import React, { useCallback, useState } from "react";
 import Link from "next/link";
-import { REPORT_PATH } from "@/routes/path";
-import { STOCK_NAMES } from "@/constants/stockCodes";
+import { useTranslations } from "next-intl";
+import { Alert, Button } from "@/components/common";
 import SimpleReportCard from "@/components/common/SimpleReportCard";
+import { StockDataType } from "@/types";
+import { REPORT_PATH } from "@/routes/path";
 import { deleteInterestStock } from "@/actions/stock";
 
-type TMyStockItemProps = {
-  data: StockDataType;
-};
-const MyStockItem = ({ data }: TMyStockItemProps) => {
+const MyStockItem = ({ data }: { data: StockDataType }) => {
+  const t = useTranslations("myStock");
   const [showAlert, setShowAlert] = useState(false);
 
-  const cashSymbol = new Map([
-    ["USA", "$"],
-    ["KOR", "₩"],
-  ]);
-
-  const handleDeleteClick = () => {
+  // Alert 띄우기
+  const handleDeleteClick = useCallback(() => {
     setShowAlert(true);
-  };
+  }, []);
 
-  const handleAlertConfirm = async (reutersCode: string) => {
+  // Alert 끄기
+  const handleAlertClose = useCallback(() => {
+    setShowAlert(false);
+  }, []);
+
+  // 삭제 진행
+  const handleAlertConfirm = useCallback(async (reutersCode: string) => {
     await deleteInterestStock(undefined, { params: reutersCode });
     setShowAlert(false);
-  };
-
-  const handleAlertClose = () => {
-    setShowAlert(false);
-  };
+  }, []);
 
   return (
     <div className="flex flex-col justify-start gap-2 rounded-[1.6rem] bg-white px-[3.2rem] py-[3rem]">
@@ -47,11 +41,11 @@ const MyStockItem = ({ data }: TMyStockItemProps) => {
           bgColor="bg-grayscale-200"
           onClick={handleDeleteClick}
         >
-          삭제하기
+          {t("deleteButton")}
         </Button>
         <Link href={`${REPORT_PATH}/${data.reutersCode}`} className="flex-1">
           <Button variant="textButton" size="md" bgColor="bg-navy-900">
-            자세히 보기
+            {t("detailView")}
           </Button>
         </Link>
       </div>
@@ -60,9 +54,9 @@ const MyStockItem = ({ data }: TMyStockItemProps) => {
       {showAlert && (
         <Alert
           variant="fnButton"
-          title="관심 종목을 삭제하시겠습니까?"
-          buttonText="삭제하기"
-          subButtonText="취소"
+          title={t("alert.alertTitle")}
+          buttonText={t("deleteButton")}
+          subButtonText={t("alert.alertCancleText")}
           onClick={() => handleAlertConfirm(data.reutersCode)}
           onClose={handleAlertClose}
         />
@@ -71,4 +65,4 @@ const MyStockItem = ({ data }: TMyStockItemProps) => {
   );
 };
 
-export default MyStockItem;
+export default React.memo(MyStockItem);
