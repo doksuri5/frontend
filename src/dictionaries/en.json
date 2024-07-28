@@ -55,6 +55,22 @@
     "linkCommentStockDescription": "Description",
     "linkButton": "Go to Analysis Page"
   },
+  "discovery": {
+    "inputPlaceholder": "Search for stocks",
+    "recentSearchTitle": "Recent Searches",
+    "allDeleteButton": "Delete All",
+    "popularSearchTitle": "Popular Searches",
+    "standard": "Standard",
+    "NoneRecentSearch": "No recent searches.",
+    "searchStockTitle": "Stocks",
+    "searchNewsTitle": "News",
+    "moreItem": "More",
+    "alert": {
+      "alertTitle": "Do you want to delete all recent searches?",
+      "alertButtonText": "Delete",
+      "alertCancleText": "Cancel"
+    }
+  },
   "mypage": {
     "editPrivacy": "Edit Personal Information",
     "languageSettings": "Language Settings",

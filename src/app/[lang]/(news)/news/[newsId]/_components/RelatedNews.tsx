@@ -17,7 +17,9 @@ export default function RelatedNews({ relatedNews }: any) {
 
   return (
     <section className="min-h-[31rem] min-w-[38.4rem] rounded-[1.6rem] bg-white p-[3.2rem]">
-      <h2 className="body_3 pb-[1rem] font-bold text-navy-900">{t("news.relatedArticles", { defaultMessage: "관련 기사" })}</h2>
+      <h2 className="body_3 pb-[1rem] font-bold text-navy-900">
+        {t("news.relatedArticles", { defaultMessage: "관련 기사" })}
+      </h2>
       {loading &&
         Array(4)
           .fill(0)
@@ -36,6 +38,7 @@ export default function RelatedNews({ relatedNews }: any) {
               publishedTime={news.publishedTime}
               newspaperCompany={news.newspaperCompany}
               style={news?.style}
+              lang={"ko"}
             />
             {idx < newsData.length - 1 && <hr className="mb-[1.6rem] mt-[1.8rem]" />}
           </Fragment>

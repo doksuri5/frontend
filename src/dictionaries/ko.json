@@ -55,6 +55,22 @@
     "linkCommentStockDescription": "설명",
     "linkButton": "분석 페이지로 이동"
   },
+  "discovery": {
+    "inputPlaceholder": "종목을 검색해주세요",
+    "recentSearchTitle": "최근 검색어",
+    "allDeleteButton": "전체삭제",
+    "popularSearchTitle": "인기 검색어",
+    "standard": "기준",
+    "NoneRecentSearch": "최근 조회한 종목이 없습니다.",
+    "searchStockTitle": "주식",
+    "searchNewsTitle": "뉴스",
+    "moreItem": "더보기",
+    "alert": {
+      "alertTitle": "최근 검색어를 전부 삭제하시겠습니까?",
+      "alertButtonText": "삭제하기",
+      "alertCancleText": "취소"
+    }
+  },
   "mypage": {
     "editPrivacy": "개인정보 수정",
     "languageSettings": "언어 설정",
