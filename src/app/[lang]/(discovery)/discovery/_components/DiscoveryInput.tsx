@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Input, SearchBox } from "@/components/common";
 import { saveRecentSearch } from "@/actions/stock";
@@ -8,12 +9,14 @@ import useDebouncedSearch from "@/hooks/use-debounced-search";
 import SearchIcon from "@/public/icons/search_icon.svg?component";
 
 const DiscoveryInput = () => {
+  const t = useTranslations();
   const searchParams = useSearchParams();
-  const initialSearchQuery = searchParams.get("search") || "";
-  const { inputValue, debouncedValue, setInputValue } = useDebouncedSearch(decodeURIComponent(initialSearchQuery));
   const router = useRouter();
   const pathname = usePathname();
   const [isVisible, setIsVisible] = useState(false);
+  const { inputValue, debouncedValue, setInputValue } = useDebouncedSearch(
+    decodeURIComponent(searchParams.get("search") || ""),
+  );
 
   const moveLink = async (search: string) => {
     setIsVisible(false);
@@ -52,7 +55,7 @@ const DiscoveryInput = () => {
           }}
           inputGroupClass="w-full h-[5.6rem]"
           inputClass="text-navy-900 h-[5.6rem] pl-[4.4rem] rounded-[0.8rem]"
-          placeholder="종목을 검색해주세요"
+          placeholder={t("discovery.inputPlaceholder")}
         />
       </form>
       {isVisible && debouncedValue && <SearchBox inputValue={debouncedValue} onSelect={moveLink} />}
