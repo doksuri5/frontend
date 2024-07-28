@@ -11,6 +11,7 @@ import Image from "next/image";
 
 import { Input, Button, Modal, Alert } from "@/components/common";
 import InvestPropensity from "@/components/common/InvestPropensity";
+import CommonLoadingBtn from "./CommonLoadingBtn";
 
 import useZodSchemaForm from "@/hooks/useZodSchemaForm";
 import useAlert from "@/hooks/use-alert";
@@ -396,12 +397,12 @@ export default function ProfileSetUpForm() {
           variant="textButton"
           type="submit"
           size="lg"
-          bgColor={isProfileValid && isNicknameChk && !isPending ? "bg-navy-900" : "bg-grayscale-200"}
-          className={cn(`mt-[4rem] ${isProfileValid && isNicknameChk && !isPending ? "text-white" : "text-gray-300"}`)}
+          bgColor={isProfileValid && isNicknameChk ? "bg-navy-900" : "bg-grayscale-200"}
+          className={cn(`mt-[4rem] ${isProfileValid && isNicknameChk ? "text-white" : "text-gray-300"}`)}
           disabled={!(isProfileValid && isNicknameChk) || isPending}
           onClick={handleSubmitButton}
         >
-          가입하기
+          {isPending ? <CommonLoadingBtn /> : "가입하기"}
         </Button>
         {/* 투자 성향 분석 권유 팝업 */}
         {isOpenOfSuggestion && (

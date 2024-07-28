@@ -5,7 +5,7 @@ import { useState, useTransition } from "react";
 import { Button, FormResultError, Input } from "@/components/common";
 
 import FindEmailComplete from "./FindEmailComplete";
-import CommonSpinnerBtn from "./CommonSpinnerBtn";
+import CommonLoadingBtn from "./CommonLoadingBtn";
 
 import useZodSchemaForm from "@/hooks/useZodSchemaForm";
 import useFormResultError from "@/hooks/useFormResultError";
@@ -95,7 +95,7 @@ export default function FindEmailForm() {
             className={cn(`mt-[4rem] ${isValid ? "text-white" : "text-gray-300"}`)}
             disabled={!isValid || isPending}
           >
-            {isPending ? <CommonSpinnerBtn /> : "이메일 찾기"}
+            {isPending ? <CommonLoadingBtn /> : "이메일 찾기"}
           </Button>
         </form>
       )}

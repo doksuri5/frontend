@@ -1,6 +1,6 @@
 import { ButtonSpinner } from "@/components/common";
 
-export default function CommonSpinnerBtn() {
+export default function CommonLoadingBtn() {
   return (
     <>
       <ButtonSpinner />
