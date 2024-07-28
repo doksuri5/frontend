@@ -66,7 +66,6 @@ export const middleware = async (req: NextRequest) => {
 
   // 로그인이 필요한 경로이고 유저가 로그인 하지 않은 경우 로그인 페이지로 넘기기
   if (!isAuthPath && !isAuthenticated) {
-    console.log(isAuthPath, isAuthenticated)
     const response = NextResponse.redirect(new URL(`/${locale}/login`, req.url));
     response.cookies.delete("authjs.session-token");
 
@@ -80,7 +79,6 @@ export const middleware = async (req: NextRequest) => {
 
   const response = intlMiddleware(req);
   response.headers.set('x-pathname', pathname);
-  response.cookies.set('NEXT_LOCALE', locale);
 
   return response;
 };
