@@ -10,13 +10,11 @@ import useZodSchemaForm from "@/hooks/useZodSchemaForm";
 import useFormResultError from "@/hooks/useFormResultError";
 import useToast from "@/hooks/use-toast";
 
-import { TFindPasswordSchema, findPasswordSchema } from "@/types/AuthType";
+import { TFindPasswordSchema, TFunction, findPasswordSchema } from "@/types/AuthType";
 
 import { cn } from "@/utils/cn";
 
 import Image from "next/image";
-
-type TFunction = (key: string, options?: { defaultMessage?: string }) => string;
 
 const snsTypeName = (value: string, t: TFunction) => {
   switch (value) {
