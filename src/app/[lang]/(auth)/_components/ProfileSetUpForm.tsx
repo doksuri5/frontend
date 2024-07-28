@@ -97,7 +97,7 @@ export default function ProfileSetUpForm() {
 
     if (inputFile.size > 1024 * 1024 * 1) {
       customAlert({
-        title: t("ProfileSetUp.uploadLimit", { defaultMessage: "최대 1MB 이하의 이미지 파일만 업로드 가능합니다." }),
+        title: t("profileSetUp.uploadLimit", { defaultMessage: "최대 1MB 이하의 이미지 파일만 업로드 가능합니다." }),
         subText: "",
         onClose: () => {},
       });
@@ -146,7 +146,7 @@ export default function ProfileSetUpForm() {
     const valid = await triggerProfile("nickname");
     const nickname = watchProfile("nickname");
 
-    if (value === t("ProfileSetUp.changeNickname", { defaultMessage: "닉네임 변경" })) {
+    if (value === t("profileSetUp.changeNickname", { defaultMessage: "닉네임 변경" })) {
       setIsNicknameChk(false);
       return;
     }
@@ -189,8 +189,8 @@ export default function ProfileSetUpForm() {
         if (additionalData[key] === undefined || additionalData[key] === null || additionalData[key] === "") {
           setIsOpenOfSuggestion(false);
           customAlert({
-            title: t("ProfileSetUp.signupError", { defaultMessage: "일시적인 오류로 인해 회원가입에 실패하였습니다." }),
-            subText: t("ProfileSetUp.retrySignup", { defaultMessage: "다시 회원가입을 시도해주세요." }),
+            title: t("profileSetUp.signupError", { defaultMessage: "일시적인 오류로 인해 회원가입에 실패하였습니다." }),
+            subText: t("profileSetUp.retrySignup", { defaultMessage: "다시 회원가입을 시도해주세요." }),
             onClose: () => {
               router.replace(REGISTER_PATH);
               return;
@@ -285,7 +285,7 @@ export default function ProfileSetUpForm() {
             (profileErrors.nickname?.message &&
               t("commonValidation.invalidSpecialChars", { defaultMessage: profileErrors.nickname?.message })) ||
             (isNicknameChk
-              ? `* ${t("ProfileSetUp.nicknameAvailable", { defaultMessage: "사용가능한 닉네임 입니다." })}`
+              ? `* ${t("profileSetUp.nicknameAvailable", { defaultMessage: "사용가능한 닉네임 입니다." })}`
               : undefined)
           }
           readOnly={isNicknameChk}
@@ -301,13 +301,13 @@ export default function ProfileSetUpForm() {
               disabled={!watchProfile("nickname")}
               onClick={nicknameChkHandler(
                 isNicknameChk
-                  ? t("ProfileSetUp.changeNickname", { defaultMessage: "닉네임 변경" })
-                  : t("ProfileSetUp.checkDuplicate", { defaultMessage: "중복 확인" }),
+                  ? t("profileSetUp.changeNickname", { defaultMessage: "닉네임 변경" })
+                  : t("profileSetUp.checkDuplicate", { defaultMessage: "중복 확인" }),
               )}
             >
               {isNicknameChk
-                ? t("ProfileSetUp.changeNickname", { defaultMessage: "닉네임 변경" })
-                : t("ProfileSetUp.checkDuplicate", { defaultMessage: "중복 확인" })}
+                ? t("profileSetUp.changeNickname", { defaultMessage: "닉네임 변경" })
+                : t("profileSetUp.checkDuplicate", { defaultMessage: "중복 확인" })}
             </Button>
           }
         />
@@ -329,7 +329,7 @@ export default function ProfileSetUpForm() {
                   classNamePrefix="tag"
                   placeholder={t("placeholder.addInterestStock", { defaultMessage: "#관심 종목을 추가해주세요." })}
                   noOptionsMessage={() =>
-                    t("ProfileSetUp.noSearchResults", { defaultMessage: "검색된 결과가 없습니다." })
+                    t("profileSetUp.noSearchResults", { defaultMessage: "검색된 결과가 없습니다." })
                   }
                   components={{
                     IndicatorsContainer: () => null,
@@ -343,7 +343,7 @@ export default function ProfileSetUpForm() {
                 />
                 {profileErrors.tags && (
                   <span className="caption pt-[0.4rem] text-warning-100">
-                    {t("ProfileSetUp.addAtLeastOneInterestStock", {
+                    {t("profileSetUp.addAtLeastOneInterestStock", {
                       defaultMessage: "관심 종목은 최소 1개 추가해주세요.",
                     })}
                   </span>
@@ -366,7 +366,7 @@ export default function ProfileSetUpForm() {
               onClick={() => isGenderActive("M")}
               disabled={isPending}
             >
-              {t("ProfileSetUp.male", { defaultMessage: "남성" })}
+              {t("profileSetUp.male", { defaultMessage: "남성" })}
             </Button>
             <Button
               type="button"
@@ -378,16 +378,16 @@ export default function ProfileSetUpForm() {
               onClick={() => isGenderActive("F")}
               disabled={isPending}
             >
-              {t("ProfileSetUp.female", { defaultMessage: "여성" })}
+              {t("profileSetUp.female", { defaultMessage: "여성" })}
             </Button>
           </p>
         </div>
         {/* 투자 성향 등록 버튼 */}
         <div className="flex justify-between">
           <p className="body_4 mt-[4rem] flex flex-col items-start">
-            <span>{t("ProfileSetUp.registerInvestmentPreference", { defaultMessage: "투자 성향을 등록하면" })}</span>
+            <span>{t("profileSetUp.registerInvestmentPreference", { defaultMessage: "투자 성향을 등록하면" })}</span>
             <span>
-              {t("ProfileSetUp.registerInvestmentPreferenceInfo", {
+              {t("profileSetUp.registerInvestmentPreferenceInfo", {
                 defaultMessage: "더 정확한 정보를 받을 수 있습니다!",
               })}
             </span>
@@ -402,7 +402,7 @@ export default function ProfileSetUpForm() {
               setIsOpenOfInvestPropensity(true);
             }}
           >
-            {t("ProfileSetUp.registerInvestmentPreferenceButton", { defaultMessage: "투자 성향 등록하기" })}
+            {t("profileSetUp.registerInvestmentPreferenceButton", { defaultMessage: "투자 성향 등록하기" })}
           </Button>
         </div>
         {/* 투자 성향 등록 모달 폼 */}
@@ -442,10 +442,10 @@ export default function ProfileSetUpForm() {
             <div className="px-[4rem]">
               <p className="body_1 mb-16 flex flex-col text-center font-bold">
                 <span>
-                  {t("ProfileSetUp.noInvestmentPreference", { defaultMessage: "투자 성향을 등록하지 않으셨습니다." })}
+                  {t("profileSetUp.noInvestmentPreference", { defaultMessage: "투자 성향을 등록하지 않으셨습니다." })}
                 </span>
                 <span>
-                  {t("ProfileSetUp.confirmNoInvestmentPreference", {
+                  {t("profileSetUp.confirmNoInvestmentPreference", {
                     defaultMessage: "등록하지 않고 이대로 가입하시겠어요?",
                   })}
                 </span>
@@ -461,7 +461,7 @@ export default function ProfileSetUpForm() {
                     handleProfileSubmit(onProfileSetUpSubmit)();
                   }}
                 >
-                  {t("ProfileSetUp.signupWithoutPreference", { defaultMessage: "등록하지 않고 가입하기" })}
+                  {t("profileSetUp.signupWithoutPreference", { defaultMessage: "등록하지 않고 가입하기" })}
                 </Button>
                 <Button
                   variant="textButton"
@@ -472,7 +472,7 @@ export default function ProfileSetUpForm() {
                     setIsOpenOfInvestPropensity(true);
                   }}
                 >
-                  {t("ProfileSetUp.registerInvestmentPreferenceButton", { defaultMessage: "투자 성향 등록하기" })}
+                  {t("profileSetUp.registerInvestmentPreferenceButton", { defaultMessage: "투자 성향 등록하기" })}
                 </Button>
               </div>
             </div>

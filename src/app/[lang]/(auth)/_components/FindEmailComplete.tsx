@@ -43,7 +43,7 @@ export default function FindEmailComplete({ responseData }: TFindEmailCompletePr
           </p>
         )}
         <p className="flex_row body_4 text-grayscale-900">
-          {t("title.email", { defaultMessage: "이메일" })}: {email}
+          {t("findEmailComplete.email", { defaultMessage: "이메일" })}: {email}
         </p>
         <p className="flex_row body_4 text-grayscale-900">
           {t("findEmailComplete.registrationDate", { defaultMessage: "가입일" })} :

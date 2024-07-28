@@ -57,7 +57,7 @@ export default function FindPasswordForm() {
     if (valid) {
       try {
         const toast = showLoadingToast(
-          t("FindPassword.issuingTempPassword", { defaultMessage: "임시 비밀번호가 발급 중입니다." }),
+          t("findPassword.issuingTempPassword", { defaultMessage: "임시 비밀번호가 발급 중입니다." }),
         );
         startTransition(async () => {
           const response = await (
@@ -76,14 +76,14 @@ export default function FindPasswordForm() {
           if (response.ok) {
             updateToast(
               toast,
-              t("FindPassword.tempPasswordIssued", { defaultMessage: "임시 비밀번호 발급이 완료되었습니다." }),
+              t("findPassword.tempPasswordIssued", { defaultMessage: "임시 비밀번호 발급이 완료되었습니다." }),
               "success",
             );
             setIsOpen(true);
           } else {
             updateToast(
               toast,
-              t("FindPassword.tempPasswordIssueFailed", { defaultMessage: "임시 비밀번호 발급에 실패했습니다." }),
+              t("findPassword.tempPasswordIssueFailed", { defaultMessage: "임시 비밀번호 발급에 실패했습니다." }),
               "error",
             );
             if (response.data) {
@@ -144,22 +144,22 @@ export default function FindPasswordForm() {
             {snsUser ? (
               <>
                 <dt className="body_2 my-[.8rem] font-bold text-navy-900">
-                  {t("FindPassword.snsLoginAccount", { defaultMessage: "SNS 로그인으로 가입된 계정입니다." })}
+                  {t("findPassword.snsLoginAccount", { defaultMessage: "SNS 로그인으로 가입된 계정입니다." })}
                 </dt>
                 <dd className="flex_row_center">
                   <span className="mr-[.8rem] inline-flex">
                     <Image src={`/icons/icon_${snsType}.svg`} alt="SNS logo" width={20} height={20} />
                   </span>
-                  {snsTypeName(snsType, t)} {t("FindPassword.pleaseLogin", { defaultMessage: "로그인 해주세요." })}
+                  {snsTypeName(snsType, t)} {t("findPassword.pleaseLogin", { defaultMessage: "로그인 해주세요." })}
                 </dd>
               </>
             ) : (
               <>
                 <dt className="body_2 my-[.8rem] font-bold text-navy-900">
-                  {t("FindPassword.tempPasswordGenerated", { defaultMessage: "임시비밀번호가 발급되었습니다." })}
+                  {t("findPassword.tempPasswordGenerated", { defaultMessage: "임시비밀번호가 발급되었습니다." })}
                 </dt>
                 <dd className="break-keep text-center">
-                  {t("FindPassword.checkEmailForTempPassword", {
+                  {t("findPassword.checkEmailForTempPassword", {
                     defaultMessage: "이메일을 확인하여 임시 비밀번호로 재로그인 후 비밀번호를 변경해주세요.",
                   })}
                 </dd>
