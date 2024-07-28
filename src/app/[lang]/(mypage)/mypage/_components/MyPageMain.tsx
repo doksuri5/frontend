@@ -19,7 +19,7 @@ export default function MyPageMain({ userData }: TMyPageMainProps) {
 
   let propensityData = {
     isAgreeCreditInfo: userData.user_propensity.is_agree_credit_info,
-    investPropensity: JSON.parse(userData.user_propensity.invest_propensity),
+    investPropensity: userData.user_propensity.invest_propensity,
   };
 
   // 모달 관련 상태 관리
