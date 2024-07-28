@@ -13,6 +13,7 @@ import { useSession } from "next-auth/react";
 import { languageSetting } from "../_api/languageApi";
 import useAlert from "@/hooks/use-alert";
 import { useTranslations } from "next-intl";
+import { setLanguageCookie } from "@/utils/cookies";
 
 interface ILanguageInform {
   icon: JSX.Element;
@@ -64,7 +65,7 @@ export default function LanguageSettingMain({ userLanguage }: { userLanguage: st
         customAlert({
           title: "언어 변경에 실패했습니다.",
           subText: t("popup.retryLater", { defaultMessage: "잠시 후 다시 시도해 주세요." }),
-          onClose: () => {},
+          onClose: () => { },
         });
         return;
       }
@@ -73,6 +74,7 @@ export default function LanguageSettingMain({ userLanguage }: { userLanguage: st
       const userLanguage = response.data.language;
 
       await update({ language: userLanguage });
+      setLanguageCookie(userLanguage);
       setSelectedLang(userLanguage);
 
       // 각 언어의 active 상태 업데이트
@@ -96,7 +98,7 @@ export default function LanguageSettingMain({ userLanguage }: { userLanguage: st
       customAlert({
         title: "언어 설정 도중 오류가 발생했습니다.",
         subText: err instanceof Error ? err.message : t("popup.unknownIssue", { defaultMessage: "알 수 없는 오류가 발생했습니다." }),
-        onClose: () => {},
+        onClose: () => { },
       });
     }
   };

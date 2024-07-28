@@ -35,7 +35,18 @@ const getLocale = async (request: NextRequest) => {
 
 export const middleware = async (req: NextRequest) => {
   const pathname = req.nextUrl.pathname;
+
+  // Check if there is any supported locale in the pathname
   const locale = (await getLocale(req)) || i18n.defaultLocale;
+  const pathnameIsMissingLocale = i18n.locales.every(
+    (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`,
+  );
+
+  // Redirect if there is no locale
+  if (pathnameIsMissingLocale) {
+    return NextResponse.redirect(new URL(`/${locale}${pathname}`, req.url));
+  }
+
   const isAuthenticated = checkLogin();
 
   const isAuthPath = requiresAuth(pathname, [
@@ -68,7 +79,6 @@ export const middleware = async (req: NextRequest) => {
 
   const response = intlMiddleware(req);
   response.headers.set('x-pathname', pathname);
-  response.cookies.set('NEXT_LOCALE', locale);
 
   return response;
 };
