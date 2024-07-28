@@ -1,6 +1,7 @@
 "use client";
 
 import { Dispatch, MouseEvent, SetStateAction, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 import { Alert, StockItem } from "@/components/common";
 import useDraggable from "@/hooks/use-draggable";
 import { useRecentSearchStore } from "@/stores";
@@ -11,6 +12,8 @@ type TMyStockRecentSearchedProps = {
 };
 
 const MyStockRecentSearches = ({ setSearchText }: TMyStockRecentSearchedProps) => {
+  const t = useTranslations("myStock");
+
   const [showAlert, setShowAlert] = useState(false);
   const ref = useRef(null);
   const draggableOptions = useDraggable(ref);
@@ -42,9 +45,9 @@ const MyStockRecentSearches = ({ setSearchText }: TMyStockRecentSearchedProps) =
   return (
     <div className="flex flex-col gap-[1.6rem]">
       <div className="flex_row justify-between">
-        <h3 className="body_3 font-medium text-navy-900">최근 검색한 종목</h3>
+        <h3 className="body_3 font-medium text-navy-900">{t("modal.modalRecentSearchTitle")}</h3>
         <span className="body_5 cursor-pointer font-medium text-grayscale-600 underline" onClick={handleShowAlert}>
-          전체삭제
+          {t("modal.modalAllDeleteText")}
         </span>
       </div>
       <ul className="flex touch-none gap-[2rem] overflow-x-scroll scrollbar-hide" ref={ref} {...draggableOptions()}>
@@ -62,9 +65,9 @@ const MyStockRecentSearches = ({ setSearchText }: TMyStockRecentSearchedProps) =
       {showAlert && (
         <Alert
           variant="fnButton"
-          title="최근 검색어를 전부 삭제하시겠습니까?"
-          buttonText="삭제하기"
-          subButtonText="취소"
+          title={t("alert.alertTitleAll")}
+          buttonText={t("deleteButton")}
+          subButtonText={t("alert.alertCancleText")}
           onClick={handleDeleteSearch}
           onClose={() => setShowAlert(false)}
         />

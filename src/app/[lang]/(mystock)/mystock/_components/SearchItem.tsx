@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/common";
 import { useInterestStockStore } from "@/app/[lang]/(mystock)/mystock/stores";
 import { StockDataType } from "@/types";
@@ -12,6 +13,8 @@ type TSearchItemProps = {
   data: StockDataType;
 };
 const SearchItem = ({ data }: TSearchItemProps) => {
+  const t = useTranslations("myStock");
+
   const { stockItemList, addStockItemList, deleteStockItem } = useInterestStockStore();
   const isStockItemListContainsData = stockItemList.some((item) => item.id === data.id);
 
@@ -56,11 +59,11 @@ const SearchItem = ({ data }: TSearchItemProps) => {
         </div>
         {isStockItemListContainsData ? (
           <Button variant="textButton" size="sm" bgColor="bg-grayscale-200" className="w-[12rem]" onClick={deleteStock}>
-            삭제하기
+            {t("modal.modalSearchItemDelete")}
           </Button>
         ) : (
           <Button variant="textButton" size="sm" bgColor="bg-navy-900" className="w-[12rem]" onClick={addStock}>
-            추가
+            {t("modal.modalSearchItemAdd")}
           </Button>
         )}
       </div>

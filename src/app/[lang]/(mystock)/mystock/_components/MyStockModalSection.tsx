@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import React, { useEffect, useState } from "react";
 import { Input, Modal, SearchBox } from "@/components/common";
 import {
@@ -19,6 +20,8 @@ type TMyStockModalSection = {
   recentSearchList: StockDataType[];
 };
 const MyStockModalSection = ({ dataList, recentSearchList }: TMyStockModalSection) => {
+  const t = useTranslations("myStock");
+
   const openModal = useMyStockStore((state) => state.openModal);
   const setOpenModal = useMyStockStore((state) => state.setOpenModal);
   const { stockItemList, setStockItemList, addStockItemList } = useRecentSearchStore();
@@ -59,7 +62,7 @@ const MyStockModalSection = ({ dataList, recentSearchList }: TMyStockModalSectio
       panelStyle="p-[4rem] rounded-[3.2rem] w-[80rem] min-h-[57rem]"
       isOpen={openModal}
       onClose={handleCloseModal}
-      title="관심 종목 추가"
+      title={t("modal.modalTitle")}
       titleStyle="body_1 text-navy-900"
       closeIcon={true}
     >
@@ -76,7 +79,7 @@ const MyStockModalSection = ({ dataList, recentSearchList }: TMyStockModalSectio
               value={inputValue}
               inputGroupClass="h-[5.6rem]"
               inputClass="text-grayscale-900 h-[5.6rem] rounded-[0.8rem]"
-              placeholder="검색어를 입력해주세요."
+              placeholder={t("modal.modalInput")}
               onChange={(e) => {
                 setInputValue(e.target.value);
                 setIsVisibleSearchBox(true);
