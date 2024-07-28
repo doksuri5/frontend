@@ -1,8 +1,6 @@
-// next-intl
 import { getRequestConfig } from "next-intl/server";
 import { notFound } from "next/navigation";
 
-// i18n-config
 export const i18n = {
   defaultLocale: "ko",
   locales: ["ko", "en", "ch", "jp", "fr"],

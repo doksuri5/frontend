@@ -3,7 +3,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { i18n } from "./i18n";
 import checkLogin from "./utils/check-login";
 import createMiddleware from "next-intl/middleware";
-import { auth } from "./auth";
+import { auth } from "@/auth";
+
 // 로그인이 필요한 경로인지 체크
 function requiresAuth(pathname: string, urls: string[]) {
   return urls.some((url) => !!match(url)(pathname));
@@ -14,18 +15,27 @@ const intlMiddleware = createMiddleware({
   defaultLocale: "ko",
 });
 
-const getLocale = async () => {
+const getLocale = async (request: NextRequest) => {
+  // 세션에서 언어 정보 가져오기
   const session = await auth();
   if (session?.user.language && i18n.locales.includes(session.user.language)) {
+    request.cookies.set('NEXT_LOCALE', session.user.language);
     return session.user.language;
   }
 
+  // 쿠키에서 언어 정보 가져오기
+  const cookieLang = request.cookies.get('NEXT_LOCALE');
+  if (cookieLang) {
+    return cookieLang.value;
+  }
+
+  // 기본 로케일 설정
   return i18n.defaultLocale;
 };
 
 export const middleware = async (req: NextRequest) => {
   const pathname = req.nextUrl.pathname;
-  const locale = await getLocale();
+  const locale = (await getLocale(req)) || i18n.defaultLocale;
   const isAuthenticated = checkLogin();
 
   const isAuthPath = requiresAuth(pathname, [
@@ -57,7 +67,8 @@ export const middleware = async (req: NextRequest) => {
   }
 
   const response = intlMiddleware(req);
-  response.headers.set("x-pathname", pathname);
+  response.headers.set('x-pathname', pathname);
+  response.cookies.set('NEXT_LOCALE', locale);
 
   return response;
 };
