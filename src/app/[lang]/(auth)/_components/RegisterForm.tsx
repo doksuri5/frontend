@@ -21,17 +21,6 @@ import { TRegisterSchemaType, registerSchema } from "@/types/AuthType";
 
 import { PROFILE_SETUP_PATH } from "@/routes/path";
 
-const getEmailErrorMsg = (error: string) => {
-  switch (error) {
-    case "올바른 이메일 형식이 아닙니다.":
-      return "commonValidation.invalidEmailFormat";
-    case "이미 가입된 이메일입니다.":
-      return "commonValidation.alreadyRegisteredEmail";
-    default:
-      return "";
-  }
-};
-
 export default function RegisterForm() {
   const { setForm } = useRegisterStore((state) => ({
     setForm: state.setForm,
@@ -113,7 +102,10 @@ export default function RegisterForm() {
             t("register.emailSendFailed", { defaultMessage: "이메일 전송이 실패되었습니다." }),
             "error",
           );
-          setError("email", { type: "manual", message: response.message });
+          setError("email", {
+            type: "manual",
+            message: t("register.alreadyRegisteredEmail", { defaultMessage: "이미 가입된 이메일입니다." }),
+          });
         }
       } catch (e) {
         console.log(`Fetch Error:${e}`);
@@ -222,7 +214,7 @@ export default function RegisterForm() {
             labelName={t("label.email", { defaultMessage: "이메일 주소" })}
             placeholder={t("placeholder.email", { defaultMessage: "이메일 주소를 입력해주세요." })}
             variant={registerErrors.email ? "error" : "default"}
-            caption={t(getEmailErrorMsg(registerErrors.email?.message ?? ""))}
+            caption={registerErrors.email?.message}
             {...registerControl.register("email")}
             defaultValue={socialGoogle ? String(session?.user.email) : ""}
             disabled={socialGoogle || isPending}
