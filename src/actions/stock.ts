@@ -80,7 +80,7 @@ export const saveRecentSearch = api.patch({
   requestSchema: PostRecentSearchSchema,
   responseSchema: StockSchema,
   baseOptions: {
-    revalidateTags: ["/news/getSearchNews", "/getSearchStocks", "/getRecentSearches"],
+    revalidateTags: ["/getRecentSearchDetails", "/news/getSearchNews", "/getSearchStocks", "/getRecentSearches"],
   },
 })<z.infer<typeof PostRecentSearchSchema>, StockDataType>;
 
