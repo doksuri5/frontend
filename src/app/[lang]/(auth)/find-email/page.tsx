@@ -9,7 +9,7 @@ export default function FindIdPage() {
   return (
     <>
       <CommonLayout>
-        <CommonTitle title={t("title.findPassword", { defaultMessage: "이메일 찾기" })} />
+        <CommonTitle title={t("title.findEmail", { defaultMessage: "이메일 찾기" })} />
         <FindEmailForm />
       </CommonLayout>
     </>
