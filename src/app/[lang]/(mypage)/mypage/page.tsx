@@ -23,12 +23,16 @@ const fetchUserData = async () => {
     ).json();
 
     if (response.ok) {
-      const userData = response.data;
+      // invest_propensity를 파싱해서 반환
+      let { invest_propensity } = response.data.user_propensity;
 
-      // invest_propensity를 파싱
-      if (userData.user_propensity && typeof userData.user_propensity.invest_propensity === "string") {
-        userData.user_propensity.invest_propensity = JSON.parse(userData.user_propensity.invest_propensity);
-      }
+      // 투자성향데이터를 등록하지 않아서 undefined로 넘어올 경우
+      if (invest_propensity === "undefined") invest_propensity = { 1: "", 2: "", 3: "", 4: "", 5: [] };
+      // 투자성향데이터가 있을 경우
+      else invest_propensity = JSON.parse(invest_propensity);
+
+      response.data.user_propensity.invest_propensity = invest_propensity;
+
       return response.data;
     }
   } catch (err) {
