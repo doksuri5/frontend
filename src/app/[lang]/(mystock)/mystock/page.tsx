@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic";
-import { MyStockHeader, MyStockModalSection } from "@/app/[lang]/(mystock)/mystock/_components";
+import { MyStockHeader } from "@/app/[lang]/(mystock)/mystock/_components";
 import MyStockBodySkeleton from "./_components/_skeleton/MyStockBodySkeleton";
-import { getDetailInterestStocks, getRecentSearchDetails } from "@/actions/stock";
+import { getDetailInterestStocks } from "@/actions/stock";
 import { StockDataType } from "@/types";
 import { auth } from "@/auth";
 
@@ -10,26 +10,23 @@ const MyStockBody = dynamic(() => import("@/app/[lang]/(mystock)/mystock/_compon
   loading: () => <MyStockBodySkeleton />,
 });
 
+const MyStockModalServer = dynamic(() => import("@/app/[lang]/(mystock)/mystock/_components/MyStockModalServer"), {
+  ssr: false,
+});
+
 export default async function MyStockPage() {
   const session = await auth();
 
-  const [stocksDataResult, recentSearchedDataResult] = await Promise.allSettled([
-    getDetailInterestStocks(),
-    getRecentSearchDetails(),
-  ]);
+  const stocksDataResult = await getDetailInterestStocks();
+  const stocksData: StockDataType[] = stocksDataResult.ok ? stocksDataResult.data : [];
 
-  const stocksData: StockDataType[] =
-    stocksDataResult.status === "fulfilled" && stocksDataResult.value.ok ? stocksDataResult.value.data : [];
-  const recentSearchedData: StockDataType[] =
-    recentSearchedDataResult.status === "fulfilled" && recentSearchedDataResult.value.ok
-      ? recentSearchedDataResult.value.data
-      : [];
+  const isData = stocksData.length === 0;
 
   return (
     <>
       <MyStockHeader userName={session?.user.name ?? "김스팩"} />
       <MyStockBody dataList={stocksData} />
-      <MyStockModalSection dataList={stocksData} recentSearchList={recentSearchedData} />
+      <MyStockModalServer isData={isData} />
     </>
   );
 }
