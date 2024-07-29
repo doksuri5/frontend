@@ -32,6 +32,7 @@ export interface IWithdrawForm {
 
 export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) {
   const t = useTranslations();
+  const popupT = useTranslations("user.popup")
 
   const { userStoreData } = useUserStore();
   const { alertInfo, customAlert } = useAlert();
@@ -62,16 +63,16 @@ export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) 
         return true;
       } else {
         customAlert({
-          title: "비밀번호 인증에 실패했습니다.",
-          subText: "비밀번호를 한번 더 확인해 주세요.",
+          title: popupT("passwordAuthFail", { defaultMessage: "비밀번호 인증에 실패했습니다." }),
+          subText: popupT("checkPassword", { defaultMessage: "비밀번호를 한번 더 확인해 주세요." }),
           onClose: () => { },
         });
         return false;
       }
     } catch (err) {
       customAlert({
-        title: "비밀번호 인증에 실패했습니다.",
-        subText: err instanceof Error ? err.message : "알 수 없는 오류가 발생했습니다.",
+        title: popupT("passwordAuthFail", { defaultMessage: "비밀번호 인증에 실패했습니다." }),
+        subText: err instanceof Error ? err.message : popupT("unknownIssue", { defaultMessage: "알 수 없는 오류가 발생했습니다." }),
         onClose: () => { },
       });
     }
@@ -92,19 +93,19 @@ export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) 
 
   const handleWithdraw = async () => {
     setIsProcessing(true);
-    const loadingToastId = showLoadingToast("회원 탈퇴 처리 중...");
+    const loadingToastId = showLoadingToast(popupT("processingWithdrawal", { defaultMessage: "회원 탈퇴 처리 중..." }));
 
     if (userStoreData?.login_type !== "local") {
       const socialResult = await handleSocialAccountWithdraw(userStoreData!.login_type);
       if (!socialResult) {
         updateToast(
           loadingToastId,
-          `${userStoreData!.login_type.toUpperCase()} 로그인 회원 탈퇴 도중 오류 발생`,
+          `${userStoreData!.login_type.toUpperCase()} ${popupT("accountDeletionError", { defaultMessage: "로그인 회원 탈퇴 도중 오류 발생" })}`,
           "error",
         );
         customAlert({
-          title: `${userStoreData!.login_type.toUpperCase()} 로그인 회원 탈퇴 도중 오류가 발생했습니다.`,
-          subText: "잠시 후 다시 시도해 주세요.",
+          title: `${userStoreData!.login_type.toUpperCase()} ${popupT("errorDuringLoginWithdrawal", { defaultMessage: "로그인 회원 탈퇴 도중 오류가 발생했습니다." })}`,
+          subText: popupT("retryLater", { defaultMessage: "잠시 후 다시 시도해 주세요." }),
           onClose: () => { },
         });
         setIsProcessing(false);
@@ -115,7 +116,7 @@ export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) 
     if (userStoreData?.login_type === "local") {
       const passwordResponse = await handleVerifyPassword();
       if (!passwordResponse) {
-        updateToast(loadingToastId, "비밀번호 검증 실패", "error");
+        updateToast(loadingToastId, popupT("passwordValidationFail", { defaultMessage: "비밀번호 검증 실패" }), "error");
         setIsProcessing(false);
         return;
       }
@@ -131,23 +132,23 @@ export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) 
       const response = await withdraw(formData);
 
       if (!response.ok) {
-        updateToast(loadingToastId, "회원 탈퇴 처리 중 오류 발생", "error");
+        updateToast(loadingToastId, popupT("deletionProcessError", { defaultMessage: "회원 탈퇴 처리 중 오류 발생" }), "error");
         customAlert({
-          title: "회원 탈퇴 처리 중 오류가 발생했습니다.",
-          subText: "잠시 후 다시 시도해 주세요.",
+          title: popupT("errorDuringWithdrawal", { defaultMessage: "회원 탈퇴 처리 중 오류가 발생했습니다." }),
+          subText: popupT("retryLater", { defaultMessage: "잠시 후 다시 시도해 주세요." }),
           onClose: () => { },
         });
         setIsProcessing(false);
         return;
       }
 
-      updateToast(loadingToastId, "회원 탈퇴가 성공적으로 처리되었습니다.", "success");
+      updateToast(loadingToastId, popupT("deletionSuccess", { defaultMessage: "회원 탈퇴가 성공적으로 처리되었습니다." }), "success");
       router.replace("/withdraw");
     } catch (err) {
-      updateToast(loadingToastId, "회원 탈퇴 처리 중 오류 발생", "error");
+      updateToast(loadingToastId, popupT("deletionProcessError", { defaultMessage: "회원 탈퇴 처리 중 오류 발생" }), "error");
       customAlert({
-        title: "회원 탈퇴 처리 중 오류가 발생했습니다.",
-        subText: err instanceof Error ? err.message : "알 수 없는 오류가 발생했습니다.",
+        title: popupT("errorDuringWithdrawal", { defaultMessage: "회원 탈퇴 처리 중 오류가 발생했습니다." }),
+        subText: err instanceof Error ? err.message : popupT("unknownIssue", { defaultMessage: "알 수 없는 오류가 발생했습니다." }),
         onClose: () => { },
       });
       setIsProcessing(false);

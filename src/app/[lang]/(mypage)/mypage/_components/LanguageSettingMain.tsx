@@ -23,15 +23,16 @@ interface ILanguageInform {
 }
 
 export default function LanguageSettingMain({ userLanguage }: { userLanguage: string | undefined }) {
-  const t = useTranslations("mypage");
-  const lt = useTranslations("lang");
+  const t = useTranslations();
+  const popupT = useTranslations("user.popup")
+  const langT = useTranslations("lang");
 
   const languageList = [
-    { icon: <Korea />, label: lt("korean", { defaultMessage: "한국어" }), active: false, value: "ko" },
-    { icon: <USA />, label: lt("english", { defaultMessage: "영어" }), active: false, value: "en" },
-    { icon: <China />, label: lt("chinese", { defaultMessage: "중국어" }), active: false, value: "ch" },
-    { icon: <Japan />, label: lt("japanese", { defaultMessage: "일본어" }), active: false, value: "jp" },
-    { icon: <French />, label: lt("french", { defaultMessage: "프랑스어" }), active: false, value: "fr" },
+    { icon: <Korea />, label: langT("korean", { defaultMessage: "한국어" }), active: false, value: "ko" },
+    { icon: <USA />, label: langT("english", { defaultMessage: "영어" }), active: false, value: "en" },
+    { icon: <China />, label: langT("chinese", { defaultMessage: "중국어" }), active: false, value: "ch" },
+    { icon: <Japan />, label: langT("japanese", { defaultMessage: "일본어" }), active: false, value: "jp" },
+    { icon: <French />, label: langT("french", { defaultMessage: "프랑스어" }), active: false, value: "fr" },
   ];
 
   const { update } = useSession();
@@ -63,8 +64,8 @@ export default function LanguageSettingMain({ userLanguage }: { userLanguage: st
 
       if (!response.ok) {
         customAlert({
-          title: "언어 변경에 실패했습니다.",
-          subText: t("popup.retryLater", { defaultMessage: "잠시 후 다시 시도해 주세요." }),
+          title: popupT("languageChangeFail", { defaultMessage: "언어 변경에 실패했습니다." }),
+          subText: popupT("retryLater", { defaultMessage: "잠시 후 다시 시도해 주세요." }),
           onClose: () => { },
         });
         return;
@@ -85,7 +86,7 @@ export default function LanguageSettingMain({ userLanguage }: { userLanguage: st
       setLangList(updatedLangList);
 
       customAlert({
-        title: "언어가 변경되었습니다.",
+        title: popupT("languageChanged", { defaultMessage: "언어가 변경되었습니다." }),
         subText: "",
         onClose: () => {
           router.refresh();
@@ -96,8 +97,8 @@ export default function LanguageSettingMain({ userLanguage }: { userLanguage: st
       changeURL(lang);
     } catch (err) {
       customAlert({
-        title: "언어 설정 도중 오류가 발생했습니다.",
-        subText: err instanceof Error ? err.message : t("popup.unknownIssue", { defaultMessage: "알 수 없는 오류가 발생했습니다." }),
+        title: popupT("languageSettingError", { defaultMessage: "언어 설정 도중 오류가 발생했습니다." }),
+        subText: err instanceof Error ? err.message : popupT("unknownIssue", { defaultMessage: "알 수 없는 오류가 발생했습니다." }),
         onClose: () => { },
       });
     }
@@ -127,10 +128,10 @@ export default function LanguageSettingMain({ userLanguage }: { userLanguage: st
       <section className="flex w-[100%] flex-col gap-[2.4rem]">
         <div className="flex flex-col gap-[.8rem]">
           <div className="body_2 font-bold text-gray-900">
-            {t("languageSettings", { defaultMessage: "언어 설정" })}
+            {t("mypage.languageSettings", { defaultMessage: "언어 설정" })}
           </div>
           <div>
-            {t("selectTranslationLang", {
+            {t("mypage.selectTranslationLang", {
               defaultMessage:
                 "이 설정에서 번역할 언어를 선택하시면 뉴스 및 리포트에서 설정하신 언어로 번역한 정보를 확인할 수 있습니다.",
             })}
@@ -163,9 +164,9 @@ export default function LanguageSettingMain({ userLanguage }: { userLanguage: st
       {openConfirmAlert && (
         <Alert
           variant="fnButton"
-          title="언어 설정을 변경하시겠습니까?"
-          buttonText="변경"
-          subButtonText="취소"
+          title={popupT("confirmLangChange", { defaultMessage: "언어 설정을 변경하시겠습니까?" })}
+          buttonText={popupT("change", { defaultMessage: "변경" })}
+          subButtonText={popupT("cancel", { defaultMessage: "취소" })}
           onClick={handleConfirmChange}
           onClose={handleCancelChange}
         />
