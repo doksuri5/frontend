@@ -1,30 +1,15 @@
 import { formatOnlyIndicator, getTextColor } from "@/utils/stockPriceUtils";
 import SimpleRadarChart from "./SimpleRadarChart";
 import { cn } from "@/utils/cn";
-import CountUp from "react-countup";
 import { TReutersCodes } from "@/constants/stockCodes";
-import { useEffect, useState } from "react";
 import { getStockAnalysis } from "@/actions/stock-analysis";
 import { Skeleton } from "./Skeleton";
-import { StockAIReportDataType } from "@/types/StockDataType";
+import ClientCountUp from "./CountUp";
 
-const ReportCardContent = ({ reutersCode }: { reutersCode: TReutersCodes }) => {
-  const [stockAnalysis, setStockAnalysis] = useState<StockAIReportDataType>();
-  const [isLoading, setIsLoading] = useState(false);
+const ReportCardContent = async ({ reutersCode }: { reutersCode: TReutersCodes }) => {
+  const stockAnalysis = (await getStockAnalysis(undefined, { params: reutersCode })).data[0];
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-
-      const data = await getStockAnalysis(undefined, { params: reutersCode });
-      setStockAnalysis(data.data[0]);
-    };
-
-    fetchData();
-    setIsLoading(false);
-  }, [reutersCode]);
-
-  if (!stockAnalysis || isLoading) {
+  if (!stockAnalysis) {
     return <Skeleton className="h-[18rem] w-full" />;
   }
 
@@ -39,7 +24,7 @@ const ReportCardContent = ({ reutersCode }: { reutersCode: TReutersCodes }) => {
           <div className={cn("flex gap-[0.8rem] font-normal", getTextColor(stockAnalysis.metrics.fluctuationsRatio))}>
             <span>
               {formatOnlyIndicator(stockAnalysis.metrics.fluctuationsRatio)}
-              <CountUp end={Math.abs(stockAnalysis.metrics.fluctuationsRatio)} decimals={1} />%
+              <ClientCountUp end={Math.abs(stockAnalysis.metrics.fluctuationsRatio)} decimals={1} />%
             </span>
           </div>
         </li>
@@ -48,7 +33,7 @@ const ReportCardContent = ({ reutersCode }: { reutersCode: TReutersCodes }) => {
           <div className={cn("flex gap-[0.8rem] font-normal", getTextColor(stockAnalysis.investmentIndex))}>
             <span>
               {formatOnlyIndicator(stockAnalysis.investmentIndex)}
-              <CountUp end={Math.abs(stockAnalysis.investmentIndex)} />%
+              <ClientCountUp end={Math.abs(stockAnalysis.investmentIndex)} />%
             </span>
           </div>
         </li>
@@ -57,7 +42,7 @@ const ReportCardContent = ({ reutersCode }: { reutersCode: TReutersCodes }) => {
           <div className={cn("flex gap-[0.8rem] font-normal", getTextColor(stockAnalysis.profitabilityPercentage))}>
             <span>
               {formatOnlyIndicator(stockAnalysis.profitabilityPercentage)}
-              <CountUp end={Math.abs(stockAnalysis.profitabilityPercentage)} />%
+              <ClientCountUp end={Math.abs(stockAnalysis.profitabilityPercentage)} />%
             </span>
           </div>
         </li>
@@ -66,7 +51,7 @@ const ReportCardContent = ({ reutersCode }: { reutersCode: TReutersCodes }) => {
           <div className={cn("flex gap-[0.8rem] font-normal", getTextColor(stockAnalysis.growthPercentage))}>
             <span>
               {formatOnlyIndicator(stockAnalysis.growthPercentage)}
-              <CountUp end={Math.abs(stockAnalysis.growthPercentage)} />%
+              <ClientCountUp end={Math.abs(stockAnalysis.growthPercentage)} />%
             </span>
           </div>
         </li>
@@ -75,7 +60,7 @@ const ReportCardContent = ({ reutersCode }: { reutersCode: TReutersCodes }) => {
           <div className={cn("flex gap-[0.8rem] font-normal", getTextColor(stockAnalysis.interestPercentage))}>
             <span>
               {formatOnlyIndicator(stockAnalysis.interestPercentage)}
-              <CountUp end={Math.abs(stockAnalysis.interestPercentage)} />%
+              <ClientCountUp end={Math.abs(stockAnalysis.interestPercentage)} />%
             </span>
           </div>
         </li>

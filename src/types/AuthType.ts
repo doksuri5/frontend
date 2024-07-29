@@ -1,22 +1,35 @@
 import { boolean, z } from "zod";
 
+// 공통
+const nameSchema = z.string().regex(/^[a-zA-Z가-힣\s]+$/, { message: "숫자나 특수기호가 포함될 수 없습니다." });
+const emailSchema = z.string().email({ message: "올바른 이메일 형식이 아닙니다." });
+const phoneSchema = z.string().regex(/^\d{10,12}$/, { message: "유효한 휴대폰 번호를 입력해주세요." });
+const basePasswordSchema = z
+  .string()
+  .regex(
+    /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\[\]{};':",.<>\/?\-]).{8,20}$|^(?=.*[a-zA-Z])(?=.*\d).{8,20}$|^(?=.*[a-zA-Z])(?=.*[!@#$%^&*()_+\[\]{};':",.<>\/?\-]).{8,20}$|^(?=.*\d)(?=.*[!@#$%^&*()_+\[\]{};':",.<>\/?\-]).{8,20}$/,
+    {
+      message: "8-20자 이내 숫자, 특수문자, 영문자 중 2가지 이상을 조합",
+    },
+  );
+
 // 로그인
 export const loginSchema = z.object({
-  email: z.string().email({ message: "올바른 이메일 형식이 아닙니다." }),
+  email: emailSchema,
   password: z.string().min(1, { message: "비밀번호를 입력해주세요." }),
   authLogin: z.boolean().optional(),
 });
 
-// 아이디 찾기
+// 이메일 찾기
 export const findIdSchema = z.object({
-  name: z.string().min(1),
-  phone: z.string().regex(/^\d{10,12}$/, { message: "유효한 휴대폰 번호를 입력해주세요." }),
+  name: nameSchema,
+  phone: phoneSchema,
 });
 
 // 비밀번호 찾기
 export const findPasswordSchema = z.object({
-  name: z.string().min(1),
-  email: z.string().email({ message: "올바른 이메일 형식이 아닙니다." }),
+  name: nameSchema,
+  email: emailSchema,
 });
 
 // 생일
@@ -44,13 +57,13 @@ const birthDateSchema = z
 
 //회원가입
 const baseRegisterSchema = z.object({
-  phone: z.string().regex(/^\d{10,12}$/, { message: "유효한 휴대폰 번호를 입력해주세요." }),
+  phone: phoneSchema,
   birth: birthDateSchema,
 });
 
 const googleRegisterSchema = baseRegisterSchema.extend({
-  name: z.string().regex(/^[a-zA-Z가-힣\s]+$/, { message: "숫자나 특수기호가 포함될 수 없습니다." }),
-  email: z.string().email({ message: "올바른 이메일 형식이 아닙니다." }),
+  name: nameSchema,
+  email: emailSchema,
 });
 
 const kakaoRegisterSchema = googleRegisterSchema.extend({
@@ -58,22 +71,8 @@ const kakaoRegisterSchema = googleRegisterSchema.extend({
 });
 
 const passwordSchema = z.object({
-  password: z
-    .string()
-    .regex(
-      /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\[\]{};':",.<>\/?\-]).{8,20}$|^(?=.*[a-zA-Z])(?=.*\d).{8,20}$|^(?=.*[a-zA-Z])(?=.*[!@#$%^&*()_+\[\]{};':",.<>\/?\-]).{8,20}$|^(?=.*\d)(?=.*[!@#$%^&*()_+\[\]{};':",.<>\/?\-]).{8,20}$/,
-      {
-        message: "8-20자 이내 숫자, 특수문자, 영문자 중 2가지 이상을 조합",
-      },
-    ),
-  passwordChk: z
-    .string()
-    .regex(
-      /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\[\]{};':",.<>\/?\-]).{8,20}$|^(?=.*[a-zA-Z])(?=.*\d).{8,20}$|^(?=.*[a-zA-Z])(?=.*[!@#$%^&*()_+\[\]{};':",.<>\/?\-]).{8,20}$|^(?=.*\d)(?=.*[!@#$%^&*()_+\[\]{};':",.<>\/?\-]).{8,20}$/,
-      {
-        message: "8-20자 이내 숫자, 특수문자, 영문자 중 2가지 이상을 조합",
-      },
-    ),
+  password: basePasswordSchema,
+  passwordChk: basePasswordSchema,
 });
 
 const regularRegisterSchema = kakaoRegisterSchema
@@ -108,7 +107,7 @@ export const profileSchema = z.object({
         label: z.string(),
       }),
     )
-    .min(1, "관심 종목을 최소 하나 선택해야 합니다."),
+    .min(1, { message: "관심종목을 선택해주세요." }),
   isAgreeCreditInfo: z.boolean(),
   investPropensity: z
     .object({
@@ -128,25 +127,43 @@ const updatesSchema = z.object({
   date: z.string(),
 });
 
+const baseAgreeSchema = z.object({
+  content: z.string(),
+  lastUpdated: z.string(),
+  updates: z.array(updatesSchema).default([]),
+});
+
 export const AgreeSchema = z.object({
-  termsOfService: z.object({
-    content: z.string(),
-    lastUpdated: z.string(),
-    updates: z.array(updatesSchema).default([]),
-  }),
-  privacyPolicy: z.object({
-    content: z.string(),
-    lastUpdated: z.string(),
-    updates: z.array(updatesSchema).default([]),
-  }),
+  termsOfService: baseAgreeSchema,
+  privacyPolicy: baseAgreeSchema,
   id: z.string(),
 });
 
+// 로그인 확인 요청
 export const userLoginSchema = z.object({
   email: z.string().email(),
   pw: z.string().min(1),
 });
 
+// 일반 로그인 확인 요청
+export const existingUserSchema = z.object({
+  email: z.string().email(),
+  isDelete: z.boolean(),
+});
+
+export const existingUserInfoSchema = z.object({
+  id: z.string(),
+  email: emailSchema,
+});
+
+export const socialUserOptionSchema = z.object({
+  snsId: z.union([z.string(), z.number()]),
+  loginType: z.enum(["local", "kakao", "google", "naver"]),
+  isDelete: z.boolean(),
+  email: z.string().email().optional(),
+});
+
+// 유저 응답 정보
 export const userInfoSchema = z.object({
   id: z.string(),
   snsId: z.string(),
@@ -158,7 +175,7 @@ export const userInfoSchema = z.object({
   profile: z.string().optional().default(""),
   nickname: z.string(),
   language: z.union([z.literal("ko"), z.literal("en"), z.literal("ch"), z.literal("fr"), z.literal("jp")]),
-  loginType: z.literal("local"),
+  loginType: z.enum(["local", "kakao", "google", "naver"]),
   isDelete: z.boolean(),
   updated_at: z.union([z.string(), z.null(), z.undefined()]),
   deleted_at: z.union([z.string(), z.null(), z.undefined()]),
@@ -185,3 +202,8 @@ export type AgreeDataType = z.infer<typeof AgreeSchema>;
 
 export type UserInfoDataType = z.infer<typeof userInfoSchema>;
 export type UserLoginType = z.infer<typeof userLoginSchema>;
+
+export type ExistingUserType = z.infer<typeof existingUserSchema>;
+export type ExistingUserDataType = z.infer<typeof existingUserInfoSchema>;
+
+export type SocialUserOptionsType = z.infer<typeof socialUserOptionSchema>;

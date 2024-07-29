@@ -1,13 +1,17 @@
+import { getTranslations } from "next-intl/server";
 import { cn } from "@/utils/cn";
 
 type DiscoverySectionProps = {
-  title: string;
+  titleKey: string;
   sectionStyle?: string;
   titleStyle?: string;
   subTag?: JSX.Element;
   children: React.ReactNode;
 };
-const DiscoverySection = ({ title, sectionStyle, titleStyle, subTag, children }: DiscoverySectionProps) => {
+const DiscoverySection = async ({ titleKey, sectionStyle, titleStyle, subTag, children }: DiscoverySectionProps) => {
+  const t = await getTranslations("discovery");
+  const title = t(titleKey);
+
   return (
     <section className={cn(`flex w-full flex-col gap-[.8rem] ${sectionStyle}`)}>
       <div className={cn(`flex_row gap-[1.6rem] ${titleStyle}`)}>

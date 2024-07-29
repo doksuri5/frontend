@@ -1,10 +1,11 @@
 import { STOCK_NAMES } from "@/constants/stockCodes";
-import { DISCOVERY_PATH, REPORT_PATH } from "@/routes/path";
+import { REPORT_PATH } from "@/routes/path";
 import { StockDataType } from "@/types";
 import { cn } from "@/utils/cn";
 import { formatValueWithIndicator, formatValueWithSign, getTextColor } from "@/utils/stockPriceUtils";
 import Image from "next/image";
 import Link from "next/link";
+import React from "react";
 
 type TIStockItemProps = StockDataType & {
   iconSize?: number;
@@ -34,13 +35,7 @@ const variantStyles = {
   },
 };
 
-export default function StockItem({
-  iconSize = 50,
-  style,
-  variant = "stock",
-  clickNone = false,
-  ...props
-}: TIStockItemProps) {
+function StockItem({ iconSize = 50, style, variant = "stock", clickNone = false, ...props }: TIStockItemProps) {
   const { stockName, symbolCode, closePrice, compareToPreviousClosePrice, fluctuationsRatio, reutersCode } = props;
   const fluctuationPriceColor = getTextColor(compareToPreviousClosePrice);
 
@@ -80,3 +75,4 @@ export default function StockItem({
     </Link>
   );
 }
+export default React.memo(StockItem);

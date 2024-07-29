@@ -3,13 +3,16 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 const Navigation = () => {
+  const t = useTranslations("mypage");
   const pathname = usePathname().slice(3);
+
   const menuList = [
-    { key: "개인정보 수정", url: "/mypage" },
-    { key: "언어 설정", url: "/mypage/language-setting" },
-    { key: "서비스 이용약관", url: "/mypage/terms" },
+    { key: t("editPrivacy", { defaultMessage: "개인정보 수정" }), url: "/mypage" },
+    { key: t("languageSettings", { defaultMessage: "언어 설정" }), url: "/mypage/language-setting" },
+    { key: t("terms", { defaultMessage: "이용약관" }), url: "/mypage/terms" },
   ];
 
   return (

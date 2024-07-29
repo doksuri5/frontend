@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 
 import { Input, Button, Modal } from "@/components/common";
 import Timer from "./Timer";
+import CommonLoadingBtn from "./CommonLoadingBtn";
 
 import useZodSchemaForm from "@/hooks/useZodSchemaForm";
 import useToast from "@/hooks/use-toast";
@@ -318,13 +319,13 @@ export default function RegisterForm() {
         <Button
           type="submit"
           size="lg"
-          bgColor={isRegisterValid && emailCodeChkComplete && !isPending ? "bg-navy-900" : "bg-grayscale-200"}
+          bgColor={isRegisterValid && emailCodeChkComplete ? "bg-navy-900" : "bg-grayscale-200"}
           className={cn(
-            `mt-[4rem] ${isRegisterValid && emailCodeChkComplete && !isPending ? "text-white" : "text-gray-300"}`,
+            `relative mt-[4rem] ${isRegisterValid && emailCodeChkComplete ? "text-white" : "text-gray-300"}`,
           )}
           disabled={(!isRegisterValid && !socialGoogle && !emailCodeChkComplete) || isPending}
         >
-          다음
+          {isPending ? <CommonLoadingBtn /> : `다음`}
         </Button>
       </form>
       {/* 이메일 인증 안내 팝업 */}

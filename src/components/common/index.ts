@@ -22,6 +22,7 @@ import CardSkeleton from "./skeleton/CardSkeleton";
 import PopularNewsSkeleton from "./skeleton/PopularNewsSkeleton";
 import FormResultError from "./FormResultError";
 import SearchBox from "./SearchBox";
+import ButtonSpinner from "./ButtonSpinner";
 
 export {
   Button,
@@ -48,4 +49,5 @@ export {
   PopularNewsSkeleton,
   FormResultError,
   SearchBox,
+  ButtonSpinner,
 };

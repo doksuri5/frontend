@@ -8,6 +8,7 @@ import useUserStore from "@/stores/useUserStore";
 import { useRouter } from "next/navigation";
 import { updateUserInfo } from "../_api/privacyApi";
 import useAlert from "@/hooks/use-alert";
+import { useTranslations } from "next-intl";
 
 type TEditPrivacyFormProps = {
   closeModal: () => void;
@@ -21,6 +22,7 @@ export interface FormData {
 }
 
 export default function EditPrivacyForm({ closeModal }: TEditPrivacyFormProps) {
+  const t = useTranslations()
   const { userStoreData } = useUserStore();
   const { alertInfo, customAlert } = useAlert();
   const router = useRouter();
@@ -81,12 +83,12 @@ export default function EditPrivacyForm({ closeModal }: TEditPrivacyFormProps) {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)} className={cn("flex w-full flex-col gap-[1.6rem]")}>
-        <Input id="email" labelName="이메일" value={userStoreData?.email} disabled />
+        <Input id="email" labelName={t("user.email", { defaultMessage: "이메일" })} value={userStoreData?.email} disabled />
         <div>
           <Input
             type="password"
             id="password"
-            labelName="새 비밀번호 입력"
+            labelName={t("user.form.inputNewPassword", { defaultMessage: "새 비밀번호 입력" })}
             placeholder="변경할 비밀번호를 입력해주세요."
             {...register("password", {
               minLength: {
@@ -113,7 +115,7 @@ export default function EditPrivacyForm({ closeModal }: TEditPrivacyFormProps) {
           <Input
             type="password"
             id="passwordChk"
-            labelName="새 비밀번호 확인"
+            labelName={t("user.form.confirmNewPassword", { defaultMessage: "새 비밀번호 확인" })}
             placeholder="비밀번호를 다시 한번 입력해주세요."
             {...register("passwordChk", {
               validate: (value) => value === password || "동일한 비밀번호가 아닙니다. 다시 확인 후 입력해주세요.",
@@ -126,7 +128,7 @@ export default function EditPrivacyForm({ closeModal }: TEditPrivacyFormProps) {
         <div>
           <Input
             id="phone"
-            labelName="휴대폰번호"
+            labelName={t("user.phone", { defaultMessage: "휴대폰번호" })}
             placeholder="-를 제외한 휴대폰번호를 입력해주세요."
             {...register("phone", {
               required: "휴대폰 번호를 입력해주세요.",
@@ -143,7 +145,7 @@ export default function EditPrivacyForm({ closeModal }: TEditPrivacyFormProps) {
         <div>
           <Input
             id="birth"
-            labelName="생년월일"
+            labelName={t("user.birth", { defaultMessage: "생년월일" })}
             placeholder="생년월일 6자리를 입력해주세요.(예시 : 991231)"
             {...register("birth", {
               required: "생년월일을 입력해주세요.",
@@ -166,7 +168,7 @@ export default function EditPrivacyForm({ closeModal }: TEditPrivacyFormProps) {
           className={cn(`mt-[4rem] ${formValid ? "text-white" : "text-gray-300"}`)}
           disabled={!formValid}
         >
-          수정하기
+          {t("user.form.edit", { defaultMessage: "수정하기" })}
         </Button>
       </form>
 

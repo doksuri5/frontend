@@ -1,5 +1,3 @@
-"use client";
-
 import { TReutersCodes } from "@/constants/stockCodes";
 import ReportCardContent from "./ReportCardContent";
 import ReportCardHeader from "./ReportCardHeader";

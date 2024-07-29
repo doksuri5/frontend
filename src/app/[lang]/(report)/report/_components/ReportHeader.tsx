@@ -1,8 +1,6 @@
 import { getStocksByReutersCode } from "@/actions/stock";
 import { STOCK_NAMES, TReutersCodes } from "@/constants/stockCodes";
-import { StockDataType } from "@/types";
 import Image from "next/image";
-import { useEffect, useState } from "react";
 import ReportHeaderSkeleton from "./skeleton/ReportHeaderSkeleton";
 import MyStockToggleInReport from "./MyStockToggleInReport";
 

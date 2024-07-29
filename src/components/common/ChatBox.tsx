@@ -11,7 +11,7 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { SYMBOL_TO_REUTERS } from "@/constants/stockCodes";
 import CircleSpinner from "./CircleSpinner";
-import CountUp from "react-countup";
+import ClientCountUp from "./CountUp";
 
 type ChatBoxProps = {
   close: () => void;
@@ -85,7 +85,7 @@ export default function ChatBox({ close }: ChatBoxProps) {
                               <p>
                                 {t("chatBot.linkCommentStockPriceChange")} :{" "}
                                 <strong>
-                                  <CountUp
+                                  <ClientCountUp
                                     end={toolInvocation.result.quoteSummary.price.regularMarketChange}
                                     decimals={2}
                                   />
