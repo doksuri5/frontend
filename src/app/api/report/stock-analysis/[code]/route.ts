@@ -5,18 +5,18 @@ import { z } from "zod";
 import { FetchedNaverStockDataType } from "@/types/StockDataType";
 import { kv } from "@vercel/kv";
 import yahooFinance from "yahoo-finance2";
-import { unstable_noStore as noStore } from "next/cache";
 import { auth } from "@/auth";
 import { AI_MODEL } from "@/constants/ai-info";
 
 export const maxDuration = 30;
+
+export const dynamic = "force-dynamic";
 
 export const GET = async (request: NextRequest, { params }: { params: { code: string } }) => {
   try {
     const session = await auth();
 
     const key = `stock:${params.code}`;
-    noStore();
     const cached = await kv.hgetall(key);
 
     if (cached) {
