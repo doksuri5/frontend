@@ -7,6 +7,223 @@
     "login": "로그인",
     "logout": "로그아웃"
   },
+  "auth": {
+    "title": {
+      "login": "로그인",
+      "register": "회원가입",
+      "termsAgreement": "약관동의",
+      "profileSetup": "프로필 설정",
+      "findPassword": "비밀번호 찾기",
+      "findEmail": "이메일 찾기",
+      "registrationComplete": "가입이 완료되었습니다.",
+      "registerComplete": "가입이 완료되었습니다."
+    },
+    "label": {
+      "name": "이름",
+      "email": "이메일주소",
+      "password": "비밀번호 입력",
+      "confirmPassword": "비밀번호 확인",
+      "phone": "휴대폰번호",
+      "birthDate": "생년월일",
+      "profileImage": "프로필이미지",
+      "nickname": "닉네임",
+      "interestStock": "관심 종목",
+      "gender": "성별"
+    },
+    "placeholder": {
+      "email": "이메일을 입력해주세요.",
+      "password": "비밀번호를 입력해주세요.",
+      "name": "이름을 입력해주세요.",
+      "phone": "-를 제외한 휴대폰번호를 입력해주세요.",
+      "emailVerificationCode": "이메일 인증 코드 6자리 입력",
+      "confirmPassword": "비밀번호를 다시 한번 입력해주세요.",
+      "birthDate": "생년월일 6자리를 입력해주세요.(예시 : 991231)",
+      "nickname": "닉네임을 입력해주세요.",
+      "addInterestStock": "#관심 종목을 추가해주세요.",
+      "registeredEmail": "가입 시 입력한 이메일주소를 입력해주세요."
+    },
+    "sns": {
+      "kakao": "카카오",
+      "naver": "네이버",
+      "google": "구글",
+      "local": "일반"
+    },
+    "commonValidation": {
+      "noSpecialCharsOrNumbers": "숫자나 특수기호가 포함될 수 없습니다.",
+      "invalidEmailFormat": "올바른 이메일 형식이 아닙니다.",
+      "invalidPhoneNumber": "유효한 휴대폰 번호를 입력해주세요.",
+      "passwordRequirements": "8-20자 이내 숫자, 특수문자, 영문자 중 2가지 이상을 조합",
+      "enterPassword": "비밀번호를 입력해주세요.",
+      "birthDateLength": "생년월일은 6자리여야 합니다.",
+      "invalidDate": "유효하지 않은 날짜입니다.",
+      "enterVerificationCode": "인증코드 6자리 입력해주세요.",
+      "passwordMismatch": "동일한 비밀번호가 아닙니다. 다시 확인 후 입력해주세요.",
+      "invalidSpecialChars": "'_', '-'를 제외한 특수 문자는 사용할 수 없습니다.",
+      "selectInterestStock": "관심종목을 선택해주세요.",
+      "alreadyRegisteredEmail": "이미 가입된 이메일 입니다.",
+      "verificationExpired": "인증 시간이 만료되었습니다. 이메일 요청을 다시 시도해주세요.",
+      "invalidOrExpiredCode": "인증 코드가 유효하지 않거나 만료되었습니다.",
+      "nicknameUnavailable": "사용 불가능한 닉네임 입니다.",
+      "unregisteredOrInvalidInfo": "등록되지 않은 회원이거나 잘못된 회원정보입니다."
+    },
+    "commonBtn": {
+      "next": "다음",
+      "register": "가입하기",
+      "confirm": "확인",
+      "issueTempPassword": "임시 비밀번호 발급",
+      "pleaseWait": "잠시만 기다려주세요."
+    },
+    "login": {
+      "autoLogin": "자동로그인",
+      "notMemberYet": "아직 회원이 아니신가요?",
+      "signup": "아잇나우 회원가입",
+      "or": "또는",
+      "loggingIn": "로그인 중입니다.",
+      "loginFailed": "로그인 실패하였습니다.",
+      "checkEmailPassword": "이메일 또는 비밀번호를 다시 한번 확인해주세요.",
+      "loginSuccessful": "로그인 성공하였습니다."
+    },
+    "termsAgreement": {
+      "checkRequiredTerms": "필수 약관 동의를 체크해주세요.",
+      "agreeAll": "이용약관, 개인정보 처리방침에 모두 동의합니다.",
+      "termsOfService": "서비스 이용약관(필수)",
+      "privacyPolicy": "개인정보 처리방침(필수)",
+      "agree": "동의합니다."
+    },
+    "register": {
+      "sendingEmail": "이메일을 전송중입니다.",
+      "emailSent": "이메일 전송이 완료되었습니다.",
+      "emailSendFailed": "이메일 전송이 실패되었습니다.",
+      "resendEmail": "이메일 재요청",
+      "requestEmail": "이메일 요청",
+      "emailVerified": "이메일 인증이 완료되었습니다.",
+      "verifyCode": "코드 인증",
+      "codeSent": "인증 코드를 전송했습니다.",
+      "codeSentToEmail": "작성한 이메일주소로 인증 코드를 전송했습니다.",
+      "checkEmailToContinue": "메일 확인 후 회원가입을 계속 진행해주세요."
+    },
+    "registerComplete": {
+      "registrationComplete": "회원가입이 완료되었습니다.",
+      "loginToContinue": "로그인 후 이용해주세요!"
+    },
+    "profileSetUp": {
+      "profileImage": "프로필 이미지",
+      "uploadLimit": "최대 1MB 이하의 이미지 파일만 업로드 가능합니다.",
+      "nicknameAvailable": "사용가능한 닉네임 입니다.",
+      "signupError": "일시적인 오류로 인해 회원가입에 실패하였습니다.",
+      "retrySignup": "다시 회원가입을 시도해주세요.",
+      "changeNickname": "닉네임 변경",
+      "checkDuplicate": "중복 확인",
+      "noSearchResults": "검색된 결과가 없습니다.",
+      "addAtLeastOneInterestStock": "관심 종목은 최소 1개 추가해주세요.",
+      "male": "남성",
+      "female": "여성",
+      "registerInvestmentPreference": "투자 성향을 등록하면",
+      "registerInvestmentPreferenceInfo": "더 정확한 정보를 받을 수 있습니다!",
+      "registerInvestmentPreferenceButton": "투자 성향 등록하기",
+      "noInvestmentPreference": "투자 성향을 등록하지 않으셨습니다.",
+      "confirmNoInvestmentPreference": "등록하지 않고 이대로 가입하시겠어요?",
+      "signupWithoutPreference": "등록하지 않고 가입하기",
+      "registerInvestmentPreferenceAgain": "투자 성향 등록하기"
+    },
+    "findPassword": {
+      "issuingTempPassword": "임시 비밀번호가 발급 중입니다.",
+      "tempPasswordIssued": "임시 비밀번호 발급이 완료되었습니다.",
+      "tempPasswordIssueFailed": "임시 비밀번호 발급에 실패했습니다.",
+      "snsLoginAccount": "SNS 로그인으로 가입된 계정입니다.",
+      "tempPasswordGenerated": "임시비밀번호가 발급되었습니다.",
+      "pleaseLogin": "로그인 해주세요.",
+      "checkEmailForTempPassword": "이메일을 확인하여 임시 비밀번호로 재로그인 후 비밀번호를 변경해주세요."
+    },
+    "findEmailComplete": {
+      "emailMatchesPhone": "휴대폰번호와 일치하는 이메일입니다.",
+      "snsLogin": "SNS 로그인",
+      "email": "이메일",
+      "registrationDate": "가입일"
+    },
+    "exist": {
+      "alreadyRegisteredEmail": "이미 가입된 이메일 입니다.",
+      "snsSignupNotAllowed": "해당 SNS 계정으로는 회원가입이 불가합니다.",
+      "checkAccountInfoThroughFindEmail": "이메일 찾기를 통해 계정 정보를 확인해주세요."
+    },
+    "loginError": {
+      "errorTitle": "로그인 오류",
+      "temporaryError": "일시적인 오류로 인해 로그인에 실패하였습니다.",
+      "tryAgain": "다시 한번 시도해주세요."
+    },
+    "metadata": {
+      "login": {
+        "description": "로그인 페이지에서 계정에 접속하여 서비스를 이용하세요.",
+        "keywords": "로그인, 계정 접속, 사용자 인증",
+        "openGraph": {
+          "description": "로그인 페이지에서 계정에 접속하여 서비스를 이용하세요."
+        },
+        "twitter": {
+          "description": "로그인 페이지에서 계정에 접속하여 서비스를 이용하세요."
+        }
+      },
+      "termsAgreement": {
+        "description": "약관동의 페이지에서 사용자 약관 및 정책을 확인하고 동의하세요.",
+        "keywords": "약관동의, 사용자 약관, 정책, 동의",
+        "openGraph": {
+          "description": "약관동의 페이지에서 사용자 약관 및 정책을 확인하고 동의하세요."
+        },
+        "twitter": {
+          "description": "약관동의 페이지에서 사용자 약관 및 정책을 확인하고 동의하세요."
+        }
+      },
+      "register": {
+        "description": "회원가입 페이지에서 새로운 계정을 만들고 서비스를 이용해보세요.",
+        "keywords": "회원가입, 가입, 계정 생성, 새로운 계정",
+        "openGraph": {
+          "description": "회원가입 페이지에서 새로운 계정을 만들고 서비스를 이용해보세요."
+        },
+        "twitter": {
+          "description": "회원가입 페이지에서 새로운 계정을 만들고 서비스를 이용해보세요."
+        }
+      },
+      "registerComplete": {
+        "description": "회원가입이 완료되었습니다. 서비스를 이용해보세요.",
+        "keywords": "회원가입완료, 가입완료, 계정 생성, 새로운 계정",
+        "openGraph": {
+          "description": "회원가입이 완료되었습니다. 서비스를 이용해보세요."
+        },
+        "twitter": {
+          "description": "회원가입이 완료되었습니다. 서비스를 이용해보세요."
+        }
+      },
+      "profileSetup": {
+        "description": "프로필 설정 페이지에서 개인 정보를 입력하고 투자 성향을 등록하세요.",
+        "keywords": "회원가입, 프로필 설정, 투자성향 등록, 개인 정보, 투자 성향",
+        "openGraph": {
+          "description": "프로필 설정 페이지에서 개인 정보를 입력하고 투자 성향을 등록하세요."
+        },
+        "twitter": {
+          "description": "프로필 설정 페이지에서 개인 정보를 입력하고 투자 성향을 등록하세요."
+        }
+      },
+      "findEmail": {
+        "description": "이메일 찾기 페이지에서 계정에 등록된 이메일을 찾으세요.",
+        "keywords": "이메일 찾기, 계정 이메일, 이메일 복구, 이메일 확인",
+        "openGraph": {
+          "description": "이메일 찾기 페이지에서 계정에 등록된 이메일을 찾으세요."
+        },
+        "twitter": {
+          "description": "이메일 찾기 페이지에서 계정에 등록된 이메일을 찾으세요."
+        }
+      },
+      "findPassword": {
+        "description": "비밀번호 찾기 페이지에서 계정의 임시 비밀번호를 받으세요.",
+        "keywords": "비밀번호 찾기, 임시 비밀번호, 비밀번호 재설정, 계정 보안",
+        "openGraph": {
+          "description": "비밀번호 찾기 페이지에서 계정의 임시 비밀번호를 받으세요."
+        },
+        "twitter": {
+          "description": "비밀번호 찾기 페이지에서 계정의 임시 비밀번호를 받으세요."
+        }
+      }
+    }
+  },
   "stocks": {
     "stockApple": "애플",
     "stockMicroSoft": "마이크로소프트",

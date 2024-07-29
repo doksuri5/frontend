@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { useTranslations } from "next-intl";
 
 import { Button, FormResultError, Input } from "@/components/common";
 
@@ -30,6 +31,7 @@ export default function FindEmailForm() {
   });
   const { formResultError, setFormResultError } = useFormResultError(isValid);
   const [isPending, startTransition] = useTransition();
+  const t = useTranslations("auth");
 
   const onFindEmailSubmit = async (data: TFindEmailSchema) => {
     const valid = await trigger(["phone", "name"]);
@@ -54,7 +56,11 @@ export default function FindEmailForm() {
             setShow(true);
             setResponseData(response.data);
           } else {
-            setFormResultError(response.message);
+            setFormResultError(
+              t("commonValidation.unregisteredOrInvalidInfo", {
+                defaultMessage: "등록되지 않은 회원이거나 잘못된 회원정보입니다.",
+              }),
+            );
           }
         });
       } catch (e) {
@@ -71,21 +77,27 @@ export default function FindEmailForm() {
         <form onSubmit={handleSubmit(onFindEmailSubmit)} className="auth_form_layout">
           <Input
             id="name"
-            labelName="이름"
-            placeholder="이름을 입력해주세요."
+            labelName={t("label.name", { defaultMessage: "이름" })}
+            placeholder={t("placeholder.name", { defaultMessage: "이름을 입력해주세요." })}
             disabled={isPending}
             variant={errors.name || formResultError ? "error" : "default"}
-            caption={errors.name?.message}
+            caption={
+              errors.name?.message &&
+              t(`commonValidation.${errors.name?.message}`, { defaultMessage: errors.name?.message })
+            }
             {...control.register("name")}
           />
           <Input
             id="phone"
-            labelName="휴대전화"
-            placeholder="-를 제외한 휴대폰번호를 입력해주세요."
+            labelName={t("label.phone", { defaultMessage: "휴대폰번호" })}
+            placeholder={t("placeholder.phone", { defaultMessage: "-를 제외한 휴대폰번호를 입력해주세요." })}
             disabled={isPending}
             variant={errors.phone || formResultError ? "error" : "default"}
             {...control.register("phone")}
-            caption={errors.phone?.message}
+            caption={
+              errors.phone?.message &&
+              t(`commonValidation.${errors.phone?.message}`, { defaultMessage: errors.phone?.message })
+            }
           />
           {formResultError && <FormResultError message={formResultError} />}
           <Button
@@ -95,7 +107,7 @@ export default function FindEmailForm() {
             className={cn(`mt-[4rem] ${isValid ? "text-white" : "text-gray-300"}`)}
             disabled={!isValid || isPending}
           >
-            {isPending ? <CommonLoadingBtn /> : "이메일 찾기"}
+            {isPending ? <CommonLoadingBtn /> : t("title.findEmail", { defaultMessage: "이메일 찾기" })}
           </Button>
         </form>
       )}

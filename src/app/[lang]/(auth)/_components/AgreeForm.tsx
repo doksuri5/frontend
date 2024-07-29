@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
+import { useTranslations } from "next-intl";
 
 import { Button, CheckBox, FormResultError } from "@/components/common";
 
@@ -24,6 +25,7 @@ import useFormResultError from "@/hooks/useFormResultError";
 import { REGISTER_PATH } from "@/routes/path";
 
 export default function AgreeForm() {
+  const t = useTranslations("auth");
   const [agreedAll, setAgreedAll] = useState(false);
   const [terms, setTerms] = useState(false);
   const [privacy, setPrivacy] = useState(false);
@@ -54,7 +56,7 @@ export default function AgreeForm() {
 
   const nextStepHandler = () => {
     if (!agreedAll) {
-      setFormResultError("필수 약관 동의를 체크해주세요.");
+      setFormResultError(t("termsAgreement.checkRequiredTerms", { defaultMessage: "필수 약관 동의를 체크해주세요." }));
       return;
     }
 
@@ -78,52 +80,50 @@ export default function AgreeForm() {
   }, []);
 
   return (
-    <>
-      <div className={cn("flex flex-col gap-[1.6rem]")}>
-        <div className="border-b-[.1rem] border-grayscale-300 pb-[1.6rem]">
-          <CheckBox
-            checked={agreedAll}
-            setChecked={agreeAllChangeHandler}
-            label="이용악관, 개인정보 처리방침에 모두 동의합니다."
-            id="agreedAll"
-            name="agreedAll"
-            variants="radio"
-            className="w-full justify-between"
-            labelClass="body_3"
-          />
-        </div>
-        {/* 서비스 이용악관  */}
-        <div>
-          <AgreeContent
-            title="서비스 이용악관(필수)"
-            content={agreeData ? formatTextWithLineBreaks(agreeData.termsOfService.content) : servicePolicyText}
-          />
-          <CheckBox
-            checked={terms}
-            setChecked={individualChangeHandler(setTerms)}
-            label="동의합니다."
-            id="terms"
-            name="terms"
-            variants="radio"
-            className="w-full justify-end"
-          />
-        </div>
-        {/* 개인정보 처리방침  */}
-        <div>
-          <AgreeContent
-            title="개인정보 처리방침(필수)"
-            content={agreeData ? formatTextWithLineBreaks(agreeData.privacyPolicy.content) : privacyPolicyText}
-          />
-          <CheckBox
-            checked={privacy}
-            setChecked={individualChangeHandler(setPrivacy)}
-            label="동의합니다."
-            id="privacy"
-            name="privacy"
-            variants="radio"
-            className="w-full justify-end"
-          />
-        </div>
+    <div className={cn("flex flex-col gap-[1.6rem]")}>
+      <div className="border-b-[.1rem] border-grayscale-300 pb-[1.6rem]">
+        <CheckBox
+          checked={agreedAll}
+          setChecked={agreeAllChangeHandler}
+          label={t("termsAgreement.agreeAll", { defaultMessage: "이용약관, 개인정보 처리방침에 모두 동의합니다." })}
+          id="agreedAll"
+          name="agreedAll"
+          variants="radio"
+          className="w-full justify-between"
+          labelClass="body_3"
+        />
+      </div>
+      {/* 서비스 이용악관  */}
+      <div>
+        <AgreeContent
+          title={t("termsAgreement.termsOfService", { defaultMessage: "서비스 이용약관(필수)" })}
+          content={agreeData ? formatTextWithLineBreaks(agreeData.termsOfService.content) : servicePolicyText}
+        />
+        <CheckBox
+          checked={terms}
+          setChecked={individualChangeHandler(setTerms)}
+          label={t("termsAgreement.agree", { defaultMessage: "동의합니다." })}
+          id="terms"
+          name="terms"
+          variants="radio"
+          className="w-full justify-end"
+        />
+      </div>
+      {/* 개인정보 처리방침  */}
+      <div>
+        <AgreeContent
+          title={t("termsAgreement.privacyPolicy", { defaultMessage: "개인정보 처리방침(필수)" })}
+          content={agreeData ? formatTextWithLineBreaks(agreeData.privacyPolicy.content) : privacyPolicyText}
+        />
+        <CheckBox
+          checked={privacy}
+          setChecked={individualChangeHandler(setPrivacy)}
+          label={t("termsAgreement.agree", { defaultMessage: "동의합니다." })}
+          id="privacy"
+          name="privacy"
+          variants="radio"
+          className="w-full justify-end"
+        />
       </div>
       <p className="mt-[1.6rem]">{formResultError && <FormResultError message={formResultError} />}</p>
       <Button
@@ -134,8 +134,8 @@ export default function AgreeForm() {
         className={`${agreedAll ? "text-grayscale-0" : "text-grayscale-300"} ${formResultError ? "mt-[1.6rem]" : "mt-[4rem]"}`}
         onClick={nextStepHandler}
       >
-        다음
+        {t("commonBtn.next", { defaultMessage: "다음" })}
       </Button>
-    </>
+    </div>
   );
 }
