@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction, useState, useCallback } from "react";
 import { useTranslations } from "next-intl";
 import { Input, SearchBox } from "@/components/common";
 import useDebouncedSearch from "@/hooks/use-debounced-search";
@@ -8,24 +8,37 @@ import { saveRecentSearch } from "@/actions/stock";
 import { StockDataType } from "@/types";
 import SearchIcon from "@/public/icons/search_icon.svg?component";
 
-type TModalInput = {
-  setSearchStock: Dispatch<SetStateAction<StockDataType[]>>;
+type TModalInputProps = {
+  setRecentSearchedData: Dispatch<SetStateAction<StockDataType[]>>;
+  setSearchText: Dispatch<SetStateAction<string>>;
 };
-const ModalInput = ({ setSearchStock }: TModalInput) => {
+
+const ModalInput = ({ setRecentSearchedData, setSearchText }: TModalInputProps) => {
   const t = useTranslations("myStock");
 
   const { inputValue, debouncedValue, setInputValue } = useDebouncedSearch();
   const [isVisibleSearchBox, setIsVisibleSearchBox] = useState(false);
 
-  const handleSearch = async (search: string) => {
-    setIsVisibleSearchBox(false);
-    if (search.trim() !== "") {
-      const response = await saveRecentSearch({ stockName: search });
-      if (response.ok) setSearchStock(response.data);
-    } else {
-      setSearchStock([]);
-    }
-  };
+  const handleSearch = useCallback(
+    async (search: string) => {
+      setIsVisibleSearchBox(false);
+      if (search.trim()) {
+        const response = await saveRecentSearch({ stockName: search });
+        if (response.ok) {
+          setSearchText(search);
+          setRecentSearchedData((prev) => {
+            const newData = response.data.filter(
+              (newItem) => !prev.some((prevItem) => prevItem.reutersCode === newItem.reutersCode),
+            );
+            return [...newData, ...prev];
+          });
+        }
+      } else {
+        setSearchText("");
+      }
+    },
+    [setSearchText, setRecentSearchedData],
+  );
 
   return (
     <div className="relative">
@@ -53,4 +66,4 @@ const ModalInput = ({ setSearchStock }: TModalInput) => {
   );
 };
 
-export default ModalInput;
+export default React.memo(ModalInput);
