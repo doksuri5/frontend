@@ -1,5 +1,5 @@
 import { getTranslations } from "next-intl/server";
-import ModalButton from "./ModalButton";
+import { MyStockHeaderButton } from "@/app/[lang]/(mystock)/mystock/_components";
 
 const MyStockHeader = async ({ userName }: { userName: string }) => {
   const t = await getTranslations("myStock");
@@ -10,7 +10,7 @@ const MyStockHeader = async ({ userName }: { userName: string }) => {
   return (
     <div className="flex_row justify-between pt-[5.6rem]">
       <h1 className="heading_4 font-bold text-navy-900">{translationTitle}</h1>
-      <ModalButton />
+      <MyStockHeaderButton />
     </div>
   );
 };
