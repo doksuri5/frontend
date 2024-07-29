@@ -6,18 +6,48 @@ import { Button } from "./Button";
 import CreditInfoAgree from "@/app/[lang]/(auth)/_components/CreditInfoAgree";
 import { cn } from "@/utils/cn";
 import { InvestPropensityQuestions } from "@/data/InvestPropensityQuestions";
+import { TInvestPropensityDetails } from "@/types/investPropensityType";
 
-export default function InvestPropensity({ onSubmit }: any) {
-  const [isChecked, setIsChecked] = useState(false);
-  const [isEnabled, setIsEnabled] = useState(false);
-  const { register, handleSubmit, watch } = useForm();
+type TInvestPropensityProps = {
+  onSubmit: (data: TInvestPropensityDetails) => Promise<void>;
+  initialData?: {
+    investPropensity: {
+      1: string;
+      2: string;
+      3: string;
+      4: string;
+      5: string[];
+    };
+    isAgreeCreditInfo: boolean;
+  };
+};
+
+type FormValues = {
+  "1": string;
+  "2": string;
+  "3": string;
+  "4": string;
+  "5": string[];
+};
+
+export default function InvestPropensity({ onSubmit, initialData }: TInvestPropensityProps) {
+  const [isChecked, setIsChecked] = useState(initialData?.isAgreeCreditInfo || false);
+  const [isEnabled, setIsEnabled] = useState(initialData?.isAgreeCreditInfo || false);
+  const { register, handleSubmit, watch, reset } = useForm<FormValues>({
+    values: initialData?.investPropensity || { 1: "", 2: "", 3: "", 4: "", 5: [] },
+  });
 
   const fieldValues = watch();
 
+  const resetFormValues = () => {
+    reset({ "1": "", "2": "", "3": "", "4": "", "5": [] });
+  };
+
   // 모든 필드가 응답되었는지 확인하는 함수
-  const areAllFieldsFilled = (values: any) => {
+  const areAllFieldsFilled = (values: FormValues) => {
     // 해당 폼에 처음 진입했을 때는 빈 객체로 존재하기 때문에 빈 객체인지 여부를 체크함
     if (Object.keys(values).length === 0) return false;
+
     return !Object.values(values).some((value, index) => {
       if (index === 4 && Array.isArray(value)) return value.length === 0;
       else return value === undefined;
@@ -26,8 +56,14 @@ export default function InvestPropensity({ onSubmit }: any) {
 
   const isAllFieldsFilled = areAllFieldsFilled(fieldValues);
 
-  const handleFormSubmit = (data: any) => {
-    if (isChecked && isAllFieldsFilled) onSubmit(data);
+  const handleFormSubmit = (data: FormValues) => {
+    // 1. 폼의 기존 데이터가 없는 경우에는 약관 동의와 모든 항목에 체크했을 경우에만 submit
+    if (!initialData && isChecked && isAllFieldsFilled) onSubmit(data);
+    // 2. 폼의 기존 데이터가 있는 경우
+    else if (initialData !== undefined) {
+      // 약관 동의와 모든 항목에 체크한 경우 / 약관동의를 해제한 경우를 따로 체크하여 submit
+      if ((isChecked && isAllFieldsFilled) || !isChecked) onSubmit(data);
+    }
   };
 
   return (
@@ -38,6 +74,9 @@ export default function InvestPropensity({ onSubmit }: any) {
         <CheckBox
           checked={isChecked}
           setChecked={() => {
+            // 동의에서 비동의로 바꾼 경우 체크한 문항 모두 reset
+            if (isChecked === true) resetFormValues();
+
             setIsChecked(!isChecked);
             setIsEnabled(!isEnabled);
           }}
@@ -55,7 +94,7 @@ export default function InvestPropensity({ onSubmit }: any) {
             </legend>
             <ul className="flex flex-col gap-3">
               {question.options.map((option, idx) => {
-                const fieldName = String(questionIndex + 1);
+                const fieldName = `${questionIndex + 1}` as keyof FormValues;
                 const fieldValue = watch(fieldName);
 
                 const isOptionChecked = question.isCheckbox
@@ -89,9 +128,11 @@ export default function InvestPropensity({ onSubmit }: any) {
         ))}
         <Button
           type="submit"
-          disabled={!isAllFieldsFilled || !isChecked}
-          bgColor={isAllFieldsFilled && isChecked ? "bg-navy-900" : "bg-grayscale-200"}
-          className={cn(`my-12 text-white ${isAllFieldsFilled && isChecked ? "text-white" : "text-gray-300"}`)}
+          disabled={!initialData ? !isAllFieldsFilled || !isChecked : false}
+          bgColor={(!initialData && isAllFieldsFilled && isChecked) || initialData ? "bg-navy-900" : "bg-grayscale-200"}
+          className={cn(
+            `my-12 text-white ${(!initialData && isAllFieldsFilled && isChecked) || initialData ? "text-white" : "text-gray-300"}`,
+          )}
         >
           제출하기
         </Button>
