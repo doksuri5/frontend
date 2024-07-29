@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import { useMyStockStore } from "@/providers/MyStockProvider";
 import { Button } from "@/components/common";
 
-const ModalButton = () => {
+const MyStockHeaderButton = () => {
   const t = useTranslations("myStock");
   const setOpenModal = useMyStockStore((state) => state.setOpenModal);
 
@@ -19,4 +19,4 @@ const ModalButton = () => {
   );
 };
 
-export default ModalButton;
+export default MyStockHeaderButton;
