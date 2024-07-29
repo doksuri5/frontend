@@ -18,10 +18,17 @@ const fetchUserData = async () => {
         },
         credentials: "include",
         cache: "no-cache",
+        next: { tags: ["investPropensity"] },
       })
     ).json();
 
     if (response.ok) {
+      const userData = response.data;
+
+      // invest_propensity를 파싱
+      if (userData.user_propensity && typeof userData.user_propensity.invest_propensity === "string") {
+        userData.user_propensity.invest_propensity = JSON.parse(userData.user_propensity.invest_propensity);
+      }
       return response.data;
     }
   } catch (err) {
