@@ -35,6 +35,7 @@ export interface FormData {
 export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
   const t = useTranslations("user");
   const hearderT = useTranslations("header")
+  const validationT = useTranslations("validation")
 
   const { userStoreData } = useUserStore();
   const { alertInfo, customAlert } = useAlert();
@@ -149,7 +150,7 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
         setActiveDuplicateBtn(false);
         setLastCheckedNickname(nickname);
       } else {
-        setError("nickname", { type: "manual", message: "* 사용할 수 없는 닉네임입니다." });
+        setError("nickname", { type: "manual", message: `* ${validationT("nicknameUnavailable", { defaultMessage: "사용할 수 없는 닉네임입니다." })}` });
         setIsNicknameAvailable(false);
       }
     } catch (err) {
@@ -253,7 +254,7 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
             caption={
               nicknameChange
                 ? isNicknameAvailable && nickname !== ""
-                  ? "* 사용가능한 닉네임 입니다."
+                  ? `* ${validationT("nicknameAvailable", { defaultMessage: "사용가능한 닉네임 입니다." })}`
                   : errors.nickname?.message
                 : ""
             }
@@ -263,7 +264,7 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
               required: `* ${t("form.enterNickname", { defaultMessage: "닉네임을 입력해주세요." })}`,
               pattern: {
                 value: /^[A-Za-z0-9-_ㄱ-ㅎㅏ-ㅣ가-힣]+$/,
-                message: "* '_', '-'를 제외한 특수 문자는 사용할 수 없습니다.",
+                message: `* ${validationT("invalidSpecialCharacters", { defaultMessage: "'_', '-'를 제외한 특수 문자는 사용할 수 없습니다." })}`,
               },
             })}
             suffix={

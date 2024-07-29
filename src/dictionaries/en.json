@@ -187,5 +187,24 @@
       "emailAuthError": "An error occurred during the email verification process.",
       "verificationCodeCheckError": "An error occurred during the verification code check."
     }
+  },
+  "validation": {
+    "noNumbersOrSymbols": "No numbers or special symbols allowed.",
+    "invalidEmailFormat": "Invalid email format.",
+    "enterValidPhoneNumber": "Please enter a valid phone number.",
+    "enterPhoneNumber": "Please enter a phone number",
+    "passwordsDoNotMatch": "The passwords do not match. Please check and re-enter.",
+    "passwordRequirements": "8-20 characters including at least two of the following: numbers, special characters, or letters.",
+    "invalidSpecialCharacters": "Special characters other than '_' and '-' are not allowed.",
+    "enterPassword": "Please enter a password.",
+    "birthSixDigits": "The birth date must be six digits.",
+    "invalidDate": "Invalid date.",
+    "selectInterest": "Please select an interest.",
+    "minPasswordLength": "Password must be at least 8 characters long.",
+    "maxPasswordLength": "Password can be up to 16 characters long.",
+    "passwordCharRequirements": "Password must include numbers, letters, and special characters.",
+    "nicknameUnavailable": "Nickname not available.",
+    "nicknameAvailable": "Nickname is available.",
+    "enterBirthDate": "Please enter your birth date."
   }
 }

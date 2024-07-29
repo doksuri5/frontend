@@ -187,5 +187,24 @@
       "emailAuthError": "电子邮件认证过程中发生错误。",
       "verificationCodeCheckError": "验证验证码过程中发生错误。"
     }
+  },
+  "validation": {
+    "noNumbersOrSymbols": "不能包含数字或特殊字符。",
+    "invalidEmailFormat": "邮箱格式不正确。",
+    "enterValidPhoneNumber": "请输入有效的手机号码。",
+    "enterPhoneNumber": "请输入手机号码",
+    "passwordsDoNotMatch": "两次输入的密码不一致，请重新输入。",
+    "passwordRequirements": "密码长度为8-20个字符，必须包含数字、特殊字符和英文字符中的至少两种。",
+    "invalidSpecialCharacters": "不能使用除'_'和'-'之外的特殊字符。",
+    "enterPassword": "请输入密码。",
+    "birthSixDigits": "生日必须是6位数。",
+    "invalidDate": "日期无效。",
+    "selectInterest": "请选择感兴趣的项目。",
+    "minPasswordLength": "密码至少需要8个字符。",
+    "maxPasswordLength": "密码最多可以输入16个字符。",
+    "passwordCharRequirements": "密码必须包含数字、英文字母和特殊字符。",
+    "nicknameUnavailable": "此昵称不可用。",
+    "nicknameAvailable": "这个昵称可用。",
+    "enterBirthDate": "请输入您的出生日期。"
   }
 }

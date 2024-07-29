@@ -187,5 +187,24 @@
       "emailAuthError": "メール認証中にエラーが発生しました。",
       "verificationCodeCheckError": "認証コードの確認中にエラーが発生しました。"
     }
+  },
+  "validation": {
+    "noNumbersOrSymbols": "数字や特殊記号を含めることはできません。",
+    "invalidEmailFormat": "有効なメールアドレス形式ではありません。",
+    "enterValidPhoneNumber": "有効な電話番号を入力してください。",
+    "enterPhoneNumber": "電話番号を入力してください",
+    "passwordsDoNotMatch": "パスワードが一致しません。もう一度確認してください。",
+    "passwordRequirements": "8〜20文字の数字、特殊文字、アルファベットを2種類以上組み合わせてください。",
+    "invalidSpecialCharacters": "'_'、'-'を除く特殊文字は使用できません。",
+    "enterPassword": "パスワードを入力してください。",
+    "birthSixDigits": "生年月日は6桁でなければなりません。",
+    "invalidDate": "無効な日付です。",
+    "selectInterest": "興味のある項目を選択してください。",
+    "minPasswordLength": "パスワードは最低8文字必要です。",
+    "maxPasswordLength": "パスワードは最大16文字までです。",
+    "passwordCharRequirements": "パスワードは、数字、アルファベット、特殊文字をすべて含める必要があります。",
+    "nicknameUnavailable": "使用できないニックネームです。",
+    "nicknameAvailable": "このニックネームは使用できます。",
+    "enterBirthDate": "生年月日を入力してください。"
   }
 }

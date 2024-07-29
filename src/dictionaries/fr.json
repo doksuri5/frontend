@@ -187,5 +187,24 @@
       "emailAuthError": "Une erreur est survenue lors du processus de vérification de l'e-mail.",
       "verificationCodeCheckError": "Une erreur est survenue lors de la vérification du code de vérification."
     }
+  },
+  "validation": {
+    "noNumbersOrSymbols": "Les chiffres et les symboles spéciaux ne sont pas autorisés.",
+    "invalidEmailFormat": "Format d'email invalide.",
+    "enterValidPhoneNumber": "Veuillez saisir un numéro de téléphone valide.",
+    "enterPhoneNumber": "Veuillez saisir un numéro de téléphone.",
+    "passwordsDoNotMatch": "Les mots de passe ne correspondent pas. Veuillez vérifier et réessayer.",
+    "passwordRequirements": "8-20 caractères incluant au moins deux des éléments suivants : chiffres, caractères spéciaux ou lettres.",
+    "invalidSpecialCharacters": "Les caractères spéciaux autres que '_' et '-' ne sont pas autorisés.",
+    "enterPassword": "Veuillez saisir un mot de passe.",
+    "birthSixDigits": "La date de naissance doit comporter six chiffres.",
+    "invalidDate": "Date invalide.",
+    "selectInterest": "Veuillez sélectionner un sujet d'intérêt.",
+    "minPasswordLength": "Le mot de passe doit avoir au moins 8 caractères.",
+    "maxPasswordLength": "Le mot de passe peut contenir jusqu'à 16 caractères.",
+    "passwordCharRequirements": "Le mot de passe doit inclure des chiffres, des lettres et des caractères spéciaux.",
+    "nicknameUnavailable": "Ce pseudo n'est pas disponible.",
+    "nicknameAvailable": "Ce pseudo est disponible.",
+    "enterBirthDate": "Veuillez entrer votre date de naissance."
   }
 }
