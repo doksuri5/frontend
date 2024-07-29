@@ -5,15 +5,14 @@ import CommonLayout from "../_components/CommonLayout";
 import CommonLoginBtn from "../_components/CommonLoginBtn";
 
 import { FIND_EMAIL_PATH, LOGIN_PATH } from "@/routes/path";
+import { CommonTitle } from "../_components";
 
 export default function Page() {
   const t = useTranslations("auth");
   return (
     <>
-      <CommonLayout
-        title={t("exist.alreadyRegisteredEmail", { defaultMessage: "이미 가입된 이메일 입니다." })}
-        childrenClass="min-w-[39.4rem] flex_col_center"
-      >
+      <CommonLayout childrenClass="min-w-[39.4rem] flex_col_center">
+        <CommonTitle title={t("exist.alreadyRegisteredEmail", { defaultMessage: "이미 가입된 이메일 입니다." })} />
         <p className="body_2 break-all text-center text-grayscale-900">
           {t("exist.snsSignupNotAllowed", { defaultMessage: "해당 SNS 계정으로는 회원가입이 불가합니다." })}
         </p>

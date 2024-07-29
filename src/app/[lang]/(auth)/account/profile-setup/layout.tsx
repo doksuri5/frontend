@@ -1,5 +1,4 @@
 import { commonAuthMetadata } from "@/utils/metadata";
-import { Metadata } from "next";
 
 export async function generateMetadata() {
   return commonAuthMetadata("profileSetup");

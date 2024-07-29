@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import CommonLayout from "../_components/CommonLayout";
 import LoginForm from "../_components/LoginForm";
 import SocialLogin from "../_components/SocialLogin";
+import { CommonTitle } from "../_components";
 
 import { cn } from "@/utils/cn";
 
@@ -13,7 +14,8 @@ export default function LoginPage() {
   const t = useTranslations("auth");
   return (
     <>
-      <CommonLayout title={t("title.login", { defaultMessage: "로그인" })}>
+      <CommonLayout>
+        <CommonTitle title={t("title.login", { defaultMessage: "로그인" })} />
         <LoginForm />
         <dl className={cn("flex_row justify-between")}>
           <dt className={cn("body_5 text-grayscale-900")}>

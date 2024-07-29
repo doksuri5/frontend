@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 
+import { CommonTitle } from "../../_components";
 import CommonLayout from "../../_components/CommonLayout";
 import RegisterForm from "../../_components/RegisterForm";
 import Loading from "../../_components/Loading";
@@ -34,7 +35,8 @@ export default function RegisterPage() {
   }
 
   return (
-    <CommonLayout title={t("title.register", { defaultMessage: "회원가입" })}>
+    <CommonLayout>
+      <CommonTitle title={t("title.register", { defaultMessage: "회원가입" })} />
       <RegisterForm />
     </CommonLayout>
   );

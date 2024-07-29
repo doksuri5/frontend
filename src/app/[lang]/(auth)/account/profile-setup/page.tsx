@@ -3,13 +3,14 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
+import { useTranslations } from "next-intl";
 
+import { CommonTitle } from "../../_components";
 import CommonLayout from "../../_components/CommonLayout";
 import ProfileSetUpForm from "../../_components/ProfileSetUpForm";
 import Loading from "../../_components/Loading";
 
 import { HOME_PATH, PROFILE_SETUP_PATH } from "@/routes/path";
-import { useTranslations } from "next-intl";
 
 export default function ProfileSetup() {
   const { data: session, status } = useSession();
@@ -36,7 +37,8 @@ export default function ProfileSetup() {
 
   return (
     <>
-      <CommonLayout title={t("title.profileSetup", { defaultMessage: "프로필 설정" })}>
+      <CommonLayout>
+        <CommonTitle title={t("title.profileSetup", { defaultMessage: "프로필 설정" })} />
         <ProfileSetUpForm />
       </CommonLayout>
     </>
