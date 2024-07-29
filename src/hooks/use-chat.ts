@@ -1,6 +1,6 @@
 // hooks/useStream.ts
 import { generateId } from "@/utils/generate-id";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useState } from "react";
 
 type TMessage = {
   id: string;
