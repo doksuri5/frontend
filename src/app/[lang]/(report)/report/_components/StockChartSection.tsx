@@ -51,7 +51,7 @@ export default function StockChartSection({ reutersCode }: TChartData) {
   useEffect(
     function setEventSourceForSSE() {
       if (isUSMarketOpen() && period === "일") {
-        const eventSource = new EventSource(`${process.env.NEXT_PUBLIC_BASE_URL}/api/stock-price/sse/${reutersCode}`);
+        const eventSource = new EventSource(`${process.env.NEXT_PUBLIC_BASE_URL}/api/stock/price/sse/${reutersCode}`);
 
         eventSource.onmessage = (event) => {
           const newData = JSON.parse(event.data);

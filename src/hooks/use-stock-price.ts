@@ -12,7 +12,7 @@ const useStockPrice = (reutersCode: string) => {
     function getStockPrice() {
       const fetchStockPrice = async () => {
         setIsLoading(true);
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/stock-price/${reutersCode}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/stock/price/${reutersCode}`);
         if (!response.ok) {
           return console.error("Failed to fetch stock price in StockDetail.tsx");
         }
@@ -34,7 +34,7 @@ const useStockPrice = (reutersCode: string) => {
       // 로컬에서 event source 객체가 6개 이상 생성되는 매우 느려집니다. 이를 방지하기 위해 event source 객체를 사용하지 않습니다.
       if (isUSMarketOpen() && process.env.NODE_ENV === "production") {
         setIsLoading(true);
-        const eventSource = new EventSource(`${process.env.NEXT_PUBLIC_BASE_URL}/api/stock-price/sse/${reutersCode}`);
+        const eventSource = new EventSource(`${process.env.NEXT_PUBLIC_BASE_URL}/api/stock/price/sse/${reutersCode}`);
 
         eventSource.onmessage = (event) => {
           const newData = JSON.parse(event.data);
