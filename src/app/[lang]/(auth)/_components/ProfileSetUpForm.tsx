@@ -168,7 +168,7 @@ export default function ProfileSetUpForm() {
         if (response.ok) {
           setIsNicknameChk(true);
         } else {
-          setError("nickname", { type: "manual", message: response.message });
+          setError("nickname", { type: "manual", message: "nicknameUnavailable" });
         }
       } catch (e) {
         console.log(e);
@@ -283,7 +283,9 @@ export default function ProfileSetUpForm() {
           variant={profileErrors.nickname ? "error" : "default" || isNicknameChk ? "success" : "default"}
           caption={
             (profileErrors.nickname?.message &&
-              t("commonValidation.invalidSpecialChars", { defaultMessage: profileErrors.nickname?.message })) ||
+              t(`commonValidation.${profileErrors.nickname?.message}`, {
+                defaultMessage: profileErrors.nickname?.message,
+              })) ||
             (isNicknameChk
               ? `* ${t("profileSetUp.nicknameAvailable", { defaultMessage: "사용가능한 닉네임 입니다." })}`
               : undefined)

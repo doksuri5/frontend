@@ -50,16 +50,20 @@
     },
     "commonValidation": {
       "noSpecialCharsOrNumbers": "不能包含数字或特殊字符。",
-      "invalidEmailFormat": "邮箱格式不正确。",
-      "invalidPhoneNumber": "请输入有效的手机号。",
-      "passwordRequirements": "密码必须是8-20个字符，并且包含数字、特殊字符、字母中的两种以上。",
+      "invalidEmailFormat": "不是有效的电子邮件格式。",
+      "invalidPhoneNumber": "请输入有效的手机号码。",
+      "passwordRequirements": "密码需为8-20个字符，并包含数字、特殊字符、英文字母中的至少两种。",
       "enterPassword": "请输入密码。",
-      "birthDateLength": "出生日期必须是6位数。",
-      "invalidDate": "日期无效。",
+      "birthDateLength": "出生日期应为6位数字。",
+      "invalidDate": "无效的日期。",
       "enterVerificationCode": "请输入6位验证码。",
-      "passwordMismatch": "密码不匹配。请检查后再输入。",
-      "invalidSpecialChars": "仅允许使用“_”和“-”特殊字符。",
-      "selectInterestStock": "请选择感兴趣的股票。"
+      "passwordMismatch": "密码不一致。请重新输入确认。",
+      "invalidSpecialChars": "除了'_' 和 '-'之外，不能使用特殊字符。",
+      "selectInterestStock": "请选择感兴趣的股票。",
+      "alreadyRegisteredEmail": "该邮箱已注册。",
+      "verificationExpired": "验证码已过期。请重新请求邮件。",
+      "invalidOrExpiredCode": "验证码无效或已过期。",
+      "nicknameUnavailable": "此昵称不可用"
     },
     "commonBtn": {
       "next": "下一步",
@@ -91,13 +95,11 @@
       "emailSendFailed": "邮件发送失败。",
       "resendEmail": "重新发送邮件",
       "requestEmail": "请求邮件",
-      "verificationExpired": "验证时间已过期。请重新请求邮件。",
       "emailVerified": "邮箱验证成功。",
       "verifyCode": "验证代码",
       "codeSent": "验证码已发送。",
       "codeSentToEmail": "验证码已发送到您的邮箱。",
-      "checkEmailToContinue": "请检查您的邮件以继续注册。",
-      "alreadyRegisteredEmail": "该邮箱已被注册。"
+      "checkEmailToContinue": "请检查您的邮件以继续注册。"
     },
     "registerComplete": {
       "registrationComplete": "注册完成。",

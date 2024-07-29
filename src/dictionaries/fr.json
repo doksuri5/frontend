@@ -52,14 +52,18 @@
       "noSpecialCharsOrNumbers": "Ne peut pas contenir de chiffres ou de caractères spéciaux.",
       "invalidEmailFormat": "Format de l'email invalide.",
       "invalidPhoneNumber": "Veuillez entrer un numéro de téléphone valide.",
-      "passwordRequirements": "Le mot de passe doit être de 8 à 20 caractères et contenir au moins deux types parmi chiffres, caractères spéciaux, lettres.",
+      "passwordRequirements": "Le mot de passe doit comporter entre 8 et 20 caractères et inclure au moins deux des éléments suivants : chiffres, caractères spéciaux, ou lettres.",
       "enterPassword": "Veuillez entrer un mot de passe.",
-      "birthDateLength": "La date de naissance doit être de 6 chiffres.",
+      "birthDateLength": "La date de naissance doit comporter 6 chiffres.",
       "invalidDate": "Date invalide.",
       "enterVerificationCode": "Veuillez entrer le code de vérification à 6 chiffres.",
-      "passwordMismatch": "Les mots de passe ne correspondent pas. Veuillez vérifier et réessayer.",
-      "invalidSpecialChars": "Seuls les caractères spéciaux '_', '-' sont autorisés.",
-      "selectInterestStock": "Veuillez sélectionner une action intéressée."
+      "passwordMismatch": "Les mots de passe ne correspondent pas. Veuillez vérifier et entrer à nouveau.",
+      "invalidSpecialChars": "Les caractères spéciaux autres que '_' et '-' ne sont pas autorisés.",
+      "selectInterestStock": "Veuillez sélectionner une action d'intérêt.",
+      "alreadyRegisteredEmail": "Cet email est déjà enregistré.",
+      "verificationExpired": "Le temps de vérification a expiré. Veuillez demander l'email à nouveau.",
+      "invalidOrExpiredCode": "Le code de vérification est invalide ou a expiré.",
+      "nicknameUnavailable": "Ce pseudonyme est indisponible."
     },
     "commonBtn": {
       "next": "Suivant",
@@ -91,13 +95,11 @@
       "emailSendFailed": "Échec de l'envoi de l'email.",
       "resendEmail": "Renvoyer l'email",
       "requestEmail": "Demander un email",
-      "verificationExpired": "Le temps de vérification a expiré. Veuillez demander un nouvel email.",
       "emailVerified": "Email vérifié avec succès.",
       "verifyCode": "Vérifier le Code",
       "codeSent": "Code de vérification envoyé.",
       "codeSentToEmail": "Le code de vérification a été envoyé à votre adresse email.",
-      "checkEmailToContinue": "Veuillez vérifier votre email pour continuer l'inscription.",
-      "alreadyRegisteredEmail": "Cet email est déjà enregistré."
+      "checkEmailToContinue": "Veuillez vérifier votre email pour continuer l'inscription."
     },
     "registerComplete": {
       "registrationComplete": "Inscription terminée.",

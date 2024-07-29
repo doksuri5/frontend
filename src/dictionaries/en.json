@@ -49,17 +49,21 @@
       "local": "Local"
     },
     "commonValidation": {
-      "noSpecialCharsOrNumbers": "No special characters or numbers allowed.",
+      "noSpecialCharsOrNumbers": "Cannot contain numbers or special characters.",
       "invalidEmailFormat": "Invalid email format.",
       "invalidPhoneNumber": "Please enter a valid phone number.",
-      "passwordRequirements": "Password must be 8-20 characters with a mix of numbers, special characters, and letters.",
+      "passwordRequirements": "Password must be 8-20 characters and include at least two of the following: numbers, special characters, or letters.",
       "enterPassword": "Please enter a password.",
-      "birthDateLength": "Date of birth must be 6 digits.",
+      "birthDateLength": "Birth date must be 6 digits.",
       "invalidDate": "Invalid date.",
       "enterVerificationCode": "Please enter the 6-digit verification code.",
-      "passwordMismatch": "Passwords do not match. Please check and try again.",
-      "invalidSpecialChars": "Only '_', '-' special characters are allowed.",
-      "selectInterestStock": "Please select an interested stock."
+      "passwordMismatch": "Passwords do not match. Please check and enter again.",
+      "invalidSpecialChars": "Special characters other than '_' and '-' are not allowed.",
+      "selectInterestStock": "Please select an interest stock.",
+      "alreadyRegisteredEmail": "This email is already registered.",
+      "verificationExpired": "Verification time has expired. Please request the email again.",
+      "invalidOrExpiredCode": "The verification code is invalid or has expired.",
+      "nicknameUnavailable": "This nickname is unavailable."
     },
     "commonBtn": {
       "next": "Next",
@@ -91,13 +95,11 @@
       "emailSendFailed": "Failed to send email.",
       "resendEmail": "Resend email",
       "requestEmail": "Request email",
-      "verificationExpired": "Verification time expired. Please request a new email.",
       "emailVerified": "Email verified.",
       "verifyCode": "Verify code",
       "codeSent": "Verification code sent.",
       "codeSentToEmail": "Verification code sent to your email.",
-      "checkEmailToContinue": "Please check your email to continue registration.",
-      "alreadyRegisteredEmail": "This email is already registered."
+      "checkEmailToContinue": "Please check your email to continue registration."
     },
     "registerComplete": {
       "registrationComplete": "Registration complete.",

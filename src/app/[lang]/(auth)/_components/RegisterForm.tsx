@@ -104,7 +104,7 @@ export default function RegisterForm() {
           );
           setError("email", {
             type: "manual",
-            message: t("register.alreadyRegisteredEmail", { defaultMessage: "이미 가입된 이메일입니다." }),
+            message: "alreadyRegisteredEmail",
           });
         }
       } catch (e) {
@@ -139,7 +139,7 @@ export default function RegisterForm() {
           setIsRunning(false); // 타이머 멈춤
           setIsEmailShow(false); // 이메일 인증 버튼 숨김
         } else {
-          setError("emailCertification", { type: "manual", message: response.message });
+          setError("emailCertification", { type: "manual", message: "invalidOrExpiredCode" });
         }
       } catch (e) {
         console.log(`Fetch Error:${e}`);
@@ -202,7 +202,7 @@ export default function RegisterForm() {
           variant={registerErrors.name ? "error" : "default"}
           caption={
             registerErrors.name?.message &&
-            t("commonValidation.noSpecialCharsOrNumbers", { defaultMessage: registerErrors.name?.message })
+            t(`commonValidation.${registerErrors.name?.message}`, { defaultMessage: registerErrors.name?.message })
           }
           defaultValue={socialGoogle ? String(session?.user.name) : ""}
           disabled={socialGoogle || isPending}
@@ -210,12 +210,16 @@ export default function RegisterForm() {
         <div>
           {/* 이메일 인증 */}
           <Input
+            {...registerControl.register("email")}
             id="email"
             labelName={t("label.email", { defaultMessage: "이메일 주소" })}
             placeholder={t("placeholder.email", { defaultMessage: "이메일 주소를 입력해주세요." })}
             variant={registerErrors.email ? "error" : "default"}
-            caption={registerErrors.email?.message}
-            {...registerControl.register("email")}
+            caption={
+              registerErrors.email?.message &&
+              t(`commonValidation.${registerErrors.email?.message}`, { defaultMessage: registerErrors.email?.message })
+            }
+            readOnly={emailCodeChkComplete}
             defaultValue={socialGoogle ? String(session?.user.email) : ""}
             disabled={socialGoogle || isPending}
             suffix={
@@ -247,6 +251,7 @@ export default function RegisterForm() {
                 disabled={isPending}
                 {...registerControl.register("emailCertification")}
                 inputGroupClass="mt-[.8rem]"
+                readOnly={emailCodeChkComplete}
                 variant={
                   timeExpired
                     ? "error"
@@ -264,7 +269,10 @@ export default function RegisterForm() {
                     : emailCodeChkComplete
                       ? `* ${t("register.emailVerified", { defaultMessage: "이메일 인증이 완료되었습니다." })}`
                       : registerErrors.emailCertification
-                        ? registerErrors.emailCertification.message
+                        ? registerErrors.emailCertification?.message &&
+                          t(`commonValidation.${registerErrors.emailCertification?.message}`, {
+                            defaultMessage: registerErrors.emailCertification?.message,
+                          })
                         : ""
                 }
                 suffix={
@@ -314,8 +322,8 @@ export default function RegisterForm() {
               variant={registerErrors.passwordChk || passwordError ? "error" : "default"}
               caption={
                 (registerErrors.passwordChk?.message &&
-                  t("commonValidation.passwordRequirements", {
-                    defaultMessage: "8-20자 이내 숫자, 특수문자, 영문자 중 2가지 이상을 조합",
+                  t(`commonValidation.${registerErrors.passwordChk?.message}`, {
+                    defaultMessage: registerErrors.passwordChk?.message,
                   })) ||
                 passwordError
               }
@@ -332,7 +340,7 @@ export default function RegisterForm() {
           variant={registerErrors.phone ? "error" : "default"}
           caption={
             registerErrors.phone?.message &&
-            t("commonValidation.invalidPhoneNumber", { defaultMessage: registerErrors.phone?.message })
+            t(`commonValidation.${registerErrors.phone?.message}`, { defaultMessage: registerErrors.phone?.message })
           }
         />
         {/* 생년월일 */}
@@ -345,7 +353,7 @@ export default function RegisterForm() {
           variant={registerErrors.birth ? "error" : "default"}
           caption={
             registerErrors.birth?.message &&
-            t("commonValidation.invalidDate", { defaultMessage: registerErrors.birth?.message })
+            t(`commonValidation.${registerErrors.birth?.message}`, { defaultMessage: registerErrors.birth?.message })
           }
         />
         {/* 페이지 이동 버튼 */}

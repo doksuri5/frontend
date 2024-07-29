@@ -49,17 +49,21 @@
       "local": "一般"
     },
     "commonValidation": {
-      "noSpecialCharsOrNumbers": "数字や特殊文字は含めないでください。",
-      "invalidEmailFormat": "有効なメールアドレス形式ではありません。",
-      "invalidPhoneNumber": "有効な携帯電話番号を入力してください。",
-      "passwordRequirements": "8-20文字で、数字、特殊文字、英字のうち2つ以上を組み合わせてください。",
+      "noSpecialCharsOrNumbers": "数字や特殊記号は含まれません。",
+      "invalidEmailFormat": "正しいメールアドレスの形式ではありません。",
+      "invalidPhoneNumber": "有効な携帯番号を入力してください。",
+      "passwordRequirements": "8〜20文字で数字、特殊文字、英文字のうち2種類以上を組み合わせてください。",
       "enterPassword": "パスワードを入力してください。",
       "birthDateLength": "生年月日は6桁である必要があります。",
       "invalidDate": "無効な日付です。",
-      "enterVerificationCode": "認証コード6桁を入力してください。",
-      "passwordMismatch": "パスワードが一致しません。再度確認して入力してください。",
-      "invalidSpecialChars": "‘_’, ‘-’以外の特殊文字は使用できません。",
-      "selectInterestStock": "関心銘柄を選択してください。"
+      "enterVerificationCode": "認証コードを6桁で入力してください。",
+      "passwordMismatch": "同じパスワードではありません。再度確認して入力してください。",
+      "invalidSpecialChars": "'_', '-'以外の特殊文字は使用できません。",
+      "selectInterestStock": "関心銘柄を選択してください。",
+      "alreadyRegisteredEmail": "既に登録されたメールアドレスです。",
+      "verificationExpired": "認証時間が期限切れです。もう一度メールをリクエストしてください。",
+      "invalidOrExpiredCode": "認証コードが無効または期限切れです。",
+      "nicknameUnavailable": "このニックネームは使用できません。"
     },
     "commonBtn": {
       "next": "次へ",
@@ -91,13 +95,11 @@
       "emailSendFailed": "メールの送信に失敗しました。",
       "resendEmail": "メールを再送信",
       "requestEmail": "メールをリクエスト",
-      "verificationExpired": "認証時間が切れました。再度メールをリクエストしてください。",
       "emailVerified": "メール認証が完了しました。",
       "verifyCode": "コード認証",
       "codeSent": "認証コードを送信しました。",
       "codeSentToEmail": "入力したメールアドレスに認証コードを送信しました。",
-      "checkEmailToContinue": "メールを確認して登録を続行してください。",
-      "alreadyRegisteredEmail": "このメールアドレスは既に登録されています。"
+      "checkEmailToContinue": "メールを確認して登録を続行してください。"
     },
     "registerComplete": {
       "registrationComplete": "登録が完了しました。",
