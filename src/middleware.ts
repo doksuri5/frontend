@@ -60,18 +60,18 @@ export const middleware = async (req: NextRequest) => {
     `{/:${locale}}?/withdraw`,
   ];
   // 인증이 필요없는 페이지에 현재 경로가 포함되어 있는지 체크
-  const isPublicAccess = isMatch(pathname, nonRequiredAuthPaths);
+  const isAuthNotRequiredRoute = isMatch(pathname, nonRequiredAuthPaths);
 
-  // 로그인이 필요한 경로이고 유저가 로그인 하지 않은 경우 로그인 페이지로 넘기기
-  if (!isPublicAccess && !isAuthenticated) {
+  // 인증이 필요한 페이지에 비로그인 유저가 접근하려고 할 때 로그인 페이지로 리다이렉트
+  if (!isAuthNotRequiredRoute && !isAuthenticated) {
     const response = NextResponse.redirect(new URL(`/${locale}/login`, req.url));
     response.cookies.delete("authjs.session-token");
 
     return response;
   }
 
-  // 로그인한 유저는 로그인, 회원가입 페이지로 접근하지 못하도록 리다이렉트
-  if (isPublicAccess && isAuthenticated) {
+  // 로그인한 유저가 비로그인 페이지에 접근하려고 할 때 홈으로 리다이렉트
+  if (isAuthNotRequiredRoute && isAuthenticated) {
     return NextResponse.redirect(new URL(`/${locale}/home`, req.url));
   }
 
