@@ -24,6 +24,9 @@
     "AISummary": "AightNow AI要約",
     "AISummaryContent": "AI要約内容"
   },
+  "currency": {
+    "sign": "¥"
+  },
   "report": {
     "stock": "株式",
     "addInterestStock": "関心銘柄を追加",

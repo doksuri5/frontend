@@ -24,6 +24,9 @@
     "AISummary": "AightNow AI摘要",
     "AISummaryContent": "AI摘要内容"
   },
+  "currency": {
+    "sign": "¥"
+  },
   "report": {
     "stock": "股票",
     "addInterestStock": "添加关注股票",

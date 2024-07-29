@@ -233,6 +233,11 @@ export const StockOverViewSchema = z.object({
   }),
 });
 
+export const StockCurrencyExchangeSchema = z.object({
+  nation: z.enum(["KRW", "USD", "JPY(100)", "EUR", "CNH"]),
+  rate: z.string(),
+});
+
 export type ExchangeDataType = {
   result: number;
   cur_unit: string;
@@ -257,3 +262,5 @@ export type StockOverViewDataType = z.infer<typeof StockOverViewSchema>;
 export type StockDataType = z.infer<typeof StockSchema>;
 export type StockAIReportDataType = z.infer<typeof StockAIReportSchema>;
 export type StockPopularSearchDataType = z.infer<typeof PopularSearchSchema>;
+
+export type StockCurrencyExchangeDataType = z.infer<typeof StockCurrencyExchangeSchema>;

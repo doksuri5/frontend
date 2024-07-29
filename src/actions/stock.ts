@@ -16,6 +16,8 @@ import {
   StockSchema,
   StockOverViewSchema,
   StockOverViewDataType,
+  StockCurrencyExchangeSchema,
+  StockCurrencyExchangeDataType,
 } from "@/types/StockDataType";
 
 export type TStockTags =
@@ -123,3 +125,8 @@ export const getStockChartData = api.get({
     },
   },
 })<undefined, StockChartDataType>;
+
+export const getStockCurrencyExchange = api.get({
+  endpoint: "/stocks/currency",
+  responseSchema: StockCurrencyExchangeSchema,
+})<undefined, StockCurrencyExchangeDataType>;

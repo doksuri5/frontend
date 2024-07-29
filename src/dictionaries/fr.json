@@ -24,6 +24,9 @@
     "AISummary": "AightNow Résumé AI",
     "AISummaryContent": "Contenu du Résumé IA"
   },
+  "currency": {
+    "sign": "€"
+  },
   "report": {
     "stock": "Action",
     "addInterestStock": "Ajouter une action d'intérêt",
