@@ -91,7 +91,11 @@ export default function FindPasswordForm() {
               setSnsUser(true);
               setSnsType(response.data.login_type);
             }
-            setFormResultError(response.message);
+            setFormResultError(
+              t("commonValidation.unregisteredOrInvalidInfo", {
+                defaultMessage: "등록되지 않은 회원이거나 잘못된 회원정보입니다.",
+              }),
+            );
           }
         });
       } catch (e) {
@@ -112,7 +116,7 @@ export default function FindPasswordForm() {
           variant={errors.name || formResultError ? "error" : "default"}
           caption={
             errors.name?.message &&
-            t("commonValidation.noSpecialCharsOrNumbers", { defaultMessage: errors.name?.message })
+            t(`commonValidation.${errors.name?.message}`, { defaultMessage: errors.name?.message })
           }
         />
         <Input
@@ -125,7 +129,8 @@ export default function FindPasswordForm() {
           disabled={isPending}
           variant={errors.email || formResultError ? "error" : "default"}
           caption={
-            errors.email?.message && t("commonValidation.invalidEmailFormat", { defaultMessage: errors.email?.message })
+            errors.email?.message &&
+            t(`commonValidation.${errors.email?.message}`, { defaultMessage: errors.email?.message })
           }
         />
         {formResultError && <FormResultError message={formResultError} />}

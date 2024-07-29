@@ -56,7 +56,11 @@ export default function FindEmailForm() {
             setShow(true);
             setResponseData(response.data);
           } else {
-            setFormResultError(response.message);
+            setFormResultError(
+              t("commonValidation.unregisteredOrInvalidInfo", {
+                defaultMessage: "등록되지 않은 회원이거나 잘못된 회원정보입니다.",
+              }),
+            );
           }
         });
       } catch (e) {
@@ -79,7 +83,7 @@ export default function FindEmailForm() {
             variant={errors.name || formResultError ? "error" : "default"}
             caption={
               errors.name?.message &&
-              t("commonValidation.noSpecialCharsOrNumbers", { defaultMessage: errors.name?.message })
+              t(`commonValidation.${errors.name?.message}`, { defaultMessage: errors.name?.message })
             }
             {...control.register("name")}
           />
@@ -92,7 +96,7 @@ export default function FindEmailForm() {
             {...control.register("phone")}
             caption={
               errors.phone?.message &&
-              t("commonValidation.invalidPhoneNumber", { defaultMessage: errors.phone?.message })
+              t(`commonValidation.${errors.phone?.message}`, { defaultMessage: errors.phone?.message })
             }
           />
           {formResultError && <FormResultError message={formResultError} />}

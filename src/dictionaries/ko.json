@@ -63,7 +63,8 @@
       "alreadyRegisteredEmail": "이미 가입된 이메일 입니다.",
       "verificationExpired": "인증 시간이 만료되었습니다. 이메일 요청을 다시 시도해주세요.",
       "invalidOrExpiredCode": "인증 코드가 유효하지 않거나 만료되었습니다.",
-      "nicknameUnavailable": "사용 불가능한 닉네임 입니다."
+      "nicknameUnavailable": "사용 불가능한 닉네임 입니다.",
+      "unregisteredOrInvalidInfo": "등록되지 않은 회원이거나 잘못된 회원정보입니다."
     },
     "commonBtn": {
       "next": "다음",

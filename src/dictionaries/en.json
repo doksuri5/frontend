@@ -63,7 +63,8 @@
       "alreadyRegisteredEmail": "This email is already registered.",
       "verificationExpired": "Verification time has expired. Please request the email again.",
       "invalidOrExpiredCode": "The verification code is invalid or has expired.",
-      "nicknameUnavailable": "This nickname is unavailable."
+      "nicknameUnavailable": "This nickname is unavailable.",
+      "unregisteredOrInvalidInfo": "Unregistered member or invalid member information."
     },
     "commonBtn": {
       "next": "Next",

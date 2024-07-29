@@ -63,7 +63,8 @@
       "alreadyRegisteredEmail": "该邮箱已注册。",
       "verificationExpired": "验证码已过期。请重新请求邮件。",
       "invalidOrExpiredCode": "验证码无效或已过期。",
-      "nicknameUnavailable": "此昵称不可用"
+      "nicknameUnavailable": "此昵称不可用",
+      "unregisteredOrInvalidInfo": "未注册会员或会员信息无效。"
     },
     "commonBtn": {
       "next": "下一步",
