@@ -156,9 +156,6 @@
       "nicknameUnavailable": "Nickname is unavailable",
       "imageSizeExceed": "Only image files up to 1MB can be uploaded",
       "confirmLangChange": "Would you like to change the language settings?",
-      "change": "Change",
-      "cancel": "Cancel",
-      "confirm": "Confirm",
       "passwordAuthFail": "Password authentication failed",
       "checkPassword": "Please check your password again",
       "accountDeletionError": "An error occurred during account deletion.",
@@ -206,5 +203,15 @@
     "nicknameUnavailable": "Nickname not available.",
     "nicknameAvailable": "Nickname is available.",
     "enterBirthDate": "Please enter your birth date."
+  },
+  "withdraw": {
+    "withdrawComplete": "Withdrawal complete.",
+    "thankYouPartOne": "Thank you for using AightNow.",
+    "thankYouPartTwo": "We will continue to strive and evolve."
+  },
+  "button": {
+    "change": "Change",
+    "cancel": "Cancel",
+    "confirm": "Confirm"
   }
 }

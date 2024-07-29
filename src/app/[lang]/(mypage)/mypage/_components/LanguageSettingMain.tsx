@@ -165,8 +165,8 @@ export default function LanguageSettingMain({ userLanguage }: { userLanguage: st
         <Alert
           variant="fnButton"
           title={popupT("confirmLangChange", { defaultMessage: "언어 설정을 변경하시겠습니까?" })}
-          buttonText={popupT("change", { defaultMessage: "변경" })}
-          subButtonText={popupT("cancel", { defaultMessage: "취소" })}
+          buttonText={t("button.change", { defaultMessage: "변경" })}
+          subButtonText={t("button.cancel", { defaultMessage: "취소" })}
           onClick={handleConfirmChange}
           onClose={handleCancelChange}
         />

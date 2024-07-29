@@ -155,9 +155,6 @@
       "nicknameUnavailable": "사용할 수 없는 닉네임입니다.",
       "imageSizeExceed": "최대 1MB 이하의 이미지 파일만 업로드 가능합니다.",
       "confirmLangChange": "언어 설정을 변경하시겠습니까?",
-      "change": "변경",
-      "cancel": "취소",
-      "confirm": "확인",
       "passwordAuthFail": "비밀번호 인증에 실패했습니다.",
       "checkPassword": "비밀번호를 한번 더 확인해 주세요.",
       "accountDeletionError": "로그인 회원 탈퇴 도중 오류 발생",
@@ -205,5 +202,15 @@
     "nicknameUnavailable": "사용할 수 없는 닉네임입니다.",
     "nicknameAvailable": "사용가능한 닉네임 입니다.",
     "enterBirthDate": "생년월일을 입력해주세요."
+  },
+  "withdraw": {
+    "withdrawComplete": "회원탈퇴가 완료되었습니다.",
+    "thankYouPartOne": "아잇나우를 이용해주셔서 감사합니다.",
+    "thankYouPartTwo": "더욱 더 노력하고 발전하는 아잇나우가 되겠습니다."
+  },
+  "button": {
+    "change": "변경",
+    "cancel": "취소",
+    "confirm": "확인"
   }
 }

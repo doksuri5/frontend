@@ -156,9 +156,6 @@
       "nicknameUnavailable": "昵称不可用",
       "imageSizeExceed": "只能上传最大1MB的图像文件",
       "confirmLangChange": "您是否要更改语言设置？",
-      "change": "更改",
-      "cancel": "取消",
-      "confirm": "确认",
       "passwordAuthFail": "密码认证失败",
       "checkPassword": "请再次检查您的密码",
       "accountDeletionError": "账号删除过程中出现错误。",
@@ -206,5 +203,15 @@
     "nicknameUnavailable": "此昵称不可用。",
     "nicknameAvailable": "这个昵称可用。",
     "enterBirthDate": "请输入您的出生日期。"
+  },
+  "withdraw": {
+    "withdrawComplete": "会员退出已完成。",
+    "thankYouPartOne": "感谢您使用AightNow。",
+    "thankYouPartTwo": "我们将继续努力，不断发展。"
+  },
+  "button": {
+    "change": "更改",
+    "cancel": "取消",
+    "confirm": "确认"
   }
 }

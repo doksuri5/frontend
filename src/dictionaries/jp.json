@@ -156,9 +156,6 @@
       "nicknameUnavailable": "使用できないニックネームです",
       "imageSizeExceed": "1MB以下の画像ファイルのみアップロード可能です",
       "confirmLangChange": "言語設定を変更しますか？",
-      "change": "変更",
-      "cancel": "キャンセル",
-      "confirm": "確認",
       "passwordAuthFail": "パスワード認証に失敗しました",
       "checkPassword": "パスワードを再確認してください",
       "accountDeletionError": "アカウント削除中にエラーが発生しました。",
@@ -206,5 +203,15 @@
     "nicknameUnavailable": "使用できないニックネームです。",
     "nicknameAvailable": "このニックネームは使用できます。",
     "enterBirthDate": "生年月日を入力してください。"
+  },
+  "withdraw": {
+    "withdrawComplete": "会員脱退が完了しました。",
+    "thankYouPartOne": "AightNowをご利用いただきありがとうございます。",
+    "thankYouPartTwo": "さらに努力して進化するAightNowになります。"
+  },
+  "button": {
+    "change": "変更",
+    "cancel": "キャンセル",
+    "confirm": "確認"
   }
 }

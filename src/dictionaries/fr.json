@@ -156,9 +156,6 @@
       "nicknameUnavailable": "Surnom indisponible",
       "imageSizeExceed": "Seuls les fichiers d'images jusqu'à 1MB peuvent être téléchargés",
       "confirmLangChange": "Souhaitez-vous modifier les paramètres de langue ?",
-      "change": "Modifier",
-      "cancel": "Annuler",
-      "confirm": "Confirmer",
       "passwordAuthFail": "Échec de l'authentification par mot de passe",
       "checkPassword": "Veuillez vérifier votre mot de passe à nouveau",
       "accountDeletionError": "Une erreur s'est produite lors de la suppression du compte.",
@@ -206,5 +203,15 @@
     "nicknameUnavailable": "Ce pseudo n'est pas disponible.",
     "nicknameAvailable": "Ce pseudo est disponible.",
     "enterBirthDate": "Veuillez entrer votre date de naissance."
+  },
+  "withdraw": {
+    "withdrawComplete": "Désinscription terminée.",
+    "thankYouPartOne": "Merci d'avoir utilisé AightNow.",
+    "thankYouPartTwo": "Nous continuerons à nous efforcer et à évoluer."
+  },
+  "button": {
+    "change": "Modifier",
+    "cancel": "Annuler",
+    "confirm": "Confirmer"
   }
 }
