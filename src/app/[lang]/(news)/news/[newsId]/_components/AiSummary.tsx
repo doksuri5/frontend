@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Skeleton } from "@/components/common";
+import { Button } from "@/components/common";
 import AI_Summary from "@/public/icons/AI_Summary.svg?component";
 import { NewsSummarySchema } from "@/types/NewsDataType";
 import debounce from "@/utils/debounce";
