@@ -233,6 +233,20 @@ export const StockOverViewSchema = z.object({
   }),
 });
 
+export type ExchangeDataType = {
+  result: number;
+  cur_unit: string;
+  ttb: string;
+  tts: string;
+  deal_bas_r: string;
+  bkpr: string;
+  yy_efee_r: string;
+  ten_dd_efee_r: string;
+  kftc_bkpr: string;
+  kftc_deal_bas_r: string;
+  cur_nm: string;
+};
+
 export type FetchedNaverStockDataType = z.infer<typeof FetchedNaverStockSchema>;
 export type InterestStockDataType = z.infer<typeof InterestStockSchema>;
 export type InterestStockItemDataType = z.infer<typeof InterestStockItemSchema>;
