@@ -34,7 +34,7 @@ export interface FormData {
 
 export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
   const t = useTranslations("user");
-  const hearderT = useTranslations("header")
+  const commonT = useTranslations()
   const validationT = useTranslations("validation")
 
   const { userStoreData } = useUserStore();
@@ -291,7 +291,7 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
 
         {/* 관심 종목 */}
         <div className="mt-[1.6rem]">
-          <p className="body-4 text-navy-900">{hearderT("interestStocks", { defaultMessage: "관심종목" })}</p>
+          <p className="body-4 text-navy-900">{commonT("header.interestStocks", { defaultMessage: "관심종목" })}</p>
           <Select
             instanceId={"tags"}
             isMulti
