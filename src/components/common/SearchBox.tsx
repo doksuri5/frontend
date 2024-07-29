@@ -84,7 +84,7 @@ const SearchBox = ({ inputValue, onSelect }: TSearchBox) => {
           </ul>
         ) : (
           <div className="flex flex-col gap-[1rem] text-navy-700">
-            <h3 className="body_3 flex gap-[.8rem] font-bold">
+            <h3 className="body_3 flex font-bold">
               &quot;<span className="block max-w-[35rem] truncate">{inputValue}</span>&quot; {t("noneStock")}
             </h3>
             <p className="body_5">{t("informText")}</p>
