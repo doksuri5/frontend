@@ -11,19 +11,10 @@ import { deleteGoogleUserAccount, deleteKakaoUserAccount, deleteNaverUserAccount
 import useToast from "@/hooks/use-toast";
 import { useTranslations } from "next-intl";
 
-const withdrawReasons = [
-  { value: "inconvenient_service", text: "이용이 불편하고 장애가 많아서" },
-  { value: "better_service", text: "다른 서비스가 더 좋아서" },
-  { value: "low_usage_frequency", text: "사용 빈도가 낮아서" },
-  { value: "content_dissatisfaction", text: "콘텐츠 불만" },
-  { value: "other", text: "기타" },
-];
-
 type TWithdrawModalProps = {
   isOpen: boolean;
   onClose: () => void;
 };
-
 export interface IWithdrawForm {
   email: string | undefined;
   reason: string;
@@ -33,6 +24,14 @@ export interface IWithdrawForm {
 export default function WithdrawModal({ isOpen, onClose }: TWithdrawModalProps) {
   const t = useTranslations();
   const popupT = useTranslations("user.popup")
+
+  const withdrawReasons = [
+    { value: "inconvenient_service", text: t("mypage.inconvenientService", { defaultMessage: "이용이 불편하고 장애가 많아서" }) },
+    { value: "better_service", text: t("mypage.preferOtherService", { defaultMessage: "다른 서비스가 더 좋아서" }) },
+    { value: "low_usage_frequency", text: t("mypage.lowUsage", { defaultMessage: "사용 빈도가 낮아서" }) },
+    { value: "content_dissatisfaction", text: t("mypage.contentDissatisfaction", { defaultMessage: "콘텐츠 불만" }) },
+    { value: "other", text: t("mypage.otherReason", { defaultMessage: "기타" }) },
+  ];
 
   const { userStoreData } = useUserStore();
   const { alertInfo, customAlert } = useAlert();
