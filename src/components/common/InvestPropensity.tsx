@@ -57,8 +57,11 @@ export default function InvestPropensity({ onSubmit, initialData }: TInvestPrope
   const isAllFieldsFilled = areAllFieldsFilled(fieldValues);
 
   const handleFormSubmit = (data: FormValues) => {
+    // 1. 폼의 기존 데이터가 없는 경우에는 약관 동의와 모든 항목에 체크했을 경우에만 submit
     if (!initialData && isChecked && isAllFieldsFilled) onSubmit(data);
+    // 2. 폼의 기존 데이터가 있는 경우
     else if (initialData !== undefined) {
+      // 약관 동의와 모든 항목에 체크한 경우 / 약관동의를 해제한 경우를 따로 체크하여 submit
       if ((isChecked && isAllFieldsFilled) || !isChecked) onSubmit(data);
     }
   };
