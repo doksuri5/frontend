@@ -26,6 +26,7 @@ import { TFunction, TProfileSchema, profileSchema } from "@/types/AuthType";
 import { REGISTER_COMPLETE_PATH, REGISTER_PATH } from "@/routes/path";
 
 import EditIcon from "@/public/icons/avatar_edit.svg?component";
+import { TInvestPropensityDetails } from "@/types/investPropensityType";
 import { useTranslations } from "next-intl";
 
 type TOption = {
@@ -113,7 +114,7 @@ export default function ProfileSetUpForm() {
   };
 
   // InvestPropensity폼에서 넘어온 데이터 처리
-  const handleFormSubmit = (data: any) => {
+  const handleFormSubmit = (data: TInvestPropensityDetails) => {
     setIsOpenOfInvestPropensity(false);
     setValue("investPropensity", data);
     setValue("isAgreeCreditInfo", true);
