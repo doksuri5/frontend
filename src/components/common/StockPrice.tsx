@@ -4,8 +4,8 @@ import { TReutersCodes } from "@/constants/stockCodes";
 import useStockPrice from "@/hooks/use-stock-price";
 import { cn } from "@/utils/cn";
 import { formatOnlyIndicator, getTextColor } from "@/utils/stockPriceUtils";
-import CountUp from "react-countup";
 import { Skeleton } from "./Skeleton";
+import ClientCountUp from "./CountUp";
 
 const StockPrice = ({ reutersCode }: { reutersCode: TReutersCodes }) => {
   const { stock, loading } = useStockPrice(reutersCode);
@@ -18,16 +18,16 @@ const StockPrice = ({ reutersCode }: { reutersCode: TReutersCodes }) => {
     <>
       <div className="body_4 font-medium">
         <span>
-          $<CountUp preserveValue end={Math.abs(stock?.closePrice)} decimals={2} />
+          $<ClientCountUp preserveValue end={Math.abs(stock?.closePrice)} decimals={2} />
         </span>
       </div>
       <div className={cn(`body_4 flex gap-[0.8rem] font-normal ${getTextColor(stock?.fluctuationsRatio)}`)}>
         <span>
           {formatOnlyIndicator(stock?.compareToPreviousClosePrice)}
-          <CountUp preserveValue end={Math.abs(stock?.compareToPreviousClosePrice)} decimals={2} />
+          <ClientCountUp preserveValue end={Math.abs(stock?.compareToPreviousClosePrice)} decimals={2} />
         </span>
         <span>
-          <CountUp preserveValue end={Math.abs(stock?.fluctuationsRatio)} decimals={2} />%
+          <ClientCountUp preserveValue end={Math.abs(stock?.fluctuationsRatio)} decimals={2} />%
         </span>
       </div>
     </>
