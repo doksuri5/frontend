@@ -316,16 +316,16 @@
     "contentDissatisfaction": "Dissatisfied with content",
     "otherReason": "Other",
     "metadata": {
-      "title": "Ma Page",
-      "description": "Gérez facilement vos paramètres personnels et vos informations sur Ma Page.",
-      "keywords": "Ma Page, paramètres de langue, modification des informations personnelles, informations personnelles, profil, suppression de compte, suppression, conditions d'utilisation, conditions",
+      "title": "My Page",
+      "description": "Manage your personal settings and information easily on My Page.",
+      "keywords": "My Page, language settings, personal information edit, personal information, profile, account deletion, deletion, terms of service, terms",
       "openGraph": {
-        "title": "Ma Page",
-        "description": "Gérez facilement vos paramètres personnels et vos informations sur Ma Page."
+        "title": "My Page",
+        "description": "Manage your personal settings and information easily on My Page."
       },
       "twitter": {
-        "title": "Ma Page",
-        "description": "Gérez facilement vos paramètres personnels et vos informations sur Ma Page."
+        "title": "My Page",
+        "description": "Manage your personal settings and information easily on My Page."
       }
     }
   },
