@@ -4,6 +4,7 @@ import { NEWS_PATH } from "@/routes/path";
 import { NewsItemType } from "@/types";
 import { cn } from "@/utils/cn";
 import { getTimeDifference } from "@/utils/getTimeDifference";
+import { useSession } from "next-auth/react";
 
 export type TNewsItemProps = NewsItemType & {
   variant?: "lineClamp-2" | "lineClamp-4";
@@ -34,6 +35,8 @@ export default function NewsItem({
   style,
 }: TNewsItemProps) {
   const selectedVariantStyles = variantStyles[variant];
+  const { data: session } = useSession();
+  const language = session?.user.language || "ko";
 
   return (
     <Link href={`${NEWS_PATH}/${_id}`}>
@@ -49,7 +52,7 @@ export default function NewsItem({
           <div className="flex items-center justify-between">
             <h3 className="body_3 font-bold text-grayscale-900">{title}</h3>
             <div className="body_5 flex gap-[0.8rem] font-medium text-grayscale-600">
-              <span>{getTimeDifference(publishedTime, "ko")}</span>
+              <span>{getTimeDifference(publishedTime, language ?? "ko")}</span>
               <span>∙</span>
               <span>{publisher}</span>
             </div>

@@ -225,12 +225,12 @@
     }
   },
   "stocks": {
-    "stockApple": "Apple",
-    "stockMicroSoft": "Microsoft",
-    "stockAmazon": "Amazon",
-    "stockUnity": "Unity",
-    "stockGoogle": "Google",
-    "stockTesla": "Tesla"
+    "stockAAPL": "Apple",
+    "stockMSFT": "Microsoft",
+    "stockAMZN": "Amazon",
+    "stockGOOGL": "Google",
+    "stockU": "Unity",
+    "stockTSLA": "Tesla"
   },
   "news": {
     "todaysPopularNews": "Today's Popular News",
