@@ -289,7 +289,7 @@
     }
   },
   "mypage": {
-    "editPrivacy": "Edit Personal Information",
+    "editPrivacy": "Edit Personal Info",
     "languageSettings": "Language Settings",
     "terms": "Terms",
     "termsOfService": "Terms of Service",
@@ -299,7 +299,7 @@
     "editProfile": "Edit Profile",
     "accountSettings": "Account Settings",
     "manageAccount": "Create and modify accounts for service use. Link accounts to use various services.",
-    "editAccountInfo": "Edit Account Information",
+    "editAccountInfo": "Edit Account Info",
     "withdraw": "Withdraw",
     "selectTranslationLang": "Select the language for translation; you will see information translated into the chosen language in news and reports.",
     "privacyPolicy": "Privacy Policy",
