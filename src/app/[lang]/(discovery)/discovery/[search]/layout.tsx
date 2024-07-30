@@ -1,11 +1,11 @@
-import Head from "next/head";
+import { Suspense } from "react";
+import DiscoverySearchLoading from "./loading";
 
 interface generateMetadataPropsType {
   params: {
     search: string;
   };
 }
-
 export const generateMetadata = ({ params }: generateMetadataPropsType) => {
   const search = decodeURIComponent(params.search);
   return {
@@ -30,20 +30,5 @@ export default function DiscoverySearchLayout({
   children: React.ReactNode;
   params: { search: string };
 }) {
-  const metadata = generateMetadata({ params });
-
-  return (
-    <>
-      <Head>
-        {metadata.title && <title>{metadata.title}</title>}
-        {metadata.description && <meta name="description" content={metadata.description} />}
-        {metadata.keywords && <meta name="keywords" content={metadata.keywords} />}
-        {metadata.openGraph?.title && <meta property="og:title" content={metadata.openGraph.title} />}
-        {metadata.openGraph?.description && <meta property="og:description" content={metadata.openGraph.description} />}
-        {metadata.twitter?.title && <meta name="twitter:title" content={metadata.twitter.title} />}
-        {metadata.twitter?.description && <meta name="twitter:description" content={metadata.twitter.description} />}
-      </Head>
-      {children}
-    </>
-  );
+  return <Suspense fallback={<DiscoverySearchLoading />}>{children}</Suspense>;
 }
