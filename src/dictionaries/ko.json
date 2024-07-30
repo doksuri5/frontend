@@ -257,12 +257,12 @@
     }
   },
   "stocks": {
-    "stockApple": "애플",
-    "stockMicroSoft": "마이크로소프트",
-    "stockAmazon": "아마존",
-    "stockUnity": "유니티",
-    "stockGoogle": "구글",
-    "stockTesla": "테슬라"
+    "stockAAPL": "애플",
+    "stockMSFT": "마이크로소프트",
+    "stockAMZN": "아마존",
+    "stockGOOGL": "구글",
+    "stockU": "유니티",
+    "stockTSLA": "테슬라"
   },
   "news": {
     "todaysPopularNews": "오늘 인기있는 뉴스",

@@ -256,12 +256,12 @@
     }
   },
   "stocks": {
-    "stockApple": "苹果",
-    "stockMicroSoft": "微软",
-    "stockAmazon": "亚马逊",
-    "stockUnity": "Unity",
-    "stockGoogle": "谷歌",
-    "stockTesla": "特斯拉"
+    "stockAAPL": "苹果",
+    "stockMSFT": "微软",
+    "stockAMZN": "亚马逊",
+    "stockGOOGL": "谷歌",
+    "stockU": "Unity",
+    "stockTSLA": "特斯拉"
   },
   "news": {
     "todaysPopularNews": "今日热门新闻",
