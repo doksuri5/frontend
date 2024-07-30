@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { unstable_setRequestLocale } from "next-intl/server";
 
 const TITLE = "홈";
 
@@ -9,8 +10,11 @@ export const metadata: Metadata = {
 
 export default function HomeRootLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode;
+  params: { lang: string };
 }>) {
+  unstable_setRequestLocale(params.lang);
   return <section>{children}</section>;
 }
