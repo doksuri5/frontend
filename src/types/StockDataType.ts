@@ -1,22 +1,6 @@
 import { z } from "zod";
 import { REUTERS_CODES } from "@/constants/stockCodes";
 
-export type TMappedPeriod = {
-  일: "day";
-  주: "week";
-  월: "month";
-  분기: "quarter";
-  년: "year";
-};
-
-export const MAPPED_PERIOD: TMappedPeriod = {
-  일: "day",
-  주: "week",
-  월: "month",
-  분기: "quarter",
-  년: "year",
-};
-
 export const FetchedNaverStockSchema = z.object({
   stockEndType: z.literal("stock"),
   reutersCode: z.string(),

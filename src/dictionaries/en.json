@@ -244,17 +244,25 @@
   "currency": {
     "sign": "$"
   },
+  "analysis": {
+    "stockPrice": "Stock Price",
+    "investmentIndex": "Investment Index",
+    "profitability": "Profitability",
+    "growth": "Growth",
+    "interest": "Interest",
+    "point": "Point"
+  },
   "report": {
     "stock": "Stock",
     "addInterestStock": "follow Stock",
     "removeInterestStock": "unfollow Stock",
     "unit": "$",
     "stockPriceChart": "Stock Price Chart",
-    "oneDay": "1 Day",
-    "threeMonths": "3 Months",
-    "oneYear": "1 Year",
-    "threeYears": "3 Years",
-    "tenYears": "10 Years",
+    "day": "Day",
+    "week": "Week",
+    "month": "Month",
+    "quarter": "Quarter",
+    "year": "Year",
     "stockAIReport": "Stock AI Report",
     "aightNowAIAnalystReport": "AightNow AI Analyst Report",
     "userInterestStocks": "'s Interest Stocks",
@@ -264,7 +272,9 @@
     "growth": "Growth",
     "interestLevel": "Interest Level",
     "delete": "Delete",
-    "viewDetails": "View Details"
+    "viewDetails": "View Details",
+    "more": "More",
+    "less": "Less"
   },
   "chatBot": {
     "initMessage": "Hello! I'm NowChatBot. How can I help you?",

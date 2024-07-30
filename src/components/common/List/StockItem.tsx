@@ -2,11 +2,11 @@ import { STOCK_NAMES } from "@/constants/stockCodes";
 import { REPORT_PATH } from "@/routes/path";
 import { StockDataType } from "@/types";
 import { cn } from "@/utils/cn";
-import { formatValueWithIndicator, formatValueWithSign, getTextColor } from "@/utils/stockPriceUtils";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import StockPrice from "../StockPrice";
+import { useLocale } from "next-intl";
 
 type TIStockItemProps = StockDataType & {
   iconSize?: number;
@@ -37,7 +37,8 @@ const variantStyles = {
 };
 
 function StockItem({ iconSize = 50, style, variant = "stock", clickNone = false, ...props }: TIStockItemProps) {
-  const { stockName, symbolCode, reutersCode } = props;
+  const locale = useLocale();
+  const { stockName, symbolCode, reutersCode, stockNameEng } = props;
 
   const selectedVariantStyles = variantStyles[variant];
 
@@ -58,7 +59,7 @@ function StockItem({ iconSize = 50, style, variant = "stock", clickNone = false,
             />
           </div>
           <div>
-            <h3 className={selectedVariantStyles.stockKorName}>{stockName}</h3>
+            <h3 className={selectedVariantStyles.stockKorName}>{locale === "ko" ? stockName : stockNameEng}</h3>
             <h3 className={selectedVariantStyles.stockEngName}>{symbolCode}</h3>
           </div>
         </div>
