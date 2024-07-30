@@ -382,5 +382,31 @@
       "enterPhone": "Entrez le Numéro de Téléphone Sans Tirets",
       "enterBirth": "Entrez la Date de Naissance en 6 Chiffres (Exemple : 991231)"
     }
+  },
+  "myStock": {
+    "userTitle": "Les favoris de",
+    "headerButton": "Ajouter aux favoris",
+    "deleteButton": "Supprimer",
+    "detailView": "Voir les détails",
+    "noneStock": "Veuillez ajouter aux favoris.",
+    "alert": {
+      "alertTitle": "Voulez-vous supprimer ce favori?",
+      "alertTitleAll": "Voulez-vous supprimer toutes les recherches récentes?",
+      "alertCancleText": "Annuler"
+    },
+    "modal": {
+      "modalTitle": "Ajouter un favori",
+      "modalInput": "Veuillez entrer un terme de recherche.",
+      "modalSearchTitle": "Résultats de recherche",
+      "modalSearchItemDelete": "Supprimer",
+      "modalSearchItemAdd": "Ajouter",
+      "modalRecentSearchTitle": "Actions récemment recherchées",
+      "modalAllDeleteText": "Tout supprimer",
+      "modalPopularTitle": "Recherches populaires"
+    }
+  },
+  "searchBox": {
+    "noneStock": "Aucun résultat de recherche trouvé.",
+    "informText": "Veuillez vérifier l'orthographe du mot."
   }
 }

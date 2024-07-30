@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { filterStocks } from "@/utils/filter-stock";
 import { STOCK_NAMES, TReutersCodes } from "@/constants/stockCodes";
@@ -20,6 +21,8 @@ type TSearchBox = {
 };
 
 const SearchBox = ({ inputValue, onSelect }: TSearchBox) => {
+  const t = useTranslations("searchBox");
+
   const ref = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(true);
 
@@ -81,10 +84,10 @@ const SearchBox = ({ inputValue, onSelect }: TSearchBox) => {
           </ul>
         ) : (
           <div className="flex flex-col gap-[1rem] text-navy-700">
-            <h3 className="body_3 flex gap-[.8rem] font-bold">
-              &quot;<span className="block max-w-[35rem] truncate">{inputValue}</span>&quot; 검색 결과가 없습니다.
+            <h3 className="body_3 flex font-bold">
+              &quot;<span className="block max-w-[35rem] truncate">{inputValue}</span>&quot; {t("noneStock")}
             </h3>
-            <p className="body_5">단어의 철자가 정확한지 확인해 주세요.</p>
+            <p className="body_5">{t("informText")}</p>
           </div>
         )}
       </div>

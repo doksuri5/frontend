@@ -382,5 +382,31 @@
       "enterPhone": "请输入不包括‘-’的手机号码",
       "enterBirth": "请输入六位生日数字(例如 : 991231)"
     }
+  },
+  "myStock": {
+    "userTitle": "的关注股票",
+    "headerButton": "添加关注股票",
+    "deleteButton": "删除",
+    "detailView": "查看详情",
+    "noneStock": "请添加关注股票.",
+    "alert": {
+      "alertTitle": "你想删除这个关注股票吗?",
+      "alertTitleAll": "你想删除所有最近的搜索记录吗?",
+      "alertCancleText": "取消"
+    },
+    "modal": {
+      "modalTitle": "添加关注股票",
+      "modalInput": "请输入搜索词.",
+      "modalSearchTitle": "搜索结果",
+      "modalSearchItemDelete": "删除",
+      "modalSearchItemAdd": "添加",
+      "modalRecentSearchTitle": "最近搜索的股票",
+      "modalAllDeleteText": "全部删除",
+      "modalPopularTitle": "热门搜索"
+    }
+  },
+  "searchBox": {
+    "noneStock": "没有找到搜索结果.",
+    "informText": "请检查单词的拼写是否正确."
   }
 }

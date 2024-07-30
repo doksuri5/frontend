@@ -382,5 +382,31 @@
       "enterPhone": "ハイフンなしで携帯番号を入力してください",
       "enterBirth": "生年月日6桁を入力してください(例 : 991231)"
     }
+  },
+  "myStock": {
+    "userTitle": "さんの関心銘柄",
+    "headerButton": "関心銘柄を追加",
+    "deleteButton": "削除する",
+    "detailView": "詳細を見る",
+    "noneStock": "関心銘柄を追加してください.",
+    "alert": {
+      "alertTitle": "関心銘柄を削除しますか?",
+      "alertTitleAll": "最近の検索語をすべて削除しますか?",
+      "alertCancleText": "キャンセル"
+    },
+    "modal": {
+      "modalTitle": "関心銘柄を追加",
+      "modalInput": "検索語を入力してください.",
+      "modalSearchTitle": "検索結果",
+      "modalSearchItemDelete": "削除する",
+      "modalSearchItemAdd": "追加",
+      "modalRecentSearchTitle": "最近検索した銘柄",
+      "modalAllDeleteText": "すべて削除",
+      "modalPopularTitle": "人気の検索語"
+    }
+  },
+  "searchBox": {
+    "noneStock": "検索結果がありません.",
+    "informText": "単語のスペルが正しいか確認してください."
   }
 }
