@@ -3,6 +3,7 @@
 import { useEffect, useState, useTransition } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import Select, { components, MultiValue } from "react-select";
 
 import { Controller } from "react-hook-form";
@@ -26,9 +27,6 @@ import { TFunction, TProfileSchema, profileSchema } from "@/types/AuthType";
 import { REGISTER_COMPLETE_PATH, REGISTER_PATH } from "@/routes/path";
 
 import EditIcon from "@/public/icons/avatar_edit.svg?component";
-import { TInvestPropensityDetails } from "@/types/investPropensityType";
-
-import { useTranslations } from "next-intl";
 import { TInvestPropensityDetails } from "@/types/investPropensityType";
 
 type TOption = {
