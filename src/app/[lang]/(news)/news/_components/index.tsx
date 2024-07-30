@@ -1,27 +1,19 @@
-"use client";
-
 import WarningIcon from "@/public/icons/warning_icon.svg?component";
 import { Card, CardSkeleton, PopularNews, PopularNewsSkeleton } from "@/components/common";
-import NewsInfinityList from "@/app/[lang]/(news)/news/_components/NewsInfinityList";
 import { Suspense } from "react";
-import useInfiniteNews from "@/hooks/useInfiniteNews";
 import { getTimeDifference } from "@/utils/getTimeDifference";
-import { useTranslations } from "next-intl";
+import RecentNews from "@/app/[lang]/(home)/home/_components/recent-news";
+import { getTranslations } from "next-intl/server";
+import { auth } from "@/auth";
 
-export default function News({ popularNews, interestStockNews }: any) {
-  const { newsData, fetchNextPage, hasNextPage, isFetchingNextPage, status } = useInfiniteNews();
-  const t = useTranslations();
-
-  const handleFetchNextPage = () => {
-    if (hasNextPage && !isFetchingNextPage) {
-      fetchNextPage();
-    }
-  };
+export default async function News({ interestStockNews }: any) {
+  const session = await auth();
+  const t = await getTranslations();
 
   return (
     <div className="flex flex-col gap-[4.8rem] pb-[8rem] pt-[5.6rem]">
       <Suspense fallback={<PopularNewsSkeleton />}>
-        {popularNews.value.length > 0 && <PopularNews popularNewsData={popularNews.value} />}
+        <PopularNews />
       </Suspense>
       <div className="flex w-full flex-col gap-[2.4rem]">
         <h2 className="heading_4 font-bold text-navy-900">
@@ -42,7 +34,7 @@ export default function News({ popularNews, interestStockNews }: any) {
                   _id={news._id}
                   variant="halfMediaCard"
                   style="w-1/3"
-                  date={`${getTimeDifference(news.date)}`}
+                  date={`${getTimeDifference(news.date, session?.user.language ?? "ko")}`}
                   title={news.title}
                   image={news.image}
                   content={news.description}
@@ -59,21 +51,7 @@ export default function News({ popularNews, interestStockNews }: any) {
         </div>
       </div>
       <div className="flex w-full flex-col gap-[2.4rem]">
-        <h2 className="heading_4 font-bold text-navy-900">
-          {t("news.latestNews", { defaultMessage: "최신 뉴스" })}
-        </h2>
-        <div className="flex gap-[2rem]">
-          <NewsInfinityList
-            newsItems={newsData}
-            lineClamp={"lineClamp-4"}
-            variant="border"
-            style="max-h-[85rem]"
-            fetchNextPage={handleFetchNextPage}
-            hasNextPage={hasNextPage}
-            isFetchingNextPage={isFetchingNextPage}
-            status={status}
-          />
-        </div>
+        <RecentNews isHeading={true} />
       </div>
     </div>
   );

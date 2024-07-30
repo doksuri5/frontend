@@ -1,5 +1,3 @@
-import CommonTitle, { TCommonTitleProps } from "./CommonTitle";
-
 import { cn } from "@/utils/cn";
 
 type TCommonLayout = {
