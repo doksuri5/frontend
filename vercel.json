@@ -1,0 +1,80 @@
+{
+  "crons": [
+    {
+      "path": "/api/ai/stock-analysis/AAPL.O",
+      "schedule": "30 13 * * *"
+    },
+    {
+      "path": "/api/ai/stock-analysis/GOOGL.O",
+      "schedule": "30 13 * * *"
+    },
+    {
+      "path": "/api/ai/stock-analysis/AMZN.O",
+      "schedule": "30 13 * * *"
+    },
+    {
+      "path": "/api/ai/stock-analysis/MSFT.O",
+      "schedule": "30 13 * * *"
+    },
+    {
+      "path": "/api/ai/stock-analysis/TSLA.O",
+      "schedule": "30 13 * * *"
+    },
+    {
+      "path": "/api/ai/stock-analysis/U",
+      "schedule": "30 13 * * *"
+    },
+    {
+      "path": "/api/ai/stock-analysis/AAPL.O",
+      "schedule": "0 16 * * *"
+    },
+    {
+      "path": "/api/ai/stock-analysis/GOOGL.O",
+      "schedule": "0 16 * * *"
+    },
+    {
+      "path": "/api/ai/stock-analysis/AMZN.O",
+      "schedule": "0 16 * * *"
+    },
+    {
+      "path": "/api/ai/stock-analysis/MSFT.O",
+      "schedule": "0 16 * * *"
+    },
+    {
+      "path": "/api/ai/stock-analysis/TSLA.O",
+      "schedule": "0 16 * * *"
+    },
+    {
+      "path": "/api/ai/stock-analysis/U",
+      "schedule": "0 16 * * *"
+    },
+    {
+      "path": "/api/ai/stock-analysis/AAPL.O",
+      "schedule": "0 20 * * *"
+    },
+    {
+      "path": "/api/ai/stock-analysis/GOOGL.O",
+      "schedule": "0 20 * * *"
+    },
+    {
+      "path": "/api/ai/stock-analysis/AMZN.O",
+      "schedule": "0 20 * * *"
+    },
+    {
+      "path": "/api/ai/stock-analysis/MSFT.O",
+      "schedule": "0 20 * * *"
+    },
+    {
+      "path": "/api/ai/stock-analysis/TSLA.O",
+      "schedule": "0 20 * * *"
+    },
+    {
+      "path": "/api/ai/stock-analysis/U",
+      "schedule": "0 20 * * *"
+    },
+    {
+      "path": "/api/stock/price/currency-exchange",
+      "schedule": "0 0,12 * * *"
+    }
+  ]
+}
