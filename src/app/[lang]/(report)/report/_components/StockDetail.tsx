@@ -2,13 +2,16 @@ import { TReutersCodes } from "@/constants/stockCodes";
 import StockDetailHeader from "./StockDetailHeader";
 import { getStockCurrencyExchange, getStockDescription } from "@/actions/stock";
 import TextMore from "@/components/common/TextMore";
+import { getStockAnalysis } from "@/actions/stock-analysis";
+import { auth } from "@/auth";
 
 type TStockDetail = {
   reutersCode: TReutersCodes;
 };
 
-export default async function StockDetail({ reutersCode }: TStockDetail) {
-  const description = await getStockDescription(undefined, { params: `${reutersCode}/description` });
+const StockDetail = async ({ reutersCode }: TStockDetail) => {
+  const session = await auth();
+  const analysis = await getStockAnalysis(undefined, { params: reutersCode });
   const currency = await getStockCurrencyExchange();
 
   return (
@@ -17,8 +20,10 @@ export default async function StockDetail({ reutersCode }: TStockDetail) {
         <div>
           <StockDetailHeader reutersCode={reutersCode} currency={currency.data} />
         </div>
-        <TextMore>{description.data.corporateOverview}</TextMore>
+        <TextMore>{analysis.data[0].description[session?.user.language ?? "ko"]}</TextMore>
       </div>
     </section>
   );
-}
+};
+
+export default StockDetail;
