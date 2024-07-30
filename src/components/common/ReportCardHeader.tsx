@@ -1,9 +1,11 @@
 import { getStocksByReutersCode } from "@/actions/stock";
+import { auth } from "@/auth";
 import { STOCK_NAMES, TReutersCodes } from "@/constants/stockCodes";
 import { cn } from "@/utils/cn";
 import Image from "next/image";
 
 const ReportCardHeader = async ({ reutersCode, titleSize }: { reutersCode: TReutersCodes; titleSize: "lg" | "md" }) => {
+  const session = await auth();
   const stock = await getStocksByReutersCode(undefined, { params: reutersCode });
 
   return (
@@ -16,7 +18,7 @@ const ReportCardHeader = async ({ reutersCode, titleSize }: { reutersCode: TReut
             body_3: titleSize === "md",
           })}
         >
-          {stock.data.stockName}
+          {session?.user.language === "ko" ? stock.data.stockName : stock.data.stockNameEng}
         </h3>
         <h3
           className={cn("font-normal text-grayscale-600", {
