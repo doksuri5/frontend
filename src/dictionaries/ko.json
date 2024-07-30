@@ -401,7 +401,13 @@
       "modalSearchItemAdd": "추가",
       "modalRecentSearchTitle": "최근 검색한 종목",
       "modalAllDeleteText": "전체삭제",
-      "modalPopularTitle": "인기 검색어"
+      "modalPopularTitle": "인기 검색어",
+      "modalSearchItemAddLoading": "관심 종목 추가 중...",
+      "modalSearchItemAddSuccess": "관심 종목이 추가 되었습니다.",
+      "modalSearchItemAddError": "관심 종목 추가에 실패했습니다.",
+      "modalSearchItemDeleteLoading": "관심 종목 삭제 중...",
+      "modalSearchItemDeleteSuccess": "관심 종목이 삭제 되었습니다.",
+      "modalSearchItemDeleteError": "관심 종목 삭제에 실패했습니다."
     }
   },
   "searchBox": {

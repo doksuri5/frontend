@@ -402,7 +402,13 @@
       "modalSearchItemAdd": "添加",
       "modalRecentSearchTitle": "最近搜索的股票",
       "modalAllDeleteText": "全部删除",
-      "modalPopularTitle": "热门搜索"
+      "modalPopularTitle": "热门搜索",
+      "modalSearchItemAddLoading": "正在添加感兴趣的项目...",
+      "modalSearchItemAddSuccess": "感兴趣的项目已添加.",
+      "modalSearchItemAddError": "添加感兴趣的项目失败.",
+      "modalSearchItemDeleteLoading": "正在删除感兴趣的项目...",
+      "modalSearchItemDeleteSuccess": "感兴趣的项目已删除.",
+      "modalSearchItemDeleteError": "删除感兴趣的项目失败."
     }
   },
   "searchBox": {

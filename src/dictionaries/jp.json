@@ -402,7 +402,13 @@
       "modalSearchItemAdd": "追加",
       "modalRecentSearchTitle": "最近検索した銘柄",
       "modalAllDeleteText": "すべて削除",
-      "modalPopularTitle": "人気の検索語"
+      "modalPopularTitle": "人気の検索語",
+      "modalSearchItemAddLoading": "関心のあるアイテムを追加中...",
+      "modalSearchItemAddSuccess": "関心のあるアイテムが追加されました.",
+      "modalSearchItemAddError": "関心のあるアイテムの追加に失敗しました.",
+      "modalSearchItemDeleteLoading": "関心のあるアイテムを削除中...",
+      "modalSearchItemDeleteSuccess": "関心のあるアイテムが削除されました.",
+      "modalSearchItemDeleteError": "関心のあるアイテムの削除に失敗しました."
     }
   },
   "searchBox": {

@@ -402,7 +402,13 @@
       "modalSearchItemAdd": "Ajouter",
       "modalRecentSearchTitle": "Actions récemment recherchées",
       "modalAllDeleteText": "Tout supprimer",
-      "modalPopularTitle": "Recherches populaires"
+      "modalPopularTitle": "Recherches populaires",
+      "modalSearchItemAddLoading": "Ajout de l'élément d'intérêt...",
+      "modalSearchItemAddSuccess": "L'élément d'intérêt a été ajouté.",
+      "modalSearchItemAddError": "Échec de l'ajout de l'élément d'intérêt.",
+      "modalSearchItemDeleteLoading": "Suppression de l'élément d'intérêt...",
+      "modalSearchItemDeleteSuccess": "L'élément d'intérêt a été supprimé.",
+      "modalSearchItemDeleteError": "Échec de la suppression de l'élément d'intérêt."
     }
   },
   "searchBox": {
