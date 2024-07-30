@@ -153,19 +153,27 @@ export const StockSchema = z
     fluctuationsRatio: true,
   });
 
+const translationsSchema = z.object({
+  ko: z.string(),
+  en: z.string(),
+  jp: z.string(),
+  ch: z.string(),
+  fr: z.string(),
+});
+
 export const StockAIReportSchema = z.object({
-  description: z.string(),
+  description: translationsSchema,
   investmentIndex: z.number().default(0),
   profitabilityPercentage: z.number().default(0),
   growthPercentage: z.number().default(0),
   interestPercentage: z.number().default(0),
-  report: z.string(),
+  report: translationsSchema,
   metrics: z.object({
     stockName: z.string(),
     symbolCode: z.string(),
     fluctuationsRatio: z.number().default(0),
     closePriceChange: z.number().default(0),
-    closePrice: z.string(),
+    closePrice: z.number().default(0),
   }),
 });
 
