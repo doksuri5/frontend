@@ -14,7 +14,7 @@ export default function CreditInfoAgree() {
         <tbody>
           <tr>
             <td className="w-48 border-[1px] border-solid border-slate-300 p-2">
-              <strong>수집·이용 목적</strong>
+              <strong>{t('td.collectionPurpose')}</strong>
             </td>
             <td className="border-[1px] border-solid border-slate-300 p-2">
               {t('infoCollectionUse.purpose')}
@@ -22,7 +22,7 @@ export default function CreditInfoAgree() {
           </tr>
           <tr>
             <td className="border-[1px] border-solid border-slate-300 p-2">
-              <strong>항목</strong>
+              <strong>{t('td.items')}</strong>
             </td>
             <td className="border-[1px] border-solid border-slate-300 p-2">
               {t("infoCollectionUse.items")}
@@ -30,7 +30,7 @@ export default function CreditInfoAgree() {
           </tr>
           <tr>
             <td className="border-[1px] border-solid border-slate-300 p-2">
-              <strong>보유 및 이용기간</strong>
+              <strong>{t('td.retentionPeriod')}</strong>
             </td>
             <td className="border-[1px] border-solid border-slate-300 p-2">
               {t("infoCollectionUse.retentionPeriod")}
@@ -42,19 +42,18 @@ export default function CreditInfoAgree() {
       <strong>{t('sectionTitles.infoInquiry')}</strong>
       <br />
       <span>
-        ※ 당사가 신용정보집중기관 또는 신용조회회사를 통하여 귀하의 개인신용정보를 조회한 기록은 타 금융기관 등에 제공될
-        수 있으며, 귀하의 신용등급이 하락할 수 있음을 알려드립니다.
+        {t("infoInquiryDetails.consentStatement")}
       </span>
       <table border={1} cellPadding="10" cellSpacing="0" className="border-[1px] border-solid border-slate-300">
         <tbody>
           <tr>
             <td colSpan={2} className="border-[1px] border-solid border-slate-300 p-2">
-              본인은 다음과 같이 본인의 신용정보를 조회하는 것에 동의합니다.
+              {t("infoInquiryDetails.agree")}
             </td>
           </tr>
           <tr>
             <td className="w-48 border-[1px] border-solid border-slate-300 p-2">
-              <strong>조회기관</strong>
+              <strong>{t('td.inquiryAgency')}</strong>
             </td>
             <td className="border-[1px] border-solid border-slate-300 p-2">
               {t("infoInquiryDetails.agency")}
@@ -62,7 +61,7 @@ export default function CreditInfoAgree() {
           </tr>
           <tr>
             <td className="border-[1px] border-solid border-slate-300 p-2">
-              <strong>조회목적</strong>
+              <strong>{t('td.inquiryPurpose')}</strong>
             </td>
             <td className="border-[1px] border-solid border-slate-300 p-2">
               {t("infoInquiryDetails.purpose")}
@@ -70,7 +69,7 @@ export default function CreditInfoAgree() {
           </tr>
           <tr>
             <td className="border-[1px] border-solid border-slate-300 p-2">
-              <strong>조회내용</strong>
+              <strong>{t('td.inquiryContent')}</strong>
             </td>
             <td className="border-[1px] border-solid border-slate-300 p-2">
               {t("infoInquiryDetails.content")}
@@ -78,7 +77,7 @@ export default function CreditInfoAgree() {
           </tr>
           <tr>
             <td className="border-[1px] border-solid border-slate-300 p-2">
-              <strong>유효기간</strong>
+              <strong>{t('td.validityPeriod')}</strong>
             </td>
             <td className="border-[1px] border-solid border-slate-300 p-2">
               {t("infoInquiryDetails.validityPeriod")}
@@ -92,12 +91,12 @@ export default function CreditInfoAgree() {
         <tbody>
           <tr>
             <td colSpan={2} className="border-[1px] border-solid border-slate-300 p-2">
-              본인은 귀사가 본인의 고유식별정보를 다음과 같이 처리하는 것에 동의합니다.
+              {t("sectionTitles.agree")}
             </td>
           </tr>
           <tr>
             <td className="w-48 border-[1px] border-solid border-slate-300 p-2">
-              <strong>처리목적</strong>
+              <strong>{t('td.processingPurpose')}</strong>
             </td>
             <td className="border-[1px] border-solid border-slate-300 p-2">
               {t("uniqueIdHandlingDetails.purpose")}
@@ -105,7 +104,7 @@ export default function CreditInfoAgree() {
           </tr>
           <tr>
             <td className="border-[1px] border-solid border-slate-300 p-2">
-              <strong>처리항목</strong>
+              <strong>{t('td.processingItems')}</strong>
             </td>
             <td className="border-[1px] border-solid border-slate-300 p-2">
               {t("uniqueIdHandlingDetails.items")}
@@ -113,7 +112,7 @@ export default function CreditInfoAgree() {
           </tr>
           <tr>
             <td className="border-[1px] border-solid border-slate-300 p-2">
-              <strong>비고</strong>
+              <strong>{t('td.note')}</strong>
             </td>
             <td className="border-[1px] border-solid border-slate-300 p-2">
               {t("uniqueIdHandlingDetails.remark")}

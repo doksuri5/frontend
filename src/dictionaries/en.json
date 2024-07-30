@@ -476,7 +476,8 @@
       "sectionTitles": {
         "infoCollectionUse": "Personal (Credit) Information Collection and Use",
         "infoInquiry": "Personal (Credit) Information Inquiry",
-        "uniqueIdHandling": "Unique Identifier Information Handling"
+        "uniqueIdHandling": "Unique Identifier Information Handling",
+        "agree": "I agree that your company may process my unique identification information as follows."
       },
       "infoCollectionUse": {
         "purpose": "■ Conclusion, maintenance, performance, management, and improvement of (financial) contracts\n■ Compliance with legal obligations (real-name verification, specific financial transaction reporting, unfair trade prevention, suitability verification, reporting of overseas tax obligations, etc.)\n■ Financial accident prevention (identity verification, detection of unusual financial transactions, etc.), dispute and complaint handling, accident investigation\n■ Statistics, risk management, and improvement of customer service quality",
@@ -484,7 +485,8 @@
         "retentionPeriod": "Five years from the date of transaction termination (however, for financial accident investigation, dispute resolution, complaint handling, compliance with Capital Market Law (over 10 years), etc., it is stored separately)"
       },
       "infoInquiryDetails": {
-        "consentStatement": "※ Records of our company inquiring your personal credit information through a credit information center or credit inquiry company may be provided to other financial institutions, and may result in a decrease in your credit rating.\nI agree to inquire my personal credit information as follows.",
+        "consentStatement": "※ Records of our company inquiring your personal credit information through a credit information center or credit inquiry company may be provided to other financial institutions, and may result in a decrease in your credit rating.",
+        "agree": "I agree to inquire my personal credit information as follows.",
         "agency": "■ Credit Information Center (Credit Information Institute), Credit Inquiry Company (NICE Evaluation Information)",
         "purpose": "■ Maintenance and post-management of the contract (including transaction information prior to this contract), decision on whether to set up financial transactions such as loans and credit cards, development and analysis of credit-related statistical models, personal requests, and other financial transaction-related tasks",
         "content": "■ Personal identification information, credit transaction information, delinquency and other debt non-performance information, occupational and property-related credit capability information, public institution-held information, credit rating and score, other institution's credit information inquiry records, personal authentication information, etc.",
@@ -503,6 +505,18 @@
         "agentPolicy": "※ If the consenter is an agent, unless the principal has explicitly delegated the consent of the selection consent form to the agent, the agent can only consent to the principal's essential consent form.",
         "terminationDate": "※ The transaction termination date mentioned in this consent form refers to the point when all accounts held by the customer are actively closed and all contracts for products are terminated.",
         "accountDeletion": "※ If account opening is not completed within 7 days, all information collected during the account opening process will be deleted."
+      },
+      "td": {
+        "collectionPurpose": "Purpose of Collection and Use",
+        "items": "Items",
+        "retentionPeriod": "Retention and Usage Period",
+        "inquiryAgency": "Inquiry Agency",
+        "inquiryPurpose": "Purpose of Inquiry",
+        "inquiryContent": "Content of Inquiry",
+        "validityPeriod": "Validity Period",
+        "processingPurpose": "Purpose of Processing",
+        "processingItems": "Processing Items",
+        "note": "Note"
       }
     }
   },
@@ -512,6 +526,7 @@
     "confirm": "Confirm",
     "modify": "Modify",
     "register": "Register",
-    "submit": "Submit"
+    "submit": "Submit",
+    "agree": "I agree."
   }
 }

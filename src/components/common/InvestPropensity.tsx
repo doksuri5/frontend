@@ -7,6 +7,7 @@ import CreditInfoAgree from "@/app/[lang]/(auth)/_components/CreditInfoAgree";
 import { cn } from "@/utils/cn";
 import { InvestPropensityQuestions } from "@/data/InvestPropensityQuestions";
 import { TInvestPropensityDetails } from "@/types/investPropensityType";
+import { useTranslations } from "next-intl";
 
 type TInvestPropensityProps = {
   onSubmit: (data: TInvestPropensityDetails) => Promise<void> | void;
@@ -36,6 +37,8 @@ export default function InvestPropensity({ onSubmit, initialData }: TInvestPrope
   const { register, handleSubmit, watch, reset } = useForm<FormValues>({
     values: initialData?.investPropensity || { 1: "", 2: "", 3: "", 4: "", 5: [] },
   });
+
+  const t = useTranslations("button");
 
   const fieldValues = watch();
 
@@ -80,7 +83,7 @@ export default function InvestPropensity({ onSubmit, initialData }: TInvestPrope
             setIsChecked(!isChecked);
             setIsEnabled(!isEnabled);
           }}
-          label="동의합니다."
+          label={t('agree')}
           id="propensityInvest"
           name="propensityInvest"
           variants="radio"

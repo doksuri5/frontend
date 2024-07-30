@@ -429,52 +429,55 @@
   "investPropensity": {
     "title": "Diagnostic de Propension à l'Investissement",
     "description": "Nous vous guiderons vers des produits adaptés à votre propension à investir et à vos objectifs.",
-    "query": {"question1": {
-      "questionText": "Quelle est la durée pendant laquelle vous prévoyez d'investir les fonds ?",
-      "option1": "Moins de 6 mois",
-      "option2": "De 6 mois à 1 an",
-      "option3": "De 1 à 2 ans",
-      "option4": "De 2 à 3 ans",
-      "option5": "Plus de 3 ans"
+    "query": {
+      "question1": {
+        "questionText": "Quelle est la durée pendant laquelle vous prévoyez d'investir les fonds ?",
+        "option1": "Moins de 6 mois",
+        "option2": "De 6 mois à 1 an",
+        "option3": "De 1 à 2 ans",
+        "option4": "De 2 à 3 ans",
+        "option5": "Plus de 3 ans"
+      },
+      "question2": {
+        "questionText": "Comment évaluez-vous votre niveau d'expérience avec les produits financiers ?",
+        "option1": "[Très faible] Aucune expérience d'investissement dans des produits financiers",
+        "option2": "[Faible] Une certaine compréhension de la structure et des risques des produits financiers bien connus (actions, obligations et fonds)",
+        "option3": "[Élevé] Capable de distinguer la plupart des produits financiers disponibles pour l'investissement",
+        "option4": "[Très élevé] Comprend les différences entre tous les produits d'investissement, y compris les produits financiers"
+      },
+      "question3": {
+        "questionText": "Quelle proportion de vos actifs financiers totaux (hors immobilier) le capital d'investissement actuel représente-t-il ?",
+        "option1": "Moins de 10%",
+        "option2": "De 10% à 20%",
+        "option3": "De 20% à 30%",
+        "option4": "De 30% à 40%",
+        "option5": "Plus de 40%"
+      },
+      "question4": {
+        "questionText": "Quel niveau de rendement attendez-vous de votre capital d'investissement actuel et quel niveau de perte pouvez-vous tolérer ?",
+        "option1": "Prêt à prendre des risques si les rendements attendus sont élevés",
+        "option2": "Peut tolérer des pertes jusqu'à 20% si les rendements attendus sont atteints",
+        "option3": "Peut tolérer des pertes jusqu'à 10% si un certain niveau de rendement est attendu",
+        "option4": "Le capital investi doit être préservé quelles que soient les circonstances"
+      },
+      "question5": {
+        "questionText": "Lequel des éléments suivants correspond le plus à votre expérience d'investissement ? (Sélection multiple possible)",
+        "option1": "Produits conservateurs - dépôts bancaires/épargne, obligations gouvernementales, obligations municipales, obligations garanties, MMF, CMA, etc.",
+        "option2": "Produits à la recherche de sécurité - obligations financières, obligations d'entreprises à haute notation, fonds obligataires, ELS à capital garanti, etc.",
+        "option3": "Produits neutres au risque - obligations d'entreprises de notation moyenne, ELS partiellement garantis, fonds mixtes, etc.",
+        "option4": "Produits d'investissement actifs - obligations d'entreprises à faible notation, actions, ELS non garantis, fonds d'actions visant les rendements du marché, etc.",
+        "option5": "Produits d'investissement agressifs - ELW, options sur futures, fonds d'actions cherchant des rendements supérieurs au marché, fonds investissant dans des produits dérivés, trading sur marge, etc.",
+        "option6": "Aucun"
+      }
     },
-    "question2": {
-      "questionText": "Comment évaluez-vous votre niveau d'expérience avec les produits financiers ?",
-      "option1": "[Très faible] Aucune expérience d'investissement dans des produits financiers",
-      "option2": "[Faible] Une certaine compréhension de la structure et des risques des produits financiers bien connus (actions, obligations et fonds)",
-      "option3": "[Élevé] Capable de distinguer la plupart des produits financiers disponibles pour l'investissement",
-      "option4": "[Très élevé] Comprend les différences entre tous les produits d'investissement, y compris les produits financiers"
-    },
-    "question3": {
-      "questionText": "Quelle proportion de vos actifs financiers totaux (hors immobilier) le capital d'investissement actuel représente-t-il ?",
-      "option1": "Moins de 10%",
-      "option2": "De 10% à 20%",
-      "option3": "De 20% à 30%",
-      "option4": "De 30% à 40%",
-      "option5": "Plus de 40%"
-    },
-    "question4": {
-      "questionText": "Quel niveau de rendement attendez-vous de votre capital d'investissement actuel et quel niveau de perte pouvez-vous tolérer ?",
-      "option1": "Prêt à prendre des risques si les rendements attendus sont élevés",
-      "option2": "Peut tolérer des pertes jusqu'à 20% si les rendements attendus sont atteints",
-      "option3": "Peut tolérer des pertes jusqu'à 10% si un certain niveau de rendement est attendu",
-      "option4": "Le capital investi doit être préservé quelles que soient les circonstances"
-    },
-    "question5": {
-      "questionText": "Lequel des éléments suivants correspond le plus à votre expérience d'investissement ? (Sélection multiple possible)",
-      "option1": "Produits conservateurs - dépôts bancaires/épargne, obligations gouvernementales, obligations municipales, obligations garanties, MMF, CMA, etc.",
-      "option2": "Produits à la recherche de sécurité - obligations financières, obligations d'entreprises à haute notation, fonds obligataires, ELS à capital garanti, etc.",
-      "option3": "Produits neutres au risque - obligations d'entreprises de notation moyenne, ELS partiellement garantis, fonds mixtes, etc.",
-      "option4": "Produits d'investissement actifs - obligations d'entreprises à faible notation, actions, ELS non garantis, fonds d'actions visant les rendements du marché, etc.",
-      "option5": "Produits d'investissement agressifs - ELW, options sur futures, fonds d'actions cherchant des rendements supérieurs au marché, fonds investissant dans des produits dérivés, trading sur marge, etc.",
-      "option6": "Aucun"
-    }},
     "agree": {
       "title": "Formulaire de consentement pour la collecte et l'utilisation des informations personnelles (crédit) (Pour les transactions financières)",
       "introduction": "Eagle Five Brothers Co., Ltd. adhère à la 'Loi sur la protection des informations personnelles', 'Loi sur l'utilisation et la protection des informations de crédit', et autres réglementations légales connexes pour vous informer des points suivants et obtenir votre consentement.",
       "sectionTitles": {
         "infoCollectionUse": "Collecte et utilisation des informations personnelles (crédit)",
         "infoInquiry": "Demande d'informations personnelles (crédit)",
-        "uniqueIdHandling": "Gestion des informations d'identifiant unique"
+        "uniqueIdHandling": "Gestion des informations d'identifiant unique",
+        "agree": "Je suis d'accord pour que votre entreprise traite mes informations d'identification uniques de la manière suivante."
       },
       "infoCollectionUse": {
         "purpose": "■ Conclusion, maintenance, exécution, gestion et amélioration des contrats (financiers)\n■ Conformité aux obligations légales (vérification de l'identité réelle, déclaration des transactions financières spécifiques, prévention des transactions déloyales, vérification de la conformité, rapport des obligations fiscales à l'étranger, etc.)\n■ Prévention des accidents financiers (vérification de l'identité, détection des transactions financières anormales, etc.), gestion des litiges et des réclamations, enquêtes sur les accidents\n■ Statistiques, gestion des risques et amélioration de la qualité du service client",
@@ -482,7 +485,8 @@
         "retentionPeriod": "Cinq ans à partir de la date de fin de la transaction (toutefois, pour les enquêtes sur les accidents financiers, la résolution des litiges, la gestion des plaintes, la conformité avec la loi sur le marché des capitaux (plus de 10 ans), etc., elles sont stockées séparément)"
       },
       "infoInquiryDetails": {
-        "consentStatement": "※ Les enregistrements de notre entreprise demandant vos informations de crédit personnelles via un centre d'information de crédit ou une entreprise d'enquête de crédit peuvent être fournis à d'autres institutions financières, et peuvent entraîner une diminution de votre cote de crédit.\nJe consens à demander mes informations de crédit personnelles comme suit.",
+        "consentStatement": "※ Les enregistrements de notre entreprise demandant vos informations de crédit personnelles via un centre d'information de crédit ou une entreprise d'enquête de crédit peuvent être fournis à d'autres institutions financières, et peuvent entraîner une diminution de votre cote de crédit.",
+        "agree": "Je consens à demander mes informations de crédit personnelles comme suit.",
         "agency": "■ Centre d'information de crédit (Institut d'information de crédit), Société d'enquête de crédit (Information d'évaluation NICE)",
         "purpose": "■ Maintenance et gestion post-contrat (y compris les informations sur les transactions antérieures à ce contrat), décision sur la mise en place de transactions financières telles que les prêts et les cartes de crédit, développement et analyse de modèles statistiques liés au crédit, demandes personnelles, et autres tâches liées aux transactions financières",
         "content": "■ Informations d'identification personnelle, informations sur les transactions de crédit, informations sur les retards de paiement et autres non-respects de dettes, informations sur les capacités de crédit liées à l'emploi et à la propriété, informations détenues par les institutions publiques, cote de crédit et score, enregistrements de demandes d'informations de crédit par d'autres institutions, informations d'authentification personnelle, etc.",
@@ -501,6 +505,18 @@
         "agentPolicy": "※ Si le consenteur est un agent, à moins que le principal n'ait explicitement délégué le consentement du formulaire de consentement de sélection à l'agent, l'agent ne peut consentir qu'au formulaire de consentement essentiel du principal.",
         "terminationDate": "※ La date de fin de transaction mentionnée dans ce formulaire de consentement fait référence au moment où tous les comptes détenus par le client sont activement fermés et tous les contrats pour les produits sont résiliés.",
         "accountDeletion": "※ Si l'ouverture de compte n'est pas complétée dans les 7 jours, toutes les informations collectées pendant le processus d'ouverture de compte seront supprimées."
+      },
+      "td": {
+        "collectionPurpose": "Objectif de la collecte et de l'utilisation",
+        "items": "Éléments",
+        "retentionPeriod": "Période de conservation et d'utilisation",
+        "inquiryAgency": "Organisme de consultation",
+        "inquiryPurpose": "But de la consultation",
+        "inquiryContent": "Contenu de la consultation",
+        "validityPeriod": "Période de validité",
+        "processingPurpose": "Objectif du traitement",
+        "processingItems": "Éléments de traitement",
+        "note": "Remarque"
       }
     }
   },
@@ -510,6 +526,7 @@
     "confirm": "Confirmer",
     "modify": "Modifier",
     "register": "Enregistrer",
-    "submit": "Soumettre"
+    "submit": "Soumettre",
+    "agree": "Je suis d'accord."
   }
 }
