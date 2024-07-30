@@ -340,6 +340,9 @@
     "japanese": "일본어",
     "french": "프랑스어"
   },
+  "currency": {
+    "sign": "₩"
+  },
   "user": {
     "email": "이메일",
     "name": "이름",

@@ -241,6 +241,9 @@
     "AISummary": "AightNow AI Summary",
     "AISummaryContent": "AI Summary Content"
   },
+  "currency": {
+    "sign": "$"
+  },
   "report": {
     "stock": "Stock",
     "addInterestStock": "follow Stock",

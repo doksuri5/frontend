@@ -11,7 +11,7 @@ const PopularInterestNews = async () => {
       <p className="body_1 pb-[1.6rem]">관심종목</p>
       <DraggableList>
         {interestNews.map((item: any) => (
-          <Card key={item._id} variant="iconCard" date={item.date} title={item.title} />
+          <Card key={item._id} _id={item._id} variant="iconCard" date={item.date} title={item.title} />
         ))}
       </DraggableList>
       <p className="body_1 pb-[1.6rem] pt-[4.8rem]">주요 뉴스</p>

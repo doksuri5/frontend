@@ -24,12 +24,7 @@ const connectDB = async () => {
   }
 
   if (!cached.mongoose!.promise) {
-    const options = {
-      useUnifiedTopology: true,
-      bufferCommands: false,
-    };
-
-    cached.mongoose!.promise = mongoose.connect(uri, options).then((mongoose) => {
+    cached.mongoose!.promise = mongoose.connect(uri).then((mongoose) => {
       return mongoose;
     });
   }
