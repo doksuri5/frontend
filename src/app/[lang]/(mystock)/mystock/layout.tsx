@@ -1,5 +1,7 @@
-import { MyStockStoreProvider } from "@/providers/MyStockProvider";
 import type { Metadata } from "next";
+import { Suspense } from "react";
+import { MyStockStoreProvider } from "@/providers/MyStockProvider";
+import Loading from "@/app/[lang]/loading";
 
 export const metadata: Metadata = {
   title: `관심 주식`,
@@ -12,8 +14,8 @@ export default function MyStockLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <>
+    <Suspense fallback={<Loading />}>
       <MyStockStoreProvider>{children}</MyStockStoreProvider>
-    </>
+    </Suspense>
   );
 }
