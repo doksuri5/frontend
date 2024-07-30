@@ -4,7 +4,7 @@ import NewsInfinityList from "@/app/[lang]/(news)/news/_components/NewsInfinityL
 import useInfiniteNews from "@/hooks/useInfiniteNews";
 import { useTranslations } from "next-intl";
 
-const RecentNews = ({ isHeading }: { isHeading: boolean }) => {
+const RecentNews = ({ isHeading = false }: { isHeading?: boolean }) => {
   const t = useTranslations();
   const { newsData, fetchNextPage, hasNextPage, isFetchingNextPage, status } = useInfiniteNews();
   const handleFetchNextPage = () => {
