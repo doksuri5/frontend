@@ -2,13 +2,18 @@
 
 import { FindNews, FindNewsSkeleton } from "@/components/common";
 import { TIFindNewsProps } from "@/components/common/List/FindNews";
+import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import { Fragment, useEffect, useState } from "react";
 
 export default function RelatedNews({ relatedNews }: any) {
   const [newsData, setNewsData] = useState<TIFindNewsProps[]>([]);
   const [loading, setLoading] = useState(true);
+
   const t = useTranslations();
+  
+  const { data: session } = useSession();
+  const language = session?.user.language || "ko";
 
   useEffect(() => {
     setNewsData(relatedNews);
@@ -38,7 +43,7 @@ export default function RelatedNews({ relatedNews }: any) {
               publishedTime={news.publishedTime}
               newspaperCompany={news.newspaperCompany}
               style={news?.style}
-              lang={"ko"}
+              lang={language}
             />
             {idx < newsData.length - 1 && <hr className="mb-[1.6rem] mt-[1.8rem]" />}
           </Fragment>
