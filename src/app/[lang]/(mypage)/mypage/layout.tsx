@@ -1,18 +1,21 @@
 import { Suspense, lazy } from "react";
 import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 
 export async function generateMetadata() {
+  const t = await getTranslations("mypage.metadata");
+
   return {
-    title: "마이페이지",
-    description: "사용자의 개인 설정과 정보를 관리할 수 있는 마이 페이지입니다. 개인 설정과 정보를 쉽게 관리하세요.",
-    keywords: "마이페이지, 언어 설정, 개인정보 수정, 개인정보, 프로필, 회원탈퇴, 탈퇴, 이용약관, 약관",
+    title: t("title"),
+    description: t("description"),
+    keywords: t("keywords"),
     openGraph: {
-      title: '마이페이지',
-      description: "사용자의 개인 설정과 정보를 관리할 수 있는 마이 페이지입니다. 개인 설정과 정보를 쉽게 관리하세요."
+      title: t("openGraph.title"),
+      description: t("openGraph.description"),
     },
     twitter: {
-      title: "마이페이지",
-      description: "사용자의 개인 설정과 정보를 관리할 수 있는 마이 페이지입니다. 개인 설정과 정보를 쉽게 관리하세요."
+      title: t("twitter.title"),
+      description: t("twitter.description"),
     }
   }
 }
