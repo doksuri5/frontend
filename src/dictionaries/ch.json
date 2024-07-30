@@ -362,7 +362,20 @@
     "preferOtherService": "偏好其他服务",
     "lowUsage": "使用频率低",
     "contentDissatisfaction": "对内容不满",
-    "otherReason": "其他"
+    "otherReason": "其他",
+    "metadata":{
+      "title": "我的页面",
+      "description": "用户可以管理个人设置和信息的我的页面。轻松管理个人设置和信息。",
+      "keywords": "我的页面, 语言设置, 个人信息修改, 个人信息, 资料, 注销账户, 注销, 使用条款, 条款",
+      "openGraph": {
+        "title": "我的页面",
+        "description": "用户可以管理个人设置和信息的我的页面。轻松管理个人设置和信息。"
+      },
+      "twitter": {
+        "title": "我的页面",
+        "description": "用户可以管理个人设置和信息的我的页面。轻松管理个人设置和信息。"
+      }
+    }
   },
   "lang": {
     "korean": "韩语",

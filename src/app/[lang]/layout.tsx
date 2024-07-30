@@ -14,7 +14,6 @@ import { ChatBot } from "@/components/common";
 import { NextIntlClientProvider } from "next-intl";
 
 import AuthSession from "@/providers/AuthSession";
-
 import { getMessages, getTranslations, unstable_setRequestLocale } from "next-intl/server";
 
 export interface IRootMetadata {
@@ -115,6 +114,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: { params: { lang: Locale } }) {
+  unstable_setRequestLocale(params.lang);
   const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}/${params.lang}`;
   const t = await getTranslations({ lang: params.lang, namespace: "metadata" });
   const siteName = t("root.siteName");

@@ -359,7 +359,20 @@
     "preferOtherService": "다른 서비스가 더 좋아서",
     "lowUsage": "사용 빈도가 낮아서",
     "contentDissatisfaction": "콘텐츠 불만",
-    "otherReason": "기타"
+    "otherReason": "기타",
+    "metadata": {
+      "title": "마이페이지",
+      "description": "사용자의 개인 설정과 정보를 관리할 수 있는 마이 페이지입니다. 개인 설정과 정보를 쉽게 관리하세요.",
+      "keywords": "마이페이지, 언어 설정, 개인정보 수정, 개인정보, 프로필, 회원탈퇴, 탈퇴, 이용약관, 약관",
+      "openGraph": {
+        "title": "마이페이지",
+        "description": "사용자의 개인 설정과 정보를 관리할 수 있는 마이 페이지입니다. 개인 설정과 정보를 쉽게 관리하세요."
+      },
+      "twitter": {
+        "title": "마이페이지",
+        "description": "사용자의 개인 설정과 정보를 관리할 수 있는 마이 페이지입니다. 개인 설정과 정보를 쉽게 관리하세요."
+      }
+    }
   },
   "lang": {
     "korean": "한국어",
