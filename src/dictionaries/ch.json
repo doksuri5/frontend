@@ -520,8 +520,7 @@
   },
   "withdraw": {
     "withdrawComplete": "会员退出已完成。",
-    "thankYouPartOne": "感谢您使用AightNow。",
-    "thankYouPartTwo": "我们将继续努力，不断发展。"
+    "thankYouMessage": "感谢您使用AightNow。\n我们将继续努力，不断发展。"
   },
   "button": {
     "change": "更改",

@@ -426,8 +426,7 @@
   },
   "withdraw": {
     "withdrawComplete": "Désinscription terminée.",
-    "thankYouPartOne": "Merci d'avoir utilisé AightNow.",
-    "thankYouPartTwo": "Nous continuerons à nous efforcer et à évoluer."
+    "thankYouMessage": "Merci d'avoir utilisé AightNow.\nNous continuerons à nous efforcer et à évoluer."
   },
   "investPropensity": {
     "title": "Diagnostic de Propension à l'Investissement",

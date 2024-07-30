@@ -426,8 +426,7 @@
   },
   "withdraw": {
     "withdrawComplete": "会員脱退が完了しました。",
-    "thankYouPartOne": "AightNowをご利用いただきありがとうございます。",
-    "thankYouPartTwo": "さらに努力して進化するAightNowになります。"
+    "thankYouMessage": "AightNowをご利用いただきありがとうございます。\nさらに努力して進化するAightNowになります。"
   },
   "investPropensity": {
     "title": "投資性向診断",
