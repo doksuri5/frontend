@@ -474,8 +474,7 @@
   },
   "withdraw": {
     "withdrawComplete": "Withdrawal complete.",
-    "thankYouPartOne": "Thank you for using AightNow.",
-    "thankYouPartTwo": "We will continue to strive and evolve."
+    "thankYouMessage": "Thank you for using AightNow.\nWe will continue to strive and evolve."
   },
   "investPropensity": {
     "title": "Investment Propensity Diagnosis",

@@ -20,10 +20,8 @@ export default function WithdrawPage() {
   return (
     <CommonLayout childrenClass="w-[39.4rem] flex_col_center">
       <CommonTitle title={t("withdraw.withdrawComplete", { defaultMessage: "회원탈퇴가 완료되었습니다." })} />
-      <p className="body_2 text-center text-grayscale-900">
-        {t('withdraw.thankYouPartOne')}
-        <br />
-        {t('withdraw.thankYouPartTwo')}
+      <p className="body_2 text-center text-grayscale-900 whitespace-pre-wrap">
+        {t('withdraw.thankYouMessage')}
       </p>
       <Button size="lg" className="mt-[5.6rem] w-[36.8rem] text-white" onClick={handleLogout}>
         {t("button.confirm")}

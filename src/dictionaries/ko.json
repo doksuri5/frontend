@@ -474,8 +474,7 @@
   },
   "withdraw": {
     "withdrawComplete": "회원탈퇴가 완료되었습니다.",
-    "thankYouPartOne": "아잇나우를 이용해주셔서 감사합니다.",
-    "thankYouPartTwo": "더욱 더 노력하고 발전하는 아잇나우가 되겠습니다."
+    "thankYouMessage": "아잇나우를 이용해주셔서 감사합니다.\n더욱 더 노력하고 발전하는 아잇나우가 되겠습니다."
   },
   "investPropensity": {
     "title": "투자 성향 진단",
