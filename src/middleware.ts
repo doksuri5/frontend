@@ -49,6 +49,7 @@ export const middleware = async (req: NextRequest) => {
   const isAuthenticated = await checkLogin();
 
   const nonRequiredAuthPaths = [
+    `/{:${locale}}?`,
     `{/:${locale}}?/login`,
     `{/:${locale}}?/login/:path`,
     `{/:${locale}}?/account`,
