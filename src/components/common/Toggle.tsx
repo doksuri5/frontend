@@ -7,6 +7,7 @@
 import { Switch } from "@headlessui/react";
 
 import { cn } from "@/utils/cn";
+import { useTranslations } from "next-intl";
 
 const cssConfig = {
   switch: `flex_row_center relative h-[4rem] w-[7.6rem] rounded-[0.4rem] bg-grayscale-200 p-[0.4rem] focus:outline-none after:transform after:transition-transform after:duration-200 after:ease-in-out 
@@ -21,6 +22,7 @@ type TToggleProps = {
 };
 
 export default function Toggle({ checked, setChecked }: TToggleProps) {
+  const t = useTranslations();
   return (
     <Switch
       checked={checked}
@@ -34,7 +36,7 @@ export default function Toggle({ checked, setChecked }: TToggleProps) {
         $
       </span>
       <span aria-hidden="true" className={cn(cssConfig.span, { [cssConfig.spanActive]: !checked })}>
-        원
+        {t("currency.sign", { defaultValue: "￦" })}
       </span>
     </Switch>
   );

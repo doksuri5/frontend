@@ -6,6 +6,7 @@ import { Button } from "@/components/common";
 import { logoutAction } from "@/actions/auth-action";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { CommonTitle } from "../_components";
 
 export default function WithdrawPage() {
   const router = useRouter();
@@ -17,7 +18,8 @@ export default function WithdrawPage() {
   };
 
   return (
-    <CommonLayout title={t("withdraw.withdrawComplete", { defaultMessage: "회원탈퇴가 완료되었습니다." })} childrenClass="w-[39.4rem] flex_col_center">
+    <CommonLayout childrenClass="w-[39.4rem] flex_col_center">
+      <CommonTitle title={t("withdraw.withdrawComplete", { defaultMessage: "회원탈퇴가 완료되었습니다." })} />
       <p className="body_2 text-center text-grayscale-900">
         {t('withdraw.thankYouPartOne')}
         <br />

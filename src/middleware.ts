@@ -4,29 +4,23 @@ import { i18n } from "./i18n";
 import checkLogin from "./utils/check-login";
 import createMiddleware from "next-intl/middleware";
 import { auth } from "@/auth";
+import { TLanguages } from "./types/AuthType";
+import { Session } from "next-auth";
 
 // 로그인이 필요한 경로인지 체크
-function requiresAuth(pathname: string, urls: string[]) {
+function isMatch(pathname: string, urls: string[]) {
   return urls.some((url) => !!match(url)(pathname));
 }
 
-const intlMiddleware = createMiddleware({
-  locales: i18n.locales,
-  defaultLocale: "ko",
-});
-
-const getLocale = async (request: NextRequest) => {
-  // 세션에서 언어 정보 가져오기
-  const session = await auth();
-  if (session?.user.language && i18n.locales.includes(session.user.language)) {
-    request.cookies.set('NEXT_LOCALE', session.user.language);
+const getLocale = async (request: NextRequest, session: Session | null) => {
+  // 세션이 있으면, 세션 안에 있는 언어 정보 가져오기
+  if (session && session.user.language && i18n.locales.includes(session.user.language)) {
     return session.user.language;
   }
-
   // 쿠키에서 언어 정보 가져오기
-  const cookieLang = request.cookies.get('NEXT_LOCALE');
-  if (cookieLang) {
-    return cookieLang.value;
+  const cookieLocale = request.cookies.get("NEXT_LOCALE");
+  if (cookieLocale) {
+    return cookieLocale.value as TLanguages;
   }
 
   // 기본 로케일 설정
@@ -34,51 +28,54 @@ const getLocale = async (request: NextRequest) => {
 };
 
 export const middleware = async (req: NextRequest) => {
+  const session = await auth();
   const pathname = req.nextUrl.pathname;
 
   // Check if there is any supported locale in the pathname
-  const locale = (await getLocale(req)) || i18n.defaultLocale;
-  const pathnameIsMissingLocale = i18n.locales.every(
-    (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`,
-  );
+  const locale = await getLocale(req, session);
 
-  // Redirect if there is no locale
-  if (pathnameIsMissingLocale) {
-    return NextResponse.redirect(new URL(`/${locale}${pathname}`, req.url));
-  }
+  const intlMiddleware = createMiddleware({
+    locales: i18n.locales,
+    defaultLocale: locale,
+  });
 
-  const isAuthenticated = checkLogin();
+  const response = intlMiddleware(req);
 
-  const isAuthPath = requiresAuth(pathname, [
-    `/${locale}`,
-    `/${locale}/login`,
-    `/${locale}/login/error`,
-    `/${locale}/account`,
-    `/${locale}/account/register`,
-    `/${locale}/account/profile-setup`,
-    `/${locale}/account/verify-user`,
-    `/${locale}/register-complete`,
-    `/${locale}/find-email`,
-    `/${locale}/find-password`,
-    `/${locale}/exist`,
-    `/${locale}/withdraw`,
-  ]);
+  response.cookies.set("NEXT_LOCALE", locale, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+  });
 
-  // 로그인이 필요한 경로이고 유저가 로그인 하지 않은 경우 로그인 페이지로 넘기기
-  if (!isAuthPath && !isAuthenticated) {
+  const isAuthenticated = await checkLogin();
+
+  const nonRequiredAuthPaths = [
+    `{/:locale(ko|en|fr|ch|jp)}?`,
+    `{/:${locale}}?/login`,
+    `{/:${locale}}?/login/:path`,
+    `{/:${locale}}?/account`,
+    `{/:${locale}}?/account/:path`,
+    `{/:${locale}}?/register-complete`,
+    `{/:${locale}}?/find-email`,
+    `{/:${locale}}?/find-password`,
+    `{/:${locale}}?/exist`,
+    `{/:${locale}}?/withdraw`,
+  ];
+
+  // 인증이 필요없는 페이지에 현재 경로가 포함되어 있는지 체크
+  const isAuthNotRequiredRoute = isMatch(pathname, nonRequiredAuthPaths);
+
+  // 인증이 필요한 페이지에 비로그인 유저가 접근하려고 할 때 로그인 페이지로 리다이렉트
+  if (!isAuthNotRequiredRoute && !isAuthenticated) {
     const response = NextResponse.redirect(new URL(`/${locale}/login`, req.url));
     response.cookies.delete("authjs.session-token");
 
     return response;
   }
 
-  // 로그인이 필요한 경로와 유저가 로그인 한 경우 Home 페이지로 넘기기
-  if (isAuthPath && isAuthenticated) {
+  // 로그인한 유저가 비로그인 페이지에 접근하려고 할 때 홈으로 리다이렉트
+  if (isAuthNotRequiredRoute && isAuthenticated) {
     return NextResponse.redirect(new URL(`/${locale}/home`, req.url));
   }
-
-  const response = intlMiddleware(req);
-  response.headers.set('x-pathname', pathname);
 
   return response;
 };

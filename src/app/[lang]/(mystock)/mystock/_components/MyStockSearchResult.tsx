@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import SearchItem from "./SearchItem";
 import SearchItemSkeleton from "./_skeleton/SearchItemSkeleton";
 import { getSearchStocks } from "@/actions/search";
@@ -11,6 +12,8 @@ type TMyStockSearchResultProps = {
 };
 
 const MyStockSearchResult = ({ search }: TMyStockSearchResultProps) => {
+  const t = useTranslations("myStock");
+
   const [lists, setLists] = useState<StockDataType[]>([]);
   const [isRender, setIsRender] = useState(true);
 
@@ -28,7 +31,7 @@ const MyStockSearchResult = ({ search }: TMyStockSearchResultProps) => {
 
   return (
     <div className="flex flex-col gap-[1.6rem]">
-      <h3 className="body_3 font-medium text-navy-900">검색 결과</h3>
+      <h3 className="body_3 font-medium text-navy-900">{t("modal.modalSearchTitle")}</h3>
       <div className="flex_col h-[34rem] gap-[1.6rem] overflow-auto scrollbar-hide">
         {isRender ? (
           <>

@@ -241,6 +241,9 @@
     "AISummary": "AightNow AI要約",
     "AISummaryContent": "AI要約内容"
   },
+  "currency": {
+    "sign": "¥"
+  },
   "report": {
     "stock": "株式",
     "addInterestStock": "関心銘柄を追加",
@@ -528,5 +531,31 @@
     "register": "登録",
     "submit": "提出する",
     "agree": "同意する。"
+  },
+  "myStock": {
+    "userTitle": "さんの関心銘柄",
+    "headerButton": "関心銘柄を追加",
+    "deleteButton": "削除する",
+    "detailView": "詳細を見る",
+    "noneStock": "関心銘柄を追加してください.",
+    "alert": {
+      "alertTitle": "関心銘柄を削除しますか?",
+      "alertTitleAll": "最近の検索語をすべて削除しますか?",
+      "alertCancleText": "キャンセル"
+    },
+    "modal": {
+      "modalTitle": "関心銘柄を追加",
+      "modalInput": "検索語を入力してください.",
+      "modalSearchTitle": "検索結果",
+      "modalSearchItemDelete": "削除する",
+      "modalSearchItemAdd": "追加",
+      "modalRecentSearchTitle": "最近検索した銘柄",
+      "modalAllDeleteText": "すべて削除",
+      "modalPopularTitle": "人気の検索語"
+    }
+  },
+  "searchBox": {
+    "noneStock": "検索結果がありません.",
+    "informText": "単語のスペルが正しいか確認してください."
   }
 }

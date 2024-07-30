@@ -14,7 +14,7 @@ import { ChatBot } from "@/components/common";
 import { NextIntlClientProvider } from "next-intl";
 
 import AuthSession from "@/providers/AuthSession";
-import { getMessages } from "next-intl/server";
+import { getMessages, unstable_setRequestLocale } from "next-intl/server";
 
 export async function generateStaticParams() {
   return i18n.locales.map((locale) => ({ lang: locale }));
@@ -27,6 +27,7 @@ export default async function RootLayout({
   children: React.ReactNode;
   params: { lang: Locale };
 }>) {
+  unstable_setRequestLocale(params.lang);
   const cookieStore = cookies();
   const connectCookie = cookieStore.get("connect.sid")?.value;
   const isLoggedIn = connectCookie ? true : false;

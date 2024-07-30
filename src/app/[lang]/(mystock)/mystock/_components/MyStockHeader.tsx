@@ -1,22 +1,17 @@
-"use client";
+import { getTranslations } from "next-intl/server";
+import { MyStockHeaderButton } from "@/app/[lang]/(mystock)/mystock/_components";
 
-import { Button } from "@/components/common";
-import { useMyStockStore } from "@/providers/MyStockProvider";
-
-const MyStockHeader = ({ userName }: { userName: string }) => {
-  const setOpenModal = useMyStockStore((state) => state.setOpenModal);
-
-  const handleAddStock = () => {
-    setOpenModal(true);
-  };
+const MyStockHeader = async ({ userName }: { userName: string }) => {
+  const t = await getTranslations("myStock");
+  const translationTitle = t("userTitle").includes("Les favoris")
+    ? `${t("userTitle")} ${userName}`
+    : `${userName}${t("userTitle")}`;
 
   return (
-    <section className="flex_row justify-between pt-[5.6rem]">
-      <h1 className="heading_4 font-bold text-navy-900">{userName}님의 관심종목</h1>
-      <Button variant="textButton" size="sm" bgColor="bg-navy-900" className="w-[19rem]" onClick={handleAddStock}>
-        관심종목 추가
-      </Button>
-    </section>
+    <div className="flex_row justify-between pt-[5.6rem]">
+      <h1 className="heading_4 font-bold text-navy-900">{translationTitle}</h1>
+      <MyStockHeaderButton />
+    </div>
   );
 };
 
