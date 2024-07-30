@@ -363,20 +363,19 @@
     "lowUsage": "使用頻度が低い",
     "contentDissatisfaction": "コンテンツに不満",
     "otherReason": "その他",
-    "metadata":{
-  "title": "我的页面",
-  "description": "用户可以管理个人设置和信息的我的页面。轻松管理个人设置和信息。",
-  "keywords": "我的页面, 语言设置, 个人信息修改, 个人信息, 资料, 注销账户, 注销, 使用条款, 条款",
-  "openGraph": {
-    "title": "我的页面",
-    "description": "用户可以管理个人设置和信息的我的页面。轻松管理个人设置和信息。"
-  },
-  "twitter": {
-    "title": "我的页面",
-    "description": "用户可以管理个人设置和信息的我的页面。轻松管理个人设置和信息。"
-  }
-}
-
+    "metadata": {
+      "title": "マイページ",
+      "description": "マイページで個人設定と情報を簡単に管理できます。",
+      "keywords": "マイページ, 言語設定, 個人情報編集, 個人情報, プロフィール, アカウント削除, 削除, 利用規約, 規約",
+      "openGraph": {
+        "title": "マイページ",
+        "description": "マイページで個人設定と情報を簡単に管理できます。"
+      },
+      "twitter": {
+        "title": "マイページ",
+        "description": "マイページで個人設定と情報を簡単に管理できます。"
+      }
+    }
   },
   "lang": {
     "korean": "韓国語",
