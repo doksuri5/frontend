@@ -292,7 +292,7 @@
     }
   },
   "mypage": {
-    "editPrivacy": "Edit Personal Information",
+    "editPrivacy": "Edit Personal Info",
     "languageSettings": "Language Settings",
     "terms": "Terms",
     "termsOfService": "Terms of Service",
@@ -302,7 +302,7 @@
     "editProfile": "Edit Profile",
     "accountSettings": "Account Settings",
     "manageAccount": "Create and modify accounts for service use. Link accounts to use various services.",
-    "editAccountInfo": "Edit Account Information",
+    "editAccountInfo": "Edit Account Info",
     "withdraw": "Withdraw",
     "selectTranslationLang": "Select the language for translation; you will see information translated into the chosen language in news and reports.",
     "privacyPolicy": "Privacy Policy",
@@ -314,28 +314,7 @@
     "preferOtherService": "Prefer another service",
     "lowUsage": "Low usage frequency",
     "contentDissatisfaction": "Dissatisfied with content",
-    "otherReason": "Other",
-    "popup": {
-      "codeMismatch": "Verification code does not match.",
-      "checkCode": "Please check the verification code again.",
-      "verificationIssue": "An error occurred during verification.",
-      "unknownIssue": "An unknown error occurred. Please try again.",
-      "processingWithdrawal": "Processing withdrawal...",
-      "passwordFail": "Password validation failed",
-      "profileFail": "Profile update failed",
-      "profileSuccess": "Profile has been updated",
-      "imageFail": "Image processing failed",
-      "retryLater": "Please try again later",
-      "nicknameCheckFail": "Nickname check failed",
-      "nicknameUnavailable": "Nickname is unavailable",
-      "imageSizeExceed": "Only image files up to 1MB can be uploaded",
-      "confirmLangChange": "Would you like to change the language settings?",
-      "change": "Change",
-      "cancel": "Cancel",
-      "confirm": "Confirm",
-      "passwordAuthFail": "Password authentication failed",
-      "checkPassword": "Please check your password again"
-    }
+    "otherReason": "Other"
   },
   "lang": {
     "korean": "Korean",
@@ -374,14 +353,184 @@
       "selectWithdrawalReason": "Select Reason for Withdrawal",
       "enterOtherReason": "Enter Other Reason",
       "otherReason": "Other Reason",
-      "passwordPlaceholder": "Enter Password",
+      "passwordLabel": "Enter Password",
       "enterCode": "Enter Verification Code",
       "promptCode": "Please Enter Verification Code",
       "newPassword": "Please Enter a New Password",
       "confirmPassword": "Please Confirm Your Password Again",
       "enterPhone": "Enter Phone Number Without Hyphens",
       "enterBirth": "Enter Birthdate in 6 Digits (Example: 991231)"
+    },
+    "popup": {
+      "codeMismatch": "Verification code does not match.",
+      "checkCode": "Please check the verification code again.",
+      "verificationIssue": "An error occurred during verification.",
+      "unknownIssue": "An unknown error occurred. Please try again.",
+      "processingWithdrawal": "Processing withdrawal...",
+      "passwordFail": "Password validation failed",
+      "profileFail": "Profile update failed",
+      "profileSuccess": "Profile has been updated",
+      "imageFail": "Image processing failed",
+      "retryLater": "Please try again later",
+      "nicknameCheckFail": "Nickname check failed",
+      "nicknameUnavailable": "Nickname is unavailable",
+      "imageSizeExceed": "Only image files up to 1MB can be uploaded",
+      "confirmLangChange": "Would you like to change the language settings?",
+      "passwordAuthFail": "Password authentication failed",
+      "checkPassword": "Please check your password again",
+      "accountDeletionError": "An error occurred during account deletion.",
+      "passwordValidationFail": "Password validation failed.",
+      "deletionProcessError": "An error occurred during the deletion process.",
+      "deletionSuccess": "Account deletion was successfully processed.",
+      "authCodeExpired": "The authentication code has expired.",
+      "requestAuthCode": "Please request a new authentication code.",
+      "emailVerificationInProgress": "Email verification in progress...",
+      "authCodeSent": "An authentication code has been sent to your email.",
+      "continueSignup": "Please continue your registration after checking your email.",
+      "emailAuthFail": "Email authentication failed.",
+      "retryEmailCheck": "Please retry after checking your email.",
+      "authCodeMismatch": "The authentication code does not match.",
+      "checkAuthCode": "Please check the authentication code again.",
+      "languageChangeFail": "Language change failed.",
+      "languageChanged": "Language has been changed.",
+      "languageSettingError": "An error occurred during language setting.",
+      "errorDuringWithdrawal": "An error occurred during the member withdrawal process.",
+      "errorDuringLoginWithdrawal": "An error occurred during the login member withdrawal process.",
+      "memberInfoUpdated": "Member information has been updated.",
+      "errorDuringMemberInfoUpdate": "An error occurred during the member information update process.",
+      "tryAgain": "Please try again.",
+      "passwordAuthError": "An error occurred during the password authentication process.",
+      "verificationCodeSent": "A verification code has been sent to your email address.",
+      "emailAuthError": "An error occurred during the email verification process.",
+      "verificationCodeCheckError": "An error occurred during the verification code check."
     }
+  },
+  "validation": {
+    "noNumbersOrSymbols": "No numbers or special symbols allowed.",
+    "invalidEmailFormat": "Invalid email format.",
+    "enterValidPhoneNumber": "Please enter a valid phone number.",
+    "enterPhoneNumber": "Please enter a phone number",
+    "passwordsDoNotMatch": "The passwords do not match. Please check and re-enter.",
+    "passwordRequirements": "8-20 characters including at least two of the following: numbers, special characters, or letters.",
+    "invalidSpecialCharacters": "Special characters other than '_' and '-' are not allowed.",
+    "enterPassword": "Please enter a password.",
+    "birthSixDigits": "The birth date must be six digits.",
+    "invalidDate": "Invalid date.",
+    "selectInterest": "Please select an interest.",
+    "minPasswordLength": "Password must be at least 8 characters long.",
+    "maxPasswordLength": "Password can be up to 16 characters long.",
+    "passwordCharRequirements": "Password must include numbers, letters, and special characters.",
+    "nicknameUnavailable": "Nickname not available.",
+    "nicknameAvailable": "Nickname is available.",
+    "enterBirthDate": "Please enter your birth date."
+  },
+  "withdraw": {
+    "withdrawComplete": "Withdrawal complete.",
+    "thankYouPartOne": "Thank you for using AightNow.",
+    "thankYouPartTwo": "We will continue to strive and evolve."
+  },
+  "investPropensity": {
+    "title": "Investment Propensity Diagnosis",
+    "description": "We will guide you to products suitable for your investment propensity and objectives.",
+    "query": {
+      "question1": {
+        "questionText": "What is the investment period for the funds you intend to invest?",
+        "option1": "Within 6 months",
+        "option2": "6 months to 1 year",
+        "option3": "1 year to 2 years",
+        "option4": "2 years to 3 years",
+        "option5": "More than 3 years"
+      },
+      "question2": {
+        "questionText": "What do you consider your level of experience with financial products?",
+        "option1": "[Very low level] No experience investing in financial products",
+        "option2": "[Low level] Some understanding of the structure and risks of well-known financial products (stocks, bonds, and funds)",
+        "option3": "[High level] Able to distinguish between most financial products available for investment",
+        "option4": "[Very high level] Understands the differences across all investment products, including financial products"
+      },
+      "question3": {
+        "questionText": "What proportion of your total financial assets (excluding real estate) does the current investment capital represent?",
+        "option1": "Within 10%",
+        "option2": "10% to 20%",
+        "option3": "20% to 30%",
+        "option4": "30% to 40%",
+        "option5": "More than 40%"
+      },
+      "question4": {
+        "questionText": "What level of returns do you expect from your current investment capital and what level of loss can you tolerate?",
+        "option1": "Willing to take risks if the expected returns are high",
+        "option2": "Can tolerate losses up to 20% if expected returns are met",
+        "option3": "Can tolerate losses up to 10% if a certain level of returns is expected",
+        "option4": "The investment principal must be preserved regardless of circumstances"
+      },
+      "question5": {
+        "questionText": "Which of the following most closely matches your investment experience? (Multiple selections possible)",
+        "option1": "Conservative products - bank deposits/savings, government bonds, municipal bonds, guaranteed bonds, MMF, CMA, etc.",
+        "option2": "Safety-seeking products - financial bonds, high-credit corporate bonds, bond funds, principal-protected ELS, etc.",
+        "option3": "Risk-neutral products - mid-credit corporate bonds, partially principal-protected ELS, mixed funds, etc.",
+        "option4": "Aggressive investment products - low-credit corporate bonds, stocks, non-principal-protected ELS, equity funds targeting market returns, etc.",
+        "option5": "Highly aggressive investment products - ELW, futures options, equity funds seeking above-market returns, funds investing in derivatives, margin trading, etc.",
+        "option6": "None"
+      }
+    },
+    "agree": {
+      "title": "Personal (Credit) Information Collection and Use Consent Form (For Financial Transactions)",
+      "introduction": "Eagle Five Brothers Co., Ltd. adheres to the 'Personal Information Protection Law', 'Credit Information Use and Protection Law', and other related legal regulations to inform you of the following matters and seek your consent.",
+      "sectionTitles": {
+        "infoCollectionUse": "Personal (Credit) Information Collection and Use",
+        "infoInquiry": "Personal (Credit) Information Inquiry",
+        "uniqueIdHandling": "Unique Identifier Information Handling",
+        "agree": "I agree that your company may process my unique identification information as follows."
+      },
+      "infoCollectionUse": {
+        "purpose": "■ Conclusion, maintenance, performance, management, and improvement of (financial) contracts\n■ Compliance with legal obligations (real-name verification, specific financial transaction reporting, unfair trade prevention, suitability verification, reporting of overseas tax obligations, etc.)\n■ Financial accident prevention (identity verification, detection of unusual financial transactions, etc.), dispute and complaint handling, accident investigation\n■ Statistics, risk management, and improvement of customer service quality",
+        "items": "■ Personal identification information: Name, unique identification information (including birthdate and gender for foreigners), address, contact information, occupation, nationality, CI, email\n■ Transaction medium-related information: ID, type of medium, IP address, MAC address, and other medium identification information, access medium information, etc.\n■ Customer verification information (CDD/EDD): Transaction purpose, expected transactions, information on agents/clients and other special relationships, etc.\n■ Financial transaction information: Type of products and services, transaction conditions/timing/amount, and other transaction setup details, etc.\n■ In case of agents: Name, unique identification information (including birthdate and gender for foreigners), occupation, nationality, contact information, relationship with the principal, etc.\n■ Overseas tax obligation information\n■ US FATCA: English name, English address, US taxpayer number, US citizenship status (citizen, permanent resident, tax resident)\n■ UN CRS: English name, English address, tax obligation country (excluding the US), (optional) taxpayer number",
+        "retentionPeriod": "Five years from the date of transaction termination (however, for financial accident investigation, dispute resolution, complaint handling, compliance with Capital Market Law (over 10 years), etc., it is stored separately)"
+      },
+      "infoInquiryDetails": {
+        "consentStatement": "※ Records of our company inquiring your personal credit information through a credit information center or credit inquiry company may be provided to other financial institutions, and may result in a decrease in your credit rating.",
+        "agree": "I agree to inquire my personal credit information as follows.",
+        "agency": "■ Credit Information Center (Credit Information Institute), Credit Inquiry Company (NICE Evaluation Information)",
+        "purpose": "■ Maintenance and post-management of the contract (including transaction information prior to this contract), decision on whether to set up financial transactions such as loans and credit cards, development and analysis of credit-related statistical models, personal requests, and other financial transaction-related tasks",
+        "content": "■ Personal identification information, credit transaction information, delinquency and other debt non-performance information, occupational and property-related credit capability information, public institution-held information, credit rating and score, other institution's credit information inquiry records, personal authentication information, etc.",
+        "validityPeriod": "■ The consent remains valid until the termination of this contract and remains valid even if changes occur due to contract renewal, etc., but is only valid until the point if the financial transaction I applied for is rejected by your company. However, if there is credit transaction information existing before this contract, it remains valid until the termination of the existing contract"
+      },
+      "uniqueIdHandlingDetails": {
+        "purpose": "■ For credit agreement contracts, credit information inquiry and provision, etc., conclusion, maintenance, performance, management, and improvement of product contracts, personal verification, compliance with legal obligations, financial accident investigation, dispute and complaint handling",
+        "items": "■ Social security number, passport number, driver's license number, foreign registration number, domestic residence reporting number",
+        "remark": "■ The recipient and (the recipient's) retention and use period are the same as stated in the collection and use consent form"
+      },
+      "additionalInfo": {
+        "understanding": "※ I have fully understood the contents of the customer rights information regarding (credit) information collection, use, and provision.",
+        "refusalConsequences": "Instructions for refusing consent:\nYou have the right to refuse consent for the collection and use of personal (credit) information. However, since this consent is essential for account opening or product contracts, conclusion, and performance, refusing consent will make it impossible to open accounts or conclude and perform product contracts.",
+        "privacyPolicy": "※ The personal information processing policy (or disclosure of the credit information system) is disclosed through our company's internet homepage, so you can check the details on the homepage.",
+        "minorPolicy": "※ If the customer is under 14 years old, only a legal representative (such as parents, guardians) can consent.",
+        "agentPolicy": "※ If the consenter is an agent, unless the principal has explicitly delegated the consent of the selection consent form to the agent, the agent can only consent to the principal's essential consent form.",
+        "terminationDate": "※ The transaction termination date mentioned in this consent form refers to the point when all accounts held by the customer are actively closed and all contracts for products are terminated.",
+        "accountDeletion": "※ If account opening is not completed within 7 days, all information collected during the account opening process will be deleted."
+      },
+      "td": {
+        "collectionPurpose": "Purpose of Collection and Use",
+        "items": "Items",
+        "retentionPeriod": "Retention and Usage Period",
+        "inquiryAgency": "Inquiry Agency",
+        "inquiryPurpose": "Purpose of Inquiry",
+        "inquiryContent": "Content of Inquiry",
+        "validityPeriod": "Validity Period",
+        "processingPurpose": "Purpose of Processing",
+        "processingItems": "Processing Items",
+        "note": "Note"
+      }
+    }
+  },
+  "button": {
+    "change": "Change",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "modify": "Modify",
+    "register": "Register",
+    "submit": "Submit",
+    "agree": "I agree."
   },
   "myStock": {
     "userTitle": "'s Favorites",

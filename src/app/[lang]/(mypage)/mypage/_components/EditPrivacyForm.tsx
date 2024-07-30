@@ -13,6 +13,7 @@ import { useTranslations } from "next-intl";
 type TEditPrivacyFormProps = {
   closeModal: () => void;
 };
+
 export interface FormData {
   email: string;
   password: string;
@@ -22,7 +23,9 @@ export interface FormData {
 }
 
 export default function EditPrivacyForm({ closeModal }: TEditPrivacyFormProps) {
-  const t = useTranslations()
+  const t = useTranslations("user");
+  const validationT = useTranslations("validation");
+
   const { userStoreData } = useUserStore();
   const { alertInfo, customAlert } = useAlert();
   const router = useRouter();
@@ -63,7 +66,7 @@ export default function EditPrivacyForm({ closeModal }: TEditPrivacyFormProps) {
 
       if (response.ok) {
         customAlert({
-          title: "회원 정보가 수정되었습니다.",
+          title: t("popup.memberInfoUpdated", { defaultMessage: "회원 정보가 수정되었습니다." }),
           subText: "",
           onClose: () => {
             closeModal();
@@ -73,9 +76,9 @@ export default function EditPrivacyForm({ closeModal }: TEditPrivacyFormProps) {
       }
     } catch (err) {
       customAlert({
-        title: "회원 정보 수정 중 오류가 발생했습니다.",
-        subText: err instanceof Error ? err.message : "알 수 없는 오류가 발생했습니다.",
-        onClose: () => {},
+        title: t("popup.errorDuringMemberInfoUpdate", { defaultMessage: "회원 정보 수정 중 오류가 발생했습니다." }),
+        subText: err instanceof Error ? err.message : t("popup.unknownIssue", { defaultMessage: "알 수 없는 오류가 발생했습니다." }),
+        onClose: () => { },
       });
     }
   };
@@ -83,30 +86,30 @@ export default function EditPrivacyForm({ closeModal }: TEditPrivacyFormProps) {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)} className={cn("flex w-full flex-col gap-[1.6rem]")}>
-        <Input id="email" labelName={t("user.email", { defaultMessage: "이메일" })} value={userStoreData?.email} disabled />
+        <Input id="email" labelName={t("email", { defaultMessage: "이메일" })} value={userStoreData?.email} disabled />
         <div>
           <Input
             type="password"
             id="password"
-            labelName={t("user.form.inputNewPassword", { defaultMessage: "새 비밀번호 입력" })}
-            placeholder="변경할 비밀번호를 입력해주세요."
+            labelName={t("form.inputNewPassword", { defaultMessage: "새 비밀번호 입력" })}
+            placeholder={t("form.newPassword", { defaultMessage: "변경할 비밀번호를 입력해주세요." })}
             {...register("password", {
               minLength: {
                 value: 8,
-                message: "비밀번호는 최소 8자리 이상이어야 합니다.",
+                message: validationT("minPasswordLength", { defaultMessage: "비밀번호는 최소 8자리 이상이어야 합니다." }),
               },
               maxLength: {
                 value: 16,
-                message: "비밀번호는 최대 16자리까지 입력 가능합니다.",
+                message: validationT("maxPasswordLength", { defaultMessage: "비밀번호는 최대 16자리까지 입력 가능합니다." }),
               },
               pattern: {
                 value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-                message: "숫자, 영문자, 특수문자를 포함해야 합니다.",
+                message: validationT("passwordCharRequirements", { defaultMessage: "숫자, 영문자, 특수문자를 모두 포함해야 합니다." }),
               },
             })}
             variant={errors.password ? "error" : "default"}
             caption={
-              errors.password ? errors.password.message : "* 8-20자 이내 숫자, 특수문자, 영문자 중 2가지 이상을 조합"
+              errors.password ? errors.password.message : `* ${validationT("passwordRequirements", { defaultMessage: "8-20자 이내 숫자, 특수문자, 영문자 중 2가지 이상을 조합" })}`
             }
           />
         </div>
@@ -115,10 +118,10 @@ export default function EditPrivacyForm({ closeModal }: TEditPrivacyFormProps) {
           <Input
             type="password"
             id="passwordChk"
-            labelName={t("user.form.confirmNewPassword", { defaultMessage: "새 비밀번호 확인" })}
-            placeholder="비밀번호를 다시 한번 입력해주세요."
+            labelName={t("form.confirmNewPassword", { defaultMessage: "새 비밀번호 확인" })}
+            placeholder={t("form.confirmPassword", { defaultMessage: "비밀번호를 한번 더 확인해 주세요." })}
             {...register("passwordChk", {
-              validate: (value) => value === password || "동일한 비밀번호가 아닙니다. 다시 확인 후 입력해주세요.",
+              validate: (value) => value === password || validationT("passwordsDoNotMatch", { defaultMessage: "동일한 비밀번호가 아닙니다. 다시 확인 후 입력해주세요." }),
             })}
             variant={errors.passwordChk ? "error" : "default"}
             caption={errors.passwordChk ? errors.passwordChk.message : ""}
@@ -128,13 +131,13 @@ export default function EditPrivacyForm({ closeModal }: TEditPrivacyFormProps) {
         <div>
           <Input
             id="phone"
-            labelName={t("user.phone", { defaultMessage: "휴대폰번호" })}
-            placeholder="-를 제외한 휴대폰번호를 입력해주세요."
+            labelName={t("phone", { defaultMessage: "휴대폰번호" })}
+            placeholder={t("form.enterPhone", { defaultMessage: "-를 제외한 휴대폰번호를 입력해주세요." })}
             {...register("phone", {
-              required: "휴대폰 번호를 입력해주세요.",
+              required: validationT("enterPhoneNumber", { defaultMessage: "휴대폰 번호를 입력해주세요." }),
               validate: {
-                containsHyphen: (value) => !/-/.test(value) || "-를 제외한 휴대폰번호를 입력해주세요.",
-                correctLength: (value) => /^\d{10,11}$/.test(value) || "유효한 휴대폰 번호를 입력해주세요.",
+                containsHyphen: (value) => !/-/.test(value) || t("form.enterPhone", { defaultMessage: "-를 제외한 휴대폰번호를 입력해주세요." }),
+                correctLength: (value) => /^\d{10,11}$/.test(value) || validationT("enterValidPhoneNumber", { defaultMessage: "유효한 휴대폰 번호를 입력해주세요." }),
               },
             })}
             variant={errors.phone ? "error" : "default"}
@@ -145,15 +148,15 @@ export default function EditPrivacyForm({ closeModal }: TEditPrivacyFormProps) {
         <div>
           <Input
             id="birth"
-            labelName={t("user.birth", { defaultMessage: "생년월일" })}
-            placeholder="생년월일 6자리를 입력해주세요.(예시 : 991231)"
+            labelName={t("birth", { defaultMessage: "생년월일" })}
+            placeholder={t("form.enterBirth", { defaultMessage: "생년월일 6자리를 입력해주세요.(예시: 991231)" })}
             {...register("birth", {
-              required: "생년월일을 입력해주세요.",
+              required: validationT("enterBirthDate", { defaultMessage: "생년월일을 입력해주세요." }),
               validate: {
-                correctLength: (value) => value.length === 6 || "생년월일은 반드시 6자리 숫자여야 합니다.",
+                correctLength: (value) => value.length === 6 || validationT("birthSixDigits", { defaultMessage: "생년월일은 6자리여야 합니다." }),
                 validFormat: (value) =>
                   /^[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01])$/.test(value) ||
-                  "생년월일 형식이 올바르지 않습니다.",
+                  validationT("invalidDate", { defaultMessage: "유효하지 않은 날짜입니다." }),
               },
             })}
             variant={errors.birth ? "error" : "default"}
@@ -168,7 +171,7 @@ export default function EditPrivacyForm({ closeModal }: TEditPrivacyFormProps) {
           className={cn(`mt-[4rem] ${formValid ? "text-white" : "text-gray-300"}`)}
           disabled={!formValid}
         >
-          {t("user.form.edit", { defaultMessage: "수정하기" })}
+          {t("form.edit", { defaultMessage: "수정하기" })}
         </Button>
       </form>
 

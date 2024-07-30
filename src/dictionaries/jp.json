@@ -314,28 +314,7 @@
     "preferOtherService": "他のサービスの方が良い",
     "lowUsage": "使用頻度が低い",
     "contentDissatisfaction": "コンテンツに不満",
-    "otherReason": "その他",
-    "popup": {
-      "codeMismatch": "認証コードが一致しません。",
-      "checkCode": "認証コードを再確認してください。",
-      "verificationIssue": "認証中にエラーが発生しました。",
-      "unknownIssue": "不明なエラーが発生しました。再試行してください。",
-      "processingWithdrawal": "退会処理中...",
-      "passwordFail": "パスワード検証に失敗しました",
-      "profileFail": "プロファイル更新に失敗しました",
-      "profileSuccess": "プロファイルが更新されました",
-      "imageFail": "画像処理に失敗しました",
-      "retryLater": "後ほど再試行してください",
-      "nicknameCheckFail": "ニックネームの重複チェックに失敗しました",
-      "nicknameUnavailable": "使用できないニックネームです",
-      "imageSizeExceed": "1MB以下の画像ファイルのみアップロード可能です",
-      "confirmLangChange": "言語設定を変更しますか？",
-      "change": "変更",
-      "cancel": "キャンセル",
-      "confirm": "確認",
-      "passwordAuthFail": "パスワード認証に失敗しました",
-      "checkPassword": "パスワードを再確認してください"
-    }
+    "otherReason": "その他"
   },
   "lang": {
     "korean": "韓国語",
@@ -374,14 +353,184 @@
       "selectWithdrawalReason": "退会理由を選択してください",
       "enterOtherReason": "その他の理由を入力してください",
       "otherReason": "その他の理由",
-      "passwordPlaceholder": "パスワードを入力してください",
+      "passwordLabel": "パスワードを入力してください",
       "enterCode": "認証コードを入力してください",
       "promptCode": "認証コードを入力してください",
       "newPassword": "新しいパスワードを入力してください",
       "confirmPassword": "パスワードをもう一度確認してください",
       "enterPhone": "ハイフンなしで携帯番号を入力してください",
-      "enterBirth": "生年月日6桁を入力してください(例 : 991231)"
+      "enterBirth": "生年月日6桁を入力してください(例: 991231)"
+    },
+    "popup": {
+      "codeMismatch": "認証コードが一致しません。",
+      "checkCode": "認証コードを再確認してください。",
+      "verificationIssue": "認証中にエラーが発生しました。",
+      "unknownIssue": "不明なエラーが発生しました。再試行してください。",
+      "processingWithdrawal": "退会処理中...",
+      "passwordFail": "パスワード検証に失敗しました",
+      "profileFail": "プロファイル更新に失敗しました",
+      "profileSuccess": "プロファイルが更新されました",
+      "imageFail": "画像処理に失敗しました",
+      "retryLater": "後ほど再試行してください",
+      "nicknameCheckFail": "ニックネームの重複チェックに失敗しました",
+      "nicknameUnavailable": "使用できないニックネームです",
+      "imageSizeExceed": "1MB以下の画像ファイルのみアップロード可能です",
+      "confirmLangChange": "言語設定を変更しますか？",
+      "passwordAuthFail": "パスワード認証に失敗しました",
+      "checkPassword": "パスワードを再確認してください",
+      "accountDeletionError": "アカウント削除中にエラーが発生しました。",
+      "passwordValidationFail": "パスワード検証に失敗しました。",
+      "deletionProcessError": "会員脱退処理中にエラーが発生しました。",
+      "deletionSuccess": "会員脱退が成功しました。",
+      "authCodeExpired": "認証コードが期限切れです。",
+      "requestAuthCode": "認証コードを再リクエストしてください。",
+      "emailVerificationInProgress": "メール認証中...",
+      "authCodeSent": "認証コードをメールに送信しました。",
+      "continueSignup": "メール確認後、登録を続行してください。",
+      "emailAuthFail": "メール認証に失敗しました。",
+      "retryEmailCheck": "メールを確認後、再試行してください。",
+      "authCodeMismatch": "認証コードが一致しません。",
+      "checkAuthCode": "認証コードを再確認してください。",
+      "languageChangeFail": "言語変更に失敗しました。",
+      "languageChanged": "言語が変更されました。",
+      "languageSettingError": "言語設定中にエラーが発生しました。",
+      "errorDuringWithdrawal": "メンバー退会処理中にエラーが発生しました。",
+      "errorDuringLoginWithdrawal": "ログインメンバー退会中にエラーが発生しました。",
+      "memberInfoUpdated": "会員情報が更新されました。",
+      "errorDuringMemberInfoUpdate": "会員情報の更新中にエラーが発生しました。",
+      "tryAgain": "もう一度試してください。",
+      "passwordAuthError": "パスワード認証中にエラーが発生しました。",
+      "verificationCodeSent": "記入されたメールアドレスに認証コードを送信しました。",
+      "emailAuthError": "メール認証中にエラーが発生しました。",
+      "verificationCodeCheckError": "認証コードの確認中にエラーが発生しました。"
     }
+  },
+  "validation": {
+    "noNumbersOrSymbols": "数字や特殊記号を含めることはできません。",
+    "invalidEmailFormat": "有効なメールアドレス形式ではありません。",
+    "enterValidPhoneNumber": "有効な電話番号を入力してください。",
+    "enterPhoneNumber": "電話番号を入力してください",
+    "passwordsDoNotMatch": "パスワードが一致しません。もう一度確認してください。",
+    "passwordRequirements": "8〜20文字の数字、特殊文字、アルファベットを2種類以上組み合わせてください。",
+    "invalidSpecialCharacters": "'_'、'-'を除く特殊文字は使用できません。",
+    "enterPassword": "パスワードを入力してください。",
+    "birthSixDigits": "生年月日は6桁でなければなりません。",
+    "invalidDate": "無効な日付です。",
+    "selectInterest": "興味のある項目を選択してください。",
+    "minPasswordLength": "パスワードは最低8文字必要です。",
+    "maxPasswordLength": "パスワードは最大16文字までです。",
+    "passwordCharRequirements": "パスワードは、数字、アルファベット、特殊文字をすべて含める必要があります。",
+    "nicknameUnavailable": "使用できないニックネームです。",
+    "nicknameAvailable": "このニックネームは使用できます。",
+    "enterBirthDate": "生年月日を入力してください。"
+  },
+  "withdraw": {
+    "withdrawComplete": "会員脱退が完了しました。",
+    "thankYouPartOne": "AightNowをご利用いただきありがとうございます。",
+    "thankYouPartTwo": "さらに努力して進化するAightNowになります。"
+  },
+  "investPropensity": {
+    "title": "投資性向診断",
+    "description": "お客様の投資性向と目的に合った商品をご案内いたします。",
+    "query": {
+      "question1": {
+        "questionText": "投資予定の資金の投資可能期間はどのくらいですか？",
+        "option1": "6ヶ月以内",
+        "option2": "6ヶ月から1年以内",
+        "option3": "1年から2年以内",
+        "option4": "2年から3年以内",
+        "option5": "3年以上"
+      },
+      "question2": {
+        "questionText": "金融商品への投資に対する自己評価はどの程度ですか？",
+        "option1": "[非常に低い] 金融投資商品に投資した経験がない",
+        "option2": "[低い] よく知られている金融投資商品（株、債券、ファンドなど）の構造やリスクをある程度理解している",
+        "option3": "[高い] 投資可能なほとんどの金融商品の違いを区別できる",
+        "option4": "[非常に高い] 金融商品を含むすべての投資対象商品の違いを理解している"
+      },
+      "question3": {
+        "questionText": "現在投資を考えている資金は、全体の金融資産（不動産を除く）のうちどれくらいの割合を占めていますか？",
+        "option1": "10％以内",
+        "option2": "10％〜20％",
+        "option3": "20％〜30％",
+        "option4": "30％〜40％",
+        "option5": "40％超"
+      },
+      "question4": {
+        "questionText": "現在の投資資金に対して期待する利益と許容できる損失のレベルはどれくらいですか？",
+        "option1": "期待するリターンが高ければリスクを取ることができる",
+        "option2": "期待するリターンが得られれば20％未満の損失を許容できる",
+        "option3": "一定のリターンを期待できるなら10％未満の損失を許容できる",
+        "option4": "どんな事態でも投資元本は保全されなければならない"
+      },
+      "question5": {
+        "questionText": "次のうち、あなたの投資経験に最も近いものはどれですか？（複数選択可能）",
+        "option1": "安定型商品 - 銀行預金/貯蓄、国債、地方債、保証債、MMF、CMAなど",
+        "option2": "安定追求型商品 - 金融債、信用格付けの高い企業債、債券型ファンド、元本保証型ELSなど",
+        "option3": "リスク中立型商品 - 信用格付けが中間の企業債、一部元本保証型ELS、混合型ファンドなど",
+        "option4": "積極投資型商品 - 信用格付けの低い企業債、株式、元本非保証型ELS、市場収益率を目指す株式型ファンドなど",
+        "option5": "攻撃的投資型商品 - ELW、先物オプション、市場収益率以上のリターンを目指す株式型ファンド、デリバティブに投資するファンド、株式信用取引など",
+        "option6": "なし"
+      }
+    },
+    "agree": {
+      "title": "個人（クレジット）情報収集利用同意書（金融取引設定用）",
+      "introduction": "イーグルファイブブラザーズ株式会社は、「個人情報保護法」、「信用情報の利用及び保護に関する法律」など関連法規に従い、以下の事項をお客様にご案内し、ご同意を求めます。",
+      "sectionTitles": {
+        "infoCollectionUse": "個人（クレジット）情報の収集・利用に関する事項",
+        "infoInquiry": "個人（クレジット）情報照会に関する事項",
+        "uniqueIdHandling": "固有識別情報の取り扱いに関する事項",
+        "agree": "本人は、貴社が本人の固有識別情報を以下のように処理することに同意します。"
+      },
+      "infoCollectionUse": {
+        "purpose": "■ （金融）契約の締結・維持・履行・管理・改善\n■ 法令上の義務遵守（実名確認、特定金融取引の報告、不公正取引の防止、適合性の確認、海外税務義務者の報告など）\n■ 金融事故防止（本人確認、異常金融取引の検出など）争議・苦情処理などの事故調査\n■ 統計、リスク管理、顧客サービスの品質向上",
+        "items": "■ 個人識別情報：氏名、固有識別情報（外国人の場合は生年月日、性別を含む）、住所、連絡先、職業、国籍、CI、電子メール\n■ 取引媒体関連情報：ID、媒体種別、IPアドレス、MACアドレスなどの媒体識別情報、アクセス媒体情報など\n■ 顧客確認情報（CDD/EDD）：取引目的、予想取引、代理人・依頼人など特別関係者情報など\n■ 金融取引情報：商品及びサービスの種類、取引条件・時期・金額などの取引設定詳細、その他生成情報など\n■ 代理人の場合：代理人の氏名、固有識別情報（外国人の場合は生年月日、性別を含む）、職業、国籍、連絡先、本人との関係など\n■ 海外納税義務者情報\n■ US FATCA：英文名、英文住所、アメリカ納税者番号、アメリカ市民権の有無（市民権者、永住権者、税法上の居住者）\n■ UN CRS：英文名、英文住所、納税義務国（アメリカ除外）、（選択）納税者番号",
+        "retentionPeriod": "取引終了日から5年間（ただし、金融事故調査、紛争解決、苦情処理、資本市場法（10年以上保存）などの法令上の義務を遵守する場合は別途保存）"
+      },
+      "infoInquiryDetails": {
+        "consentStatement": "※ 当社が信用情報集中機関または信用調査会社を通じてお客様の個人信用情報を照会した記録は他の金融機関等に提供される可能性があり、お客様の信用評価が下がる可能性があります",
+        "agree": "以下のように個人信用情報の照会に同意します。",
+        "agency": "■ 信用情報集中機関（信用情報院）、信用調査会社（ナイス評価情報）",
+        "purpose": "■ 本契約（本契約前に発生した取引情報を含む）の契約維持及び事後管理、ローン・クレジットカードなどの金融取引設定の可否決定、信用関連統計モデルの開発及び分析、本人要求、その他の金融取引関連業務など",
+        "content": "■ 個人識別情報、信用取引情報、延滞等の債務不履行情報、職業・財産などの信用能力情報、公共機関保有情報、信用評価及びスコア、他機関の信用情報照会記録、本人認証情報など",
+        "validityPeriod": "■ 上記の同意は本契約が終了するまで有効であり、契約更新などで変更があっても有効ですが、本人が申請した金融取引が当社によって拒否された場合はその時点まで有効です。ただし、本契約前に発生した信用取引情報がある場合は、既存契約が終了するまで有効です。"
+      },
+      "uniqueIdHandlingDetails": {
+        "purpose": "■ 信用契約のための信用情報の照会・提供など商品契約の締結・維持・履行・管理・改善、本人確認、法律上の義務の遵守、金融事故調査、紛争・苦情処理",
+        "items": "■ 住民登録番号、パスポート番号、運転免許番号、外国人登録番号、国内居住報告番号",
+        "remark": "■ 受領者及び（受領者の）保有使用期間は、収集・使用同意書の内容と同じです"
+      },
+      "additionalInfo": {
+        "understanding": "※ 本人は（信用）情報の収集・使用・提供に関する顧客権利案内の内容を十分に理解しました。",
+        "refusalConsequences": "同意を拒否する場合の案内：\nお客様は個人（クレジット）情報の収集・使用に同意する権利を拒否することができます。ただし、この同意は口座開設や商品契約・締結・履行などのために必要な同意であるため、同意を拒否した場合、口座開設や商品契約・締結・履行ができなくなります。",
+        "privacyPolicy": "※ 個人情報処理方針（または信用情報利用体制の公開）は当社のインターネットホームページを通じて公開されるため、詳細はホームページで確認できます。",
+        "minorPolicy": "※ お客様が14歳未満の場合は、法定代理人（親などの親権者、後見人など）のみが同意できます。",
+        "agentPolicy": "※ 同意者が代理人の場合、名義人が代理人に選択同意書の同意などを明確に委任していない限り、代理人は名義人の必要な同意書にのみ同意することができます。",
+        "terminationDate": "※ 本同意書で言及された取引終了日は、お客様が保有するすべての口座の積極的な閉鎖およびすべての製品の契約解除が行われる時点を指します。",
+        "accountDeletion": "※ 口座開設が7日以内に完了しない場合、口座開設プロセス中に収集されたすべての情報が削除されます。"
+      },
+      "td": {
+        "collectionPurpose": "収集・利用目的",
+        "items": "項目",
+        "retentionPeriod": "保持及び利用期間",
+        "inquiryAgency": "照会機関",
+        "inquiryPurpose": "照会目的",
+        "inquiryContent": "照会内容",
+        "validityPeriod": "有効期間",
+        "processingPurpose": "処理目的",
+        "processingItems": "処理項目",
+        "note": "備考"
+      }
+    }
+  },
+  "button": {
+    "change": "変更",
+    "cancel": "キャンセル",
+    "confirm": "確認",
+    "modify": "修正",
+    "register": "登録",
+    "submit": "提出する",
+    "agree": "同意する。"
   },
   "myStock": {
     "userTitle": "さんの関心銘柄",

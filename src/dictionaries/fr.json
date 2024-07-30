@@ -314,28 +314,7 @@
     "preferOtherService": "Préférer un autre service",
     "lowUsage": "Fréquence d'utilisation faible",
     "contentDissatisfaction": "Insatisfaction concernant le contenu",
-    "otherReason": "Autre",
-    "popup": {
-      "codeMismatch": "Le code de vérification ne correspond pas.",
-      "checkCode": "Veuillez vérifier à nouveau le code de vérification.",
-      "verificationIssue": "Un problème est survenu lors de la vérification.",
-      "unknownIssue": "Une erreur inconnue est survenue. Veuillez réessayer.",
-      "processingWithdrawal": "Traitement du retrait en cours...",
-      "passwordFail": "Échec de la validation du mot de passe",
-      "profileFail": "Échec de la mise à jour du profil",
-      "profileSuccess": "Le profil a été mis à jour",
-      "imageFail": "Échec du traitement de l'image",
-      "retryLater": "Veuillez réessayer plus tard",
-      "nicknameCheckFail": "Échec de la vérification du surnom",
-      "nicknameUnavailable": "Surnom indisponible",
-      "imageSizeExceed": "Seuls les fichiers d'images jusqu'à 1MB peuvent être téléchargés",
-      "confirmLangChange": "Souhaitez-vous modifier les paramètres de langue ?",
-      "change": "Modifier",
-      "cancel": "Annuler",
-      "confirm": "Confirmer",
-      "passwordAuthFail": "Échec de l'authentification par mot de passe",
-      "checkPassword": "Veuillez vérifier votre mot de passe à nouveau"
-    }
+    "otherReason": "Autre"
   },
   "lang": {
     "korean": "Coréen",
@@ -374,14 +353,184 @@
       "selectWithdrawalReason": "Sélectionnez la raison du retrait",
       "enterOtherReason": "Entrez une autre raison",
       "otherReason": "Autre Raison",
-      "passwordPlaceholder": "Entrez le Mot de Passe",
+      "passwordLabel": "Entrez le Mot de Passe",
       "enterCode": "Entrez le Code de Vérification",
       "promptCode": "Veuillez Entrer le Code de Vérification",
       "newPassword": "Veuillez Entrer un Nouveau Mot de Passe",
       "confirmPassword": "Veuillez Confirmer Votre Mot de Passe",
       "enterPhone": "Entrez le Numéro de Téléphone Sans Tirets",
-      "enterBirth": "Entrez la Date de Naissance en 6 Chiffres (Exemple : 991231)"
+      "enterBirth": "Entrez la Date de Naissance en 6 Chiffres (Exemple: 991231)"
+    },
+    "popup": {
+      "codeMismatch": "Le code de vérification ne correspond pas.",
+      "checkCode": "Veuillez vérifier à nouveau le code de vérification.",
+      "verificationIssue": "Un problème est survenu lors de la vérification.",
+      "unknownIssue": "Une erreur inconnue est survenue. Veuillez réessayer.",
+      "processingWithdrawal": "Traitement du retrait en cours...",
+      "passwordFail": "Échec de la validation du mot de passe",
+      "profileFail": "Échec de la mise à jour du profil",
+      "profileSuccess": "Le profil a été mis à jour",
+      "imageFail": "Échec du traitement de l'image",
+      "retryLater": "Veuillez réessayer plus tard",
+      "nicknameCheckFail": "Échec de la vérification du surnom",
+      "nicknameUnavailable": "Surnom indisponible",
+      "imageSizeExceed": "Seuls les fichiers d'images jusqu'à 1MB peuvent être téléchargés",
+      "confirmLangChange": "Souhaitez-vous modifier les paramètres de langue ?",
+      "passwordAuthFail": "Échec de l'authentification par mot de passe",
+      "checkPassword": "Veuillez vérifier votre mot de passe à nouveau",
+      "accountDeletionError": "Une erreur s'est produite lors de la suppression du compte.",
+      "passwordValidationFail": "Échec de la validation du mot de passe.",
+      "deletionProcessError": "Une erreur s'est produite lors du processus de suppression.",
+      "deletionSuccess": "La suppression du compte a été traitée avec succès.",
+      "authCodeExpired": "Le code d'authentification a expiré.",
+      "requestAuthCode": "Veuillez demander un nouveau code d'authentification.",
+      "emailVerificationInProgress": "Vérification de l'e-mail en cours...",
+      "authCodeSent": "Un code d'authentification a été envoyé à votre e-mail.",
+      "continueSignup": "Veuillez continuer votre inscription après avoir vérifié votre e-mail.",
+      "emailAuthFail": "L'authentification par e-mail a échoué.",
+      "retryEmailCheck": "Veuillez réessayer après avoir vérifié votre e-mail.",
+      "authCodeMismatch": "Le code d'authentification ne correspond pas.",
+      "checkAuthCode": "Veuillez vérifier à nouveau le code d'authentification.",
+      "languageChangeFail": "Échec du changement de langue.",
+      "languageChanged": "La langue a été modifiée.",
+      "languageSettingError": "Une erreur s'est produite lors du réglage de la langue.",
+      "errorDuringWithdrawal": "Une erreur s'est produite lors du processus de retrait du membre.",
+      "errorDuringLoginWithdrawal": "Une erreur s'est produite lors du retrait du membre connecté.",
+      "memberInfoUpdated": "Les informations du membre ont été mises à jour.",
+      "errorDuringMemberInfoUpdate": "Une erreur s'est produite lors de la mise à jour des informations du membre.",
+      "tryAgain": "Veuillez réessayer.",
+      "passwordAuthError": "Une erreur est survenue lors du processus d'authentification par mot de passe.",
+      "verificationCodeSent": "Un code de vérification a été envoyé à votre adresse e-mail.",
+      "emailAuthError": "Une erreur est survenue lors du processus de vérification de l'e-mail.",
+      "verificationCodeCheckError": "Une erreur est survenue lors de la vérification du code de vérification."
     }
+  },
+  "validation": {
+    "noNumbersOrSymbols": "Les chiffres et les symboles spéciaux ne sont pas autorisés.",
+    "invalidEmailFormat": "Format d'email invalide.",
+    "enterValidPhoneNumber": "Veuillez saisir un numéro de téléphone valide.",
+    "enterPhoneNumber": "Veuillez saisir un numéro de téléphone.",
+    "passwordsDoNotMatch": "Les mots de passe ne correspondent pas. Veuillez vérifier et réessayer.",
+    "passwordRequirements": "8-20 caractères incluant au moins deux des éléments suivants : chiffres, caractères spéciaux ou lettres.",
+    "invalidSpecialCharacters": "Les caractères spéciaux autres que '_' et '-' ne sont pas autorisés.",
+    "enterPassword": "Veuillez saisir un mot de passe.",
+    "birthSixDigits": "La date de naissance doit comporter six chiffres.",
+    "invalidDate": "Date invalide.",
+    "selectInterest": "Veuillez sélectionner un sujet d'intérêt.",
+    "minPasswordLength": "Le mot de passe doit avoir au moins 8 caractères.",
+    "maxPasswordLength": "Le mot de passe peut contenir jusqu'à 16 caractères.",
+    "passwordCharRequirements": "Le mot de passe doit inclure des chiffres, des lettres et des caractères spéciaux.",
+    "nicknameUnavailable": "Ce pseudo n'est pas disponible.",
+    "nicknameAvailable": "Ce pseudo est disponible.",
+    "enterBirthDate": "Veuillez entrer votre date de naissance."
+  },
+  "withdraw": {
+    "withdrawComplete": "Désinscription terminée.",
+    "thankYouPartOne": "Merci d'avoir utilisé AightNow.",
+    "thankYouPartTwo": "Nous continuerons à nous efforcer et à évoluer."
+  },
+  "investPropensity": {
+    "title": "Diagnostic de Propension à l'Investissement",
+    "description": "Nous vous guiderons vers des produits adaptés à votre propension à investir et à vos objectifs.",
+    "query": {
+      "question1": {
+        "questionText": "Quelle est la durée pendant laquelle vous prévoyez d'investir les fonds ?",
+        "option1": "Moins de 6 mois",
+        "option2": "De 6 mois à 1 an",
+        "option3": "De 1 à 2 ans",
+        "option4": "De 2 à 3 ans",
+        "option5": "Plus de 3 ans"
+      },
+      "question2": {
+        "questionText": "Comment évaluez-vous votre niveau d'expérience avec les produits financiers ?",
+        "option1": "[Très faible] Aucune expérience d'investissement dans des produits financiers",
+        "option2": "[Faible] Une certaine compréhension de la structure et des risques des produits financiers bien connus (actions, obligations et fonds)",
+        "option3": "[Élevé] Capable de distinguer la plupart des produits financiers disponibles pour l'investissement",
+        "option4": "[Très élevé] Comprend les différences entre tous les produits d'investissement, y compris les produits financiers"
+      },
+      "question3": {
+        "questionText": "Quelle proportion de vos actifs financiers totaux (hors immobilier) le capital d'investissement actuel représente-t-il ?",
+        "option1": "Moins de 10%",
+        "option2": "De 10% à 20%",
+        "option3": "De 20% à 30%",
+        "option4": "De 30% à 40%",
+        "option5": "Plus de 40%"
+      },
+      "question4": {
+        "questionText": "Quel niveau de rendement attendez-vous de votre capital d'investissement actuel et quel niveau de perte pouvez-vous tolérer ?",
+        "option1": "Prêt à prendre des risques si les rendements attendus sont élevés",
+        "option2": "Peut tolérer des pertes jusqu'à 20% si les rendements attendus sont atteints",
+        "option3": "Peut tolérer des pertes jusqu'à 10% si un certain niveau de rendement est attendu",
+        "option4": "Le capital investi doit être préservé quelles que soient les circonstances"
+      },
+      "question5": {
+        "questionText": "Lequel des éléments suivants correspond le plus à votre expérience d'investissement ? (Sélection multiple possible)",
+        "option1": "Produits conservateurs - dépôts bancaires/épargne, obligations gouvernementales, obligations municipales, obligations garanties, MMF, CMA, etc.",
+        "option2": "Produits à la recherche de sécurité - obligations financières, obligations d'entreprises à haute notation, fonds obligataires, ELS à capital garanti, etc.",
+        "option3": "Produits neutres au risque - obligations d'entreprises de notation moyenne, ELS partiellement garantis, fonds mixtes, etc.",
+        "option4": "Produits d'investissement actifs - obligations d'entreprises à faible notation, actions, ELS non garantis, fonds d'actions visant les rendements du marché, etc.",
+        "option5": "Produits d'investissement agressifs - ELW, options sur futures, fonds d'actions cherchant des rendements supérieurs au marché, fonds investissant dans des produits dérivés, trading sur marge, etc.",
+        "option6": "Aucun"
+      }
+    },
+    "agree": {
+      "title": "Formulaire de consentement pour la collecte et l'utilisation des informations personnelles (crédit) (Pour les transactions financières)",
+      "introduction": "Eagle Five Brothers Co., Ltd. adhère à la 'Loi sur la protection des informations personnelles', 'Loi sur l'utilisation et la protection des informations de crédit', et autres réglementations légales connexes pour vous informer des points suivants et obtenir votre consentement.",
+      "sectionTitles": {
+        "infoCollectionUse": "Collecte et utilisation des informations personnelles (crédit)",
+        "infoInquiry": "Demande d'informations personnelles (crédit)",
+        "uniqueIdHandling": "Gestion des informations d'identifiant unique",
+        "agree": "Je suis d'accord pour que votre entreprise traite mes informations d'identification uniques de la manière suivante."
+      },
+      "infoCollectionUse": {
+        "purpose": "■ Conclusion, maintenance, exécution, gestion et amélioration des contrats (financiers)\n■ Conformité aux obligations légales (vérification de l'identité réelle, déclaration des transactions financières spécifiques, prévention des transactions déloyales, vérification de la conformité, rapport des obligations fiscales à l'étranger, etc.)\n■ Prévention des accidents financiers (vérification de l'identité, détection des transactions financières anormales, etc.), gestion des litiges et des réclamations, enquêtes sur les accidents\n■ Statistiques, gestion des risques et amélioration de la qualité du service client",
+        "items": "■ Informations d'identification personnelle : Nom, informations d'identification uniques (y compris la date de naissance et le sexe pour les étrangers), adresse, informations de contact, profession, nationalité, CI, email\n■ Informations liées au support de transaction : ID, type de support, adresse IP, adresse MAC, et autres informations d'identification du support, informations sur le support d'accès, etc.\n■ Informations de vérification du client (CDD/EDD) : But de la transaction, transactions attendues, informations sur les agents/clients et autres relations spéciales, etc.\n■ Informations sur les transactions financières : Type de produits et services, conditions/temporisation/montant des transactions et autres détails de configuration des transactions, etc.\n■ Dans le cas des agents : Nom, informations d'identification uniques (y compris la date de naissance et le sexe pour les étrangers), profession, nationalité, informations de contact, relation avec le principal, etc.\n■ Informations sur les obligations fiscales à l'étranger\n■ US FATCA : Nom en anglais, adresse en anglais, numéro de contribuable américain, statut de citoyenneté américaine (citoyen, résident permanent, résident fiscal)\n■ UN CRS : Nom en anglais, adresse en anglais, pays d'obligation fiscale (hors États-Unis), (optionnel) numéro de contribuable",
+        "retentionPeriod": "Cinq ans à partir de la date de fin de la transaction (toutefois, pour les enquêtes sur les accidents financiers, la résolution des litiges, la gestion des plaintes, la conformité avec la loi sur le marché des capitaux (plus de 10 ans), etc., elles sont stockées séparément)"
+      },
+      "infoInquiryDetails": {
+        "consentStatement": "※ Les enregistrements de notre entreprise demandant vos informations de crédit personnelles via un centre d'information de crédit ou une entreprise d'enquête de crédit peuvent être fournis à d'autres institutions financières, et peuvent entraîner une diminution de votre cote de crédit.",
+        "agree": "Je consens à demander mes informations de crédit personnelles comme suit.",
+        "agency": "■ Centre d'information de crédit (Institut d'information de crédit), Société d'enquête de crédit (Information d'évaluation NICE)",
+        "purpose": "■ Maintenance et gestion post-contrat (y compris les informations sur les transactions antérieures à ce contrat), décision sur la mise en place de transactions financières telles que les prêts et les cartes de crédit, développement et analyse de modèles statistiques liés au crédit, demandes personnelles, et autres tâches liées aux transactions financières",
+        "content": "■ Informations d'identification personnelle, informations sur les transactions de crédit, informations sur les retards de paiement et autres non-respects de dettes, informations sur les capacités de crédit liées à l'emploi et à la propriété, informations détenues par les institutions publiques, cote de crédit et score, enregistrements de demandes d'informations de crédit par d'autres institutions, informations d'authentification personnelle, etc.",
+        "validityPeriod": "■ Le consentement reste valable jusqu'à la fin de ce contrat et reste valable même si des modifications surviennent en raison du renouvellement du contrat, etc., mais est valable uniquement jusqu'au point si la transaction financière que j'ai demandée est rejetée par votre entreprise. Cependant, s'il existe des informations sur les transactions de crédit existantes avant ce contrat, elles restent valables jusqu'à la fin du contrat existant"
+      },
+      "uniqueIdHandlingDetails": {
+        "purpose": "■ Pour les contrats d'accord de crédit, enquête et fourniture d'informations de crédit, etc., conclusion, maintenance, exécution, gestion, et amélioration des contrats de produits, vérification personnelle, conformité aux obligations légales, enquête sur les accidents financiers, gestion des litiges et des réclamations",
+        "items": "■ Numéro de sécurité sociale, numéro de passeport, numéro de permis de conduire, numéro d'enregistrement étranger, numéro de rapport de résidence domestique",
+        "remark": "■ Le destinataire et (la période de rétention et d'utilisation du destinataire) sont les mêmes que ceux indiqués dans le formulaire de consentement de collecte et d'utilisation"
+      },
+      "additionalInfo": {
+        "understanding": "※ J'ai pleinement compris le contenu des informations sur les droits des clients concernant la collecte, l'utilisation et la fourniture d'informations (crédit).",
+        "refusalConsequences": "Instructions pour refuser le consentement :\nVous avez le droit de refuser votre consentement pour la collecte et l'utilisation d'informations personnelles (crédit). Cependant, ce consentement étant essentiel pour l'ouverture de compte ou les contrats de produits, sa conclusion et son exécution, le refus du consentement rendra impossible l'ouverture de comptes ou la conclusion et l'exécution de contrats de produits.",
+        "privacyPolicy": "※ La politique de traitement des informations personnelles (ou la divulgation du système d'information de crédit) est divulguée via la page d'accueil Internet de notre entreprise, vous pouvez donc vérifier les détails sur la page d'accueil.",
+        "minorPolicy": "※ Si le client a moins de 14 ans, seul un représentant légal (tel que les parents, les tuteurs) peut donner son consentement.",
+        "agentPolicy": "※ Si le consenteur est un agent, à moins que le principal n'ait explicitement délégué le consentement du formulaire de consentement de sélection à l'agent, l'agent ne peut consentir qu'au formulaire de consentement essentiel du principal.",
+        "terminationDate": "※ La date de fin de transaction mentionnée dans ce formulaire de consentement fait référence au moment où tous les comptes détenus par le client sont activement fermés et tous les contrats pour les produits sont résiliés.",
+        "accountDeletion": "※ Si l'ouverture de compte n'est pas complétée dans les 7 jours, toutes les informations collectées pendant le processus d'ouverture de compte seront supprimées."
+      },
+      "td": {
+        "collectionPurpose": "Objectif de la collecte et de l'utilisation",
+        "items": "Éléments",
+        "retentionPeriod": "Période de conservation et d'utilisation",
+        "inquiryAgency": "Organisme de consultation",
+        "inquiryPurpose": "But de la consultation",
+        "inquiryContent": "Contenu de la consultation",
+        "validityPeriod": "Période de validité",
+        "processingPurpose": "Objectif du traitement",
+        "processingItems": "Éléments de traitement",
+        "note": "Remarque"
+      }
+    }
+  },
+  "button": {
+    "change": "Modifier",
+    "cancel": "Annuler",
+    "confirm": "Confirmer",
+    "modify": "Modifier",
+    "register": "Enregistrer",
+    "submit": "Soumettre",
+    "agree": "Je suis d'accord."
   },
   "myStock": {
     "userTitle": "Les favoris de",
