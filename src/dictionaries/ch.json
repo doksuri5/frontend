@@ -272,7 +272,9 @@
     "growth": "成长性",
     "interestLevel": "关注度",
     "delete": "删除",
-    "viewDetails": "查看详情"
+    "viewDetails": "查看详情",
+    "more": "更多",
+    "less": "收起"
   },
   "chatBot": {
     "initMessage": "你好！我是NowChatBot。我能帮你什么？",

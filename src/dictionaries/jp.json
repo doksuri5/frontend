@@ -272,7 +272,9 @@
     "growth": "成長性",
     "interestLevel": "関心度",
     "delete": "削除",
-    "viewDetails": "詳細を見る"
+    "viewDetails": "詳細を見る",
+    "more": "もっと見る",
+    "less": "閉じる"
   },
   "chatBot": {
     "initMessage": "こんにちは！私はNowChatBotです。何をお手伝いしましょうか？",

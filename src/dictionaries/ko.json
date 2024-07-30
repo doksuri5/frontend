@@ -269,7 +269,9 @@
     "growth": "성장성",
     "interestLevel": "관심도",
     "delete": "삭제하기",
-    "viewDetails": "자세히 보기"
+    "viewDetails": "자세히 보기",
+    "more": "더보기",
+    "less": "접기"
   },
   "chatBot": {
     "initMessage": "안녕하세요! 나우챗봇입니다. 무엇을 도와드릴까요?",

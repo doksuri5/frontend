@@ -272,7 +272,9 @@
     "growth": "Growth",
     "interestLevel": "Interest Level",
     "delete": "Delete",
-    "viewDetails": "View Details"
+    "viewDetails": "View Details",
+    "more": "More",
+    "less": "Less"
   },
   "chatBot": {
     "initMessage": "Hello! I'm NowChatBot. How can I help you?",
