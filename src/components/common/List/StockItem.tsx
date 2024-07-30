@@ -6,6 +6,7 @@ import { formatValueWithIndicator, formatValueWithSign, getTextColor } from "@/u
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import StockPrice from "../StockPrice";
 
 type TIStockItemProps = StockDataType & {
   iconSize?: number;
@@ -36,8 +37,7 @@ const variantStyles = {
 };
 
 function StockItem({ iconSize = 50, style, variant = "stock", clickNone = false, ...props }: TIStockItemProps) {
-  const { stockName, symbolCode, closePrice, compareToPreviousClosePrice, fluctuationsRatio, reutersCode } = props;
-  const fluctuationPriceColor = getTextColor(compareToPreviousClosePrice);
+  const { stockName, symbolCode, reutersCode } = props;
 
   const selectedVariantStyles = variantStyles[variant];
 
@@ -62,15 +62,7 @@ function StockItem({ iconSize = 50, style, variant = "stock", clickNone = false,
             <h3 className={selectedVariantStyles.stockEngName}>{symbolCode}</h3>
           </div>
         </div>
-        <div>
-          <div className={selectedVariantStyles.currentPrice}>
-            <span>${closePrice}</span>
-          </div>
-          <div className={cn(`${selectedVariantStyles.fluctuation}`)}>
-            <span className={`${fluctuationPriceColor}`}>{formatValueWithIndicator(compareToPreviousClosePrice)}</span>
-            <span className={`${fluctuationPriceColor}`}>{formatValueWithSign(fluctuationsRatio)}%</span>
-          </div>
-        </div>
+        <StockPrice reutersCode={reutersCode} vertical />
       </div>
     </Link>
   );

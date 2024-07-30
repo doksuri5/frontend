@@ -12,7 +12,12 @@ const useStockPrice = (reutersCode: string) => {
     function getStockPrice() {
       const fetchStockPrice = async () => {
         setIsLoading(true);
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/stock/price/${reutersCode}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/stock/price/${reutersCode}`, {
+          next: {
+            revalidate: 3600,
+          },
+        });
+
         if (!response.ok) {
           return console.error("Failed to fetch stock price in StockDetail.tsx");
         }

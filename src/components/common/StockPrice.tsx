@@ -7,15 +7,29 @@ import { formatOnlyIndicator, getTextColor } from "@/utils/stockPriceUtils";
 import { Skeleton } from "./Skeleton";
 import ClientCountUp from "./CountUp";
 
-const StockPrice = ({ reutersCode }: { reutersCode: TReutersCodes }) => {
+const StockPrice = ({ reutersCode, vertical = false }: { reutersCode: TReutersCodes; vertical?: boolean }) => {
   const { stock, loading } = useStockPrice(reutersCode);
 
   if (!stock || stock.closePrice === 0 || loading) {
+    if (vertical) {
+      return (
+        <div className="flex h-[5rem] w-1/4 flex-col items-end gap-2">
+          <Skeleton className="my-[0.4rem] h-[3rem] w-1/2" />
+          <Skeleton className="my-[0.4rem] h-[3rem] w-10/12" />
+        </div>
+      );
+    }
+
     return <Skeleton className="my-[0.4rem] h-[1.2rem] w-3/6" />;
   }
 
   return (
-    <>
+    <div
+      className={cn("flex gap-2", {
+        "flex-col items-end": vertical,
+        "flex-row": !vertical,
+      })}
+    >
       <div className="body_4 font-medium">
         <span>
           $<ClientCountUp preserveValue end={Math.abs(stock?.closePrice)} decimals={2} />
@@ -30,7 +44,7 @@ const StockPrice = ({ reutersCode }: { reutersCode: TReutersCodes }) => {
           <ClientCountUp preserveValue end={Math.abs(stock?.fluctuationsRatio)} decimals={2} />%
         </span>
       </div>
-    </>
+    </div>
   );
 };
 
