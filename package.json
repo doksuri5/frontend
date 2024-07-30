@@ -26,6 +26,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.12",
+    "deepl-node": "^1.13.0",
     "es-hangul": "^1.4.5",
     "lucide-react": "^0.395.0",
     "mongoose": "^8.4.4",
