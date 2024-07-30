@@ -7,6 +7,37 @@
     "login": "Login",
     "logout": "Logout"
   },
+  "metadata": {
+    "root": {
+      "siteName": "AightNow",
+      "title": "AI-based Stock Analysis Platform | AightNow",
+      "description": "A next-generation AI analyst platform that combines real-time U.S. corporate disclosure information with daily news data analysis to provide customized real-time corporate analysis reports for users worldwide in various languages.",
+      "keywords": "stocks, stock analysis, stock analysis, AI, ai, AightNow, overseas stocks, news, stock news",
+      "authors": "Eagle Brothers",
+      "openGraph": {
+        "title": "AI-based Stock Analysis Platform | AightNow",
+        "description": "A next-generation AI analyst platform providing real-time corporate analysis reports.",
+        "siteName": "AightNow",
+        "locale": "en"
+      },
+      "twitter": {
+        "title": "AI-based Stock Analysis Platform | AightNow",
+        "description": "A next-generation AI analyst platform providing real-time corporate analysis reports."
+      }
+    },
+    "news": {
+      "title": "News",
+      "description": "You can check popular news, news related to your favorite stocks, and the latest news.",
+      "openGraph": {
+        "title": "News",
+        "description": "You can check popular news, news related to your favorite stocks, and the latest news."
+      },
+      "twitter": {
+        "title": "News",
+        "description": "You can check popular news, news related to your favorite stocks, and the latest news."
+      }
+    }
+  },
   "auth": {
     "title": {
       "login": "Login",

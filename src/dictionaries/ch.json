@@ -7,6 +7,37 @@
     "login": "登录",
     "logout": "登出"
   },
+  "metadata": {
+    "root": {
+      "siteName": "AightNow",
+      "title": "基于AI的股票分析平台 | AightNow",
+      "description": "下一代AI分析师平台，结合美国企业实时披露信息和每日新闻数据分析，为全球用户提供多种语言的定制实时企业分析报告。",
+      "keywords": "股票, 股票分析, 股票分析, AI, ai, AightNow, 海外股票, 新闻, 股票新闻",
+      "authors": "鹰兄弟",
+      "openGraph": {
+        "title": "基于AI的股票分析平台 | AightNow",
+        "description": "提供实时企业分析报告的下一代AI分析师平台。",
+        "siteName": "AightNow",
+        "locale": "zh"
+      },
+      "twitter": {
+        "title": "基于AI的股票分析平台 | AightNow",
+        "description": "提供实时企业分析报告的下一代AI分析师平台。"
+      }
+    },
+    "news": {
+      "title": "新闻",
+      "description": "您可以查看热门新闻、您关注股票的相关新闻以及最新新闻。",
+      "openGraph": {
+        "title": "新闻",
+        "description": "您可以查看热门新闻、您关注股票的相关新闻以及最新新闻。"
+      },
+      "twitter": {
+        "title": "新闻",
+        "description": "您可以查看热门新闻、您关注股票的相关新闻以及最新新闻。"
+      }
+    }
+  },
   "auth": {
     "title": {
       "login": "登录",

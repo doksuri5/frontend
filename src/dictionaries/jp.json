@@ -7,6 +7,37 @@
     "login": "ログイン",
     "logout": "ログアウト"
   },
+  "metadata": {
+    "root": {
+      "siteName": "AightNow",
+      "title": "AIベースの株式分析プラットフォーム | AightNow",
+      "description": "米国企業のリアルタイム開示情報と日次ニュースデータ分析を組み合わせ、さまざまな言語で世界中のユーザーにカスタマイズされたリアルタイム企業分析レポートを提供する次世代AIアナリストプラットフォーム。",
+      "keywords": "株式, 株式分析, 株式分析, AI, ai, AightNow, 海外株式, ニュース, 株式ニュース",
+      "authors": "イーグルブラザーズ",
+      "openGraph": {
+        "title": "AIベースの株式分析プラットフォーム | AightNow",
+        "description": "リアルタイムの企業分析レポートを提供する次世代AIアナリストプラットフォーム。",
+        "siteName": "AightNow",
+        "locale": "ja"
+      },
+      "twitter": {
+        "title": "AIベースの株式分析プラットフォーム | AightNow",
+        "description": "リアルタイムの企業分析レポートを提供する次世代AIアナリストプラットフォーム。"
+      }
+    },
+    "news": {
+      "title": "ニュース",
+      "description": "人気ニュース、お気に入り銘柄に関するニュース、最新ニュースを確認できます。",
+      "openGraph": {
+        "title": "ニュース",
+        "description": "人気ニュース、お気に入り銘柄に関するニュース、最新ニュースを確認できます。"
+      },
+      "twitter": {
+        "title": "ニュース",
+        "description": "人気ニュース、お気に入り銘柄に関するニュース、最新ニュースを確認できます。"
+      }
+    }
+  },
   "auth": {
     "title": {
       "login": "ログイン",
