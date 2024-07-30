@@ -378,5 +378,31 @@
       "enterPhone": "-를 제외한 휴대폰번호를 입력해주세요.",
       "enterBirth": "생년월일 6자리를 입력해주세요.(예시 : 991231)"
     }
+  },
+  "myStock": {
+    "userTitle": "님의 관심종목",
+    "headerButton": "관심종목 추가",
+    "deleteButton": "삭제하기",
+    "detailView": "자세히 보기",
+    "noneStock": "관심 종목을 추가해주세요.",
+    "alert": {
+      "alertTitle": "관심 종목을 삭제하시겠습니까?",
+      "alertTitleAll": "최근 검색어를 전부 삭제하시겠습니까?",
+      "alertCancleText": "취소"
+    },
+    "modal": {
+      "modalTitle": "관심 종목 추가",
+      "modalInput": "검색어를 입력해주세요.",
+      "modalSearchTitle": "검색 결과",
+      "modalSearchItemDelete": "삭제하기",
+      "modalSearchItemAdd": "추가",
+      "modalRecentSearchTitle": "최근 검색한 종목",
+      "modalAllDeleteText": "전체삭제",
+      "modalPopularTitle": "인기 검색어"
+    }
+  },
+  "searchBox": {
+    "noneStock": "검색 결과가 없습니다.",
+    "informText": "단어의 철자가 정확한지 확인해 주세요."
   }
 }
