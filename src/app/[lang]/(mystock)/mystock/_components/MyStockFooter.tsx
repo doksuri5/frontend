@@ -6,8 +6,11 @@ import { Alert, Button } from "@/components/common";
 import { TReutersCodes } from "@/constants/stockCodes";
 import { REPORT_PATH } from "@/routes/path";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 const MyStockFooter = ({ reutersCode }: { reutersCode: TReutersCodes }) => {
+  const t = useTranslations("myStock");
+
   const [showAlert, setShowAlert] = useState(false);
 
   const handleDeleteClick = () => {
@@ -32,11 +35,11 @@ const MyStockFooter = ({ reutersCode }: { reutersCode: TReutersCodes }) => {
           bgColor="bg-grayscale-200"
           onClick={handleDeleteClick}
         >
-          삭제하기
+          {t("deleteButton")}
         </Button>
         <Link href={`${REPORT_PATH}/${reutersCode}`} className="flex-1">
           <Button variant="textButton" size="md" bgColor="bg-navy-900">
-            자세히 보기
+            {t("detailView")}
           </Button>
         </Link>
       </div>
@@ -45,9 +48,9 @@ const MyStockFooter = ({ reutersCode }: { reutersCode: TReutersCodes }) => {
       {showAlert && (
         <Alert
           variant="fnButton"
-          title="관심 종목을 삭제하시겠습니까?"
-          buttonText="삭제하기"
-          subButtonText="취소"
+          title={t("alert.alertTitle")}
+          buttonText={t("deleteButton")}
+          subButtonText={t("alert.alertCancleText")}
           onClick={() => handleAlertConfirm(reutersCode)}
           onClose={handleAlertClose}
         />

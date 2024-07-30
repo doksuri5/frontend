@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import { Input, Modal, SearchBox } from "@/components/common";
 import {
   MyStockSearchResult,
@@ -8,6 +9,7 @@ import {
   MyStockRecentSearches,
 } from "@/app/[lang]/(mystock)/mystock/_components";
 import { useRecentSearchStore } from "@/stores";
+import { useInterestStockStore } from "../stores";
 import { saveRecentSearch } from "@/actions/stock";
 import { useMyStockStore } from "@/providers/MyStockProvider";
 import useDebouncedSearch from "@/hooks/use-debounced-search";
@@ -19,9 +21,12 @@ type TMyStockModalSection = {
   recentSearchList: StockDataType[];
 };
 const MyStockModalSection = ({ dataList, recentSearchList }: TMyStockModalSection) => {
+  const t = useTranslations("myStock");
+
   const openModal = useMyStockStore((state) => state.openModal);
   const setOpenModal = useMyStockStore((state) => state.setOpenModal);
-  const { stockItemList, setStockItemList, addStockItemList } = useRecentSearchStore();
+  const { searchItemList, setSearchItemList, addSearchItemList } = useRecentSearchStore();
+  const { setStockItemList } = useInterestStockStore();
 
   const [searchText, setSearchText] = useState("");
 
@@ -29,9 +34,10 @@ const MyStockModalSection = ({ dataList, recentSearchList }: TMyStockModalSectio
   const [isVisibleSearchBox, setIsVisibleSearchBox] = useState(false);
 
   useEffect(() => {
-    setStockItemList(recentSearchList);
+    setSearchItemList(recentSearchList);
+    setStockItemList(dataList);
     dataList && dataList.length === 0 && setOpenModal(true);
-  }, [dataList, recentSearchList, setOpenModal, setStockItemList]);
+  }, [dataList, recentSearchList, setOpenModal, setSearchItemList]);
 
   const handleCloseModal = () => {
     setOpenModal(false);
@@ -48,7 +54,7 @@ const MyStockModalSection = ({ dataList, recentSearchList }: TMyStockModalSectio
     if (search.trim() !== "") {
       setSearchText(search);
       const response = await saveRecentSearch({ stockName: search });
-      if (response.ok) addStockItemList({ ...response.data[0] });
+      if (response.ok) addSearchItemList({ ...response.data[0] });
     } else {
       setSearchText("");
     }
@@ -59,7 +65,7 @@ const MyStockModalSection = ({ dataList, recentSearchList }: TMyStockModalSectio
       panelStyle="p-[4rem] rounded-[3.2rem] w-[80rem] min-h-[57rem]"
       isOpen={openModal}
       onClose={handleCloseModal}
-      title="관심 종목 추가"
+      title={t("modal.modalTitle")}
       titleStyle="body_1 text-navy-900"
       closeIcon={true}
     >
@@ -76,7 +82,7 @@ const MyStockModalSection = ({ dataList, recentSearchList }: TMyStockModalSectio
               value={inputValue}
               inputGroupClass="h-[5.6rem]"
               inputClass="text-grayscale-900 h-[5.6rem] rounded-[0.8rem]"
-              placeholder="검색어를 입력해주세요."
+              placeholder={t("modal.modalInput")}
               onChange={(e) => {
                 setInputValue(e.target.value);
                 setIsVisibleSearchBox(true);
@@ -90,7 +96,7 @@ const MyStockModalSection = ({ dataList, recentSearchList }: TMyStockModalSectio
           <MyStockSearchResult search={searchText} /> // 검색 리스트
         ) : (
           <>
-            {stockItemList.length > 0 && <MyStockRecentSearches setSearchText={setSearchText} />}
+            {searchItemList.length > 0 && <MyStockRecentSearches setSearchText={setSearchText} />}
             <MyStockPopularSearches />
           </>
         )}
