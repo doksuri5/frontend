@@ -1,6 +1,9 @@
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 export default function useAlert() {
+  const t = useTranslations("auth");
+
   interface ICustomAlert {
     title: string;
     subText: string;
@@ -11,7 +14,7 @@ export default function useAlert() {
     open: false,
     title: "",
     subText: "",
-    buttonText: "확인",
+    buttonText: t("commonBtn.confirm"),
     onClose: () => {},
   });
 
@@ -20,7 +23,7 @@ export default function useAlert() {
       open: true,
       title,
       subText,
-      buttonText: "확인",
+      buttonText: t("commonBtn.confirm"),
       onClose: () => {
         setAlertInfo((prevState) => ({ ...prevState, open: false }));
         onClose();
