@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import PopularSearchItemDetailSkeleton from "./_skeleton/PopularSearchItemDetailSkeleton";
 import { getPopularSearches } from "@/actions/stock";
@@ -10,13 +11,15 @@ import { StockPopularSearchDataType } from "@/types/StockDataType";
 import { STOCK_NAMES } from "@/constants/stockCodes";
 
 const MyStockPopularSearches = () => {
+  const t = useTranslations("myStock");
+
   const [popularList, setPopularList] = useState<StockPopularSearchDataType[]>([]);
   const [isRender, setIsRender] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
       const res = await getPopularSearches();
-      setPopularList(res.data);
+      if (res.ok) setPopularList(res.data);
     }
 
     try {
@@ -30,9 +33,9 @@ const MyStockPopularSearches = () => {
 
   return (
     <div className="flex flex-col gap-[1.6rem]">
-      <h3 className="body_3 font-medium text-navy-900">인기 검색어</h3>
-      <div className="grid w-full grid-flow-col grid-rows-5 gap-[2.4rem] rounded-[1.6rem] border border-navy-100 p-[2.4rem]">
-        {!isRender ? (
+      <h3 className="body_3 font-medium text-navy-900">{t("modal.modalPopularTitle")}</h3>
+      <div className="grid h-[35rem] w-full grid-flow-col grid-rows-5 gap-[2.4rem] rounded-[1.6rem] border border-navy-100 p-[2.4rem]">
+        {!isRender || popularList.length === 0 ? (
           <>
             {Array.from({ length: 6 }).map((_, idx) => (
               <PopularSearchItemDetailSkeleton key={idx} />

@@ -1,7 +1,11 @@
 import Image from "next/image";
 import CommonLoginBtn from "../(auth)/_components/CommonLoginBtn";
+import { unstable_setRequestLocale } from "next-intl/server";
+import { Locale } from "@/i18n";
 
-export default function HomeRootPage() {
+export default function HomeRootPage({ params }: { params: { lang: Locale } }) {
+  unstable_setRequestLocale(params.lang);
+
   return (
     <div className="flex flex-col items-center justify-between">
       <dl className="flex_col_center fadeInUp-animation mb-[5.8rem] mt-[7rem] text-white">

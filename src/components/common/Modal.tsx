@@ -100,7 +100,7 @@ export default function Modal({
                     alt="close"
                     width={48}
                     height={48}
-                    className="cursor-pointer"
+                    className="h-[4.8rem] w-[4.8rem] cursor-pointer"
                     onClick={onClose}
                   />
                 )}

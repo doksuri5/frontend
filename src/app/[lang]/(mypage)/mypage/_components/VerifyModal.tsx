@@ -8,6 +8,7 @@ import useUserStore from "@/stores/useUserStore";
 import useAlert from "@/hooks/use-alert";
 import useToast from "@/hooks/use-toast";
 import { toast } from "react-toastify";
+import { useTranslations } from "next-intl";
 
 type TVerifyModalProps = {
   isOpen: boolean;
@@ -16,6 +17,9 @@ type TVerifyModalProps = {
 };
 
 export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalProps) {
+  const t = useTranslations("user.form");
+  const popupT = useTranslations("user.popup")
+
   const { userStoreData } = useUserStore();
   const { alertInfo, customAlert } = useAlert();
   const { showLoadingToast, updateToast } = useToast();
@@ -43,9 +47,9 @@ export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalPro
       timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
     } else if (timeLeft === 0) {
       customAlert({
-        title: "인증 코드가 만료되었습니다.",
-        subText: "인증 코드를 다시 요청해주세요.",
-        onClose: () => {},
+        title: popupT("authCodeExpired", { defaultMessage: "인증 코드가 만료되었습니다." }),
+        subText: popupT("requestAuthCode", { defaultMessage: "인증 코드를 다시 요청해주세요." }),
+        onClose: () => { },
       });
       setVisibleCodeField(false);
       setTimeLeft(null);
@@ -77,16 +81,16 @@ export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalPro
         onEdit();
       } else {
         customAlert({
-          title: "비밀번호 인증에 실패했습니다.",
-          subText: "비밀번호를 다시 확인해 주세요.",
-          onClose: () => {},
+          title: popupT("passwordAuthFail", { defaultMessage: "비밀번호 인증에 실패했습니다." }),
+          subText: popupT("checkPassword", { defaultMessage: "비밀번호를 다시 확인해 주세요." }),
+          onClose: () => { },
         });
       }
     } catch (err) {
       customAlert({
-        title: "비밀번호 인증 도중 오류가 발생했습니다.",
-        subText: err instanceof Error ? err.message : "알 수 없는 오류가 발생했습니다.",
-        onClose: () => {},
+        title: popupT("passwordAuthError", { defaultMessage: "비밀번호 인증 도중 오류가 발생했습니다." }),
+        subText: err instanceof Error ? err.message : popupT("unknownIssue", { defaultMessage: "알 수 없는 오류가 발생했습니다." }),
+        onClose: () => { },
       });
     }
   };
@@ -99,7 +103,7 @@ export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalPro
 
     const delayToast = setTimeout(() => {
       if (!isResponseReceived) {
-        loadingToastId = showLoadingToast("이메일 인증 중...");
+        loadingToastId = showLoadingToast(popupT("emailVerificationInProgress", { defaultMessage: "이메일 인증 중..." }));
       }
     }, 500);
 
@@ -109,11 +113,11 @@ export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalPro
       clearTimeout(delayToast);
 
       if (response.ok) {
-        if (loadingToastId) updateToast(loadingToastId, "이메일로 인증 코드를 전송했습니다.", "success");
+        if (loadingToastId) updateToast(loadingToastId, popupT("authCodeSent", { defaultMessage: "이메일로 인증 코드를 전송했습니다." }), "success");
         setVisibleCodeField(true);
         customAlert({
-          title: "작성한 이메일 주소로 인증 코드를 전송했습니다.",
-          subText: "메일 확인 후 회원가입을 계속 진행해주세요.",
+          title: popupT("verificationCodeSent", { defaultMessage: "작성한 이메일 주소로 인증 코드를 전송했습니다." }),
+          subText: popupT("continueSignup", { defaultMessage: "메일 확인 후 회원가입을 계속 진행해주세요." }),
           onClose: () => {
             startTimer();
           },
@@ -121,18 +125,18 @@ export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalPro
       } else {
         toast.dismiss(loadingToastId);
         customAlert({
-          title: "이메일 인증에 실패했습니다.",
-          subText: "이메일을 확인 후 다시 시도해 주세요.",
-          onClose: () => {},
+          title: popupT("emailAuthFail", { defaultMessage: "이메일 인증에 실패했습니다." }),
+          subText: popupT("retryEmailCheck", { defaultMessage: "이메일을 확인 후 다시 시도해 주세요." }),
+          onClose: () => { },
         });
       }
     } catch (err) {
       if (loadingToastId) toast.dismiss(loadingToastId);
       clearTimeout(delayToast);
       customAlert({
-        title: "이메일 인증 도중 오류가 발생했습니다.",
-        subText: err instanceof Error ? err.message : "알 수 없는 오류가 발생했습니다.",
-        onClose: () => {},
+        title: popupT("emailAuthError", { defaultMessage: "이메일 인증 도중 오류가 발생했습니다." }),
+        subText: err instanceof Error ? err.message : popupT("unknownIssue", { defaultMessage: "알 수 없는 오류가 발생했습니다." }),
+        onClose: () => { },
       });
     }
   };
@@ -146,16 +150,16 @@ export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalPro
         onEdit();
       } else {
         customAlert({
-          title: "인증코드가 일치하지 않습니다.",
-          subText: "인증코드를 다시 확인해 주세요.",
-          onClose: () => {},
+          title: popupT("authCodeMismatch", { defaultMessage: "인증코드가 일치하지 않습니다." }),
+          subText: popupT("checkAuthCode", { defaultMessage: "인증코드를 다시 확인해 주세요." }),
+          onClose: () => { },
         });
       }
     } catch (err) {
       customAlert({
-        title: "인증코드 확인 도중 오류가 발생했습니다.",
-        subText: err instanceof Error ? err.message : "알 수 없는 오류가 발생했습니다.",
-        onClose: () => {},
+        title: popupT("verificationCodeCheckError", { defaultMessage: "인증코드 확인 도중 오류가 발생했습니다." }),
+        subText: err instanceof Error ? err.message : popupT("unknownIssue", { defaultMessage: "알 수 없는 오류가 발생했습니다." }),
+        onClose: () => { },
       });
     }
   };
@@ -165,7 +169,11 @@ export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalPro
       <Modal
         isOpen={isOpen}
         onClose={onClose}
-        title={userStoreData?.login_type === "local" ? "비밀번호 인증" : "이메일 인증"}
+        title={
+          userStoreData?.login_type === "local"
+            ? t("passwordAuth", { defaultMessage: "비밀번호 인증" })
+            : t("emailVerify", { defaultMessage: "이메일 인증" })
+        }
         isBackdropClosable={true}
         panelStyle="px-[10.2rem] py-[8rem] rounded-[3.2rem] w-[59rem] items-center justify-center"
       >
@@ -177,9 +185,9 @@ export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalPro
                 name="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                labelName="현재 비밀번호 입력"
+                labelName={t("inputCurrentPassword", { defaultMessage: "현재 비밀번호 입력" })}
                 type="password"
-                placeholder="비밀번호를 입력해주세요"
+                placeholder={t("enterPassword", { defaultMessage: "비밀번호를 입력해주세요" })}
               />
               <Button
                 size="lg"
@@ -188,7 +196,7 @@ export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalPro
                 onClick={handleVerifyPassword}
                 disabled={!password}
               >
-                수정하기
+                {t("edit", { defaultMessage: "수정하기" })}
               </Button>
             </div>
           ) : (
@@ -198,8 +206,8 @@ export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalPro
                 name="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                labelName="이메일 입력"
-                placeholder="이메일을 입력해주세요"
+                labelName={t("inputEmail", { defaultMessage: "이메일 입력" })}
+                placeholder={t("enterEmail", { defaultMessage: "이메일을 입력해주세요" })}
               />
               {!visibleCodeField && (
                 <Button
@@ -209,7 +217,7 @@ export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalPro
                   onClick={handleVerifyEmail}
                   disabled={!email}
                 >
-                  인증 코드 발송
+                  {t("sendCode", { defaultMessage: "인증 코드 발송" })}
                 </Button>
               )}
               {visibleCodeField && (
@@ -219,12 +227,10 @@ export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalPro
                     name="code"
                     value={code}
                     onChange={(e) => setCode(e.target.value)}
-                    labelName="인증 코드 입력"
-                    placeholder="인증 코드를 입력해주세요"
+                    labelName={t("enterCode", { defaultMessage: "인증 코드 입력" })}
+                    placeholder={t("promptCode", { defaultMessage: "인증 코드를 입력해주세요" })}
                     suffix={
-                      <div className="text-[1.4rem] text-blue-500">
-                        {timeLeft !== null && formatTime(timeLeft)}
-                      </div>
+                      <div className="text-[1.4rem] text-blue-500">{timeLeft !== null && formatTime(timeLeft)}</div>
                     }
                   />
                   <Button
@@ -234,7 +240,7 @@ export default function VerifyModal({ isOpen, onClose, onEdit }: TVerifyModalPro
                     onClick={handleVerifyCode}
                     disabled={!code}
                   >
-                    인증 코드 확인
+                    {t("verifyCode", { defaultMessage: "인증 코드 확인" })}
                   </Button>
                 </div>
               )}

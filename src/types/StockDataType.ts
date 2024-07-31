@@ -1,22 +1,6 @@
 import { z } from "zod";
 import { REUTERS_CODES } from "@/constants/stockCodes";
 
-export type TMappedPeriod = {
-  일: "day";
-  주: "week";
-  월: "month";
-  분기: "quarter";
-  년: "year";
-};
-
-export const MAPPED_PERIOD: TMappedPeriod = {
-  일: "day",
-  주: "week",
-  월: "month",
-  분기: "quarter",
-  년: "year",
-};
-
 export const FetchedNaverStockSchema = z.object({
   stockEndType: z.literal("stock"),
   reutersCode: z.string(),
@@ -153,19 +137,27 @@ export const StockSchema = z
     fluctuationsRatio: true,
   });
 
+const translationsSchema = z.object({
+  ko: z.string(),
+  en: z.string(),
+  jp: z.string(),
+  ch: z.string(),
+  fr: z.string(),
+});
+
 export const StockAIReportSchema = z.object({
-  description: z.string(),
+  description: translationsSchema,
   investmentIndex: z.number().default(0),
   profitabilityPercentage: z.number().default(0),
   growthPercentage: z.number().default(0),
   interestPercentage: z.number().default(0),
-  report: z.string(),
+  report: translationsSchema,
   metrics: z.object({
     stockName: z.string(),
     symbolCode: z.string(),
     fluctuationsRatio: z.number().default(0),
     closePriceChange: z.number().default(0),
-    closePrice: z.string(),
+    closePrice: z.number().default(0),
   }),
 });
 
@@ -233,6 +225,25 @@ export const StockOverViewSchema = z.object({
   }),
 });
 
+export const StockCurrencyExchangeSchema = z.object({
+  nation: z.enum(["KRW", "USD", "JPY(100)", "EUR", "CNH"]),
+  rate: z.string(),
+});
+
+export type ExchangeDataType = {
+  result: number;
+  cur_unit: string;
+  ttb: string;
+  tts: string;
+  deal_bas_r: string;
+  bkpr: string;
+  yy_efee_r: string;
+  ten_dd_efee_r: string;
+  kftc_bkpr: string;
+  kftc_deal_bas_r: string;
+  cur_nm: string;
+};
+
 export type FetchedNaverStockDataType = z.infer<typeof FetchedNaverStockSchema>;
 export type InterestStockDataType = z.infer<typeof InterestStockSchema>;
 export type InterestStockItemDataType = z.infer<typeof InterestStockItemSchema>;
@@ -243,3 +254,5 @@ export type StockOverViewDataType = z.infer<typeof StockOverViewSchema>;
 export type StockDataType = z.infer<typeof StockSchema>;
 export type StockAIReportDataType = z.infer<typeof StockAIReportSchema>;
 export type StockPopularSearchDataType = z.infer<typeof PopularSearchSchema>;
+
+export type StockCurrencyExchangeDataType = z.infer<typeof StockCurrencyExchangeSchema>;

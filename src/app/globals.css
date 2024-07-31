@@ -61,7 +61,7 @@
     @apply flex flex-col items-center justify-center;
   }
   .flex_col_center {
-    @apply flex flex-col items-center  justify-center
+    @apply flex flex-col items-center justify-center
   }
   .auth_form_layout {
     @apply flex flex-col gap-[1.6rem]
@@ -91,7 +91,7 @@
   @apply min-h-[2.4rem] px-[1.6rem] py-[1.1rem] rounded-[0.5rem] border-grayscale-300 cursor-pointer
 }
 .basic-multi-select .tag__control:focus{
-  @apply border-blue-500 outline-blue-500 cursor-pointer
+  @apply border-blue-500 cursor-pointer
 }
 
 .basic-multi-select .tag__control:hover{
@@ -99,11 +99,11 @@
 }
 
 .basic-multi-select .tag__control.tag__control--is-focused{
-  @apply border-blue-500 shadow-none outline-blue-500
+  @apply border-blue-500 shadow-none 
 }
 
 .basic-multi-select .tag__control.tag__control.tag__control--menu-is-open{
-  @apply border-blue-500 outline-blue-500
+  @apply border-blue-500 
 }
 
 .basic-multi-select .tag__placeholder{
@@ -133,6 +133,35 @@
 
 .basic-multi-select .tag__multi-value__remove {
   @apply w-[3rem] rounded-[100%] flex items-center justify-center
+}
+
+.basic-multi-select.error .tag__control{
+  @apply border-warning-100
+}
+
+.basic-multi-select.error .tag__placeholder{
+  @apply text-warning-100 
+}
+
+.basic-multi-select.error .tag__control:focus{
+  @apply border-warning-100 outline-warning-100 
+}
+
+.basic-multi-select.error .tag__control.tag__control--is-focused,
+.basic-multi-select.error .tag__control.tag__control.tag__control--menu-is-open{
+  @apply border-warning-100 outline-warning-100
+}
+
+.basic-multi-select .tag__multi-value__remove{
+  @apply bg-[url('/icons/close_icon.svg')] bg-center bg-no-repeat
+}
+
+.basic-multi-select .tag__multi-value__remove:hover{
+  @apply bg-transparent
+}
+
+.basic-multi-select .tag__multi-value__remove svg{
+  @apply hidden
 }
 
 

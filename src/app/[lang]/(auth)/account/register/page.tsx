@@ -3,16 +3,22 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
+import { useTranslations } from "next-intl";
 
+import { CommonTitle } from "../../_components";
 import CommonLayout from "../../_components/CommonLayout";
 import RegisterForm from "../../_components/RegisterForm";
 import Loading from "../../_components/Loading";
 
 import { HOME_PATH, REGISTER_PATH } from "@/routes/path";
+import { unstable_setRequestLocale } from "next-intl/server";
 
-export default function RegisterPage() {
+export default function RegisterPage({ params }: { params: { lang: string } }) {
+  unstable_setRequestLocale(params.lang);
+
   const { data: session, status } = useSession();
   const router = useRouter();
+  const t = useTranslations("auth");
 
   useEffect(() => {
     if (!session || session.user.role !== "user") {
@@ -32,7 +38,8 @@ export default function RegisterPage() {
   }
 
   return (
-    <CommonLayout title="회원가입">
+    <CommonLayout>
+      <CommonTitle title={t("title.register", { defaultMessage: "회원가입" })} />
       <RegisterForm />
     </CommonLayout>
   );

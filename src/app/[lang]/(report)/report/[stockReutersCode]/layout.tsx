@@ -1,18 +1,44 @@
+import { getStocksByReutersCode } from "@/actions/stock";
+import { STOCK_NAMES, TReutersCodes } from "@/constants/stockCodes";
+import { Locale } from "@/i18n";
 import { ReportStoreProvider } from "@/providers/ReportProvider";
-import type { Metadata } from "next";
+import { getLocale, getTranslations, unstable_setRequestLocale } from "next-intl/server";
 
-const TITLE = "리포트";
-// 주식 종목에 대한 주식 가격, 주식 변동률 표시
-export const metadata: Metadata = {
-  title: `아잇나우 - ${TITLE}`,
-  description: "아잇나우는 해외 주식 정보를 제공하는 서비스입니다.",
+export const generateMetadata = async ({ params }: { params: { stockReutersCode: TReutersCodes } }) => {
+  const locale = await getLocale();
+  const t = await getTranslations("report");
+  const stock = await getStocksByReutersCode(undefined, { params: params.stockReutersCode });
+
+  const stockName = locale === "ko" ? stock.data.stockName : stock.data.stockNameEng;
+
+  return {
+    title: t("metaTitle", { stockName }),
+    description: t("metaDescription", { stockName }),
+    keywords: t("metaKeywords", { stockName }),
+    openGraph: {
+      title: t("ogTitle", { stockName }),
+      description: t("ogDescription", { stockName }),
+      siteName: t("siteName"),
+      images: [
+        {
+          url: `icons/stocks/${STOCK_NAMES[params.stockReutersCode]}.svg`,
+          width: 800,
+          height: 600,
+          alt: t("ogImageAlt", { stockName }),
+        },
+      ],
+    },
+  };
 };
 
-export default function HomeRootLayout({
+export default function ReportLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode;
+  params: { lang: Locale };
 }>) {
+  unstable_setRequestLocale(params.lang);
   return (
     <section>
       <ReportStoreProvider>{children}</ReportStoreProvider>

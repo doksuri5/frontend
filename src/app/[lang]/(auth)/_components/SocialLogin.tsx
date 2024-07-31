@@ -1,6 +1,6 @@
 "use client";
 
-import { useSession } from "next-auth/react";
+import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/common";
 
@@ -22,6 +22,8 @@ const cssConfig = {
 };
 
 export default function SocialLogin() {
+  const t = useTranslations("auth");
+
   const handleSocialLogin = async (provider: string) => {
     const redirectTo = provider === "naver" ? PROFILE_SETUP_PATH : REGISTER_PATH;
     await SocialLoginAction(provider, redirectTo);
@@ -36,7 +38,7 @@ export default function SocialLogin() {
           cssConfig.lineAfter,
         )}
       >
-        또는
+        {t("login.or", { defaultMessage: "또는" })}
       </p>
       <div className={cn("flex flex-col gap-[1.4rem]")}>
         <Button
@@ -46,7 +48,7 @@ export default function SocialLogin() {
           onClick={() => handleSocialLogin("kakao")}
         >
           <KakaoIcon />
-          카카오 로그인
+          {t("sns.kakao", { defaultMessage: "카카오" })} {t("title.login")}
         </Button>
         <Button
           type="button"
@@ -54,7 +56,7 @@ export default function SocialLogin() {
           onClick={() => handleSocialLogin("naver")}
         >
           <NaverIcon />
-          네이버 로그인
+          {t("sns.naver", { defaultMessage: "네이버" })} {t("title.login")}
         </Button>
         <Button
           type="button"
@@ -62,7 +64,7 @@ export default function SocialLogin() {
           onClick={() => handleSocialLogin("google")}
         >
           <GoogleIcon />
-          Google 로그인
+          Google {t("title.login")}
         </Button>
       </div>
     </>

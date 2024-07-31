@@ -7,13 +7,261 @@
     "login": "Connexion",
     "logout": "Déconnexion"
   },
+  "metadata": {
+    "root": {
+      "siteName": "AightNow",
+      "title": "Plateforme d'analyse des actions basée sur l'IA | AightNow",
+      "description": "Une plateforme d'analyste AI de nouvelle génération qui combine les informations en temps réel sur les divulgations des entreprises américaines avec l'analyse des données des actualités quotidiennes pour fournir des rapports d'analyse d'entreprises en temps réel personnalisés pour les utilisateurs du monde entier dans différentes langues.",
+      "keywords": "actions, analyse des actions, analyse des actions, IA, ia, AightNow, actions étrangères, nouvelles, nouvelles boursières",
+      "authors": "Frères Aigle",
+      "openGraph": {
+        "title": "Plateforme d'analyse des actions basée sur l'IA | AightNow",
+        "description": "Une plateforme d'analyste AI de nouvelle génération fournissant des rapports d'analyse d'entreprises en temps réel.",
+        "siteName": "AightNow",
+        "locale": "fr"
+      },
+      "twitter": {
+        "title": "Plateforme d'analyse des actions basée sur l'IA | AightNow",
+        "description": "Une plateforme d'analyste AI de nouvelle génération fournissant des rapports d'analyse d'entreprises en temps réel."
+      }
+    },
+    "news": {
+      "title": "Actualités",
+      "description": "Vous pouvez consulter les actualités populaires, les actualités liées à vos actions favorites et les dernières nouvelles.",
+      "openGraph": {
+        "title": "Actualités",
+        "description": "Vous pouvez consulter les actualités populaires, les actualités liées à vos actions favorites et les dernières nouvelles."
+      },
+      "twitter": {
+        "title": "Actualités",
+        "description": "Vous pouvez consulter les actualités populaires, les actualités liées à vos actions favorites et les dernières nouvelles."
+      }
+    }
+  },
+  "auth": {
+    "title": {
+      "login": "Connexion",
+      "register": "Inscription",
+      "termsAgreement": "Accepter les Conditions",
+      "profileSetup": "Configurer le Profil",
+      "findPassword": "Trouver le Mot de Passe",
+      "findEmail": "Trouver l'Email",
+      "registrationComplete": "Inscription Terminée",
+      "registerComplete": "Inscription Terminée"
+    },
+    "label": {
+      "name": "Nom",
+      "email": "Adresse Email",
+      "password": "Entrer le Mot de Passe",
+      "confirmPassword": "Confirmer le Mot de Passe",
+      "phone": "Numéro de Téléphone",
+      "birthDate": "Date de Naissance",
+      "profileImage": "Image de Profil",
+      "nickname": "Pseudo",
+      "interestStock": "Actions Intéressées",
+      "gender": "Genre"
+    },
+    "placeholder": {
+      "email": "Veuillez entrer votre email.",
+      "password": "Veuillez entrer votre mot de passe.",
+      "name": "Veuillez entrer votre nom.",
+      "phone": "Entrez votre numéro de téléphone sans tirets.",
+      "emailVerificationCode": "Entrez le code de vérification de l'email à 6 chiffres",
+      "confirmPassword": "Veuillez entrer à nouveau votre mot de passe.",
+      "birthDate": "Entrez votre date de naissance (ex : 991231)",
+      "nickname": "Veuillez entrer votre pseudo.",
+      "addInterestStock": "Ajoutez des actions intéressées avec #.",
+      "registeredEmail": "Entrez l'adresse email utilisée lors de l'inscription."
+    },
+    "sns": {
+      "kakao": "Kakao",
+      "naver": "Naver",
+      "google": "Google",
+      "local": "Local"
+    },
+    "commonValidation": {
+      "noSpecialCharsOrNumbers": "Ne peut pas contenir de chiffres ou de caractères spéciaux.",
+      "invalidEmailFormat": "Format de l'email invalide.",
+      "invalidPhoneNumber": "Veuillez entrer un numéro de téléphone valide.",
+      "passwordRequirements": "Le mot de passe doit comporter entre 8 et 20 caractères et inclure au moins deux des éléments suivants : chiffres, caractères spéciaux, ou lettres.",
+      "enterPassword": "Veuillez entrer un mot de passe.",
+      "birthDateLength": "La date de naissance doit comporter 6 chiffres.",
+      "invalidDate": "Date invalide.",
+      "enterVerificationCode": "Veuillez entrer le code de vérification à 6 chiffres.",
+      "passwordMismatch": "Les mots de passe ne correspondent pas. Veuillez vérifier et entrer à nouveau.",
+      "invalidSpecialChars": "Les caractères spéciaux autres que '_' et '-' ne sont pas autorisés.",
+      "selectInterestStock": "Veuillez sélectionner une action d'intérêt.",
+      "alreadyRegisteredEmail": "Cet email est déjà enregistré.",
+      "verificationExpired": "Le temps de vérification a expiré. Veuillez demander l'email à nouveau.",
+      "invalidOrExpiredCode": "Le code de vérification est invalide ou a expiré.",
+      "nicknameUnavailable": "Ce pseudonyme est indisponible.",
+      "unregisteredOrInvalidInfo": "Membre non enregistré ou informations de membre invalides."
+    },
+    "commonBtn": {
+      "next": "Suivant",
+      "register": "S'inscrire",
+      "confirm": "Confirmer",
+      "issueTempPassword": "Émettre un Mot de Passe Temporaire",
+      "pleaseWait": "Veuillez patienter."
+    },
+    "login": {
+      "autoLogin": "Connexion Automatique",
+      "notMemberYet": "Pas encore membre ?",
+      "signup": "Inscrivez-vous maintenant",
+      "or": "Ou",
+      "loggingIn": "Connexion en cours...",
+      "loginFailed": "Échec de la connexion.",
+      "checkEmailPassword": "Veuillez vérifier votre email ou mot de passe et réessayer.",
+      "loginSuccessful": "Connexion réussie."
+    },
+    "termsAgreement": {
+      "checkRequiredTerms": "Veuillez cocher les conditions requises.",
+      "agreeAll": "J'accepte les Conditions d'Utilisation et la Politique de Confidentialité.",
+      "termsOfService": "Conditions d'Utilisation (Obligatoire)",
+      "privacyPolicy": "Politique de Confidentialité (Obligatoire)",
+      "agree": "Accepter"
+    },
+    "register": {
+      "sendingEmail": "Envoi de l'email en cours...",
+      "emailSent": "Email envoyé avec succès.",
+      "emailSendFailed": "Échec de l'envoi de l'email.",
+      "resendEmail": "Renvoyer l'email",
+      "requestEmail": "Demander un email",
+      "emailVerified": "Email vérifié avec succès.",
+      "verifyCode": "Vérifier le Code",
+      "codeSent": "Code de vérification envoyé.",
+      "codeSentToEmail": "Le code de vérification a été envoyé à votre adresse email.",
+      "checkEmailToContinue": "Veuillez vérifier votre email pour continuer l'inscription."
+    },
+    "registerComplete": {
+      "registrationComplete": "Inscription terminée.",
+      "loginToContinue": "Veuillez vous connecter pour continuer."
+    },
+    "profileSetUp": {
+      "profileImage": "Image de Profil",
+      "uploadLimit": "Seuls les fichiers image de moins de 1MB sont autorisés.",
+      "nicknameAvailable": "Le pseudo est disponible.",
+      "signupError": "Échec de l'inscription en raison d'une erreur temporaire.",
+      "retrySignup": "Veuillez réessayer de vous inscrire.",
+      "changeNickname": "Changer de Pseudo",
+      "checkDuplicate": "Vérifier la disponibilité",
+      "noSearchResults": "Aucun résultat trouvé.",
+      "addAtLeastOneInterestStock": "Veuillez ajouter au moins une action intéressée.",
+      "male": "Homme",
+      "female": "Femme",
+      "registerInvestmentPreference": "Enregistrez votre préférence d'investissement",
+      "registerInvestmentPreferenceInfo": "pour recevoir des informations plus précises !",
+      "registerInvestmentPreferenceButton": "Enregistrer la Préférence d'Investissement",
+      "noInvestmentPreference": "Vous n'avez pas enregistré de préférence d'investissement.",
+      "confirmNoInvestmentPreference": "Voulez-vous continuer sans enregistrer de préférence d'investissement ?",
+      "signupWithoutPreference": "S'inscrire sans enregistrer",
+      "registerInvestmentPreferenceAgain": "Enregistrer de Nouveau la Préférence d'Investissement"
+    },
+    "findPassword": {
+      "issuingTempPassword": "Émission du mot de passe temporaire en cours...",
+      "tempPasswordIssued": "Mot de passe temporaire émis avec succès.",
+      "tempPasswordIssueFailed": "Échec de l'émission du mot de passe temporaire.",
+      "snsLoginAccount": "Compte enregistré via une connexion SNS.",
+      "tempPasswordGenerated": "Mot de passe temporaire généré.",
+      "pleaseLogin": "Veuillez vous connecter.",
+      "checkEmailForTempPassword": "Vérifiez votre email pour vous connecter avec le mot de passe temporaire et changez votre mot de passe."
+    },
+    "findEmailComplete": {
+      "emailMatchesPhone": "Email correspondant au numéro de téléphone.",
+      "snsLogin": "Connexion SNS",
+      "email": "Email",
+      "registrationDate": "Date d'Inscription"
+    },
+    "exist": {
+      "alreadyRegisteredEmail": "Cet email est déjà enregistré.",
+      "snsSignupNotAllowed": "L'inscription avec ce compte SNS est interdite.",
+      "checkAccountInfoThroughFindEmail": "Veuillez vérifier les informations du compte via la recherche d'email."
+    },
+    "loginError": {
+      "errorTitle": "Erreur de Connexion",
+      "temporaryError": "Échec de la connexion en raison d'une erreur temporaire.",
+      "tryAgain": "Veuillez réessayer."
+    },
+    "metadata": {
+      "login": {
+        "description": "Connectez-vous à votre compte pour utiliser nos services.",
+        "keywords": "connexion, accès au compte, authentification utilisateur",
+        "openGraph": {
+          "description": "Connectez-vous à votre compte pour utiliser nos services."
+        },
+        "twitter": {
+          "description": "Connectez-vous à votre compte pour utiliser nos services."
+        }
+      },
+      "termsAgreement": {
+        "description": "Vérifiez et acceptez les conditions d'utilisation et les politiques de confidentialité.",
+        "keywords": "acceptation des conditions, conditions d'utilisation, politique, consentement",
+        "openGraph": {
+          "description": "Vérifiez et acceptez les conditions d'utilisation et les politiques de confidentialité."
+        },
+        "twitter": {
+          "description": "Vérifiez et acceptez les conditions d'utilisation et les politiques de confidentialité."
+        }
+      },
+      "register": {
+        "description": "Créez un nouveau compte et commencez à utiliser nos services.",
+        "keywords": "inscription, création de compte, nouveau compte",
+        "openGraph": {
+          "description": "Créez un nouveau compte et commencez à utiliser nos services."
+        },
+        "twitter": {
+          "description": "Créez un nouveau compte et commencez à utiliser nos services."
+        }
+      },
+      "registerComplete": {
+        "description": "Votre inscription est terminée. Commencez à utiliser nos services.",
+        "keywords": "inscription terminée, création de compte, nouveau compte",
+        "openGraph": {
+          "description": "Votre inscription est terminée. Commencez à utiliser nos services."
+        },
+        "twitter": {
+          "description": "Votre inscription est terminée. Commencez à utiliser nos services."
+        }
+      },
+      "profileSetup": {
+        "description": "Entrez vos informations personnelles et enregistrez vos préférences d'investissement.",
+        "keywords": "inscription, configuration de profil, préférence d'investissement, informations personnelles, investissement",
+        "openGraph": {
+          "description": "Entrez vos informations personnelles et enregistrez vos préférences d'investissement."
+        },
+        "twitter": {
+          "description": "Entrez vos informations personnelles et enregistrez vos préférences d'investissement."
+        }
+      },
+      "findEmail": {
+        "description": "Trouvez l'email associé à votre compte.",
+        "keywords": "trouver email, email de compte, récupération d'email, confirmation d'email",
+        "openGraph": {
+          "description": "Trouvez l'email associé à votre compte."
+        },
+        "twitter": {
+          "description": "Trouvez l'email associé à votre compte."
+        }
+      },
+      "findPassword": {
+        "description": "Obtenez un mot de passe temporaire pour votre compte.",
+        "keywords": "trouver mot de passe, mot de passe temporaire, réinitialisation de mot de passe, sécurité du compte",
+        "openGraph": {
+          "description": "Obtenez un mot de passe temporaire pour votre compte."
+        },
+        "twitter": {
+          "description": "Obtenez un mot de passe temporaire pour votre compte."
+        }
+      }
+    }
+  },
   "stocks": {
-    "stockApple": "Apple",
-    "stockMicroSoft": "Microsoft",
-    "stockAmazon": "Amazon",
-    "stockUnity": "Unity",
-    "stockGoogle": "Google",
-    "stockTesla": "Tesla"
+    "stockAAPL": "Apple",
+    "stockMSFT": "Microsoft",
+    "stockAMZN": "Amazon",
+    "stockU": "Unity",
+    "stockGOOGL": "Google",
+    "stockTSLA": "Tesla"
   },
   "news": {
     "todaysPopularNews": "Actualités populaires d'aujourd'hui",
@@ -24,17 +272,28 @@
     "AISummary": "AightNow Résumé AI",
     "AISummaryContent": "Contenu du Résumé IA"
   },
+  "currency": {
+    "sign": "€"
+  },
+  "analysis": {
+    "stockPrice": "Prix de l'action",
+    "investmentIndex": "Indice d'investissement",
+    "profitability": "Rentabilité",
+    "growth": "Croissance",
+    "interest": "Intérêt",
+    "point": "Point"
+  },
   "report": {
     "stock": "Action",
     "addInterestStock": "Ajouter une action d'intérêt",
     "removeInterestStock": "Supprimer l'action d'intérêt",
     "unit": "€",
     "stockPriceChart": "Graphique des prix des actions",
-    "oneDay": "1 jour",
-    "threeMonths": "3 mois",
-    "oneYear": "1 an",
-    "threeYears": "3 ans",
-    "tenYears": "10 ans",
+    "day": "Jour",
+    "week": "Semaine",
+    "month": "Mois",
+    "quarter": "Trimestre",
+    "year": "Année",
     "stockAIReport": "Rapport AI sur les actions",
     "aightNowAIAnalystReport": "Rapport d'analyste AI de AightNow",
     "userInterestStocks": ", vos actions d'intérêt",
@@ -44,7 +303,16 @@
     "growth": "Croissance",
     "interestLevel": "Niveau d'intérêt",
     "delete": "Supprimer",
-    "viewDetails": "Voir les détails"
+    "viewDetails": "Voir les détails",
+    "more": "Plus",
+    "less": "Moins",
+    "metaTitle": "Analyse {stockName} | AIGHTNOW",
+    "metaDescription": "Analyse des actions, informations financières et tendances du marché pour {stockName} basées sur l'IA.",
+    "metaKeywords": "actions,analyse,rapport,financier,actualités,marché,IA,investissement,titres,{stockName}",
+    "ogTitle": "Analyse IA des actions {stockName} - AIGHTNOW",
+    "ogDescription": "Découvrez l'analyse des actions basée sur l'IA, les tendances du marché en temps réel et les perspectives d'investissement pour {stockName}.",
+    "siteName": "AIGHTNOW",
+    "ogImageAlt": "Image d'analyse des actions {stockName}"
   },
   "chatBot": {
     "initMessage": "Bonjour! Je suis NowChatBot. Comment puis-je vous aider?",
@@ -54,5 +322,340 @@
     "linkCommentStockPriceChange": "Changement de prix",
     "linkCommentStockDescription": "Description",
     "linkButton": "Aller à la page d'analyse"
+  },
+  "discovery": {
+    "inputPlaceholder": "Recherchez des actions",
+    "recentSearchTitle": "Recherches récentes",
+    "allDeleteButton": "Tout supprimer",
+    "popularSearchTitle": "Recherches populaires",
+    "standard": "Norme",
+    "NoneRecentSearch": "Aucune recherche récente.",
+    "searchStockTitle": "Actions",
+    "searchNewsTitle": "Actualités",
+    "moreItem": "Plus",
+    "alert": {
+      "alertTitle": "Voulez-vous supprimer toutes les recherches récentes ?",
+      "alertButtonText": "Supprimer",
+      "alertCancleText": "Annuler"
+    },
+    "layout": {
+      "title": "Recherche de titres",
+      "description": "Voici la page de découverte d'AIGHTNOW, une plateforme d'analyse de titres basée sur l'IA où vous pouvez rechercher et analyser divers titres en temps réel.",
+      "keywords": "recherche de titres, analyse de titres, actualités boursières en temps réel, analyse de titres par IA, recherche de titres boursiers, aightnow, AIGHTNOW"
+    },
+    "searchLayout": {
+      "searchResult": "Résultats de recherche",
+      "description": "Consultez les résultats de recherche pour {search}.",
+      "keywords": "recherche de titres, actualités boursières en temps réel, analyse de titres par IA, aightnow, AIGHTNOW"
+    }
+  },
+  "mypage": {
+    "editPrivacy": "Modifier les informations personnelles",
+    "languageSettings": "Paramètres de langue",
+    "terms": "Conditions",
+    "termsOfService": "Conditions d'utilisation",
+    "profile": "Profil",
+    "profileSettings": "Paramètres du profil",
+    "manageProfile": "Créez et gérez votre profil pour l'utilisation des services. Essayez de configurer votre profil.",
+    "editProfile": "Modifier le profil",
+    "accountSettings": "Paramètres du compte",
+    "manageAccount": "Créez et modifiez les comptes utilisés pour les services. Associez des comptes pour utiliser divers services.",
+    "editAccountInfo": "Modifier les informations du compte",
+    "withdraw": "Retrait de membre",
+    "selectTranslationLang": "Sélectionnez la langue pour la traduction ; vous verrez des informations traduites dans la langue choisie dans les nouvelles et les rapports.",
+    "privacyPolicy": "Politique de confidentialité",
+    "fold": "Plier",
+    "expand": "Déplier",
+    "editInfo": "Modifier les informations",
+    "withdrawalReason": "Raison du retrait",
+    "inconvenientService": "Service peu pratique et souvent défaillant",
+    "preferOtherService": "Préférer un autre service",
+    "lowUsage": "Fréquence d'utilisation faible",
+    "contentDissatisfaction": "Insatisfaction concernant le contenu",
+    "otherReason": "Autre",
+    "metadata": {
+      "title": "Ma Page",
+      "description": "Gérez facilement vos paramètres personnels et vos informations sur Ma Page.",
+      "keywords": "Ma Page, paramètres de langue, modification des informations personnelles, informations personnelles, profil, suppression de compte, suppression, conditions d'utilisation, conditions",
+      "openGraph": {
+        "title": "Ma Page",
+        "description": "Gérez facilement vos paramètres personnels et vos informations sur Ma Page."
+      },
+      "twitter": {
+        "title": "Ma Page",
+        "description": "Gérez facilement vos paramètres personnels et vos informations sur Ma Page."
+      }
+    }
+  },
+  "lang": {
+    "korean": "Coréen",
+    "english": "Anglais",
+    "chinese": "Chinois",
+    "japanese": "Japonais",
+    "french": "Français"
+  },
+  "user": {
+    "email": "Email",
+    "name": "Nom",
+    "birth": "Date de naissance",
+    "nickname": "Surnom",
+    "gender": "Genre",
+    "male": "Homme",
+    "female": "Femme",
+    "phone": "Numéro de téléphone",
+    "form": {
+      "checkDuplicate": "Vérifier les doublons",
+      "edit": "Modifier",
+      "sendCode": "Envoyer le code de vérification",
+      "verifyCode": "Vérifier le code",
+      "emailVerify": "Vérification de l'email",
+      "passwordAuth": "Authentification par mot de passe",
+      "addFavoriteStock": "Ajouter aux favoris",
+      "noResults": "Aucun résultat trouvé",
+      "enterNickname": "Entrez un surnom",
+      "profileImage": "Image de profil",
+      "inputCurrentPassword": "Entrez le mot de passe actuel",
+      "enterPassword": "Entrez le mot de passe",
+      "inputNewPassword": "Entrez le nouveau mot de passe",
+      "confirmNewPassword": "Confirmez le nouveau mot de passe",
+      "inputEmail": "Entrez l'email",
+      "enterEmail": "Entrez l'email",
+      "withdrawalReason": "Raison du retrait",
+      "selectWithdrawalReason": "Sélectionnez la raison du retrait",
+      "enterOtherReason": "Entrez une autre raison",
+      "otherReason": "Autre Raison",
+      "passwordLabel": "Entrez le Mot de Passe",
+      "enterCode": "Entrez le Code de Vérification",
+      "promptCode": "Veuillez Entrer le Code de Vérification",
+      "newPassword": "Veuillez Entrer un Nouveau Mot de Passe",
+      "confirmPassword": "Veuillez Confirmer Votre Mot de Passe",
+      "enterPhone": "Entrez le Numéro de Téléphone Sans Tirets",
+      "enterBirth": "Entrez la Date de Naissance en 6 Chiffres (Exemple: 991231)"
+    },
+    "popup": {
+      "codeMismatch": "Le code de vérification ne correspond pas.",
+      "checkCode": "Veuillez vérifier à nouveau le code de vérification.",
+      "verificationIssue": "Un problème est survenu lors de la vérification.",
+      "unknownIssue": "Une erreur inconnue est survenue. Veuillez réessayer.",
+      "processingWithdrawal": "Traitement du retrait en cours...",
+      "passwordFail": "Échec de la validation du mot de passe",
+      "profileFail": "Échec de la mise à jour du profil",
+      "profileSuccess": "Le profil a été mis à jour",
+      "imageFail": "Échec du traitement de l'image",
+      "retryLater": "Veuillez réessayer plus tard",
+      "nicknameCheckFail": "Échec de la vérification du surnom",
+      "nicknameUnavailable": "Surnom indisponible",
+      "imageSizeExceed": "Seuls les fichiers d'images jusqu'à 1MB peuvent être téléchargés",
+      "confirmLangChange": "Souhaitez-vous modifier les paramètres de langue ?",
+      "passwordAuthFail": "Échec de l'authentification par mot de passe",
+      "checkPassword": "Veuillez vérifier votre mot de passe à nouveau",
+      "accountDeletionError": "Une erreur s'est produite lors de la suppression du compte.",
+      "passwordValidationFail": "Échec de la validation du mot de passe.",
+      "deletionProcessError": "Une erreur s'est produite lors du processus de suppression.",
+      "deletionSuccess": "La suppression du compte a été traitée avec succès.",
+      "authCodeExpired": "Le code d'authentification a expiré.",
+      "requestAuthCode": "Veuillez demander un nouveau code d'authentification.",
+      "emailVerificationInProgress": "Vérification de l'e-mail en cours...",
+      "authCodeSent": "Un code d'authentification a été envoyé à votre e-mail.",
+      "continueSignup": "Veuillez continuer votre inscription après avoir vérifié votre e-mail.",
+      "emailAuthFail": "L'authentification par e-mail a échoué.",
+      "retryEmailCheck": "Veuillez réessayer après avoir vérifié votre e-mail.",
+      "authCodeMismatch": "Le code d'authentification ne correspond pas.",
+      "checkAuthCode": "Veuillez vérifier à nouveau le code d'authentification.",
+      "languageChangeFail": "Échec du changement de langue.",
+      "languageChanged": "La langue a été modifiée.",
+      "languageSettingError": "Une erreur s'est produite lors du réglage de la langue.",
+      "errorDuringWithdrawal": "Une erreur s'est produite lors du processus de retrait du membre.",
+      "errorDuringLoginWithdrawal": "Une erreur s'est produite lors du retrait du membre connecté.",
+      "memberInfoUpdated": "Les informations du membre ont été mises à jour.",
+      "errorDuringMemberInfoUpdate": "Une erreur s'est produite lors de la mise à jour des informations du membre.",
+      "tryAgain": "Veuillez réessayer.",
+      "passwordAuthError": "Une erreur est survenue lors du processus d'authentification par mot de passe.",
+      "verificationCodeSent": "Un code de vérification a été envoyé à votre adresse e-mail.",
+      "emailAuthError": "Une erreur est survenue lors du processus de vérification de l'e-mail.",
+      "verificationCodeCheckError": "Une erreur est survenue lors de la vérification du code de vérification."
+    }
+  },
+  "validation": {
+    "noNumbersOrSymbols": "Les chiffres et les symboles spéciaux ne sont pas autorisés.",
+    "invalidEmailFormat": "Format d'email invalide.",
+    "enterValidPhoneNumber": "Veuillez saisir un numéro de téléphone valide.",
+    "enterPhoneNumber": "Veuillez saisir un numéro de téléphone.",
+    "passwordsDoNotMatch": "Les mots de passe ne correspondent pas. Veuillez vérifier et réessayer.",
+    "passwordRequirements": "8-20 caractères incluant au moins deux des éléments suivants : chiffres, caractères spéciaux ou lettres.",
+    "invalidSpecialCharacters": "Les caractères spéciaux autres que '_' et '-' ne sont pas autorisés.",
+    "enterPassword": "Veuillez saisir un mot de passe.",
+    "birthSixDigits": "La date de naissance doit comporter six chiffres.",
+    "invalidDate": "Date invalide.",
+    "selectInterest": "Veuillez sélectionner un sujet d'intérêt.",
+    "minPasswordLength": "Le mot de passe doit avoir au moins 8 caractères.",
+    "maxPasswordLength": "Le mot de passe peut contenir jusqu'à 16 caractères.",
+    "passwordCharRequirements": "Le mot de passe doit inclure des chiffres, des lettres et des caractères spéciaux.",
+    "nicknameUnavailable": "Ce pseudo n'est pas disponible.",
+    "nicknameAvailable": "Ce pseudo est disponible.",
+    "enterBirthDate": "Veuillez entrer votre date de naissance."
+  },
+  "withdraw": {
+    "withdrawComplete": "Désinscription terminée.",
+    "thankYouMessage": "Merci d'avoir utilisé AightNow.\nNous continuerons à nous efforcer et à évoluer."
+  },
+  "investPropensity": {
+    "title": "Diagnostic de Propension à l'Investissement",
+    "description": "Nous vous guiderons vers des produits adaptés à votre propension à investir et à vos objectifs.",
+    "query": {
+      "question1": {
+        "questionText": "Quelle est la durée pendant laquelle vous prévoyez d'investir les fonds ?",
+        "option1": "Moins de 6 mois",
+        "option2": "De 6 mois à 1 an",
+        "option3": "De 1 à 2 ans",
+        "option4": "De 2 à 3 ans",
+        "option5": "Plus de 3 ans"
+      },
+      "question2": {
+        "questionText": "Comment évaluez-vous votre niveau d'expérience avec les produits financiers ?",
+        "option1": "[Très faible] Aucune expérience d'investissement dans des produits financiers",
+        "option2": "[Faible] Une certaine compréhension de la structure et des risques des produits financiers bien connus (actions, obligations et fonds)",
+        "option3": "[Élevé] Capable de distinguer la plupart des produits financiers disponibles pour l'investissement",
+        "option4": "[Très élevé] Comprend les différences entre tous les produits d'investissement, y compris les produits financiers"
+      },
+      "question3": {
+        "questionText": "Quelle proportion de vos actifs financiers totaux (hors immobilier) le capital d'investissement actuel représente-t-il ?",
+        "option1": "Moins de 10%",
+        "option2": "De 10% à 20%",
+        "option3": "De 20% à 30%",
+        "option4": "De 30% à 40%",
+        "option5": "Plus de 40%"
+      },
+      "question4": {
+        "questionText": "Quel niveau de rendement attendez-vous de votre capital d'investissement actuel et quel niveau de perte pouvez-vous tolérer ?",
+        "option1": "Prêt à prendre des risques si les rendements attendus sont élevés",
+        "option2": "Peut tolérer des pertes jusqu'à 20% si les rendements attendus sont atteints",
+        "option3": "Peut tolérer des pertes jusqu'à 10% si un certain niveau de rendement est attendu",
+        "option4": "Le capital investi doit être préservé quelles que soient les circonstances"
+      },
+      "question5": {
+        "questionText": "Lequel des éléments suivants correspond le plus à votre expérience d'investissement ? (Sélection multiple possible)",
+        "option1": "Produits conservateurs - dépôts bancaires/épargne, obligations gouvernementales, obligations municipales, obligations garanties, MMF, CMA, etc.",
+        "option2": "Produits à la recherche de sécurité - obligations financières, obligations d'entreprises à haute notation, fonds obligataires, ELS à capital garanti, etc.",
+        "option3": "Produits neutres au risque - obligations d'entreprises de notation moyenne, ELS partiellement garantis, fonds mixtes, etc.",
+        "option4": "Produits d'investissement actifs - obligations d'entreprises à faible notation, actions, ELS non garantis, fonds d'actions visant les rendements du marché, etc.",
+        "option5": "Produits d'investissement agressifs - ELW, options sur futures, fonds d'actions cherchant des rendements supérieurs au marché, fonds investissant dans des produits dérivés, trading sur marge, etc.",
+        "option6": "Aucun"
+      }
+    },
+    "agree": {
+      "title": "Formulaire de consentement pour la collecte et l'utilisation des informations personnelles (crédit) (Pour les transactions financières)",
+      "introduction": "Eagle Five Brothers Co., Ltd. adhère à la 'Loi sur la protection des informations personnelles', 'Loi sur l'utilisation et la protection des informations de crédit', et autres réglementations légales connexes pour vous informer des points suivants et obtenir votre consentement.",
+      "sectionTitles": {
+        "infoCollectionUse": "Collecte et utilisation des informations personnelles (crédit)",
+        "infoInquiry": "Demande d'informations personnelles (crédit)",
+        "uniqueIdHandling": "Gestion des informations d'identifiant unique",
+        "agree": "Je suis d'accord pour que votre entreprise traite mes informations d'identification uniques de la manière suivante."
+      },
+      "infoCollectionUse": {
+        "purpose": "■ Conclusion, maintenance, exécution, gestion et amélioration des contrats (financiers)\n■ Conformité aux obligations légales (vérification de l'identité réelle, déclaration des transactions financières spécifiques, prévention des transactions déloyales, vérification de la conformité, rapport des obligations fiscales à l'étranger, etc.)\n■ Prévention des accidents financiers (vérification de l'identité, détection des transactions financières anormales, etc.), gestion des litiges et des réclamations, enquêtes sur les accidents\n■ Statistiques, gestion des risques et amélioration de la qualité du service client",
+        "items": "■ Informations d'identification personnelle : Nom, informations d'identification uniques (y compris la date de naissance et le sexe pour les étrangers), adresse, informations de contact, profession, nationalité, CI, email\n■ Informations liées au support de transaction : ID, type de support, adresse IP, adresse MAC, et autres informations d'identification du support, informations sur le support d'accès, etc.\n■ Informations de vérification du client (CDD/EDD) : But de la transaction, transactions attendues, informations sur les agents/clients et autres relations spéciales, etc.\n■ Informations sur les transactions financières : Type de produits et services, conditions/temporisation/montant des transactions et autres détails de configuration des transactions, etc.\n■ Dans le cas des agents : Nom, informations d'identification uniques (y compris la date de naissance et le sexe pour les étrangers), profession, nationalité, informations de contact, relation avec le principal, etc.\n■ Informations sur les obligations fiscales à l'étranger\n■ US FATCA : Nom en anglais, adresse en anglais, numéro de contribuable américain, statut de citoyenneté américaine (citoyen, résident permanent, résident fiscal)\n■ UN CRS : Nom en anglais, adresse en anglais, pays d'obligation fiscale (hors États-Unis), (optionnel) numéro de contribuable",
+        "retentionPeriod": "Cinq ans à partir de la date de fin de la transaction (toutefois, pour les enquêtes sur les accidents financiers, la résolution des litiges, la gestion des plaintes, la conformité avec la loi sur le marché des capitaux (plus de 10 ans), etc., elles sont stockées séparément)"
+      },
+      "infoInquiryDetails": {
+        "consentStatement": "※ Les enregistrements de notre entreprise demandant vos informations de crédit personnelles via un centre d'information de crédit ou une entreprise d'enquête de crédit peuvent être fournis à d'autres institutions financières, et peuvent entraîner une diminution de votre cote de crédit.",
+        "agree": "Je consens à demander mes informations de crédit personnelles comme suit.",
+        "agency": "■ Centre d'information de crédit (Institut d'information de crédit), Société d'enquête de crédit (Information d'évaluation NICE)",
+        "purpose": "■ Maintenance et gestion post-contrat (y compris les informations sur les transactions antérieures à ce contrat), décision sur la mise en place de transactions financières telles que les prêts et les cartes de crédit, développement et analyse de modèles statistiques liés au crédit, demandes personnelles, et autres tâches liées aux transactions financières",
+        "content": "■ Informations d'identification personnelle, informations sur les transactions de crédit, informations sur les retards de paiement et autres non-respects de dettes, informations sur les capacités de crédit liées à l'emploi et à la propriété, informations détenues par les institutions publiques, cote de crédit et score, enregistrements de demandes d'informations de crédit par d'autres institutions, informations d'authentification personnelle, etc.",
+        "validityPeriod": "■ Le consentement reste valable jusqu'à la fin de ce contrat et reste valable même si des modifications surviennent en raison du renouvellement du contrat, etc., mais est valable uniquement jusqu'au point si la transaction financière que j'ai demandée est rejetée par votre entreprise. Cependant, s'il existe des informations sur les transactions de crédit existantes avant ce contrat, elles restent valables jusqu'à la fin du contrat existant"
+      },
+      "uniqueIdHandlingDetails": {
+        "purpose": "■ Pour les contrats d'accord de crédit, enquête et fourniture d'informations de crédit, etc., conclusion, maintenance, exécution, gestion, et amélioration des contrats de produits, vérification personnelle, conformité aux obligations légales, enquête sur les accidents financiers, gestion des litiges et des réclamations",
+        "items": "■ Numéro de sécurité sociale, numéro de passeport, numéro de permis de conduire, numéro d'enregistrement étranger, numéro de rapport de résidence domestique",
+        "remark": "■ Le destinataire et (la période de rétention et d'utilisation du destinataire) sont les mêmes que ceux indiqués dans le formulaire de consentement de collecte et d'utilisation"
+      },
+      "additionalInfo": {
+        "understanding": "※ J'ai pleinement compris le contenu des informations sur les droits des clients concernant la collecte, l'utilisation et la fourniture d'informations (crédit).",
+        "refusalConsequences": "Instructions pour refuser le consentement :\nVous avez le droit de refuser votre consentement pour la collecte et l'utilisation d'informations personnelles (crédit). Cependant, ce consentement étant essentiel pour l'ouverture de compte ou les contrats de produits, sa conclusion et son exécution, le refus du consentement rendra impossible l'ouverture de comptes ou la conclusion et l'exécution de contrats de produits.",
+        "privacyPolicy": "※ La politique de traitement des informations personnelles (ou la divulgation du système d'information de crédit) est divulguée via la page d'accueil Internet de notre entreprise, vous pouvez donc vérifier les détails sur la page d'accueil.",
+        "minorPolicy": "※ Si le client a moins de 14 ans, seul un représentant légal (tel que les parents, les tuteurs) peut donner son consentement.",
+        "agentPolicy": "※ Si le consenteur est un agent, à moins que le principal n'ait explicitement délégué le consentement du formulaire de consentement de sélection à l'agent, l'agent ne peut consentir qu'au formulaire de consentement essentiel du principal.",
+        "terminationDate": "※ La date de fin de transaction mentionnée dans ce formulaire de consentement fait référence au moment où tous les comptes détenus par le client sont activement fermés et tous les contrats pour les produits sont résiliés.",
+        "accountDeletion": "※ Si l'ouverture de compte n'est pas complétée dans les 7 jours, toutes les informations collectées pendant le processus d'ouverture de compte seront supprimées."
+      },
+      "td": {
+        "collectionPurpose": "Objectif de la collecte et de l'utilisation",
+        "items": "Éléments",
+        "retentionPeriod": "Période de conservation et d'utilisation",
+        "inquiryAgency": "Organisme de consultation",
+        "inquiryPurpose": "But de la consultation",
+        "inquiryContent": "Contenu de la consultation",
+        "validityPeriod": "Période de validité",
+        "processingPurpose": "Objectif du traitement",
+        "processingItems": "Éléments de traitement",
+        "note": "Remarque"
+      }
+    }
+  },
+  "button": {
+    "change": "Modifier",
+    "cancel": "Annuler",
+    "confirm": "Confirmer",
+    "modify": "Modifier",
+    "register": "Enregistrer",
+    "submit": "Soumettre",
+    "agree": "Je suis d'accord."
+  },
+  "myStock": {
+    "userTitle": "Les favoris de",
+    "headerButton": "Ajouter aux favoris",
+    "deleteButton": "Supprimer",
+    "detailView": "Voir les détails",
+    "noneStock": "Veuillez ajouter aux favoris.",
+    "alert": {
+      "alertTitle": "Voulez-vous supprimer ce favori?",
+      "alertTitleAll": "Voulez-vous supprimer toutes les recherches récentes?",
+      "alertCancleText": "Annuler"
+    },
+    "modal": {
+      "modalTitle": "Ajouter un favori",
+      "modalInput": "Veuillez entrer un terme de recherche.",
+      "modalSearchTitle": "Résultats de recherche",
+      "modalSearchItemDelete": "Supprimer",
+      "modalSearchItemAdd": "Ajouter",
+      "modalRecentSearchTitle": "Actions récemment recherchées",
+      "modalAllDeleteText": "Tout supprimer",
+      "modalPopularTitle": "Recherches populaires",
+      "modalSearchItemAddLoading": "Ajout de l'élément d'intérêt...",
+      "modalSearchItemAddSuccess": "L'élément d'intérêt a été ajouté.",
+      "modalSearchItemAddError": "Échec de l'ajout de l'élément d'intérêt.",
+      "modalSearchItemDeleteLoading": "Suppression de l'élément d'intérêt...",
+      "modalSearchItemDeleteSuccess": "L'élément d'intérêt a été supprimé.",
+      "modalSearchItemDeleteError": "Échec de la suppression de l'élément d'intérêt."
+    },
+    "layout": {
+      "title": "Mes Actions",
+      "description": "C'est la page où vous pouvez gérer et passer aux rapports d'analyse pour les actions qui vous intéressent.",
+      "keywords": "Mes Actions, Liste de souhaits des actions, Analyse des actions, Analyse des actions par IA, Gestion des actions"
+    }
+  },
+  "searchBox": {
+    "noneStock": "Aucun résultat de recherche trouvé.",
+    "informText": "Veuillez vérifier l'orthographe du mot."
+  },
+  "home": {
+    "recent": {
+      "title": "Consultations récentes",
+      "noRecentSearches": "Aucune consultation récente de titres."
+    },
+    "interestStocks": "Titres d'intérêt",
+    "notFoundInterestStocks": "Aucun titre d'intérêt trouvé.",
+    "popularNews": "Actualités principales",
+    "newsForUser": "Actualités boursières pour {name}",
+    "aiReportFor": "Rapport IA pour {name}",
+    "ai": "IA",
+    "metaTitle": "Aithnow | Accueil",
+    "metaDescription": "Commencez un investissement intelligent avec des informations et des actualités sur les entreprises américaines analysées par l'IA. Des rapports d'entreprise personnalisés facilitent l'investissement.",
+    "metaKeywords": "titres,actions,analyse,analyse boursière,AI,ia,aightnow,AIGHTNOW,actions étrangères,actualités,actualités financières",
+    "ogTitle": "AIGHTNOW - Investissement Intelligent avec l'IA",
+    "ogDescription": "Informations boursières complexes, simplifiées par l'IA. Les actualités traduites et l'analyse personnalisée rendent l'investissement plus agréable.",
+    "siteName": "AIGHTNOW",
+    "ogImageAlt": "Image de présentation du service AIGHTNOW"
   }
 }

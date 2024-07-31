@@ -6,11 +6,11 @@ const AccumulationBarChart = ({ chartData }: { chartData: StockChartDataType[] }
   const period = useReportStore((state) => state.period);
 
   const interval = {
-    일: 6,
-    주: 4,
-    월: 7,
-    분기: 4,
-    년: 1,
+    day: 6,
+    week: 4,
+    month: 7,
+    quarter: 4,
+    year: 1,
   };
 
   const monthTicks = chartData.map((data) => data.localDate).filter((_, idx) => idx % interval[period] === 0);
@@ -39,7 +39,7 @@ const AccumulationBarChart = ({ chartData }: { chartData: StockChartDataType[] }
           tickFormatter={(tick: string) => {
             const year = tick.slice(0, 4);
             const month = tick.slice(4, 6);
-            return `${period === "일" ? "" : `${year}/`}${month}${period === "일" ? `/${tick.slice(6, 8)}` : ""}`;
+            return `${period === "day" ? "" : `${year}/`}${month}${period === "day" ? `/${tick.slice(6, 8)}` : ""}`;
           }}
           tick={{ fontSize: 12, fontWeight: 400, fill: "#9F9F9F", dx: -10 }} // 레이블 스타일
           tickLine={false} // 레이블 선 스타일

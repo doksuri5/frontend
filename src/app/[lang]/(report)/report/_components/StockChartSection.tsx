@@ -8,21 +8,23 @@ import clsx from "clsx";
 import { getStockChartData } from "@/actions/stock";
 import { TReutersCodes } from "@/constants/stockCodes";
 import StockChartSectionSkeleton from "./skeleton/StockChartSectionSkeleton";
-import { MAPPED_PERIOD, StockChartDataType, TMappedPeriod } from "@/types/StockDataType";
+import { StockChartDataType } from "@/types/StockDataType";
 import calculatePeriod from "@/utils/calculate-period";
 import isUSMarketOpen from "@/utils/check-us-market-open";
 import AccumulationBarChart from "./AccumulationBarChart";
 import { useReportStore } from "@/providers/ReportProvider";
+import { useTranslations } from "next-intl";
 type TChartData = {
   reutersCode: TReutersCodes;
 };
 
 export default function StockChartSection({ reutersCode }: TChartData) {
+  const t = useTranslations("report");
   const period = useReportStore((state) => state.period);
   const setPeriod = useReportStore((state) => state.setPeriod);
   const isExtended = useReportStore((state) => state.isExtended);
 
-  const chartButton: (keyof TMappedPeriod)[] = ["일", "주", "월", "분기", "년"] as const;
+  const chartButton = ["day", "week", "month", "quarter", "year"] as const;
   const [chartData, setChartData] = useState<StockChartDataType[]>();
   const [isPending, startTransition] = useTransition();
 
@@ -31,7 +33,7 @@ export default function StockChartSection({ reutersCode }: TChartData) {
       const fetchData = async () => {
         const [startDateTime, endDateTime] = calculatePeriod(period);
         const response = await getStockChartData(undefined, {
-          params: `${reutersCode}/${MAPPED_PERIOD[period]}`,
+          params: `${reutersCode}/${period}`,
           queryString: [`startDateTime=${startDateTime}`, `endDateTime=${endDateTime}`],
         });
 
@@ -50,8 +52,8 @@ export default function StockChartSection({ reutersCode }: TChartData) {
 
   useEffect(
     function setEventSourceForSSE() {
-      if (isUSMarketOpen() && period === "일") {
-        const eventSource = new EventSource(`${process.env.NEXT_PUBLIC_BASE_URL}/api/stock-price/sse/${reutersCode}`);
+      if (isUSMarketOpen() && period === "day") {
+        const eventSource = new EventSource(`${process.env.NEXT_PUBLIC_BASE_URL}/api/stock/price/sse/${reutersCode}`);
 
         eventSource.onmessage = (event) => {
           const newData = JSON.parse(event.data);
@@ -89,7 +91,7 @@ export default function StockChartSection({ reutersCode }: TChartData) {
   return (
     <section className="flex min-h-[25.6rem] min-w-[69.2rem] flex-col gap-[0.8rem] overflow-hidden rounded-[1.6rem] bg-white p-[3.2rem]">
       <div className="flex flex-row justify-between gap-[0.8rem]">
-        <h2 className="body_1 font-bold text-navy-900">주가차트</h2>
+        <h2 className="body_1 font-bold text-navy-900">{t("stockPriceChart")}</h2>
         <div className="flex">
           {chartButton.map((button, idx) => (
             <Button
@@ -101,7 +103,7 @@ export default function StockChartSection({ reutersCode }: TChartData) {
               )}
               onClick={() => setPeriod(button)}
             >
-              {button}
+              {t(`${button}`)}
             </Button>
           ))}
         </div>

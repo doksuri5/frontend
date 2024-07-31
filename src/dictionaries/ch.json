@@ -7,13 +7,261 @@
     "login": "登录",
     "logout": "登出"
   },
+  "metadata": {
+    "root": {
+      "siteName": "AightNow",
+      "title": "基于AI的股票分析平台 | AightNow",
+      "description": "下一代AI分析师平台，结合美国企业实时披露信息和每日新闻数据分析，为全球用户提供多种语言的定制实时企业分析报告。",
+      "keywords": "股票, 股票分析, 股票分析, AI, ai, AightNow, 海外股票, 新闻, 股票新闻",
+      "authors": "鹰兄弟",
+      "openGraph": {
+        "title": "基于AI的股票分析平台 | AightNow",
+        "description": "提供实时企业分析报告的下一代AI分析师平台。",
+        "siteName": "AightNow",
+        "locale": "zh"
+      },
+      "twitter": {
+        "title": "基于AI的股票分析平台 | AightNow",
+        "description": "提供实时企业分析报告的下一代AI分析师平台。"
+      }
+    },
+    "news": {
+      "title": "新闻",
+      "description": "您可以查看热门新闻、您关注股票的相关新闻以及最新新闻。",
+      "openGraph": {
+        "title": "新闻",
+        "description": "您可以查看热门新闻、您关注股票的相关新闻以及最新新闻。"
+      },
+      "twitter": {
+        "title": "新闻",
+        "description": "您可以查看热门新闻、您关注股票的相关新闻以及最新新闻。"
+      }
+    }
+  },
+  "auth": {
+    "title": {
+      "login": "登录",
+      "register": "注册",
+      "termsAgreement": "同意条款",
+      "profileSetup": "设置个人资料",
+      "findPassword": "找回密码",
+      "findEmail": "找回邮箱",
+      "registrationComplete": "注册完成",
+      "registerComplete": "注册完成"
+    },
+    "label": {
+      "name": "姓名",
+      "email": "邮箱地址",
+      "password": "输入密码",
+      "confirmPassword": "确认密码",
+      "phone": "手机号",
+      "birthDate": "出生日期",
+      "profileImage": "个人资料图片",
+      "nickname": "昵称",
+      "interestStock": "感兴趣的股票",
+      "gender": "性别"
+    },
+    "placeholder": {
+      "email": "请输入邮箱地址。",
+      "password": "请输入密码。",
+      "name": "请输入姓名。",
+      "phone": "请输入手机号（不含“-”）。",
+      "emailVerificationCode": "请输入6位邮箱验证码",
+      "confirmPassword": "请再次输入密码。",
+      "birthDate": "请输入出生日期6位数（例：991231）",
+      "nickname": "请输入昵称。",
+      "addInterestStock": "添加感兴趣的股票#。",
+      "registeredEmail": "请输入注册时使用的邮箱地址。"
+    },
+    "sns": {
+      "kakao": "Kakao",
+      "naver": "Naver",
+      "google": "Google",
+      "local": "本地"
+    },
+    "commonValidation": {
+      "noSpecialCharsOrNumbers": "不能包含数字或特殊字符。",
+      "invalidEmailFormat": "不是有效的电子邮件格式。",
+      "invalidPhoneNumber": "请输入有效的手机号码。",
+      "passwordRequirements": "密码需为8-20个字符，并包含数字、特殊字符、英文字母中的至少两种。",
+      "enterPassword": "请输入密码。",
+      "birthDateLength": "出生日期应为6位数字。",
+      "invalidDate": "无效的日期。",
+      "enterVerificationCode": "请输入6位验证码。",
+      "passwordMismatch": "密码不一致。请重新输入确认。",
+      "invalidSpecialChars": "除了'_' 和 '-'之外，不能使用特殊字符。",
+      "selectInterestStock": "请选择感兴趣的股票。",
+      "alreadyRegisteredEmail": "该邮箱已注册。",
+      "verificationExpired": "验证码已过期。请重新请求邮件。",
+      "invalidOrExpiredCode": "验证码无效或已过期。",
+      "nicknameUnavailable": "此昵称不可用",
+      "unregisteredOrInvalidInfo": "未注册会员或会员信息无效。"
+    },
+    "commonBtn": {
+      "next": "下一步",
+      "register": "注册",
+      "confirm": "确认",
+      "issueTempPassword": "生成临时密码",
+      "pleaseWait": "请稍候。"
+    },
+    "login": {
+      "autoLogin": "自动登录",
+      "notMemberYet": "还不是会员？",
+      "signup": "现在注册",
+      "or": "或者",
+      "loggingIn": "登录中...",
+      "loginFailed": "登录失败。",
+      "checkEmailPassword": "请检查您的邮箱或密码并重试。",
+      "loginSuccessful": "登录成功。"
+    },
+    "termsAgreement": {
+      "checkRequiredTerms": "请勾选必需的条款。",
+      "agreeAll": "我同意服务条款和隐私政策。",
+      "termsOfService": "服务条款（必需）",
+      "privacyPolicy": "隐私政策（必需）",
+      "agree": "同意"
+    },
+    "register": {
+      "sendingEmail": "发送邮件中...",
+      "emailSent": "邮件发送成功。",
+      "emailSendFailed": "邮件发送失败。",
+      "resendEmail": "重新发送邮件",
+      "requestEmail": "请求邮件",
+      "emailVerified": "邮箱验证成功。",
+      "verifyCode": "验证代码",
+      "codeSent": "验证码已发送。",
+      "codeSentToEmail": "验证码已发送到您的邮箱。",
+      "checkEmailToContinue": "请检查您的邮件以继续注册。"
+    },
+    "registerComplete": {
+      "registrationComplete": "注册完成。",
+      "loginToContinue": "请登录以继续。"
+    },
+    "profileSetUp": {
+      "profileImage": "个人资料图片",
+      "uploadLimit": "仅允许上传不超过1MB的图片文件。",
+      "nicknameAvailable": "昵称可用。",
+      "signupError": "由于临时错误，注册失败。",
+      "retrySignup": "请重试注册。",
+      "changeNickname": "更改昵称",
+      "checkDuplicate": "检查重复",
+      "noSearchResults": "无搜索结果。",
+      "addAtLeastOneInterestStock": "请至少添加一个感兴趣的股票。",
+      "male": "男",
+      "female": "女",
+      "registerInvestmentPreference": "注册您的投资偏好",
+      "registerInvestmentPreferenceInfo": "以获取更准确的信息！",
+      "registerInvestmentPreferenceButton": "注册投资偏好",
+      "noInvestmentPreference": "您还没有注册投资偏好。",
+      "confirmNoInvestmentPreference": "您是否要在不注册投资偏好的情况下继续？",
+      "signupWithoutPreference": "在不注册的情况下注册",
+      "registerInvestmentPreferenceAgain": "重新注册投资偏好"
+    },
+    "findPassword": {
+      "issuingTempPassword": "生成临时密码中...",
+      "tempPasswordIssued": "临时密码已生成。",
+      "tempPasswordIssueFailed": "生成临时密码失败。",
+      "snsLoginAccount": "此账户通过SNS登录注册。",
+      "tempPasswordGenerated": "临时密码已生成。",
+      "pleaseLogin": "请登录。",
+      "checkEmailForTempPassword": "请检查您的邮件，使用临时密码登录并更改密码。"
+    },
+    "findEmailComplete": {
+      "emailMatchesPhone": "与手机号匹配的邮箱。",
+      "snsLogin": "SNS 登录",
+      "email": "邮箱",
+      "registrationDate": "注册日期"
+    },
+    "exist": {
+      "alreadyRegisteredEmail": "该邮箱已被注册。",
+      "snsSignupNotAllowed": "无法使用该SNS账户注册。",
+      "checkAccountInfoThroughFindEmail": "请通过找回邮箱确认账户信息。"
+    },
+    "loginError": {
+      "errorTitle": "登录错误",
+      "temporaryError": "由于临时错误，登录失败。",
+      "tryAgain": "请再试一次。"
+    },
+    "metadata": {
+      "login": {
+        "description": "登录您的账户以使用我们的服务。",
+        "keywords": "登录，账户访问，用户验证",
+        "openGraph": {
+          "description": "登录您的账户以使用我们的服务。"
+        },
+        "twitter": {
+          "description": "登录您的账户以使用我们的服务。"
+        }
+      },
+      "termsAgreement": {
+        "description": "检查并同意用户条款和政策。",
+        "keywords": "同意条款，用户条款，政策，同意",
+        "openGraph": {
+          "description": "检查并同意用户条款和政策。"
+        },
+        "twitter": {
+          "description": "检查并同意用户条款和政策。"
+        }
+      },
+      "register": {
+        "description": "创建一个新账户并开始使用我们的服务。",
+        "keywords": "注册，账户创建，新账户",
+        "openGraph": {
+          "description": "创建一个新账户并开始使用我们的服务。"
+        },
+        "twitter": {
+          "description": "创建一个新账户并开始使用我们的服务。"
+        }
+      },
+      "registerComplete": {
+        "description": "您的注册已完成。开始使用我们的服务。",
+        "keywords": "注册完成，账户创建，新账户",
+        "openGraph": {
+          "description": "您的注册已完成。开始使用我们的服务。"
+        },
+        "twitter": {
+          "description": "您的注册已完成。开始使用我们的服务。"
+        }
+      },
+      "profileSetup": {
+        "description": "输入您的个人信息并注册您的投资偏好。",
+        "keywords": "注册，设置个人资料，投资偏好，个人信息，投资",
+        "openGraph": {
+          "description": "输入您的个人信息并注册您的投资偏好。"
+        },
+        "twitter": {
+          "description": "输入您的个人信息并注册您的投资偏好。"
+        }
+      },
+      "findEmail": {
+        "description": "找回与您的账户关联的邮箱。",
+        "keywords": "找回邮箱，账户邮箱，邮箱恢复，确认邮箱",
+        "openGraph": {
+          "description": "找回与您的账户关联的邮箱。"
+        },
+        "twitter": {
+          "description": "找回与您的账户关联的邮箱。"
+        }
+      },
+      "findPassword": {
+        "description": "获取您账户的临时密码。",
+        "keywords": "找回密码，临时密码，重设密码，账户安全",
+        "openGraph": {
+          "description": "获取您账户的临时密码。"
+        },
+        "twitter": {
+          "description": "获取您账户的临时密码。"
+        }
+      }
+    }
+  },
   "stocks": {
-    "stockApple": "苹果",
-    "stockMicroSoft": "微软",
-    "stockAmazon": "亚马逊",
-    "stockUnity": "Unity",
-    "stockGoogle": "谷歌",
-    "stockTesla": "特斯拉"
+    "stockAAPL": "苹果",
+    "stockMSFT": "微软",
+    "stockAMZN": "亚马逊",
+    "stockGOOGL": "谷歌",
+    "stockU": "Unity",
+    "stockTSLA": "特斯拉"
   },
   "news": {
     "todaysPopularNews": "今日热门新闻",
@@ -24,17 +272,28 @@
     "AISummary": "AightNow AI摘要",
     "AISummaryContent": "AI摘要内容"
   },
+  "currency": {
+    "sign": "¥"
+  },
+  "analysis": {
+    "stockPrice": "股价",
+    "investmentIndex": "投资指数",
+    "profitability": "盈利能力",
+    "growth": "成长性",
+    "interest": "兴趣",
+    "point": "分"
+  },
   "report": {
     "stock": "股票",
     "addInterestStock": "添加关注股票",
     "removeInterestStock": "取消关注股票",
     "unit": "元",
     "stockPriceChart": "股票价格图表",
-    "oneDay": "1天",
-    "threeMonths": "3个月",
-    "oneYear": "1年",
-    "threeYears": "3年",
-    "tenYears": "10年",
+    "day": "日",
+    "week": "周",
+    "month": "月",
+    "quarter": "季度",
+    "year": "年",
     "stockAIReport": "股票AI报告",
     "aightNowAIAnalystReport": "AightNow AI分析师报告",
     "userInterestStocks": "的关注股票",
@@ -44,7 +303,16 @@
     "growth": "成长性",
     "interestLevel": "关注度",
     "delete": "删除",
-    "viewDetails": "查看详情"
+    "viewDetails": "查看详情",
+    "more": "更多",
+    "less": "收起",
+    "metaTitle": "{stockName}股票分析 | AIGHTNOW",
+    "metaDescription": "基于人工智能的{stockName}股票分析、财务信息和市场趋势。",
+    "metaKeywords": "股票,分析,报告,财务,新闻,市场,人工智能,投资,证券,{stockName}",
+    "ogTitle": "{stockName} AI股票分析 - AIGHTNOW",
+    "ogDescription": "探索基于人工智能的{stockName}股票分析、实时市场趋势和投资洞察。",
+    "siteName": "AIGHTNOW",
+    "ogImageAlt": "{stockName}股票分析图片"
   },
   "chatBot": {
     "initMessage": "你好！我是NowChatBot。我能帮你什么？",
@@ -54,5 +322,340 @@
     "linkCommentStockPriceChange": "价格变动",
     "linkCommentStockDescription": "描述",
     "linkButton": "转到分析页面"
+  },
+  "discovery": {
+    "inputPlaceholder": "请搜索股票",
+    "recentSearchTitle": "最近搜索",
+    "allDeleteButton": "全部删除",
+    "popularSearchTitle": "热门搜索",
+    "standard": "标准",
+    "NoneRecentSearch": "没有最近的搜索.",
+    "searchStockTitle": "股票",
+    "searchNewsTitle": "新闻",
+    "moreItem": "更多",
+    "alert": {
+      "alertTitle": "您确定要删除所有最近的搜索吗？",
+      "alertButtonText": "删除",
+      "alertCancleText": "取消"
+    },
+    "layout": {
+      "title": "股票搜索",
+      "description": "这是AIGHTNOW的发现页面, 一个基于AI的股票分析平台, 您可以实时搜索和分析各种股票项目.",
+      "keywords": "股票搜索, 股票分析, 实时股票新闻, AI股票分析, 股票项目搜索, aightnow, AIGHTNOW"
+    },
+    "searchLayout": {
+      "searchResult": "搜索结果",
+      "description": "查看{search}的搜索结果.",
+      "keywords": "股票搜索, 实时股票新闻, AI股票分析, aightnow, AIGHTNOW"
+    }
+  },
+  "mypage": {
+    "editPrivacy": "编辑个人信息",
+    "languageSettings": "语言设置",
+    "terms": "条款",
+    "termsOfService": "服务条款",
+    "profile": "个人资料",
+    "profileSettings": "配置文件设置",
+    "manageProfile": "创建和管理您在使用服务时显示的配置文件。尝试设置您的配置文件。",
+    "editProfile": "编辑配置文件",
+    "accountSettings": "账户设置",
+    "manageAccount": "创建和修改您在使用服务时的账户。链接账户以使用各种服务。",
+    "editAccountInfo": "编辑账户信息",
+    "withdraw": "会员退出",
+    "selectTranslationLang": "选择您想在新闻和报告中翻译的语言，您将能看到所选择语言的翻译信息。",
+    "privacyPolicy": "隐私政策",
+    "fold": "折叠",
+    "expand": "展开",
+    "editInfo": "编辑信息",
+    "withdrawalReason": "退出原因",
+    "inconvenientService": "服务不便且经常出现故障",
+    "preferOtherService": "偏好其他服务",
+    "lowUsage": "使用频率低",
+    "contentDissatisfaction": "对内容不满",
+    "otherReason": "其他",
+    "metadata": {
+      "title": "我的页面",
+      "description": "用户可以管理个人设置和信息的我的页面。轻松管理个人设置和信息。",
+      "keywords": "我的页面, 语言设置, 个人信息修改, 个人信息, 资料, 注销账户, 注销, 使用条款, 条款",
+      "openGraph": {
+        "title": "我的页面",
+        "description": "用户可以管理个人设置和信息的我的页面。轻松管理个人设置和信息。"
+      },
+      "twitter": {
+        "title": "我的页面",
+        "description": "用户可以管理个人设置和信息的我的页面。轻松管理个人设置和信息。"
+      }
+    }
+  },
+  "lang": {
+    "korean": "韩语",
+    "english": "英语",
+    "chinese": "中文",
+    "japanese": "日语",
+    "french": "法语"
+  },
+  "user": {
+    "email": "电子邮箱",
+    "name": "姓名",
+    "birth": "出生日期",
+    "nickname": "昵称",
+    "gender": "性别",
+    "male": "男",
+    "female": "女",
+    "phone": "电话号码",
+    "form": {
+      "checkDuplicate": "检查重复",
+      "edit": "编辑",
+      "sendCode": "发送验证码",
+      "verifyCode": "验证代码",
+      "emailVerify": "电子邮件验证",
+      "passwordAuth": "密码认证",
+      "addFavoriteStock": "添加到收藏",
+      "noResults": "没有找到结果",
+      "enterNickname": "输入昵称",
+      "profileImage": "个人图片",
+      "inputCurrentPassword": "输入当前密码",
+      "enterPassword": "输入密码",
+      "inputNewPassword": "输入新密码",
+      "confirmNewPassword": "确认新密码",
+      "inputEmail": "输入电子邮件",
+      "enterEmail": "请输入电子邮件",
+      "withdrawalReason": "退出原因",
+      "selectWithdrawalReason": "选择退出原因",
+      "enterOtherReason": "输入其他原因",
+      "otherReason": "其他原因",
+      "passwordLabel": "输入密码",
+      "enterCode": "输入验证码",
+      "promptCode": "请输入验证码",
+      "newPassword": "请输入新密码",
+      "confirmPassword": "请再次确认密码",
+      "enterPhone": "请输入不包括‘-’的手机号码",
+      "enterBirth": "请输入六位生日数字(例如: 991231)"
+    },
+    "popup": {
+      "codeMismatch": "验证码不匹配",
+      "checkCode": "请重新检查验证码",
+      "verificationIssue": "验证过程中出现错误",
+      "unknownIssue": "发生未知错误，请重试",
+      "processingWithdrawal": "正在处理退出...",
+      "passwordFail": "密码验证失败",
+      "profileFail": "配置文件更新失败",
+      "profileSuccess": "配置文件已更新",
+      "imageFail": "图像处理失败",
+      "retryLater": "请稍后再试",
+      "nicknameCheckFail": "昵称检查失败",
+      "nicknameUnavailable": "昵称不可用",
+      "imageSizeExceed": "只能上传最大1MB的图像文件",
+      "confirmLangChange": "您是否要更改语言设置？",
+      "passwordAuthFail": "密码认证失败",
+      "checkPassword": "请再次检查您的密码",
+      "accountDeletionError": "账号删除过程中出现错误。",
+      "passwordValidationFail": "密码验证失败。",
+      "deletionProcessError": "会员退出处理过程中出现错误。",
+      "deletionSuccess": "会员退出成功处理。",
+      "authCodeExpired": "验证码已过期。",
+      "requestAuthCode": "请重新请求验证码。",
+      "emailVerificationInProgress": "电子邮件验证中...",
+      "authCodeSent": "验证码已发送到您的电子邮件。",
+      "continueSignup": "请检查邮件后继续注册。",
+      "emailAuthFail": "电子邮件验证失败。",
+      "retryEmailCheck": "检查邮件后请再试一次。",
+      "authCodeMismatch": "验证码不匹配。",
+      "checkAuthCode": "请再次检查验证码。",
+      "languageChangeFail": "语言更改失败。",
+      "languageChanged": "语言已更改。",
+      "languageSettingError": "设置语言过程中出现错误。",
+      "errorDuringWithdrawal": "处理会员退出时发生错误。",
+      "errorDuringLoginWithdrawal": "登录会员退出过程中发生错误。",
+      "memberInfoUpdated": "会员信息已更新。",
+      "errorDuringMemberInfoUpdate": "更新会员信息时发生错误。",
+      "tryAgain": "请再试一次。",
+      "passwordAuthError": "密码认证过程中发生错误。",
+      "verificationCodeSent": "已向您填写的邮箱地址发送了验证码。",
+      "emailAuthError": "电子邮件认证过程中发生错误。",
+      "verificationCodeCheckError": "验证验证码过程中发生错误。"
+    }
+  },
+  "validation": {
+    "noNumbersOrSymbols": "不能包含数字或特殊字符。",
+    "invalidEmailFormat": "邮箱格式不正确。",
+    "enterValidPhoneNumber": "请输入有效的手机号码。",
+    "enterPhoneNumber": "请输入手机号码",
+    "passwordsDoNotMatch": "两次输入的密码不一致，请重新输入。",
+    "passwordRequirements": "密码长度为8-20个字符，必须包含数字、特殊字符和英文字符中的至少两种。",
+    "invalidSpecialCharacters": "不能使用除'_'和'-'之外的特殊字符。",
+    "enterPassword": "请输入密码。",
+    "birthSixDigits": "生日必须是6位数。",
+    "invalidDate": "日期无效。",
+    "selectInterest": "请选择感兴趣的项目。",
+    "minPasswordLength": "密码至少需要8个字符。",
+    "maxPasswordLength": "密码最多可以输入16个字符。",
+    "passwordCharRequirements": "密码必须包含数字、英文字母和特殊字符。",
+    "nicknameUnavailable": "此昵称不可用。",
+    "nicknameAvailable": "这个昵称可用。",
+    "enterBirthDate": "请输入您的出生日期。"
+  },
+  "investPropensity": {
+    "title": "投资倾向诊断",
+    "description": "我们将根据您的投资倾向和目标为您推荐合适的产品。",
+    "query": {
+      "question1": {
+        "questionText": "您打算投资的资金的可投资期限是多久？",
+        "option1": "6个月内",
+        "option2": "6个月至1年",
+        "option3": "1年至2年",
+        "option4": "2年至3年",
+        "option5": "3年以上"
+      },
+      "question2": {
+        "questionText": "您认为自己对金融产品的投资水平如何？",
+        "option1": "[非常低] 没有金融投资产品的投资经验",
+        "option2": "[较低] 稍微理解著名金融投资产品（股票、债券及基金等）的结构及风险",
+        "option3": "[较高] 能够区分大多数可投资的金融产品的差异",
+        "option4": "[非常高] 理解包括金融产品在内的所有投资产品的差异"
+      },
+      "question3": {
+        "questionText": "您当前打算投资的资金占您总金融资产（不包括房地产）的比例是多少？",
+        "option1": "10%以内",
+        "option2": "10%至20%",
+        "option3": "20%至30%",
+        "option4": "30%至40%",
+        "option5": "超过40%"
+      },
+      "question4": {
+        "questionText": "您对当前投资资金所期望的收益和能够承受的损失水平是多少？",
+        "option1": "如果预期收益高，愿意承担风险",
+        "option2": "如果能达到期望的收益水平，可以承受不超过20%的损失",
+        "option3": "如果可以期待一定水平的收益，可以承受不超过10%的损失",
+        "option4": "无论如何都必须保全投资本金"
+      },
+      "question5": {
+        "questionText": "以下哪一项最接近您的投资经验？（可多选）",
+        "option1": "保守型产品 - 银行存款/储蓄、国债、市政债、保证债、货币市场基金、现金管理账户等",
+        "option2": "追求安全型产品 - 金融债、信用等级高的公司债、债券型基金、本金保护型股权连结证券等",
+        "option3": "风险中性产品 - 信用等级中等的公司债、部分保本的股权连结证券、混合型基金等",
+        "option4": "积极投资型产品 - 信用等级低的公司债、股票、非保本的股权连结证券、追求市场收益率的股票型基金等",
+        "option5": "高风险投资型产品 - 权证、期货期权、追求超过市场收益率的股票型基金、投资衍生品的基金、股票信用交易等",
+        "option6": "无"
+      }
+    },
+    "agree": {
+      "title": "个人(信用)信息收集使用同意书（金融交易设置用）",
+      "introduction": "鹰兄弟五股份有限公司根据《个人信息保护法》、《信用信息的利用及保护法》等相关法规，向您说明以下事项并征求您的同意。",
+      "sectionTitles": {
+        "infoCollectionUse": "个人(信用)信息收集•使用相关事宜",
+        "infoInquiry": "个人(信用)信息查询相关事宜",
+        "uniqueIdHandling": "唯一识别信息处理相关事宜",
+        "agree": "本人同意贵公司按以下方式处理本人的唯一识别信息。"
+      },
+      "infoCollectionUse": {
+        "purpose": "■ (金融)合同的签订·维持·执行·管理·改善\n■ 法律上的义务执行(实名确认, 特定金融交易报告, 防止不公平交易, 适宜性确认, 报告海外纳税义务对象等)\n■ 防止金融事故(本人确认, 异常金融交易侦测等) 争议·民事处理等事故调查\n■ 统计, 风险管理, 提高客户服务质量",
+        "items": "■ 个人识别信息: 姓名, 唯一识别信息(外国人包括生年月日, 性别), 地址, 联系方式, 职业, 国籍, CI, 邮箱\n■ 交易媒介相关信息: ID, 媒介种类, IP地址, MAC地址等媒介识别信息, 访问媒介信息等\n■ 客户确认信息(CDD/EDD): 交易目的, 预期交易, 代理人·委托人等特殊关系人信息等\n■ 金融交易信息: 商品及服务的种类, 交易条件/时间/金额等交易设置详情, 其他生成信息等\n■ 代理人的情况: 代理人的姓名, 唯一识别信息(外国人包括生年月日, 性别), 职业, 国籍, 联系方式, 与本人的关系等\n■ 海外纳税义务者信息\n■ US FATCA: 英文姓名, 英文地址, 美国纳税人编号, 是否为美国公民(公民, 绿卡持有者, 税法上的居民)\n■ UN CRS: 英文姓名, 英文地址, 纳税义务国(美国以外), (选择)纳税人编号",
+        "retentionPeriod": "交易结束日起5年(但, 金融事故调查, 解决争议, 民事处理, 资本市场法(10年以上保存)等法律上的义务执行的情况下, 分开单独保存)"
+      },
+      "infoInquiryDetails": {
+        "consentStatement": "※ 本公司通过信用信息集中机构或信用查询公司查询您的个人信用信息的记录可能会被提供给其他金融机构等, 并可能导致您的信用等级下降。",
+        "agree": "本人同意如下查询本人的信用信息。",
+        "agency": "■ 信用信息集中机构(信用信息院) 信用查询公司(NAICE评估信息)",
+        "purpose": "■ 本合同(包括本合同前发生的交易信息)的合同维持及事后管理, 贷款•信用卡等金融交易设置是否决定, 信用相关统计模型开发及分析, 本人请求, 其他金融交易相关业务等",
+        "content": "■ 个人识别信息, 信用交易信息, 拖欠等债务不履行信息, 职业·财产等信用能力信息, 公共机关持有信息, 信用等级及评分, 其他机构的信用信息查询记录, 本人认证信息等",
+        "validityPeriod": "■ 上述同意在本合同消灭时까지有效, 并且即使合同更新等情况发生变化仍然有效, 但如果本人申请的金融交易被贵公司拒绝, 则只在那一时点有效。但是, 如果存在本合同前发生的信用交易信息, 则直到原有合同消灭时有效"
+      },
+      "uniqueIdHandlingDetails": {
+        "purpose": "■ 为了信用协议合同的信用信息查询·提供等商品合同的签订·维持·执行·管理·改善, 本人确认, 法律上的义务执行, 金融事故调查, 争议·民事处理",
+        "items": "■ 居民登记编号, 护照编号, 驾驶执照编号, 外国人登记编号, 国内居住报告编号",
+        "remark": "■ 接收方及(接收方的)保持使用期间与收集•使用同意书的内容相同"
+      },
+      "additionalInfo": {
+        "understanding": "※ 本人已充分理解(信用)信息收集•使用•提供相关的客户权利说明书的内容。",
+        "refusalConsequences": "拒绝同意的情况说明:\n您有权拒绝个人(信用)信息收集使用同意。但是, 本同意是开户或商品合同•签订•执行等必需的同意, 因此如果拒绝同意, 则无法开户或商品合同•签订•执行。",
+        "privacyPolicy": "※ 个人信息处理政策(或信用信息利用体系的公示)通过本公司互联网首页进行公示, 因此, 详细内容可在首页确认。",
+        "minorPolicy": "※ 如果客户未满14岁, 则只有法定代理人(父母等亲权人, 后见人等)可以同意。",
+        "agentPolicy": "※ 如果同意者为代理人, 除非名义人明确地将选择同意书的同意等委托给代理人, 否则代理人只能同意名义人的必需同意书。",
+        "terminationDate": "※ 本同意书中提到的交易终止日是客户持有的所有账户的积极关闭和所有产品的合同解除发生的时点。",
+        "accountDeletion": "※ 如果在7天内未完成开户, 则在开户过程中收集的所有信息将被删除。"
+      },
+      "td": {
+        "collectionPurpose": "收集·使用目的",
+        "items": "项目",
+        "retentionPeriod": "保留及使用期限",
+        "inquiryAgency": "查询机构",
+        "inquiryPurpose": "查询目的",
+        "inquiryContent": "查询内容",
+        "validityPeriod": "有效期",
+        "processingPurpose": "处理目的",
+        "processingItems": "处理项目",
+        "note": "备注"
+      }
+    }
+  },
+  "withdraw": {
+    "withdrawComplete": "会员退出已完成。",
+    "thankYouMessage": "感谢您使用AightNow。\n我们将继续努力，不断发展。"
+  },
+  "button": {
+    "change": "更改",
+    "cancel": "取消",
+    "confirm": "确认",
+    "modify": "修正",
+    "register": "登録",
+    "submit": "提出する",
+    "agree": "同意。"
+  },
+  "myStock": {
+    "userTitle": "的关注股票",
+    "headerButton": "添加关注股票",
+    "deleteButton": "删除",
+    "detailView": "查看详情",
+    "noneStock": "请添加关注股票.",
+    "alert": {
+      "alertTitle": "你想删除这个关注股票吗?",
+      "alertTitleAll": "你想删除所有最近的搜索记录吗?",
+      "alertCancleText": "取消"
+    },
+    "modal": {
+      "modalTitle": "添加关注股票",
+      "modalInput": "请输入搜索词.",
+      "modalSearchTitle": "搜索结果",
+      "modalSearchItemDelete": "删除",
+      "modalSearchItemAdd": "添加",
+      "modalRecentSearchTitle": "最近搜索的股票",
+      "modalAllDeleteText": "全部删除",
+      "modalPopularTitle": "热门搜索",
+      "modalSearchItemAddLoading": "正在添加感兴趣的项目...",
+      "modalSearchItemAddSuccess": "感兴趣的项目已添加.",
+      "modalSearchItemAddError": "添加感兴趣的项目失败.",
+      "modalSearchItemDeleteLoading": "正在删除感兴趣的项目...",
+      "modalSearchItemDeleteSuccess": "感兴趣的项目已删除.",
+      "modalSearchItemDeleteError": "删除感兴趣的项目失败."
+    },
+    "layout": {
+      "title": "我的股票",
+      "description": "这是一个管理您感兴趣的股票并跳转到分析报告的页面.",
+      "keywords": "我的股票, 股票愿望单, 股票分析, AI股票分析, 股票管理"
+    }
+  },
+  "searchBox": {
+    "noneStock": "没有找到搜索结果.",
+    "informText": "请检查单词的拼写是否正确."
+  },
+  "home": {
+    "recent": {
+      "title": "最近查看",
+      "noRecentSearches": "最近没有查看过的股票。"
+    },
+    "interestStocks": "关注股票",
+    "notFoundInterestStocks": "没有关注的股票。",
+    "popularNews": "热门新闻",
+    "newsForUser": "{name}的股票新闻",
+    "aiReportFor": "{name}的AI报告",
+    "ai": "AI",
+    "metaTitle": "Aithnow | 首页",
+    "metaDescription": "利用AI分析的美国公司信息和新闻，开始智能投资。定制的公司报告使投资变得更容易。",
+    "metaKeywords": "证券,股票,分析,股票分析,AI,人工智能,aightnow,AIGHTNOW,海外股票,新闻,金融新闻",
+    "ogTitle": "AIGHTNOW - 与AI一起进行智能投资",
+    "ogDescription": "复杂的股票信息，由AI简化整理。翻译的新闻和定制分析让投资变得更有趣。",
+    "siteName": "AIGHTNOW",
+    "ogImageAlt": "AIGHTNOW服务介绍图片"
   }
 }

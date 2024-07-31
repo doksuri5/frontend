@@ -1,14 +1,11 @@
 import { getDateWithoutTime } from "@/utils/getDateWithoutTime";
 import Card from "./Card";
-import { CardNewsDataType } from "@/types";
-import { useTranslations } from "next-intl";
+import { fetchPopularNews } from "@/actions/news";
+import { getTranslations } from "next-intl/server";
 
-type TPopularNewsType = {
-  popularNewsData: CardNewsDataType[];
-};
-
-const PopularNews = ({ popularNewsData }: TPopularNewsType) => {
-  const t = useTranslations();
+const PopularNews = async () => {
+  const t = await getTranslations();
+  const popularNewsData = (await fetchPopularNews()) ?? [];
 
   return (
     <div className="flex flex-col gap-[2.4rem]">

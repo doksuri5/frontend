@@ -1,19 +1,20 @@
-"use client";
-
+import { auth } from "@/auth";
 import { Button } from "@/components/common";
 import SimpleReportCard from "@/components/common/SimpleReportCard";
 import AIIcon from "@/public/icons/AI_icon.svg?component";
-import { useSession } from "next-auth/react";
+import { getTranslations } from "next-intl/server";
 
-const AiReports = () => {
-  const session = useSession();
+const AiReports = async () => {
+  const session = await auth();
+  const t = await getTranslations("home");
+
   return (
     <section className="flex flex-col gap-[2.4rem]">
       <div className="flex gap-4 pt-[9rem]">
-        <h1 className="heading_4 font-bold">{session.data?.user.name ?? "스팩"}님의 AI 리포트</h1>
+        <h1 className="heading_4 font-bold">{t("aiReportFor", { name: session?.user.name ?? "스팩" })}</h1>
         <Button variant="textButton" bgColor="bg-navy-900" className="h-[4rem] w-[8rem]">
           <AIIcon width={20} height={20} />
-          AI
+          {t("ai")}
         </Button>
       </div>
       <div className="flex w-full gap-4">

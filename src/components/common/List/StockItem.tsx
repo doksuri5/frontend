@@ -1,10 +1,12 @@
 import { STOCK_NAMES } from "@/constants/stockCodes";
-import { DISCOVERY_PATH, REPORT_PATH } from "@/routes/path";
+import { REPORT_PATH } from "@/routes/path";
 import { StockDataType } from "@/types";
 import { cn } from "@/utils/cn";
-import { formatValueWithIndicator, formatValueWithSign, getTextColor } from "@/utils/stockPriceUtils";
 import Image from "next/image";
 import Link from "next/link";
+import React from "react";
+import StockPrice from "../StockPrice";
+import { useLocale } from "next-intl";
 
 type TIStockItemProps = StockDataType & {
   iconSize?: number;
@@ -34,15 +36,9 @@ const variantStyles = {
   },
 };
 
-export default function StockItem({
-  iconSize = 50,
-  style,
-  variant = "stock",
-  clickNone = false,
-  ...props
-}: TIStockItemProps) {
-  const { stockName, symbolCode, closePrice, compareToPreviousClosePrice, fluctuationsRatio, reutersCode } = props;
-  const fluctuationPriceColor = getTextColor(compareToPreviousClosePrice);
+function StockItem({ iconSize = 50, style, variant = "stock", clickNone = false, ...props }: TIStockItemProps) {
+  const locale = useLocale();
+  const { stockName, symbolCode, reutersCode, stockNameEng } = props;
 
   const selectedVariantStyles = variantStyles[variant];
 
@@ -53,7 +49,7 @@ export default function StockItem({
           `flex items-center justify-between text-grayscale-900 ${selectedVariantStyles.weight} ${selectedVariantStyles.height} ${style}`,
         )}
       >
-        <div className="flex items-center gap-[1.6rem]">
+        <div className="flex items-center gap-[1.3rem]">
           <div className={selectedVariantStyles.imageSize}>
             <Image
               src={`/icons/stocks/${STOCK_NAMES[reutersCode]}.svg`}
@@ -63,20 +59,13 @@ export default function StockItem({
             />
           </div>
           <div>
-            <h3 className={selectedVariantStyles.stockKorName}>{stockName}</h3>
+            <h3 className={selectedVariantStyles.stockKorName}>{locale === "ko" ? stockName : stockNameEng}</h3>
             <h3 className={selectedVariantStyles.stockEngName}>{symbolCode}</h3>
           </div>
         </div>
-        <div>
-          <div className={selectedVariantStyles.currentPrice}>
-            <span>${closePrice}</span>
-          </div>
-          <div className={cn(`${selectedVariantStyles.fluctuation}`)}>
-            <span className={`${fluctuationPriceColor}`}>{formatValueWithIndicator(compareToPreviousClosePrice)}</span>
-            <span className={`${fluctuationPriceColor}`}>{formatValueWithSign(fluctuationsRatio)}%</span>
-          </div>
-        </div>
+        <StockPrice reutersCode={reutersCode} vertical style={style} />
       </div>
     </Link>
   );
 }
+export default React.memo(StockItem);

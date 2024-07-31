@@ -58,7 +58,8 @@ export default function Card({
             </div>
             {stockCode ? (
               <Image
-                src={`https://ssl.pstatic.net/imgstock/fn/real/logo/stock/Stock${stockCode}.O.svg`}
+                // src={`https://ssl.pstatic.net/imgstock/fn/real/logo/stock/Stock${stockCode.includes(".O") ? stockCode.replace(".O", "") : stockCode}.O.svg`}
+                src={`/icons/stocks/${stockCode}.svg`}
                 alt="logo"
                 width={48}
                 height={48}

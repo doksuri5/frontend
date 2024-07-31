@@ -1,9 +1,31 @@
-import { MyStockStoreProvider } from "@/providers/MyStockProvider";
 import type { Metadata } from "next";
+import { Suspense } from "react";
+import { getTranslations } from "next-intl/server";
+import { MyStockStoreProvider } from "@/providers/MyStockProvider";
+import BodyLoading from "@/app/[lang]/body-loading";
 
-export const metadata: Metadata = {
-  title: `관심 주식`,
-  description: "관심 종목 리스트를 보여주는 페이지",
+interface generateMetadataPropsType {
+  params: {
+    lang: string;
+  };
+}
+
+export const generateMetadata = async ({ params }: generateMetadataPropsType): Promise<Metadata> => {
+  const t = await getTranslations("myStock");
+
+  return {
+    title: t("layout.title"),
+    description: t("layout.description"),
+    keywords: t("layout.keywords"),
+    openGraph: {
+      title: t("layout.title"),
+      description: t("layout.description"),
+    },
+    twitter: {
+      title: t("layout.title"),
+      description: t("layout.description"),
+    },
+  };
 };
 
 export default function MyStockLayout({
@@ -12,8 +34,8 @@ export default function MyStockLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <>
+    <Suspense fallback={<BodyLoading />}>
       <MyStockStoreProvider>{children}</MyStockStoreProvider>
-    </>
+    </Suspense>
   );
 }

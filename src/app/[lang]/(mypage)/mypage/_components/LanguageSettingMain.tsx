@@ -12,6 +12,8 @@ import { usePathname, useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { languageSetting } from "../_api/languageApi";
 import useAlert from "@/hooks/use-alert";
+import { useTranslations } from "next-intl";
+import { setLanguageCookie } from "@/utils/cookies";
 
 interface ILanguageInform {
   icon: JSX.Element;
@@ -20,15 +22,19 @@ interface ILanguageInform {
   value: string;
 }
 
-const languageList = [
-  { icon: <Korea />, label: "한국어", active: false, value: "ko" },
-  { icon: <USA />, label: "영어", active: false, value: "en" },
-  { icon: <China />, label: "중국어", active: false, value: "ch" },
-  { icon: <Japan />, label: "일본어", active: false, value: "jp" },
-  { icon: <French />, label: "프랑스어", active: false, value: "fr" },
-];
-
 export default function LanguageSettingMain({ userLanguage }: { userLanguage: string | undefined }) {
+  const t = useTranslations();
+  const popupT = useTranslations("user.popup")
+  const langT = useTranslations("lang");
+
+  const languageList = [
+    { icon: <Korea />, label: langT("korean", { defaultMessage: "한국어" }), active: false, value: "ko" },
+    { icon: <USA />, label: langT("english", { defaultMessage: "영어" }), active: false, value: "en" },
+    { icon: <China />, label: langT("chinese", { defaultMessage: "중국어" }), active: false, value: "ch" },
+    { icon: <Japan />, label: langT("japanese", { defaultMessage: "일본어" }), active: false, value: "jp" },
+    { icon: <French />, label: langT("french", { defaultMessage: "프랑스어" }), active: false, value: "fr" },
+  ];
+
   const { update } = useSession();
   const { alertInfo, customAlert } = useAlert();
 
@@ -58,19 +64,20 @@ export default function LanguageSettingMain({ userLanguage }: { userLanguage: st
 
       if (!response.ok) {
         customAlert({
-          title: "언어 변경에 실패했습니다.",
-          subText: "잠시 후 다시 시도해 주세요.",
-          onClose: () => {},
+          title: popupT("languageChangeFail", { defaultMessage: "언어 변경에 실패했습니다." }),
+          subText: popupT("retryLater", { defaultMessage: "잠시 후 다시 시도해 주세요." }),
+          onClose: () => { },
         });
         return;
       }
 
       // 성공 후처리
       const userLanguage = response.data.language;
-      
+
       await update({ language: userLanguage });
+      setLanguageCookie(userLanguage);
       setSelectedLang(userLanguage);
-      
+
       // 각 언어의 active 상태 업데이트
       const updatedLangList = langList.map((langItem: ILanguageInform) => ({
         ...langItem,
@@ -79,7 +86,7 @@ export default function LanguageSettingMain({ userLanguage }: { userLanguage: st
       setLangList(updatedLangList);
 
       customAlert({
-        title: "언어가 변경되었습니다.",
+        title: popupT("languageChanged", { defaultMessage: "언어가 변경되었습니다." }),
         subText: "",
         onClose: () => {
           router.refresh();
@@ -90,9 +97,9 @@ export default function LanguageSettingMain({ userLanguage }: { userLanguage: st
       changeURL(lang);
     } catch (err) {
       customAlert({
-        title: "언어 설정 도중 오류가 발생했습니다.",
-        subText: err instanceof Error ? err.message : "알 수 없는 오류가 발생했습니다.",
-        onClose: () => {},
+        title: popupT("languageSettingError", { defaultMessage: "언어 설정 도중 오류가 발생했습니다." }),
+        subText: err instanceof Error ? err.message : popupT("unknownIssue", { defaultMessage: "알 수 없는 오류가 발생했습니다." }),
+        onClose: () => { },
       });
     }
   };
@@ -120,9 +127,14 @@ export default function LanguageSettingMain({ userLanguage }: { userLanguage: st
     <>
       <section className="flex w-[100%] flex-col gap-[2.4rem]">
         <div className="flex flex-col gap-[.8rem]">
-          <div className="body_2 font-bold text-gray-900">언어 설정</div>
+          <div className="body_2 font-bold text-gray-900">
+            {t("mypage.languageSettings", { defaultMessage: "언어 설정" })}
+          </div>
           <div>
-            이 설정에서 번역할 언어를 선택하시면 뉴스 및 리포트에서 설정하신 언어로 번역한 정보를 확인할 수 있습니다.
+            {t("mypage.selectTranslationLang", {
+              defaultMessage:
+                "이 설정에서 번역할 언어를 선택하시면 뉴스 및 리포트에서 설정하신 언어로 번역한 정보를 확인할 수 있습니다.",
+            })}
           </div>
         </div>
         <div className="flex flex-row flex-wrap gap-[1rem]">
@@ -152,9 +164,9 @@ export default function LanguageSettingMain({ userLanguage }: { userLanguage: st
       {openConfirmAlert && (
         <Alert
           variant="fnButton"
-          title="언어 설정을 변경하시겠습니까?"
-          buttonText="변경"
-          subButtonText="취소"
+          title={popupT("confirmLangChange", { defaultMessage: "언어 설정을 변경하시겠습니까?" })}
+          buttonText={t("button.change", { defaultMessage: "변경" })}
+          subButtonText={t("button.cancel", { defaultMessage: "취소" })}
           onClick={handleConfirmChange}
           onClose={handleCancelChange}
         />

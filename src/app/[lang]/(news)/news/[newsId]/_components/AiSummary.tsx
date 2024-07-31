@@ -1,22 +1,27 @@
 "use client";
 
-import { Button, Skeleton } from "@/components/common";
+import { Button } from "@/components/common";
 import AI_Summary from "@/public/icons/AI_Summary.svg?component";
 import { NewsSummarySchema } from "@/types/NewsDataType";
 import debounce from "@/utils/debounce";
 import { experimental_useObject as useObject } from "ai/react";
 import { useTranslations } from "next-intl";
+import { useRef } from "react";
 
 const AiSummary = ({ content }: { content: string }) => {
+  const isDirty = useRef(false);
   const { object, submit, isLoading } = useObject({
     api: "/api/ai/summary",
     schema: NewsSummarySchema,
   });
+
   const t = useTranslations();
 
   const handleOnClick = debounce(() => {
+    if (isDirty.current) return;
     submit({ content });
-  }, 500);
+    isDirty.current = true;
+  }, 200);
 
   return (
     <>

@@ -12,9 +12,10 @@ export type TIFindNewsProps = {
   publishedTime: string;
   newspaperCompany: string;
   style?: string;
+  lang: string;
 };
 
-function FindNews({ _id, image, title, publishedTime, newspaperCompany, style }: TIFindNewsProps) {
+function FindNews({ _id, image, title, publishedTime, newspaperCompany, style, lang }: TIFindNewsProps) {
   return (
     <Link href={`${NEWS_PATH}/${_id}`} className="w-full">
       <div className={cn(`flex h-[6.4rem] w-full gap-[2rem] ${style}`)}>
@@ -32,7 +33,7 @@ function FindNews({ _id, image, title, publishedTime, newspaperCompany, style }:
         <div className="flex w-full flex-1 flex-col justify-between py-[0.4rem]">
           <h3 className="body_4 line-clamp-1 font-medium text-grayscale-900">{title}</h3>
           <div className="body_6 flex gap-[0.8rem] font-normal text-grayscale-600">
-            <span>{getTimeDifference(publishedTime)}</span>
+            <span>{getTimeDifference(publishedTime, lang)}</span>
             <span>∙</span>
             <span>{newspaperCompany}</span>
           </div>

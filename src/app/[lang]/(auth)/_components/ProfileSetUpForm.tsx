@@ -3,6 +3,7 @@
 import { useEffect, useState, useTransition } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import Select, { components, MultiValue } from "react-select";
 
 import { Controller } from "react-hook-form";
@@ -11,6 +12,7 @@ import Image from "next/image";
 
 import { Input, Button, Modal, Alert } from "@/components/common";
 import InvestPropensity from "@/components/common/InvestPropensity";
+import CommonLoadingBtn from "./CommonLoadingBtn";
 
 import useZodSchemaForm from "@/hooks/useZodSchemaForm";
 import useAlert from "@/hooks/use-alert";
@@ -20,24 +22,25 @@ import { useRegisterStore } from "@/providers/RegisterProvider";
 import { cn } from "@/utils/cn";
 import reduceImageSize from "@/utils/reduce-image-size";
 
-import { TProfileSchema, profileSchema } from "@/types/AuthType";
+import { TFunction, TProfileSchema, profileSchema } from "@/types/AuthType";
 
 import { REGISTER_COMPLETE_PATH, REGISTER_PATH } from "@/routes/path";
 
 import EditIcon from "@/public/icons/avatar_edit.svg?component";
+import { TInvestPropensityDetails } from "@/types/investPropensityType";
 
 type TOption = {
   value: string;
   label: string;
 };
 
-const options = [
-  { value: "TSLA.O", label: "# 테슬라 ∙ TSLA" },
-  { value: "AAPL.O", label: "# 애플 ∙ APPL" },
-  { value: "AMZN.O", label: "# 아마존 ∙ AMZN" },
-  { value: "MSFT.O", label: "# MS ∙ MSFT" },
-  { value: "GOOGL.O", label: "# 구글 ∙ GOOGL" },
-  { value: "U", label: "# 유니티 ∙ U" },
+const getOptions = (t: TFunction) => [
+  { value: "TSLA.O", label: `# ${t("stockTesla", { defaultMessage: "테슬라" })} ∙ TSLA` },
+  { value: "AAPL.O", label: `# ${t("stockApple", { defaultMessage: "애플" })} ∙ APPL` },
+  { value: "AMZN.O", label: `# ${t("stockAmazon", { defaultMessage: "아마존" })} ∙ AMZN` },
+  { value: "MSFT.O", label: `# ${t("stockMicroSoft", { defaultMessage: "MS" })} ∙ MSFT` },
+  { value: "GOOGL.O", label: `# ${t("stockGoogle", { defaultMessage: "구글" })} ∙ GOOGL` },
+  { value: "U", label: `# ${t("stockUnity", { defaultMessage: "유니티" })} ∙ U` },
 ];
 
 const extractString = (value: string | undefined) => {
@@ -47,6 +50,10 @@ const extractString = (value: string | undefined) => {
 };
 
 export default function ProfileSetUpForm() {
+  const t = useTranslations("auth");
+  const stocks = useTranslations("stocks");
+  const options = getOptions(stocks);
+
   const form = useRegisterStore((state) => state.form);
   const [isGender, setIsGender] = useState<null | "M" | "F">(null);
   const [avatar, setAvatar] = useState("");
@@ -91,7 +98,7 @@ export default function ProfileSetUpForm() {
 
     if (inputFile.size > 1024 * 1024 * 1) {
       customAlert({
-        title: "최대 1MB 이하의 이미지 파일만 업로드 가능합니다.",
+        title: t("profileSetUp.uploadLimit", { defaultMessage: "최대 1MB 이하의 이미지 파일만 업로드 가능합니다." }),
         subText: "",
         onClose: () => {},
       });
@@ -107,7 +114,7 @@ export default function ProfileSetUpForm() {
   };
 
   // InvestPropensity폼에서 넘어온 데이터 처리
-  const handleFormSubmit = (data: any) => {
+  const handleFormSubmit = (data: TInvestPropensityDetails) => {
     setIsOpenOfInvestPropensity(false);
     setValue("investPropensity", data);
     setValue("isAgreeCreditInfo", true);
@@ -140,7 +147,7 @@ export default function ProfileSetUpForm() {
     const valid = await triggerProfile("nickname");
     const nickname = watchProfile("nickname");
 
-    if (value === "닉네임 변경") {
+    if (value === t("profileSetUp.changeNickname", { defaultMessage: "닉네임 변경" })) {
       setIsNicknameChk(false);
       return;
     }
@@ -162,7 +169,7 @@ export default function ProfileSetUpForm() {
         if (response.ok) {
           setIsNicknameChk(true);
         } else {
-          setError("nickname", { type: "manual", message: response.message });
+          setError("nickname", { type: "manual", message: "nicknameUnavailable" });
         }
       } catch (e) {
         console.log(e);
@@ -183,8 +190,8 @@ export default function ProfileSetUpForm() {
         if (additionalData[key] === undefined || additionalData[key] === null || additionalData[key] === "") {
           setIsOpenOfSuggestion(false);
           customAlert({
-            title: "일시적인 오류로 인해 회원가입에 실패하였습니다.",
-            subText: "다시 회원가입을 시도해주세요.",
+            title: t("profileSetUp.signupError", { defaultMessage: "일시적인 오류로 인해 회원가입에 실패하였습니다." }),
+            subText: t("profileSetUp.retrySignup", { defaultMessage: "다시 회원가입을 시도해주세요." }),
             onClose: () => {
               router.replace(REGISTER_PATH);
               return;
@@ -207,7 +214,7 @@ export default function ProfileSetUpForm() {
     }
 
     if (data.tags) {
-      formData.append("reuters_code", JSON.stringify(data.tags.map((item) => item.value)));
+      formData.append("reuters_code", JSON.stringify(data.tags.map((item: TOption) => item.value)));
     }
 
     formData.append("nickname", data.nickname);
@@ -229,7 +236,7 @@ export default function ProfileSetUpForm() {
             })
           ).json();
           if (response.ok) {
-            router.push(REGISTER_COMPLETE_PATH);
+            router.replace(REGISTER_COMPLETE_PATH);
           }
         });
       } catch (e) {
@@ -257,7 +264,7 @@ export default function ProfileSetUpForm() {
             <Image
               src={avatar ? avatar : "/icons/avatar_default.svg"}
               fill
-              alt="프로필 이미지"
+              alt={t("label.profileImage", { defaultMessage: "프로필 이미지" })}
               priority
               className="object-cover"
             />
@@ -270,12 +277,20 @@ export default function ProfileSetUpForm() {
         {/* 닉네임 */}
         <Input
           id="nickname"
-          labelName="닉네임"
-          placeholder="닉네임을 입력해주세요."
+          labelName={t("label.nickname", { defaultMessage: "닉네임" })}
+          placeholder={t("placeholder.nickname", { defaultMessage: "닉네임을 입력해주세요." })}
           disabled={isPending}
           {...profileControl.register("nickname")}
           variant={profileErrors.nickname ? "error" : "default" || isNicknameChk ? "success" : "default"}
-          caption={profileErrors.nickname?.message || (isNicknameChk ? "* 사용가능한 닉네임 입니다." : undefined)}
+          caption={
+            (profileErrors.nickname?.message &&
+              t(`commonValidation.${profileErrors.nickname?.message}`, {
+                defaultMessage: profileErrors.nickname?.message,
+              })) ||
+            (isNicknameChk
+              ? `* ${t("profileSetUp.nicknameAvailable", { defaultMessage: "사용가능한 닉네임 입니다." })}`
+              : undefined)
+          }
           readOnly={isNicknameChk}
           suffix={
             <Button
@@ -287,75 +302,98 @@ export default function ProfileSetUpForm() {
                 `w-[12rem] ${!profileErrors.nickname && watchProfile("nickname") ? "text-white" : "text-gray-300"}`,
               )}
               disabled={!watchProfile("nickname")}
-              onClick={nicknameChkHandler(isNicknameChk ? "닉네임 변경" : "중복 확인")}
+              onClick={nicknameChkHandler(
+                isNicknameChk
+                  ? t("profileSetUp.changeNickname", { defaultMessage: "닉네임 변경" })
+                  : t("profileSetUp.checkDuplicate", { defaultMessage: "중복 확인" }),
+              )}
             >
-              {isNicknameChk ? "닉네임 변경" : "중복 확인"}
+              {isNicknameChk
+                ? t("profileSetUp.changeNickname", { defaultMessage: "닉네임 변경" })
+                : t("profileSetUp.checkDuplicate", { defaultMessage: "중복 확인" })}
             </Button>
           }
         />
         {/* 관심 종목 */}
         <div className="mt-[1.6rem]">
-          <p className="body-4 text-navy-900">관심 종목</p>
+          <p className={`body-4 text-navy-900`}>{t("label.interestStock", { defaultMessage: "관심 종목" })}</p>
           <Controller
             name="tags"
             control={profileControl}
             disabled={isPending}
             render={({ field }) => (
-              <Select
-                {...field}
-                instanceId={"tags"}
-                isMulti
-                options={options}
-                className="basic-multi-select"
-                classNamePrefix="tag"
-                placeholder="#관심 종목을 추가해주세요."
-                noOptionsMessage={() => "검색된 결과가 없습니다."}
-                components={{
-                  IndicatorsContainer: () => null,
-                  IndicatorSeparator: () => null,
-                  Input: (props) => <components.Input {...props} aria-activedescendant={undefined} />,
-                }}
-                onChange={(selected: MultiValue<TOption>) => {
-                  field.onChange(selected);
-                  setValue("tags", selected as unknown as TOption[], { shouldValidate: true });
-                }}
-              />
+              <>
+                <Select
+                  {...field}
+                  instanceId={"tags"}
+                  isMulti
+                  options={options}
+                  className={`basic-multi-select ${profileErrors.tags ? "error" : ""}`}
+                  classNamePrefix="tag"
+                  placeholder={t("placeholder.addInterestStock", { defaultMessage: "#관심 종목을 추가해주세요." })}
+                  noOptionsMessage={() =>
+                    t("profileSetUp.noSearchResults", { defaultMessage: "검색된 결과가 없습니다." })
+                  }
+                  components={{
+                    IndicatorsContainer: () => null,
+                    IndicatorSeparator: () => null,
+                    Input: (props) => <components.Input {...props} aria-activedescendant={undefined} />,
+                  }}
+                  onChange={(selected: MultiValue<TOption>) => {
+                    field.onChange(selected);
+                    setValue("tags", selected as unknown as TOption[], { shouldValidate: true });
+                  }}
+                />
+                {profileErrors.tags && (
+                  <span className="caption pt-[0.4rem] text-warning-100">
+                    {t("profileSetUp.addAtLeastOneInterestStock", {
+                      defaultMessage: "관심 종목은 최소 1개 추가해주세요.",
+                    })}
+                  </span>
+                )}
+              </>
             )}
           />
         </div>
         {/* 성별 */}
         <div className="mt-[1.6rem]">
-          <p className="body-4 text-navy-900">성별</p>
+          <p className="body-4 text-navy-900">{t("label.gender", { defaultMessage: "성별" })}</p>
           <p className="flex_row gap-[.8rem]">
             <Button
               type="button"
               variant="textButton"
-              size="md"
+              size="sm"
+              className="h-[48px]"
               bgColor={isGender === "M" ? "bg-navy-900" : "bg-white"}
               value="M"
               onClick={() => isGenderActive("M")}
               disabled={isPending}
             >
-              남성
+              {t("profileSetUp.male", { defaultMessage: "남성" })}
             </Button>
             <Button
               type="button"
               variant="textButton"
-              size="md"
+              size="sm"
+              className="h-[48px]"
               bgColor={isGender === "F" ? "bg-navy-900" : "bg-white"}
               value="F"
               onClick={() => isGenderActive("F")}
               disabled={isPending}
             >
-              여성
+              {t("profileSetUp.female", { defaultMessage: "여성" })}
             </Button>
           </p>
         </div>
         {/* 투자 성향 등록 버튼 */}
         <div className="flex justify-between">
           <p className="body_4 mt-[4rem] flex flex-col items-start">
-            <span>투자 성향을 등록하면</span>
-            <span>더 정확한 정보를 받을 수 있습니다!</span>
+            <span>{t("profileSetUp.registerInvestmentPreference", { defaultMessage: "투자 성향을 등록하면" })}</span>
+            <span>
+              {t("profileSetUp.registerInvestmentPreferenceInfo", {
+                defaultMessage: "더 정확한 정보를 받을 수 있습니다!",
+              })}
+            </span>
           </p>
           <Button
             type="button"
@@ -367,7 +405,7 @@ export default function ProfileSetUpForm() {
               setIsOpenOfInvestPropensity(true);
             }}
           >
-            투자 성향 등록하기
+            {t("profileSetUp.registerInvestmentPreferenceButton", { defaultMessage: "투자 성향 등록하기" })}
           </Button>
         </div>
         {/* 투자 성향 등록 모달 폼 */}
@@ -389,12 +427,12 @@ export default function ProfileSetUpForm() {
           variant="textButton"
           type="submit"
           size="lg"
-          bgColor={isProfileValid && isNicknameChk && !isPending ? "bg-navy-900" : "bg-grayscale-200"}
-          className={cn(`mt-[4rem] ${isProfileValid && isNicknameChk && !isPending ? "text-white" : "text-gray-300"}`)}
-          disabled={(!isProfileValid && !isNicknameChk) || isPending}
+          bgColor={isProfileValid && isNicknameChk ? "bg-navy-900" : "bg-grayscale-200"}
+          className={cn(`mt-[4rem] ${isProfileValid && isNicknameChk ? "text-white" : "text-gray-300"}`)}
+          disabled={!(isProfileValid && isNicknameChk) || isPending}
           onClick={handleSubmitButton}
         >
-          가입하기
+          {isPending ? <CommonLoadingBtn /> : t("commonBtn.register", { defaultMessage: "가입하기" })}
         </Button>
         {/* 투자 성향 분석 권유 팝업 */}
         {isOpenOfSuggestion && (
@@ -406,8 +444,14 @@ export default function ProfileSetUpForm() {
           >
             <div className="px-[4rem]">
               <p className="body_1 mb-16 flex flex-col text-center font-bold">
-                <span>투자 성향을 등록하지 않으셨습니다.</span>
-                <span>등록하지 않고 이대로 가입하시겠어요?</span>
+                <span>
+                  {t("profileSetUp.noInvestmentPreference", { defaultMessage: "투자 성향을 등록하지 않으셨습니다." })}
+                </span>
+                <span>
+                  {t("profileSetUp.confirmNoInvestmentPreference", {
+                    defaultMessage: "등록하지 않고 이대로 가입하시겠어요?",
+                  })}
+                </span>
               </p>
               <div className="flex gap-[0.8rem]">
                 <Button
@@ -420,7 +464,7 @@ export default function ProfileSetUpForm() {
                     handleProfileSubmit(onProfileSetUpSubmit)();
                   }}
                 >
-                  등록하지 않고 가입하기
+                  {t("profileSetUp.signupWithoutPreference", { defaultMessage: "등록하지 않고 가입하기" })}
                 </Button>
                 <Button
                   variant="textButton"
@@ -431,7 +475,7 @@ export default function ProfileSetUpForm() {
                     setIsOpenOfInvestPropensity(true);
                   }}
                 >
-                  투자 성향 등록하기
+                  {t("profileSetUp.registerInvestmentPreferenceButton", { defaultMessage: "투자 성향 등록하기" })}
                 </Button>
               </div>
             </div>

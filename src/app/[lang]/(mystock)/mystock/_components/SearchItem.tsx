@@ -1,18 +1,23 @@
 "use client";
 
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/common";
 import { useInterestStockStore } from "@/app/[lang]/(mystock)/mystock/stores";
-import { StockDataType } from "@/types";
-import { formatValueWithIndicator, formatValueWithSign, getTextColor } from "@/utils/stockPriceUtils";
 import { STOCK_NAMES } from "@/constants/stockCodes";
 import { deleteInterestStock, insertInterestStock } from "@/actions/stock";
+import useToast from "@/hooks/use-toast";
+import { formatValueWithIndicator, formatValueWithSign, getTextColor } from "@/utils/stockPriceUtils";
+import { StockDataType } from "@/types";
 
 type TSearchItemProps = {
   data: StockDataType;
 };
 const SearchItem = ({ data }: TSearchItemProps) => {
-  const { stockItemList, addStockItemList, deleteStockItem } = useInterestStockStore();
+  const t = useTranslations("myStock");
+
+  const { stockItemList } = useInterestStockStore();
+  const { showLoadingToast, updateToast } = useToast();
   const isStockItemListContainsData = stockItemList.some((item) => item.id === data.id);
 
   const cashSymbol = new Map([
@@ -22,15 +27,35 @@ const SearchItem = ({ data }: TSearchItemProps) => {
 
   const addStock = async () => {
     if (!isStockItemListContainsData) {
-      await insertInterestStock({ reutersCode: data.reutersCode });
-      addStockItemList(data);
+      const toast = showLoadingToast(t("modal.modalSearchItemAddLoading"));
+      try {
+        const response = await insertInterestStock({ reutersCode: data.reutersCode });
+        if (response.ok) {
+          updateToast(toast, t("modal.modalSearchItemAddSuccess"), "success", 1000);
+        } else {
+          updateToast(toast, t("modal.modalSearchItemAddError"), "error", 1000);
+        }
+      } catch (err) {
+        updateToast(toast, t("modal.modalSearchItemAddError"), "error", 1000);
+        console.log(err);
+      }
     }
   };
 
   const deleteStock = async () => {
     if (isStockItemListContainsData) {
-      await deleteInterestStock(undefined, { params: data.reutersCode });
-      deleteStockItem(data);
+      const toast = showLoadingToast(t("modal.modalSearchItemDeleteLoading"));
+      try {
+        const response = await deleteInterestStock(undefined, { params: data.reutersCode });
+        if (response.ok) {
+          updateToast(toast, t("modal.modalSearchItemDeleteSuccess"), "success", 1000);
+        } else {
+          updateToast(toast, t("modal.modalSearchItemDeleteError"), "error", 1000);
+        }
+      } catch (err) {
+        updateToast(toast, t("modal.modalSearchItemDeleteError"), "error", 1000);
+        console.log(err);
+      }
     }
   };
 
@@ -56,11 +81,11 @@ const SearchItem = ({ data }: TSearchItemProps) => {
         </div>
         {isStockItemListContainsData ? (
           <Button variant="textButton" size="sm" bgColor="bg-grayscale-200" className="w-[12rem]" onClick={deleteStock}>
-            삭제하기
+            {t("modal.modalSearchItemDelete")}
           </Button>
         ) : (
           <Button variant="textButton" size="sm" bgColor="bg-navy-900" className="w-[12rem]" onClick={addStock}>
-            추가
+            {t("modal.modalSearchItemAdd")}
           </Button>
         )}
       </div>
