@@ -598,5 +598,16 @@
   "searchBox": {
     "noneStock": "검색 결과가 없습니다.",
     "informText": "단어의 철자가 정확한지 확인해 주세요."
+  },
+  "home": {
+    "recent": {
+      "title": "최근 조회",
+      "noRecentSearches": "최근 조회한 종목이 없습니다."
+    },
+    "interestStocks": "관심종목",
+    "popularNews": "주요 뉴스",
+    "newsForUser": "{name}님을 위한 주식 뉴스",
+    "aiReportFor": "{name}님의 AI 리포트",
+    "ai": "AI"
   }
 }

@@ -598,5 +598,16 @@
   "searchBox": {
     "noneStock": "No search results found.",
     "informText": "Please check the spelling of the word."
+  },
+  "home": {
+    "recent": {
+      "title": "Recent Views",
+      "noRecentSearches": "No recently viewed stocks."
+    },
+    "interestStocks": "Stocks of Interest",
+    "popularNews": "Popular News",
+    "newsForUser": "Stock News for {name}",
+    "aiReportFor": "AI Report for {name}",
+    "ai": "AI"
   }
 }

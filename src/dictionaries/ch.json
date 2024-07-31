@@ -598,5 +598,16 @@
   "searchBox": {
     "noneStock": "没有找到搜索结果.",
     "informText": "请检查单词的拼写是否正确."
+  },
+  "home": {
+    "recent": {
+      "title": "最近查看",
+      "noRecentSearches": "最近没有查看过的股票。"
+    },
+    "interestStocks": "关注股票",
+    "popularNews": "热门新闻",
+    "newsForUser": "{name}的股票新闻",
+    "aiReportFor": "{name}的AI报告",
+    "ai": "AI"
   }
 }
