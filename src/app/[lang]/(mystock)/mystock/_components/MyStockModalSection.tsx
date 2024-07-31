@@ -37,7 +37,7 @@ const MyStockModalSection = ({ dataList, recentSearchList }: TMyStockModalSectio
     setSearchItemList(recentSearchList);
     setStockItemList(dataList);
     dataList && dataList.length === 0 && setOpenModal(true);
-  }, [dataList, recentSearchList, setOpenModal, setSearchItemList]);
+  }, [dataList, recentSearchList, setOpenModal, setSearchItemList, setStockItemList]);
 
   const handleCloseModal = () => {
     setOpenModal(false);

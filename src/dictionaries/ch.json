@@ -306,6 +306,16 @@
       "alertTitle": "您确定要删除所有最近的搜索吗？",
       "alertButtonText": "删除",
       "alertCancleText": "取消"
+    },
+    "layout": {
+      "title": "股票搜索",
+      "description": "这是AIGHTNOW的发现页面, 一个基于AI的股票分析平台, 您可以实时搜索和分析各种股票项目.",
+      "keywords": "股票搜索, 股票分析, 实时股票新闻, AI股票分析, 股票项目搜索, aightnow, AIGHTNOW"
+    },
+    "searchLayout": {
+      "searchResult": "搜索结果",
+      "description": "查看{search}的搜索结果.",
+      "keywords": "股票搜索, 实时股票新闻, AI股票分析, aightnow, AIGHTNOW"
     }
   },
   "mypage": {
@@ -580,7 +590,18 @@
       "modalSearchItemAdd": "添加",
       "modalRecentSearchTitle": "最近搜索的股票",
       "modalAllDeleteText": "全部删除",
-      "modalPopularTitle": "热门搜索"
+      "modalPopularTitle": "热门搜索",
+      "modalSearchItemAddLoading": "正在添加感兴趣的项目...",
+      "modalSearchItemAddSuccess": "感兴趣的项目已添加.",
+      "modalSearchItemAddError": "添加感兴趣的项目失败.",
+      "modalSearchItemDeleteLoading": "正在删除感兴趣的项目...",
+      "modalSearchItemDeleteSuccess": "感兴趣的项目已删除.",
+      "modalSearchItemDeleteError": "删除感兴趣的项目失败."
+    },
+    "layout": {
+      "title": "我的股票",
+      "description": "这是一个管理您感兴趣的股票并跳转到分析报告的页面.",
+      "keywords": "我的股票, 股票愿望单, 股票分析, AI股票分析, 股票管理"
     }
   },
   "searchBox": {

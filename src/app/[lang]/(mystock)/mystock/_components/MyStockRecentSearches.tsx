@@ -57,7 +57,7 @@ const MyStockRecentSearches = ({ setSearchText }: TMyStockRecentSearchedProps) =
             className="cursor-pointer rounded-[1.6rem] border border-navy-100 px-[1.6rem] py-[2.4rem]"
             onClick={(e) => handleMove(e, stock.stockName)}
           >
-            <StockItem variant="findStock" style="h-[4.8rem]" clickNone={true} {...stock} />
+            <StockItem variant="findStock" clickNone={true} {...stock} />
           </div>
         ))}
       </ul>

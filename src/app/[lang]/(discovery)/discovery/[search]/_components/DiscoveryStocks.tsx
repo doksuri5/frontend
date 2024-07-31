@@ -13,7 +13,7 @@ const DiscoveryStocks = ({ stockList }: { stockList: StockDataType[] }) => {
     <div className="flex_col rounded-[1.6rem] bg-white p-[2.4rem]">
       <div className="grid w-full grid-cols-2 gap-x-[1.6rem] gap-y-[.8rem]">
         {displayedItems.map((stock: StockDataType) => (
-          <StockItem key={stock.stockName} variant="findStock" {...stock} />
+          <StockItem key={stock.stockName} variant="findStock" style="body_5" {...stock} />
         ))}
       </div>
       {stockList.length > maxDisplayedItems && !showMoreItems && (
