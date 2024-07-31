@@ -55,8 +55,12 @@ const useStockPrice = (reutersCode: string) => {
     eventSourceRef.current = new EventSource(`${process.env.NEXT_PUBLIC_BASE_URL}/api/stock/price/sse/${reutersCode}`);
 
     eventSourceRef.current.onmessage = (event) => {
-      const newData = JSON.parse(event.data);
-      debouncedSetStock(newData);
+      if (event.data === "undefined") {
+        console.error("EventSource received undefined data");
+      } else {
+        const newData = JSON.parse(event.data);
+        debouncedSetStock(newData);
+      }
     };
 
     eventSourceRef.current.onerror = () => {

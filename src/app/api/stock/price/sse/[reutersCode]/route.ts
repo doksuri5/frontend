@@ -2,7 +2,7 @@ import { NextRequest } from "next/server";
 import yahooFinance from "yahoo-finance2";
 
 export const dynamic = "force-dynamic";
-export const maxDuration = 30;
+export const maxDuration = 300;
 
 export const GET = async (request: NextRequest, { params }: { params: { reutersCode: string } }) => {
   const { reutersCode } = params;
@@ -42,10 +42,6 @@ export const GET = async (request: NextRequest, { params }: { params: { reutersC
           try {
             const data = await fetchStockPrice();
             const message = JSON.stringify(data);
-
-            if (!message) {
-              return;
-            }
 
             controller.enqueue(encoder.encode(`data: ${message}\n\n`));
           } catch (error) {
