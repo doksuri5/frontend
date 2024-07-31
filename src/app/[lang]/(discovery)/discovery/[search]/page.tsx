@@ -5,8 +5,10 @@ import { getSearchStocks } from "@/actions/search";
 import { getSearchNews } from "@/actions/news";
 import { StockDataType } from "@/types";
 import { SearchStockNewsDataType } from "@/types/NewsDataType2";
+import { unstable_setRequestLocale } from "next-intl/server";
 
-export default async function page({ params }: { params: { search: string } }) {
+export default async function page({ params }: { params: { search: string; lang: string } }) {
+  unstable_setRequestLocale(params.lang);
   const [stockListResult, newsListResult] = await Promise.allSettled([
     getSearchStocks(undefined, { params: decodeURIComponent(params.search) }),
     getSearchNews(undefined, { params: decodeURIComponent(params.search) }),

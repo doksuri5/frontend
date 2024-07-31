@@ -1,9 +1,10 @@
-import { getTranslations } from "next-intl/server";
+import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import { DiscoverySection, PopularSearches, RecentSearches } from "./_components";
 import { getPopularSearchesName } from "@/actions/search";
 import { PopularSearchesNameDataType } from "@/types/SearchDataType";
 
-export default async function Page() {
+export default async function Page({ params }: { params: { lang: string } }) {
+  unstable_setRequestLocale(params.lang);
   const t = await getTranslations("discovery");
 
   const popularSearchesResult = await getPopularSearchesName();

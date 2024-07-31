@@ -1,13 +1,14 @@
 "use client";
 
 import { useReportStore } from "@/providers/ReportProvider";
-import { StockChartDataType, TMappedPeriod } from "@/types/StockDataType";
+import { TPeriod } from "@/stores/useReportStore";
+import { StockChartDataType } from "@/types/StockDataType";
 import { useEffect, useState } from "react";
 import { Area, AreaChart, Tooltip, XAxis, YAxis, ResponsiveContainer } from "recharts";
 
 type TChartData = {
   chartData: StockChartDataType[];
-  period: keyof TMappedPeriod;
+  period: TPeriod;
 };
 
 export default function StockChart({ chartData, period }: TChartData) {
@@ -27,11 +28,11 @@ export default function StockChart({ chartData, period }: TChartData) {
   }, []);
 
   const interval = {
-    일: 6,
-    주: 4,
-    월: 7,
-    분기: 4,
-    년: 1,
+    day: 6,
+    week: 4,
+    month: 7,
+    quarter: 4,
+    year: 1,
   };
 
   // add last month ticks
@@ -55,7 +56,7 @@ export default function StockChart({ chartData, period }: TChartData) {
           tickFormatter={(tick: string) => {
             const year = tick.slice(0, 4);
             const month = tick.slice(4, 6);
-            return `${period === "일" ? "" : `${year}/`}${month}${period === "일" ? `/${tick.slice(6, 8)}` : ""}`;
+            return `${period === "day" ? "" : `${year}/`}${month}${period === "day" ? `/${tick.slice(6, 8)}` : ""}`;
           }}
           tick={{ fontSize: 12, fontWeight: 400, fill: "#9F9F9F", dx: -10 }} // 레이블 스타일
           tickLine={false} // 레이블 선 스타일
