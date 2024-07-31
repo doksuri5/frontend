@@ -9,9 +9,6 @@ const nextConfig = {
       fullUrl: true,
     },
   },
-  experimental: {
-    instrumentationHook: true,
-  },
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "imgnews.pstatic.net" },

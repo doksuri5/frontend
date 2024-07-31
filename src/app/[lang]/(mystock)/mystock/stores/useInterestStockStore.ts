@@ -10,7 +10,7 @@ interface InterestStockType {
 const useInterestStockStore = create<InterestStockType>()((set) => ({
   stockItemList: [],
   setStockItemList: (fetchData) => set({ stockItemList: fetchData }),
-  addStockItemList: (newStockItem) => set((state) => ({ stockItemList: [...state.stockItemList, newStockItem] })),
+  addStockItemList: (newStockItem) => set((state) => ({ stockItemList: [newStockItem, ...state.stockItemList] })),
   deleteStockItem: (stockItem) =>
     set((state) => ({
       stockItemList: state.stockItemList.filter((stock) => stock.id !== stockItem.id),

@@ -14,6 +14,10 @@ import {
   StockDataType,
   StockPopularSearchDataType,
   StockSchema,
+  StockOverViewSchema,
+  StockOverViewDataType,
+  StockCurrencyExchangeSchema,
+  StockCurrencyExchangeDataType,
 } from "@/types/StockDataType";
 
 export type TStockTags =
@@ -23,7 +27,10 @@ export type TStockTags =
   | "/saveRecentSearch"
   | "/deleteRecentSearches"
   | "/interest/insertInterestStock"
-  | "/interest/deleteInterestStock";
+  | "/interest/deleteInterestStock"
+  | "/news/getSearchNews"
+  | "/getSearchStocks"
+  | "/getRecentSearches";
 
 // 주식 종목 리스트 가져오기
 export const getStocks = api.get({
@@ -36,8 +43,20 @@ export const getStocksByReutersCode = api.get({
   responseSchema: StockSchema,
   baseOptions: {
     isDataArray: false,
+    next: {
+      revalidate: 60,
+    },
   },
 })<undefined, StockDataType, false>;
+
+export const getStockDescription = api.get({
+  endpoint: "/stock",
+  responseSchema: StockOverViewSchema,
+  baseOptions: {
+    isFetchFromRouteHandler: true,
+    isDataArray: false,
+  },
+})<undefined, StockOverViewDataType, false>;
 
 // 주식 종목 전체 리스트 가져오기
 export const getDetailInterestStocks = api.get({
@@ -63,7 +82,7 @@ export const saveRecentSearch = api.patch({
   requestSchema: PostRecentSearchSchema,
   responseSchema: StockSchema,
   baseOptions: {
-    revalidateTags: ["/getRecentSearchDetails"],
+    revalidateTags: ["/getRecentSearchDetails", "/news/getSearchNews", "/getSearchStocks", "/getRecentSearches"],
   },
 })<z.infer<typeof PostRecentSearchSchema>, StockDataType>;
 
@@ -101,5 +120,13 @@ export const getStockChartData = api.get({
   responseSchema: StockChartDataSchema,
   baseOptions: {
     isFetchFromRouteHandler: true,
+    next: {
+      revalidate: 60,
+    },
   },
 })<undefined, StockChartDataType>;
+
+export const getStockCurrencyExchange = api.get({
+  endpoint: "/stocks/currency",
+  responseSchema: StockCurrencyExchangeSchema,
+})<undefined, StockCurrencyExchangeDataType>;

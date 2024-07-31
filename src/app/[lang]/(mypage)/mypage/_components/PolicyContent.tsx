@@ -1,5 +1,6 @@
 import { Button } from "@/components/common";
 import { cn } from "@/utils/cn";
+import { useTranslations } from "next-intl";
 
 type TPolicyDivProps = {
   policyType: "service" | "privacy";
@@ -9,11 +10,15 @@ type TPolicyDivProps = {
 };
 
 export const PolicyContent = ({ policyType, handleToggleExpand, policyText, expanded }: TPolicyDivProps) => {
+  const t = useTranslations("mypage");
+
   return (
     <article className="flex flex-col gap-[1.6rem]">
       <div className="flex flex-row justify-between">
         <h1 className="body_2 font-bold text-gray-900">
-          {policyType === "service" ? "서비스 이용약관" : "개인정보 처리방침"}
+          {policyType === "service"
+            ? t("termsOfService", { defaultMessage: "서비스 이용약관" })
+            : t("privacyPolicy", { defaultMessage: "개인정보 처리방침" })}
         </h1>
         <Button
           variant="textButton"
@@ -22,7 +27,7 @@ export const PolicyContent = ({ policyType, handleToggleExpand, policyText, expa
           className="w-[6.4rem] text-blue-600 underline"
           onClick={() => handleToggleExpand(policyType)}
         >
-          {expanded ? "접기" : "펼쳐서 보기"}
+          {expanded ? t("fold", { defaultMessage: "접기" }) : t("expand", { defaultMessage: "펼쳐서 보기" })}
         </Button>
       </div>
       <div

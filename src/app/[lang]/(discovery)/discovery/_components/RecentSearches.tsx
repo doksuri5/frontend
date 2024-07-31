@@ -1,117 +1,96 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
-import DiscoverySection from "./DiscoverySection";
+import { useTranslations } from "next-intl";
+import { useEffect, useState, startTransition, useCallback } from "react";
 import SearchItem from "./SearchItem";
 import { Alert } from "@/components/common";
-import RecentSearchItemSkeleton from "./_skeleton/RecentSearchItemSkeleton";
-
-import { deleteRecentSearchTextList, deleteRecentSearchTextItem, getRecentSearches } from "@/actions/search";
 import { SearchTextDataType } from "@/types/SearchDataType";
-
+import { deleteRecentSearchTextList, getRecentSearches } from "@/actions/search";
+import RecentSearchItemSkeleton from "./_skeleton/RecentSearchItemSkeleton";
 import WarningIcon from "@/public/icons/warning_icon.svg?component";
 
 const RecentSearches = () => {
-  const [searchList, setSearchList] = useState<SearchTextDataType[]>([]);
-  const [isRender, setIsRender] = useState(false);
+  const t = useTranslations("discovery");
   const [showAlert, setShowAlert] = useState(false);
+  const [searchItems, setSearchItems] = useState<SearchTextDataType[]>([]);
+  const [isRendering, setIsRendering] = useState(false);
 
   useEffect(() => {
-    const fetchRecent = async () => {
+    const fetchRecentSearches = async () => {
+      const response = await getRecentSearches();
+      if (response.ok) setSearchItems(response.data);
+    };
+
+    startTransition(async () => {
+      await fetchRecentSearches();
+      setIsRendering(true);
+    });
+  }, []);
+
+  // 전체 삭제
+  const handleDeleteSearch = useCallback(async () => {
+    if (searchItems.length !== 0) {
       try {
-        const response = await getRecentSearches(undefined);
-        if (response.ok) setSearchList(response.data);
+        await deleteRecentSearchTextList();
+        setSearchItems([]);
       } catch (error) {
         console.error("Fetch Error", error);
       } finally {
-        setIsRender(true);
+        setShowAlert(false);
       }
-    };
-    fetchRecent();
-  }, []);
-
-  // 알럿 켜기
-  const handleAlertConfirm = async () => {
-    setShowAlert(true);
-  };
-
-  // 삭제
-  const handleDeleteSearch = async () => {
-    try {
-      const response = await deleteRecentSearchTextList();
-      if (response.ok) setSearchList([]);
-    } catch (error) {
-      console.error("Fetch Error", error);
-    } finally {
-      setShowAlert(false);
     }
-  };
+  }, [searchItems]);
 
-  const handleDeleteSearchItem = async (search_text: string) => {
-    try {
-      const response = await deleteRecentSearchTextItem(undefined, { params: search_text });
-      if (response.ok) setSearchList(response.data);
-    } catch (error) {
-      console.error("Fetch Error", error);
-    } finally {
-      setShowAlert(false);
-    }
-  };
+  // Alert Show
+  const handleAlertShow = useCallback(() => {
+    if (searchItems.length !== 0) setShowAlert(true);
+  }, [searchItems]);
 
-  const subTag = (
-    <button type="button" className="body_5 font-medium text-grayscale-600 underline" onClick={handleAlertConfirm}>
-      전체삭제
-    </button>
-  );
+  if (!isRendering)
+    return (
+      <div className="flex_col relative min-h-[20rem] rounded-[1.6rem] bg-white p-[2.4rem]">
+        {Array.from({ length: 5 }).map((_, index) => (
+          <RecentSearchItemSkeleton key={index} />
+        ))}
+      </div>
+    );
 
   return (
-    <DiscoverySection
-      title="최근 검색어"
-      subTag={searchList.length > 0 ? subTag : undefined}
-      titleStyle="justify-between"
-    >
-      <div className="flex_col min-h-[20rem] rounded-[1.6rem] bg-white p-[2.4rem]">
-        {!isRender ? (
-          <ul className="h-[18rem] w-full">
-            {Array.from({ length: 5 }).map((_, idx) => (
-              <RecentSearchItemSkeleton key={idx} />
+    <>
+      <div className="flex_col relative min-h-[20rem] rounded-[1.6rem] bg-white p-[2.4rem]">
+        <button
+          type="button"
+          className="body_5 absolute right-0 top-[-3.3rem] font-medium text-grayscale-600 underline"
+          onClick={handleAlertShow}
+        >
+          {t("allDeleteButton")}
+        </button>
+        {isRendering && searchItems.length === 0 ? (
+          <div className="flex_row_col flex-1 gap-2 rounded-lg bg-white">
+            <WarningIcon />
+            <p className="body_4 font-medium text-navy-900">{t("NoneRecentSearch")}</p>
+          </div>
+        ) : (
+          <ul className="h-[18rem] w-full overflow-y-scroll scrollbar-hide">
+            {searchItems.map((search) => (
+              <SearchItem key={search.searchText} search={search} setSearchItems={setSearchItems} />
             ))}
           </ul>
-        ) : (
-          <>
-            {searchList.length !== 0 ? (
-              <ul className="h-[18rem] w-full overflow-y-scroll scrollbar-hide">
-                {searchList.map((search) => (
-                  <SearchItem
-                    key={search.searchText}
-                    search={search}
-                    deleteSearch={() => handleDeleteSearchItem(search.searchText)}
-                  />
-                ))}
-              </ul>
-            ) : (
-              <div className="flex_row_col flex-1 gap-2 rounded-lg bg-white">
-                <WarningIcon />
-                <p className="body_4 font-medium text-navy-900">최근 조회한 종목이 없습니다.</p>
-              </div>
-            )}
-          </>
         )}
       </div>
 
-      {/* Alert 컴포넌트 */}
       {showAlert && (
         <Alert
           variant="fnButton"
-          title="최근 검색어를 전부 삭제하시겠습니까?"
-          buttonText="삭제하기"
-          subButtonText="취소"
+          title={t("alert.alertTitle")}
+          buttonText={t("alert.alertButtonText")}
+          subButtonText={t("alert.alertCancleText")}
           onClick={handleDeleteSearch}
           onClose={() => setShowAlert(false)}
         />
       )}
-    </DiscoverySection>
+    </>
   );
 };
+
 export default RecentSearches;

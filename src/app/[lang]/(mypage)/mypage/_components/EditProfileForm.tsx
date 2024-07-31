@@ -15,7 +15,7 @@ import useUserStore from "@/stores/useUserStore";
 import reduceImageSize from "@/utils/reduce-image-size";
 import { updateUserProfile } from "../_api/profileApi";
 import useAlert from "@/hooks/use-alert";
-
+import { useTranslations } from "next-intl";
 export interface IOption {
   value: string;
   label: string;
@@ -24,6 +24,7 @@ export interface IOption {
 type TEditProfileFormProps = {
   closeModal: () => void;
 };
+
 export interface FormData {
   profile: File | string;
   nickname: string;
@@ -32,6 +33,10 @@ export interface FormData {
 }
 
 export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
+  const t = useTranslations("user");
+  const commonT = useTranslations()
+  const validationT = useTranslations("validation")
+
   const { userStoreData } = useUserStore();
   const { alertInfo, customAlert } = useAlert();
   const router = useRouter();
@@ -78,9 +83,9 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
 
     if (file.size > 1024 * 1024 * 1) {
       customAlert({
-        title: "최대 1MB 이하의 이미지 파일만 업로드 가능합니다.",
+        title: t("popup.imageSizeExceed", { defaultMessage: "최대 1MB 이하의 이미지 파일만 업로드 가능합니다." }),
         subText: "",
-        onClose: () => {},
+        onClose: () => { },
       });
       e.target.value = "";
     } else {
@@ -145,14 +150,14 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
         setActiveDuplicateBtn(false);
         setLastCheckedNickname(nickname);
       } else {
-        setError("nickname", { type: "manual", message: "* 사용할 수 없는 닉네임입니다." });
+        setError("nickname", { type: "manual", message: `* ${validationT("nicknameUnavailable", { defaultMessage: "사용할 수 없는 닉네임입니다." })}` });
         setIsNicknameAvailable(false);
       }
     } catch (err) {
       customAlert({
-        title: "닉네임 중복체크에 실패했습니다.",
-        subText: "다시 시도해 주세요",
-        onClose: () => {},
+        title: t("popup.nicknameCheckFail", { defaultMessage: "닉네임 중복체크에 실패했습니다." }),
+        subText: t("popup.tryAgain", { defaultMessage: "다시 시도해 주세요." }),
+        onClose: () => { },
       });
     }
   };
@@ -171,9 +176,9 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
         formData.append("profile", file);
       } catch (err) {
         customAlert({
-          title: "이미지 처리에 실패했습니다.",
-          subText: "다시 시도해 주세요.",
-          onClose: () => {},
+          title: t("popup.imageFail", { defaultMessage: "이미지 처리에 실패했습니다." }),
+          subText: t("popup.tryAgain", { defaultMessage: "다시 시도해 주세요." }),
+          onClose: () => { },
         });
         return;
       }
@@ -189,7 +194,7 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
 
       if (response.ok) {
         customAlert({
-          title: "프로필이 수정되었습니다.",
+          title: t("popup.profileSuccess", { defaultMessage: "프로필이 수정되었습니다." }),
           subText: "",
           onClose: () => {
             closeModal();
@@ -198,16 +203,16 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
         });
       } else {
         customAlert({
-          title: "프로필 수정에 실패했습니다.",
-          subText: "다시 시도해 주세요.",
-          onClose: () => {},
+          title: t("popup.profileFail", { defaultMessage: "프로필 수정에 실패했습니다." }),
+          subText: t("popup.tryAgain", { defaultMessage: "다시 시도해 주세요." }),
+          onClose: () => { },
         });
       }
     } catch (err) {
       customAlert({
-        title: "프로필 수정에 실패했습니다.",
-        subText: err instanceof Error ? err.message : "알 수 없는 오류가 발생했습니다.",
-        onClose: () => {},
+        title: t("popup.profileFail", { defaultMessage: "프로필 수정에 실패했습니다." }),
+        subText: err instanceof Error ? err.message : t("popup.unknownIssue", { defaultMessage: "알 수 없는 오류가 발생했습니다." }),
+        onClose: () => { },
       });
     }
   };
@@ -222,7 +227,7 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
               src={imageUrl || Avatar}
               width={120}
               height={120}
-              alt="프로필 이미지"
+              alt={t("form.profileImage", { defaultMessage: "프로필 이미지" })}
               priority
               className="flex items-center justify-center object-cover"
             />
@@ -244,22 +249,22 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
         <div>
           <Input
             id="nickname"
-            labelName="닉네임"
+            labelName={t("nickname", { defaultMessage: "닉네임" })}
             variant={errors.nickname ? "error" : "default" || isNicknameAvailable ? "success" : "default"}
             caption={
               nicknameChange
                 ? isNicknameAvailable && nickname !== ""
-                  ? "* 사용가능한 닉네임 입니다."
+                  ? `* ${validationT("nicknameAvailable", { defaultMessage: "사용가능한 닉네임 입니다." })}`
                   : errors.nickname?.message
                 : ""
             }
             value={nickname}
-            placeholder="닉네임을 입력해주세요."
+            placeholder={t("form.enterNickname", { defaultMessage: "닉네임을 입력해주세요." })}
             {...register("nickname", {
-              required: "* 닉네임을 입력해주세요.",
+              required: `* ${t("form.enterNickname", { defaultMessage: "닉네임을 입력해주세요." })}`,
               pattern: {
                 value: /^[A-Za-z0-9-_ㄱ-ㅎㅏ-ㅣ가-힣]+$/,
-                message: "* '_', '-'를 제외한 특수 문자는 사용할 수 없습니다.",
+                message: `* ${validationT("invalidSpecialCharacters", { defaultMessage: "'_', '-'를 제외한 특수 문자는 사용할 수 없습니다." })}`,
               },
             })}
             suffix={
@@ -278,7 +283,7 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
                 disabled={nickname === "" || (isNicknameAvailable && activeDuplicateBtn)}
                 onClick={handleDuplicateCheck}
               >
-                중복 확인
+                {t("form.checkDuplicate", { defaultMessage: "중복 확인" })}
               </Button>
             }
           />
@@ -286,7 +291,7 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
 
         {/* 관심 종목 */}
         <div className="mt-[1.6rem]">
-          <p className="body-4 text-navy-900">관심 종목</p>
+          <p className="body-4 text-navy-900">{commonT("header.interestStocks", { defaultMessage: "관심종목" })}</p>
           <Select
             instanceId={"tags"}
             isMulti
@@ -295,8 +300,8 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
             options={stockList}
             className="basic-multi-select"
             classNamePrefix="tag"
-            placeholder="#관심 종목을 추가해주세요."
-            noOptionsMessage={() => "검색된 결과가 없습니다."}
+            placeholder={t("form.addFavoriteStock", { defaultMessage: "#관심 종목을 추가해주세요." })}
+            noOptionsMessage={() => t("form.noResults", { defaultMessage: "검색된 결과가 없습니다." })}
             onChange={handleStocksChange}
             components={{
               IndicatorsContainer: () => null,
@@ -309,7 +314,7 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
 
         {/* 성별 */}
         <div className="mt-[1.6rem]">
-          <p className="body-4 text-navy-900">성별</p>
+          <p className="body-4 text-navy-900">{t("gender", { defaultMessage: "성별" })}</p>
           <p className="flex_row gap-[.8rem]">
             <Button
               type="button"
@@ -318,7 +323,7 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
               bgColor={gender === "M" ? "bg-navy-900" : "bg-white"}
               onClick={() => setValue("gender", "M", { shouldDirty: true })}
             >
-              남성
+              {t("male", { defaultMessage: "남성" })}
             </Button>
             <Button
               type="button"
@@ -327,7 +332,7 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
               bgColor={gender === "F" ? "bg-navy-900" : "bg-white"}
               onClick={() => setValue("gender", "F", { shouldDirty: true })}
             >
-              여성
+              {t("female", { defaultMessage: "여성" })}
             </Button>
           </p>
         </div>
@@ -341,7 +346,7 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
           className={`mt-[4rem] ${formValid ? "text-white" : "text-gray-300"}`}
           disabled={!formValid}
         >
-          수정하기
+          {t("form.edit", { defaultMessage: "수정하기" })}
         </Button>
       </form>
 

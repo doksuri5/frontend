@@ -1,8 +1,10 @@
+import Image from "next/image";
+import Link from "next/link";
 import { NEWS_PATH } from "@/routes/path";
 import { NewsItemType } from "@/types";
 import { cn } from "@/utils/cn";
-import Image, { StaticImageData } from "next/image";
-import Link from "next/link";
+import { getTimeDifference } from "@/utils/getTimeDifference";
+import { useSession } from "next-auth/react";
 
 export type TNewsItemProps = NewsItemType & {
   variant?: "lineClamp-2" | "lineClamp-4";
@@ -33,6 +35,8 @@ export default function NewsItem({
   style,
 }: TNewsItemProps) {
   const selectedVariantStyles = variantStyles[variant];
+  const { data: session } = useSession();
+  const language = session?.user.language || "ko";
 
   return (
     <Link href={`${NEWS_PATH}/${_id}`}>
@@ -42,13 +46,13 @@ export default function NewsItem({
             `relative h-[10rem] w-[17.2rem] flex-shrink-0 overflow-hidden rounded-2xl ${selectedVariantStyles.imageSize}`,
           )}
         >
-          <Image src={image} fill style={{ objectFit: "cover" }} alt="news-image" />
+          <Image src={image} fill className="object-cover" sizes="252px" alt="news-image" />
         </div>
         <div className="flex w-full flex-1 flex-col gap-[1.6rem]">
           <div className="flex items-center justify-between">
             <h3 className="body_3 font-bold text-grayscale-900">{title}</h3>
             <div className="body_5 flex gap-[0.8rem] font-medium text-grayscale-600">
-              <span>{publishedTime}시간전</span>
+              <span>{getTimeDifference(publishedTime, language ?? "ko")}</span>
               <span>∙</span>
               <span>{publisher}</span>
             </div>

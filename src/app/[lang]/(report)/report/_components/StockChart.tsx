@@ -1,8 +1,9 @@
 "use client";
 
+import { useReportStore } from "@/providers/ReportProvider";
 import { StockChartDataType, TMappedPeriod } from "@/types/StockDataType";
 import { useEffect, useState } from "react";
-import { Area, AreaChart, Tooltip, XAxis, YAxis } from "recharts";
+import { Area, AreaChart, Tooltip, XAxis, YAxis, ResponsiveContainer } from "recharts";
 
 type TChartData = {
   chartData: StockChartDataType[];
@@ -10,6 +11,7 @@ type TChartData = {
 };
 
 export default function StockChart({ chartData, period }: TChartData) {
+  const isExtended = useReportStore((state) => state.isExtended);
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -25,10 +27,10 @@ export default function StockChart({ chartData, period }: TChartData) {
   }, []);
 
   const interval = {
-    일: 1,
-    주: 5,
-    월: 2,
-    분기: 2,
+    일: 6,
+    주: 4,
+    월: 7,
+    분기: 4,
     년: 1,
   };
 
@@ -38,33 +40,36 @@ export default function StockChart({ chartData, period }: TChartData) {
   if (!isClient) return null;
 
   return (
-    <AreaChart data={chartData} width={640} height={145} margin={{ top: 10 }}>
-      <defs>
-        <linearGradient id="customGradient" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="rgba(71, 180, 225, 0.7)" />
-          <stop offset="100%" stopColor="rgba(71, 180, 225, 0.07)" />
-        </linearGradient>
-      </defs>
-      <XAxis
-        dataKey="localDate"
-        ticks={monthTicks}
-        tickFormatter={(tick: string) => {
-          const year = tick.slice(0, 4);
-          const month = tick.slice(4, 6);
-          return `${year}/${month}`;
-        }}
-        tick={{ fontSize: 12, fontWeight: 400, fill: "#9F9F9F", dx: -10 }} // 레이블 스타일
-        tickLine={false} // 레이블 선 스타일
-        axisLine={false} // 축 스타일
-      />
-      <YAxis
-        orientation="right"
-        axisLine={false} // 축 스타일
-        tickLine={false}
-        tick={{ fontSize: 12, fontWeight: 400, fill: "#9F9F9F" }} // 레이블 스타일
-      />
-      <Tooltip />
-      <Area type="monotone" dataKey="closePrice" stroke="#47B4E1" fillOpacity={1} fill="url(#customGradient)" />
-    </AreaChart>
+    <ResponsiveContainer width="100%" height="80%">
+      <AreaChart data={chartData} margin={{ top: 10 }}>
+        <defs>
+          <linearGradient id="customGradient" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="rgba(71, 180, 225, 0.7)" />
+            <stop offset="100%" stopColor="rgba(71, 180, 225, 0.07)" />
+          </linearGradient>
+        </defs>
+        <XAxis
+          hide={isExtended}
+          dataKey="localDate"
+          ticks={monthTicks}
+          tickFormatter={(tick: string) => {
+            const year = tick.slice(0, 4);
+            const month = tick.slice(4, 6);
+            return `${period === "일" ? "" : `${year}/`}${month}${period === "일" ? `/${tick.slice(6, 8)}` : ""}`;
+          }}
+          tick={{ fontSize: 12, fontWeight: 400, fill: "#9F9F9F", dx: -10 }} // 레이블 스타일
+          tickLine={false} // 레이블 선 스타일
+          axisLine={false} // 축 스타일
+        />
+        <YAxis
+          orientation="right"
+          axisLine={false} // 축 스타일
+          tickLine={false}
+          tick={{ fontSize: 12, fontWeight: 400, fill: "#9F9F9F" }} // 레이블 스타일
+        />
+        <Tooltip />
+        <Area type="monotone" dataKey="closePrice" stroke="#47B4E1" fillOpacity={1} fill="url(#customGradient)" />
+      </AreaChart>
+    </ResponsiveContainer>
   );
 }

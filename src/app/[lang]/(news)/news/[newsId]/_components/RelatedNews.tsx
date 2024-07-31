@@ -2,28 +2,29 @@
 
 import { FindNews, FindNewsSkeleton } from "@/components/common";
 import { TIFindNewsProps } from "@/components/common/List/FindNews";
+import { useSession } from "next-auth/react";
+import { useTranslations } from "next-intl";
 import { Fragment, useEffect, useState } from "react";
 
-const DUMMY_RELATED_NEWS = Array(4).fill({
-  title: `일본, '빅테크 규제법' 내년 시행…"사실상 애플·구글 규제"`,
-  publishedTime: "n",
-  newspaperCompany: "문화일보",
-});
-
-export default function RelatedNews() {
+export default function RelatedNews({ relatedNews }: any) {
   const [newsData, setNewsData] = useState<TIFindNewsProps[]>([]);
   const [loading, setLoading] = useState(true);
 
+  const t = useTranslations();
+  
+  const { data: session } = useSession();
+  const language = session?.user.language || "ko";
+
   useEffect(() => {
-    setTimeout(() => {
-      setNewsData(DUMMY_RELATED_NEWS);
-      setLoading(false);
-    }, 2000);
-  }, []);
+    setNewsData(relatedNews);
+    setLoading(false);
+  }, [relatedNews]);
 
   return (
     <section className="min-h-[31rem] min-w-[38.4rem] rounded-[1.6rem] bg-white p-[3.2rem]">
-      <h2 className="body_3 pb-[1rem] font-bold text-navy-900">관련 기사</h2>
+      <h2 className="body_3 pb-[1rem] font-bold text-navy-900">
+        {t("news.relatedArticles", { defaultMessage: "관련 기사" })}
+      </h2>
       {loading &&
         Array(4)
           .fill(0)
@@ -42,6 +43,7 @@ export default function RelatedNews() {
               publishedTime={news.publishedTime}
               newspaperCompany={news.newspaperCompany}
               style={news?.style}
+              lang={language}
             />
             {idx < newsData.length - 1 && <hr className="mb-[1.6rem] mt-[1.8rem]" />}
           </Fragment>

@@ -41,6 +41,10 @@ const request = ({
   requestSchema?: ZodSchema;
   responseSchema?: ZodSchema;
 }) => {
+  const combinedOptions: TBaseOptions = {
+    isLoggedIn: true,
+    ...baseOptions,
+  };
   /**
    * @param body request body
    * @param options fetch options
@@ -53,10 +57,6 @@ const request = ({
   ): Promise<isDataArray extends true ? ResponseReturnType<D[]> : ResponseReturnType<D>> => {
     try {
       const requestBody = requestSchema && body ? ApiRequestBody(requestSchema, body, false) : body;
-      const combinedOptions: TBaseOptions = {
-        isLoggedIn: true,
-        ...baseOptions,
-      };
 
       const sid = cookies().get("connect.sid");
 
@@ -83,6 +83,7 @@ const request = ({
         // tag 를 사용하여 캐시를 관리할 수 있습니다.
         next: {
           tags: [endpoint],
+          ...combinedOptions.next,
         },
         // 요청과 무관한 fetch options 가 있으면 fetch 함수에서 요청시 무시합니다.
         ...combinedOptions,
@@ -92,7 +93,7 @@ const request = ({
 
       const res = await fetch(
         `${
-          combinedOptions?.isFetchFromRouteHandler
+          combinedOptions.isFetchFromRouteHandler
             ? process.env.NEXT_PUBLIC_BASE_URL
             : process.env.NEXT_PUBLIC_API_BASE_URL
         }/api${endpoint}/${options.params ?? ""}${combinedQueryString}`,
@@ -106,20 +107,20 @@ const request = ({
         throw new Error(`Failed to fetch error ${res.status}, ${res.statusText}`);
       }
 
+      const revalidateTags = combinedOptions?.revalidateTags;
+
+      if (revalidateTags) {
+        revalidateTags.forEach((tag) => {
+          revalidateTag(tag);
+        });
+      }
+
       const data = await res.json();
 
       return responseSchema ? ApiResponse(responseSchema, data, combinedOptions.isDataArray) : data;
     } catch (e) {
       console.error(e);
       throw new Error("Failed to fetch");
-    } finally {
-      // revalidateTags 가 있을 경우 해당 태그들을 revalidate 합니다. 주로 다른 api 호출 후에 사용합니다.
-      const revalidateTags = baseOptions?.revalidateTags;
-      if (revalidateTags) {
-        revalidateTags.forEach((tag) => {
-          revalidateTag(tag);
-        });
-      }
     }
   };
 };
