@@ -79,8 +79,8 @@ export const fetchInterestStockNews = async () => {
           }),
         );
 
-        if (refinedData.length === 3) return [refinedData[0], refinedData[1], refinedData[2]];
-        if (refinedData.length < 3) return refinedData;
+        if (refinedData.length >= 3) return [refinedData[0], refinedData[1], refinedData[2]];
+        else return refinedData;
       } else return data;
     }
   } catch (err) {
