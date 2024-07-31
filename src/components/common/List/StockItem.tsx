@@ -49,7 +49,7 @@ function StockItem({ iconSize = 50, style, variant = "stock", clickNone = false,
           `flex items-center justify-between text-grayscale-900 ${selectedVariantStyles.weight} ${selectedVariantStyles.height} ${style}`,
         )}
       >
-        <div className="flex items-center gap-[1.6rem]">
+        <div className="flex items-center gap-[1.3rem]">
           <div className={selectedVariantStyles.imageSize}>
             <Image
               src={`/icons/stocks/${STOCK_NAMES[reutersCode]}.svg`}
@@ -63,7 +63,7 @@ function StockItem({ iconSize = 50, style, variant = "stock", clickNone = false,
             <h3 className={selectedVariantStyles.stockEngName}>{symbolCode}</h3>
           </div>
         </div>
-        <StockPrice reutersCode={reutersCode} vertical />
+        <StockPrice reutersCode={reutersCode} vertical style={style} />
       </div>
     </Link>
   );

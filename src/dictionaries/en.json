@@ -337,6 +337,16 @@
       "alertTitle": "Do you want to delete all recent searches?",
       "alertButtonText": "Delete",
       "alertCancleText": "Cancel"
+    },
+    "layout": {
+      "title": "Stock Search",
+      "description": "This is the discovery page of AIGHTNOW, an AI-based stock analysis platform where you can search and analyze various stock items in real time.",
+      "keywords": "stock search, stock analysis, real-time stock news, AI stock analysis, stock item search, aightnow, AIGHTNOW"
+    },
+    "searchLayout": {
+      "searchResult": "Search Results",
+      "description": "Check the search results for {search}.",
+      "keywords": "stock search, real-time stock news, AI stock analysis, aightnow, AIGHTNOW"
     }
   },
   "mypage": {
@@ -611,7 +621,18 @@
       "modalSearchItemAdd": "Add",
       "modalRecentSearchTitle": "Recently Searched Stocks",
       "modalAllDeleteText": "Delete All",
-      "modalPopularTitle": "Popular Searches"
+      "modalPopularTitle": "Popular Searches",
+      "modalSearchItemAddLoading": "Adding item of interest...",
+      "modalSearchItemAddSuccess": "Item of interest has been added.",
+      "modalSearchItemAddError": "Failed to add item of interest.",
+      "modalSearchItemDeleteLoading": "Deleting item of interest...",
+      "modalSearchItemDeleteSuccess": "Item of interest has been deleted.",
+      "modalSearchItemDeleteError": "Failed to delete item of interest."
+    },
+    "layout": {
+      "title": "My Stocks",
+      "description": "This is the page where you can manage and move to analysis reports for the stocks you are interested in.",
+      "keywords": "My Stocks, Stock Wishlist, Stock Analysis, AI Stock Analysis, Stock Management"
     }
   },
   "searchBox": {
