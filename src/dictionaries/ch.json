@@ -305,7 +305,14 @@
     "delete": "删除",
     "viewDetails": "查看详情",
     "more": "更多",
-    "less": "收起"
+    "less": "收起",
+    "metaTitle": "{stockName}股票分析 | AIGHTNOW",
+    "metaDescription": "基于人工智能的{stockName}股票分析、财务信息和市场趋势。",
+    "metaKeywords": "股票,分析,报告,财务,新闻,市场,人工智能,投资,证券,{stockName}",
+    "ogTitle": "{stockName} AI股票分析 - AIGHTNOW",
+    "ogDescription": "探索基于人工智能的{stockName}股票分析、实时市场趋势和投资洞察。",
+    "siteName": "AIGHTNOW",
+    "ogImageAlt": "{stockName}股票分析图片"
   },
   "chatBot": {
     "initMessage": "你好！我是NowChatBot。我能帮你什么？",
@@ -608,6 +615,13 @@
     "popularNews": "热门新闻",
     "newsForUser": "{name}的股票新闻",
     "aiReportFor": "{name}的AI报告",
-    "ai": "AI"
+    "ai": "AI",
+    "metaTitle": "Aithnow - 首页",
+    "metaDescription": "利用AI分析的美国公司信息和新闻，开始智能投资。定制的公司报告使投资变得更容易。",
+    "metaKeywords": "证券,股票,分析,股票分析,AI,人工智能,aightnow,AIGHTNOW,海外股票,新闻,金融新闻",
+    "ogTitle": "AIGHTNOW - 与AI一起进行智能投资",
+    "ogDescription": "复杂的股票信息，由AI简化整理。翻译的新闻和定制分析让投资变得更有趣。",
+    "siteName": "AIGHTNOW",
+    "ogImageAlt": "AIGHTNOW服务介绍图片"
   }
 }

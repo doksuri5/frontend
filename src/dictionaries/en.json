@@ -305,7 +305,14 @@
     "delete": "Delete",
     "viewDetails": "View Details",
     "more": "More",
-    "less": "Less"
+    "less": "Less",
+    "metaTitle": "{stockName} Stock Analysis | AIGHTNOW",
+    "metaDescription": "AI-powered stock analysis, financial information, and market trends for {stockName}.",
+    "metaKeywords": "stock,analysis,report,financial,news,market,AI,investment,securities,{stockName}",
+    "ogTitle": "{stockName} AI Stock Analysis - AIGHTNOW",
+    "ogDescription": "Explore AI-driven stock analysis, real-time market trends, and investment insights for {stockName}.",
+    "siteName": "AIGHTNOW",
+    "ogImageAlt": "{stockName} stock analysis image"
   },
   "chatBot": {
     "initMessage": "Hello! I'm NowChatBot. How can I help you?",
@@ -608,6 +615,13 @@
     "popularNews": "Popular News",
     "newsForUser": "Stock News for {name}",
     "aiReportFor": "AI Report for {name}",
-    "ai": "AI"
+    "ai": "AI",
+    "metaTitle": "Aithnow - Home",
+    "metaDescription": "Start smart investing with AI-analyzed US company information and news. Customized company reports make investing easier.",
+    "metaKeywords": "securities,stocks,analysis,stock analysis,AI,ai,aightnow,AIGHTNOW,foreign stocks,news,financial news",
+    "ogTitle": "AIGHTNOW - Smart Investing with AI",
+    "ogDescription": "Complex stock information, simplified by AI. Translated news and custom analysis make investing more enjoyable.",
+    "siteName": "AIGHTNOW",
+    "ogImageAlt": "AIGHTNOW service introduction image"
   }
 }

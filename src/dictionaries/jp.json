@@ -305,7 +305,14 @@
     "delete": "削除",
     "viewDetails": "詳細を見る",
     "more": "もっと見る",
-    "less": "閉じる"
+    "less": "閉じる",
+    "metaTitle": "{stockName}株分析 | AIGHTNOW",
+    "metaDescription": "{stockName}のAI駆動の株式分析、財務情報、市場動向を提供します。",
+    "metaKeywords": "株式,分析,レポート,財務,ニュース,市場,AI,投資,証券,{stockName}",
+    "ogTitle": "{stockName} AI株式分析 - AIGHTNOW",
+    "ogDescription": "{stockName}のAI駆動の株式分析、リアルタイム市場動向、投資インサイトをご覧ください。",
+    "siteName": "AIGHTNOW",
+    "ogImageAlt": "{stockName}株式分析イメージ"
   },
   "chatBot": {
     "initMessage": "こんにちは！私はNowChatBotです。何をお手伝いしましょうか？",
@@ -608,6 +615,13 @@
     "popularNews": "主要ニュース",
     "newsForUser": "{name}さんのための株式ニュース",
     "aiReportFor": "{name}さんのAIレポート",
-    "ai": "AI"
+    "ai": "AI",
+    "metaTitle": "Aithnow - ホーム",
+    "metaDescription": "AIが分析した米国企業情報とニュースでスマートな投資を始めましょう。カスタマイズされた企業レポートで投資が簡単になります。",
+    "metaKeywords": "証券,株式,分析,株式分析,AI,ai,aightnow,AIGHTNOW,海外株式,ニュース,証券ニュース",
+    "ogTitle": "AIGHTNOW - AIと共にスマート投資",
+    "ogDescription": "複雑な株式情報をAIが簡単に整理します。翻訳されたニュースとカスタム分析で投資がもっと楽しくなります。",
+    "siteName": "AIGHTNOW",
+    "ogImageAlt": "AIGHTNOWサービス紹介画像"
   }
 }
