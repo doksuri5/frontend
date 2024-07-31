@@ -7,6 +7,37 @@
     "login": "Connexion",
     "logout": "Déconnexion"
   },
+  "metadata": {
+    "root": {
+      "siteName": "AightNow",
+      "title": "Plateforme d'analyse des actions basée sur l'IA | AightNow",
+      "description": "Une plateforme d'analyste AI de nouvelle génération qui combine les informations en temps réel sur les divulgations des entreprises américaines avec l'analyse des données des actualités quotidiennes pour fournir des rapports d'analyse d'entreprises en temps réel personnalisés pour les utilisateurs du monde entier dans différentes langues.",
+      "keywords": "actions, analyse des actions, analyse des actions, IA, ia, AightNow, actions étrangères, nouvelles, nouvelles boursières",
+      "authors": "Frères Aigle",
+      "openGraph": {
+        "title": "Plateforme d'analyse des actions basée sur l'IA | AightNow",
+        "description": "Une plateforme d'analyste AI de nouvelle génération fournissant des rapports d'analyse d'entreprises en temps réel.",
+        "siteName": "AightNow",
+        "locale": "fr"
+      },
+      "twitter": {
+        "title": "Plateforme d'analyse des actions basée sur l'IA | AightNow",
+        "description": "Une plateforme d'analyste AI de nouvelle génération fournissant des rapports d'analyse d'entreprises en temps réel."
+      }
+    },
+    "news": {
+      "title": "Actualités",
+      "description": "Vous pouvez consulter les actualités populaires, les actualités liées à vos actions favorites et les dernières nouvelles.",
+      "openGraph": {
+        "title": "Actualités",
+        "description": "Vous pouvez consulter les actualités populaires, les actualités liées à vos actions favorites et les dernières nouvelles."
+      },
+      "twitter": {
+        "title": "Actualités",
+        "description": "Vous pouvez consulter les actualités populaires, les actualités liées à vos actions favorites et les dernières nouvelles."
+      }
+    }
+  },
   "auth": {
     "title": {
       "login": "Connexion",
