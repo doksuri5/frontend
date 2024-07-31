@@ -2,67 +2,80 @@
 
 import { StockPriceDataType } from "@/types/StockDataType";
 import isUSMarketOpen from "@/utils/check-us-market-open";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 
 const useStockPrice = (reutersCode: string) => {
-  const [loading, setIsLoading] = useState(false);
-  const [stock, setStock] = useState<StockPriceDataType>();
+  const [loading, setLoading] = useState(false);
+  const [stock, setStock] = useState<StockPriceDataType | null>(null);
+  const eventSourceRef = useRef<EventSource | null>(null);
+  const debounceTimerRef = useRef<NodeJS.Timeout | null>(null);
 
-  useEffect(
-    function getStockPrice() {
-      const fetchStockPrice = async () => {
-        setIsLoading(true);
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/stock/price/${reutersCode}`, {
-          next: {
-            revalidate: 3600,
-          },
-        });
-
-        if (!response.ok) {
-          return console.error("Failed to fetch stock price in StockDetail.tsx");
-        }
-        const data = await response.json();
-        setIsLoading(false);
-        setStock(data.data);
-      };
-
-      if (!isUSMarketOpen() || process.env.NODE_ENV === "development") {
-        fetchStockPrice();
+  const fetchStockPrice = useCallback(async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/stock/price/${reutersCode}`, {
+        next: { revalidate: 3600 },
+      });
+      if (!response.ok) {
+        throw new Error("Failed to fetch stock price");
       }
-    },
-    [reutersCode],
-  );
+      const { data } = await response.json();
+      setStock(data);
+    } catch (error) {
+      console.error("Error fetching stock price:", error);
+    } finally {
+      setLoading(false);
+    }
+  }, [reutersCode]);
 
-  useEffect(
-    function setEventSourceForSSE() {
-      // event source 객체는 로컬에서 작동시키지 않습니다. 이유는 http 1.1 프로토콜을 사용할 경우 event source 객체는 최대 6개의 동시 연결을 허용하기 때문입니다.
-      // 로컬에서 event source 객체가 6개 이상 생성되는 매우 느려집니다. 이를 방지하기 위해 event source 객체를 사용하지 않습니다.
-      if (isUSMarketOpen() && process.env.NODE_ENV === "production") {
-        setIsLoading(true);
-        const eventSource = new EventSource(`${process.env.NEXT_PUBLIC_BASE_URL}/api/stock/price/sse/${reutersCode}`);
+  const debouncedSetStock = useCallback((newData: StockPriceDataType) => {
+    if (debounceTimerRef.current) {
+      clearTimeout(debounceTimerRef.current);
+    }
+    debounceTimerRef.current = setTimeout(() => {
+      setStock(newData);
+      setLoading(false);
+    }, 200);
+  }, []);
 
-        eventSource.onmessage = (event) => {
-          const newData = JSON.parse(event.data);
-          setStock(newData);
-        };
+  const cleanupEventSource = useCallback(() => {
+    if (eventSourceRef.current) {
+      eventSourceRef.current.close();
+      eventSourceRef.current = null;
+    }
+    if (debounceTimerRef.current) {
+      clearTimeout(debounceTimerRef.current);
+    }
+  }, []);
 
-        eventSource.onerror = (error) => {
-          eventSource.close();
-        };
+  const setupEventSource = useCallback(() => {
+    if (eventSourceRef.current) return;
 
-        setIsLoading(false);
-        return () => {
-          eventSource.close();
-        };
-      }
-    },
-    [reutersCode],
-  );
+    setLoading(true);
+    eventSourceRef.current = new EventSource(`${process.env.NEXT_PUBLIC_BASE_URL}/api/stock/price/sse/${reutersCode}`);
 
-  return {
-    stock: stock as StockPriceDataType,
-    loading,
-  };
+    eventSourceRef.current.onmessage = (event) => {
+      const newData = JSON.parse(event.data);
+      debouncedSetStock(newData);
+    };
+
+    eventSourceRef.current.onerror = () => {
+      console.error("EventSource failed. Closing connection.");
+      cleanupEventSource();
+    };
+  }, [reutersCode, debouncedSetStock, cleanupEventSource]);
+
+  useEffect(() => {
+    if (!isUSMarketOpen() || process.env.NODE_ENV === "development") {
+      fetchStockPrice();
+    } else {
+      setupEventSource();
+    }
+
+    return cleanupEventSource;
+  }, [reutersCode, fetchStockPrice, setupEventSource, cleanupEventSource]);
+
+  return { stock, loading };
 };
 
 export default useStockPrice;
