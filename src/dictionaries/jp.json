@@ -289,6 +289,16 @@
       "alertTitle": "最近の検索履歴をすべて削除しますか？",
       "alertButtonText": "削除",
       "alertCancleText": "キャンセル"
+    },
+    "layout": {
+      "title": "銘柄検索",
+      "description": "様々な株式銘柄をリアルタイムで検索・分析できるAIベースの株式分析プラットフォーム、AIGHTNOWの発見ページです.",
+      "keywords": "株式検索, 株式分析, リアルタイム株式ニュース, AI株式分析, 株式銘柄検索, aightnow, AIGHTNOW"
+    },
+    "searchLayout": {
+      "searchResult": "検索結果",
+      "description": "{search}の検索結果を確認してください.",
+      "keywords": "株式検索, リアルタイム株式ニュース, AI株式分析, aightnow, AIGHTNOW"
     }
   },
   "mypage": {
@@ -409,6 +419,11 @@
       "modalSearchItemDeleteLoading": "関心のあるアイテムを削除中...",
       "modalSearchItemDeleteSuccess": "関心のあるアイテムが削除されました.",
       "modalSearchItemDeleteError": "関心のあるアイテムの削除に失敗しました."
+    },
+    "layout": {
+      "title": "気になる株式",
+      "description": "気になる銘柄を管理し、分析レポートに移動できるページです.",
+      "keywords": "気になる株式, 株式ウォッチリスト, 株式分析, AI株式分析, 銘柄管理"
     }
   },
   "searchBox": {

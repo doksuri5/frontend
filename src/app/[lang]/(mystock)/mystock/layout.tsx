@@ -1,20 +1,31 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
+import { getTranslations } from "next-intl/server";
 import { MyStockStoreProvider } from "@/providers/MyStockProvider";
 import BodyLoading from "@/app/[lang]/body-loading";
 
-export const metadata: Metadata = {
-  title: "관심 주식",
-  description: "내가 관심 있는 종목을 관리하고 분석 리포트로 이동할 수 있는 페이지입니다.",
-  keywords: "관심 주식, 주식 찜하기, 주식 분석, AI 주식 분석, 종목 관리",
-  openGraph: {
-    title: "관심 주식",
-    description: "내가 관심 있는 종목을 관리하고 분석 리포트로 이동할 수 있는 페이지입니다.",
-  },
-  twitter: {
-    title: "관심 주식",
-    description: "내가 관심 있는 종목을 관리하고 분석 리포트로 이동할 수 있는 페이지입니다.",
-  },
+interface generateMetadataPropsType {
+  params: {
+    lang: string;
+  };
+}
+
+export const generateMetadata = async ({ params }: generateMetadataPropsType): Promise<Metadata> => {
+  const t = await getTranslations("myStock");
+
+  return {
+    title: t("layout.title"),
+    description: t("layout.description"),
+    keywords: t("layout.keywords"),
+    openGraph: {
+      title: t("layout.title"),
+      description: t("layout.description"),
+    },
+    twitter: {
+      title: t("layout.title"),
+      description: t("layout.description"),
+    },
+  };
 };
 
 export default function MyStockLayout({

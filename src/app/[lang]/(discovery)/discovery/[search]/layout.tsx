@@ -1,24 +1,29 @@
 import { Suspense } from "react";
 import DiscoverySearchLoading from "./loading";
+import { getTranslations } from "next-intl/server";
 
 interface generateMetadataPropsType {
   params: {
     search: string;
+    lang: string;
   };
 }
-export const generateMetadata = ({ params }: generateMetadataPropsType) => {
+
+export const generateMetadata = async ({ params }: generateMetadataPropsType) => {
+  const t = await getTranslations("discovery");
+
   const search = decodeURIComponent(params.search);
   return {
-    title: `${search} : 검색 결과`,
-    description: `${search}에 대한 검색 결과를 확인하세요.`,
-    keywords: `${search}, 주식 검색, 실시간 주식 뉴스, AI 주식 분석, 아잇나우, AIGHTNOW, aightnow`,
+    title: `${search} : ${t("searchLayout.searchResult")}`,
+    description: t("searchLayout.description", { search }),
+    keywords: t("searchLayout.keywords"),
     openGraph: {
-      title: `${search} : 검색 결과`,
-      description: `${search}에 대한 검색 결과를 확인하세요.`,
+      title: `${search} : ${t("searchLayout.searchResult")}`,
+      description: t("searchLayout.description", { search }),
     },
     twitter: {
-      title: `${search} : 검색 결과`,
-      description: `${search}에 대한 검색 결과를 확인하세요.`,
+      title: `${search} : ${t("searchLayout.searchResult")}`,
+      description: t("searchLayout.description", { search }),
     },
   };
 };
@@ -28,7 +33,7 @@ export default function DiscoverySearchLayout({
   params,
 }: {
   children: React.ReactNode;
-  params: { search: string };
+  params: { search: string; lang: string };
 }) {
   return <Suspense fallback={<DiscoverySearchLoading />}>{children}</Suspense>;
 }
