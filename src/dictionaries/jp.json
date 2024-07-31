@@ -567,5 +567,16 @@
   "searchBox": {
     "noneStock": "検索結果がありません.",
     "informText": "単語のスペルが正しいか確認してください."
+  },
+  "home": {
+    "recent": {
+      "title": "最近の閲覧",
+      "noRecentSearches": "最近閲覧した銘柄はありません。"
+    },
+    "interestStocks": "関心銘柄",
+    "popularNews": "主要ニュース",
+    "newsForUser": "{name}さんのための株式ニュース",
+    "aiReportFor": "{name}さんのAIレポート",
+    "ai": "AI"
   }
 }

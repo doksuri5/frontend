@@ -567,5 +567,16 @@
   "searchBox": {
     "noneStock": "Aucun résultat de recherche trouvé.",
     "informText": "Veuillez vérifier l'orthographe du mot."
+  },
+  "home": {
+    "recent": {
+      "title": "Consultations récentes",
+      "noRecentSearches": "Aucune consultation récente de titres."
+    },
+    "interestStocks": "Titres d'intérêt",
+    "popularNews": "Actualités principales",
+    "newsForUser": "Actualités boursières pour {name}",
+    "aiReportFor": "Rapport IA pour {name}",
+    "ai": "IA"
   }
 }
