@@ -17,7 +17,7 @@ type TMyPageMainProps = {
 
 export default function MyPageMain({ userData }: TMyPageMainProps) {
   const t = useTranslations();
-  
+
   const { setUserStoreData } = useUserStore();
 
   let propensityData = {
@@ -55,8 +55,8 @@ export default function MyPageMain({ userData }: TMyPageMainProps) {
   return (
     <main className="flex flex-col gap-[3.2rem]">
       {/* 프로필 수정 */}
-      <section className="flex flex-row items-center justify-between">
-        <div className="flex flex-col gap-[.8rem]">
+      <section className="flex flex-row items-center justify-between gap-[1rem]">
+        <div className="flex w-[70%] flex-col gap-[.8rem]">
           <h1 className="body_2 font-bold text-gray-900">
             {t("mypage.profileSettings", { defaultMessage: "프로필 설정" })}
           </h1>
@@ -90,8 +90,8 @@ export default function MyPageMain({ userData }: TMyPageMainProps) {
       <ProfileEditModal isOpen={profileModal.isOpen} onClose={profileModal.close} />
 
       {/* 계정 설정 */}
-      <section className="flex flex-row items-center justify-between">
-        <div className="flex flex-col gap-[.8rem]">
+      <section className="flex flex-row items-center justify-between gap-[1rem]">
+        <div className="flex w-[70%] flex-col gap-[.8rem]">
           <h1 className="body_2 font-bold text-gray-900">
             {t("mypage.accountSettings", { defaultMessage: "계정 설정" })}
           </h1>
@@ -135,10 +135,16 @@ export default function MyPageMain({ userData }: TMyPageMainProps) {
       <WithdrawModal isOpen={withdrawModal.isOpen} onClose={withdrawModal.close} />
 
       {/* 투자 성향 진단 설정 */}
-      <section className="flex flex-row items-center justify-between">
-        <div className="flex flex-col gap-[.8rem]">
-          <h1 className="body_2 font-bold text-gray-900">{t("investPropensity.title", { defaultMessage: "투자 성향 진단" })}</h1>
-          <div>{t("investPropensity.description", { defaultMessage: "고객님의 투자성향과 목적에 맞게 고객님께 적합한 상품을 안내해 드립니다." })}</div>
+      <section className="flex flex-row items-center justify-between gap-[1rem]">
+        <div className="flex w-[70%] flex-col gap-[.8rem]">
+          <h1 className="body_2 font-bold text-gray-900">
+            {t("investPropensity.title", { defaultMessage: "투자 성향 진단" })}
+          </h1>
+          <div>
+            {t("investPropensity.description", {
+              defaultMessage: "고객님의 투자성향과 목적에 맞게 고객님께 적합한 상품을 안내해 드립니다.",
+            })}
+          </div>
         </div>
         <Button
           variant="textButton"

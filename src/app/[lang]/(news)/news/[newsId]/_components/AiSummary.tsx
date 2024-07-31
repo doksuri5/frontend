@@ -27,9 +27,9 @@ const AiSummary = ({ content }: { content: string }) => {
     <>
       <Button
         variant="textButton"
-        size="md"
+        size="sm"
         bgColor="bg-navy-900"
-        className="h-[3.6rem] max-w-[17.6rem]"
+        className="max-w-[17.6rem]"
         disabled={isLoading}
         onClick={handleOnClick}
       >
