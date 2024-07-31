@@ -69,6 +69,10 @@ export async function generateMetadata({ params }: { params: { lang: Locale } })
         },
       ],
     },
+    other: {
+      "google-site-verification": "BwEx6X7Gd_C-1nVsecNxXI2OYVDZ5ol1_IqEWv3G6xY",
+      "naver-site-verification": "bfebfd50d9d110dbf2efb7ea26f951ab6233c1fa",
+    },
   };
 }
 
