@@ -32,11 +32,11 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/utils/cn";
 
 const buttonVariants = cva(
-  "box-border inline-flex w-full items-center justify-center whitespace-nowrap border-0 bg-navy-900",
+  "box-border inline-flex w-full items-center justify-center whitespace-normal border-0 bg-navy-900",
   {
     variants: {
       variant: {
-        textButton: "gap-1 rounded-[0.8rem] px-[1rem] py-[1.8rem] font-medium", // 텍스트 버튼
+        textButton: "gap-1 rounded-[0.8rem] px-[1rem] font-medium", // 텍스트 버튼
         iconButton: "rounded-full", // 아이콘 버튼
         fabButton: "h-[8rem] w-[8rem] rounded-full drop-shadow-[0_0_3.75px_#BBEBFF]", // FAB 버튼
         langButton:
@@ -45,9 +45,9 @@ const buttonVariants = cva(
       size: {
         // 버튼 높이
         default: "",
-        lg: "h-[6.4rem]", // 64px
-        md: "h-[5.6rem]", // 56px
-        sm: "h-[3.6rem]", // 36px
+        lg: "min-h-[6.4rem]", // 64px
+        md: "min-h-[5.6rem]", // 56px
+        sm: "min-h-[3.6rem]", // 36px
       },
       disabled: {
         true: "cursor-not-allowed hover:none",
