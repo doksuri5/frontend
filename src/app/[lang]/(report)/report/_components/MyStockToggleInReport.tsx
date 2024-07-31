@@ -3,9 +3,11 @@
 import { deleteInterestStock, getDetailInterestStocks, insertInterestStock } from "@/actions/stock";
 import { Button, Skeleton } from "@/components/common";
 import { TReutersCodes } from "@/constants/stockCodes";
+import { useTranslations } from "next-intl";
 import { useLayoutEffect, useState, useTransition } from "react";
 
 const MyStockToggleInReport = ({ reutersCode }: { reutersCode: TReutersCodes }) => {
+  const t = useTranslations("report");
   const [isMyStockState, setIsMyStockState] = useState(false);
   const [isPending, startTransition] = useTransition();
 
@@ -56,11 +58,11 @@ const MyStockToggleInReport = ({ reutersCode }: { reutersCode: TReutersCodes }) 
           bgColor="bg-white"
           onClick={handleOnClick}
         >
-          관심종목 해제
+          {t("removeInterestStock")}
         </Button>
       ) : (
         <Button variant="textButton" size="md" className="w-[18rem] text-white" onClick={handleOnClick}>
-          관심종목 추가
+          {t("addInterestStock")}
         </Button>
       )}
     </>

@@ -1,10 +1,10 @@
 "use server";
 
 import { publicFetchApi } from "@/lib/public-api";
-import { z } from "zod";
 import { truncateBackstring } from "@/utils/truncateBackstring";
 import { cookies } from "next/headers";
-import { NewsDataType, SearchStockNewsSchema, SearchStockNewsDataType } from "@/types/NewsDataType2";
+import { SearchStockNewsSchema, SearchStockNewsDataType } from "@/types/NewsDataType2";
+import { auth } from "@/auth";
 
 export const getSearchNews = publicFetchApi.get({
   endpoint: "/news/getSearchNews",
@@ -14,6 +14,7 @@ export const getSearchNews = publicFetchApi.get({
 export const fetchPopularNews = async () => {
   const cookieStore = cookies();
   const connectCookie = cookieStore.get("connect.sid")?.value;
+  const session = await auth();
 
   try {
     const response = await (
@@ -34,9 +35,9 @@ export const fetchPopularNews = async () => {
           image: content_img,
           date: published_time,
           _id: index,
-          title: title.ko,
-          description: description.ko,
-          publisher: publisher.ko,
+          title: title[session?.user.language ?? "ko"],
+          description: description[session?.user.language ?? "ko"],
+          publisher: publisher[session?.user.language ?? "ko"],
         }),
       );
       return refinedData;
@@ -49,6 +50,7 @@ export const fetchPopularNews = async () => {
 export const fetchInterestStockNews = async () => {
   const cookieStore = cookies();
   const connectCookie = cookieStore.get("connect.sid")?.value;
+  const session = await auth();
 
   try {
     const response = await (
@@ -70,8 +72,8 @@ export const fetchInterestStockNews = async () => {
           image: content_img,
           date: published_time,
           _id: index,
-          title: title.ko,
-          publisher: publisher.ko,
+          title: title[session?.user.language ?? "ko"],
+          publisher: publisher[session?.user.language ?? "ko"],
         }));
 
         return [refinedData[0], refinedData[1], refinedData[2]];
@@ -85,6 +87,7 @@ export const fetchInterestStockNews = async () => {
 export const fetchRecentNews = async (pageParam = 1) => {
   const cookieStore = cookies();
   const connectCookie = cookieStore.get("connect.sid")?.value;
+  const session = await auth();
 
   try {
     const response = await (
@@ -106,9 +109,9 @@ export const fetchRecentNews = async (pageParam = 1) => {
           image: content_img,
           publishedTime: published_time,
           _id: index,
-          title: title.ko,
-          publisher: publisher.ko,
-          description: content.ko,
+          title: title[session?.user.language ?? "ko"],
+          publisher: publisher[session?.user.language ?? "ko"],
+          description: content[session?.user.language ?? "ko"],
         }),
       );
 
@@ -122,6 +125,7 @@ export const fetchRecentNews = async (pageParam = 1) => {
 export const fetchNewsDetail = async (index: any) => {
   const cookieStore = cookies();
   const connectCookie = cookieStore.get("connect.sid")?.value;
+  const session = await auth();
 
   try {
     const response = await (
@@ -144,18 +148,18 @@ export const fetchNewsDetail = async (index: any) => {
         image: news.content_img,
         publishedTime: news.published_time,
         _id: news.index,
-        title: news.title.ko,
-        description: truncateBackstring(news.content.ko),
-        publisher: news.publisher.ko,
+        title: news.title[session?.user.language ?? "ko"],
+        description: truncateBackstring(news.content[session?.user.language ?? "ko"]),
+        publisher: news.publisher[session?.user.language ?? "ko"],
         view: news.view,
       };
 
       // 관련 뉴스 필드 정제
       let refinedRelatedNews = (relatedNews as any[]).map(({ index, publisher, published_time, title }) => ({
         _id: index,
-        title: title.ko,
+        title: title[session?.user.language ?? "ko"],
         publishedTime: published_time,
-        newspaperCompany: publisher.ko,
+        newspaperCompany: publisher[session?.user.language ?? "ko"],
       }));
 
       // 관련 주식 필드 정제

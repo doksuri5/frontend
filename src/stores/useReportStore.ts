@@ -1,6 +1,6 @@
 import { createStore } from "zustand/vanilla";
 
-type TPeriod = "일" | "주" | "분기" | "월" | "년";
+export type TPeriod = "day" | "week" | "month" | "quarter" | "year";
 
 type TReportState = {
   period: TPeriod;
@@ -15,7 +15,7 @@ export type TReportAction = {
 export type ReportStore = TReportState & TReportAction;
 
 export const defaultInitState = {
-  period: "일",
+  period: "day",
   isExtended: false,
 } as TReportState;
 

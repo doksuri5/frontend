@@ -49,6 +49,7 @@ export const middleware = async (req: NextRequest) => {
   const isAuthenticated = await checkLogin();
 
   const nonRequiredAuthPaths = [
+    `{/:locale(ko|en|fr|ch|jp)}?`,
     `{/:${locale}}?/login`,
     `{/:${locale}}?/login/:path`,
     `{/:${locale}}?/account`,
@@ -59,6 +60,7 @@ export const middleware = async (req: NextRequest) => {
     `{/:${locale}}?/exist`,
     `{/:${locale}}?/withdraw`,
   ];
+
   // 인증이 필요없는 페이지에 현재 경로가 포함되어 있는지 체크
   const isAuthNotRequiredRoute = isMatch(pathname, nonRequiredAuthPaths);
 
