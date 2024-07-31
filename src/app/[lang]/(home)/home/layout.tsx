@@ -1,11 +1,28 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 
-const TITLE = "홈";
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("home");
 
-export const metadata: Metadata = {
-  title: `아잇나우 - ${TITLE}`,
-  description: "아잇나우는 해외 주식 정보를 제공하는 서비스입니다.",
-};
+  return {
+    title: t("metaTitle"),
+    description: t("metaDescription"),
+    keywords: t("metaKeywords"),
+    openGraph: {
+      title: t("ogTitle"),
+      description: t("ogDescription"),
+      siteName: t("siteName"),
+      images: [
+        {
+          url: "images/intro_content.png",
+          width: 800,
+          height: 600,
+          alt: t("ogImageAlt"),
+        },
+      ],
+    },
+  };
+}
 
 export default function HomeLayout({
   children,

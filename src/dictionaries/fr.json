@@ -274,7 +274,14 @@
     "delete": "Supprimer",
     "viewDetails": "Voir les détails",
     "more": "Plus",
-    "less": "Moins"
+    "less": "Moins",
+    "metaTitle": "Analyse {stockName} | AIGHTNOW",
+    "metaDescription": "Analyse des actions, informations financières et tendances du marché pour {stockName} basées sur l'IA.",
+    "metaKeywords": "actions,analyse,rapport,financier,actualités,marché,IA,investissement,titres,{stockName}",
+    "ogTitle": "Analyse IA des actions {stockName} - AIGHTNOW",
+    "ogDescription": "Découvrez l'analyse des actions basée sur l'IA, les tendances du marché en temps réel et les perspectives d'investissement pour {stockName}.",
+    "siteName": "AIGHTNOW",
+    "ogImageAlt": "Image d'analyse des actions {stockName}"
   },
   "chatBot": {
     "initMessage": "Bonjour! Je suis NowChatBot. Comment puis-je vous aider?",
@@ -577,6 +584,13 @@
     "popularNews": "Actualités principales",
     "newsForUser": "Actualités boursières pour {name}",
     "aiReportFor": "Rapport IA pour {name}",
-    "ai": "IA"
+    "ai": "IA",
+    "metaTitle": "Aithnow - Accueil",
+    "metaDescription": "Commencez un investissement intelligent avec des informations et des actualités sur les entreprises américaines analysées par l'IA. Des rapports d'entreprise personnalisés facilitent l'investissement.",
+    "metaKeywords": "titres,actions,analyse,analyse boursière,AI,ia,aightnow,AIGHTNOW,actions étrangères,actualités,actualités financières",
+    "ogTitle": "AIGHTNOW - Investissement Intelligent avec l'IA",
+    "ogDescription": "Informations boursières complexes, simplifiées par l'IA. Les actualités traduites et l'analyse personnalisée rendent l'investissement plus agréable.",
+    "siteName": "AIGHTNOW",
+    "ogImageAlt": "Image de présentation du service AIGHTNOW"
   }
 }

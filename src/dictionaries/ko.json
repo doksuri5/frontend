@@ -271,7 +271,14 @@
     "delete": "삭제하기",
     "viewDetails": "자세히 보기",
     "more": "더보기",
-    "less": "접기"
+    "less": "접기",
+    "metaTitle": "{stockName} 주식 분석 | AIGHTNOW",
+    "metaDescription": "{stockName}의 최신 주식 분석, 재무 정보, 시장 동향을 AI 기반으로 제공합니다.",
+    "metaKeywords": "주식,분석,리포트,재무,뉴스,시장,AI,투자,증권,{stockName}",
+    "ogTitle": "{stockName} AI 주식 분석 - AIGHTNOW",
+    "ogDescription": "AI 기반 {stockName} 주식 분석, 실시간 시장 동향, 투자 인사이트를 확인하세요.",
+    "siteName": "아잇나우(AIGHTNOW)",
+    "ogImageAlt": "{stockName} 주식 분석 이미지"
   },
   "chatBot": {
     "initMessage": "안녕하세요! 나우챗봇입니다. 무엇을 도와드릴까요?",
@@ -576,6 +583,13 @@
     "popularNews": "주요 뉴스",
     "newsForUser": "{name}님을 위한 주식 뉴스",
     "aiReportFor": "{name}님의 AI 리포트",
-    "ai": "AI"
+    "ai": "AI",
+    "metaTitle": "아잇나우 - 홈",
+    "metaDescription": "AI로 분석한 미국 기업 정보와 뉴스로 똑똑한 투자를 시작하세요. 맞춤형 기업 리포트로 투자가 쉬워집니다.",
+    "metaKeywords": "증권,주식,분석,주식분석,주식 분석,AI,ai,아잇나우,aightnow,AIGHTNOW,해외주식,해외 주식,뉴스,증권 뉴스",
+    "ogTitle": "아잇나우 - AI와 함께하는 스마트 투자",
+    "ogDescription": "복잡한 주식 정보, AI가 쉽게 정리해드려요. 번역된 뉴스와 맞춤 분석으로 투자가 더 재미있어집니다.",
+    "siteName": "아잇나우",
+    "ogImageAlt": "아잇나우 서비스 소개 이미지"
   }
 }

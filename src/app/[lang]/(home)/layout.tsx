@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
-import { unstable_setRequestLocale } from "next-intl/server";
+import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 
-const TITLE = "홈";
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("home");
 
-export const metadata: Metadata = {
-  title: `아잇나우 - ${TITLE}`,
-  description: "아잇나우는 해외 주식 정보를 제공하는 서비스입니다.",
-};
+  return {
+    title: t("metaTitle"),
+    description: t("metaDescription"),
+  };
+}
 
 export default function HomeRootLayout({
   children,
