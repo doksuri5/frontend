@@ -304,12 +304,12 @@
     "viewDetails": "자세히 보기",
     "more": "더보기",
     "less": "접기",
-    "metaTitle": "{stockName} 주식 분석 | AIGHTNOW",
+    "metaTitle": "{stockName} 주식 분석 | 아잇나우",
     "metaDescription": "{stockName}의 최신 주식 분석, 재무 정보, 시장 동향을 AI 기반으로 제공합니다.",
     "metaKeywords": "주식,분석,리포트,재무,뉴스,시장,AI,투자,증권,{stockName}",
-    "ogTitle": "{stockName} AI 주식 분석 - AIGHTNOW",
+    "ogTitle": "{stockName} AI 주식 분석 - 아잇나우",
     "ogDescription": "AI 기반 {stockName} 주식 분석, 실시간 시장 동향, 투자 인사이트를 확인하세요.",
-    "siteName": "아잇나우(AIGHTNOW)",
+    "siteName": "아잇나우",
     "ogImageAlt": "{stockName} 주식 분석 이미지"
   },
   "chatBot": {
