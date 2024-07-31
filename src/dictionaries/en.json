@@ -645,6 +645,7 @@
       "noRecentSearches": "No recently viewed stocks."
     },
     "interestStocks": "Stocks of Interest",
+    "notFoundInterestStocks": "No interest stocks found.",
     "popularNews": "Popular News",
     "newsForUser": "Stock News for {name}",
     "aiReportFor": "AI Report for {name}",

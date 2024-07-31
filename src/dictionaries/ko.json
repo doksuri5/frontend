@@ -645,6 +645,7 @@
       "noRecentSearches": "최근 조회한 종목이 없습니다."
     },
     "interestStocks": "관심종목",
+    "notFoundInterestStocks": "관심 종목이 없습니다.",
     "popularNews": "주요 뉴스",
     "newsForUser": "{name}님을 위한 주식 뉴스",
     "aiReportFor": "{name}님의 AI 리포트",

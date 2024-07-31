@@ -645,6 +645,7 @@
       "noRecentSearches": "最近閲覧した銘柄はありません。"
     },
     "interestStocks": "関心銘柄",
+    "notFoundInterestStocks": "関心銘柄がありません。",
     "popularNews": "主要ニュース",
     "newsForUser": "{name}さんのための株式ニュース",
     "aiReportFor": "{name}さんのAIレポート",
