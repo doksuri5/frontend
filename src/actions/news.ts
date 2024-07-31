@@ -68,15 +68,19 @@ export const fetchInterestStockNews = async () => {
       let data = response.data;
 
       if (data.length > 0) {
-        let refinedData = (data as any[]).map(({ content_img, title, published_time, publisher, index }) => ({
-          image: content_img,
-          date: published_time,
-          _id: index,
-          title: title[session?.user.language ?? "ko"],
-          publisher: publisher[session?.user.language ?? "ko"],
-        }));
+        let refinedData = (data as any[]).map(
+          ({ content_img, title, published_time, publisher, index, relativeStockName }) => ({
+            image: content_img,
+            date: published_time,
+            _id: index,
+            title: title[session?.user.language ?? "ko"],
+            publisher: publisher[session?.user.language ?? "ko"],
+            relativeStockName,
+          }),
+        );
 
-        return [refinedData[0], refinedData[1], refinedData[2]];
+        if (refinedData.length === 3) return [refinedData[0], refinedData[1], refinedData[2]];
+        if (refinedData.length < 3) return refinedData;
       } else return data;
     }
   } catch (err) {

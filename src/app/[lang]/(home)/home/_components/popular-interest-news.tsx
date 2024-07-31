@@ -10,9 +10,18 @@ const PopularInterestNews = async () => {
     <>
       <p className="body_1 pb-[1.6rem]">관심종목</p>
       <DraggableList>
-        {interestNews.map((item: any) => (
-          <Card key={item._id} _id={item._id} variant="iconCard" date={item.date} title={item.title} />
-        ))}
+        {interestNews.map((item: any) => {
+          return (
+            <Card
+              key={item._id}
+              _id={item._id}
+              variant="iconCard"
+              date={item.date}
+              title={item.title}
+              stockCode={item.relativeStockName}
+            />
+          );
+        })}
       </DraggableList>
       <p className="body_1 pb-[1.6rem] pt-[4.8rem]">주요 뉴스</p>
       <div className="flex flex-col gap-[1.6rem] divide-y rounded-[1.6rem] border p-[4.8rem]">
