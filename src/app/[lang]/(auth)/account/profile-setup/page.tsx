@@ -11,8 +11,10 @@ import ProfileSetUpForm from "../../_components/ProfileSetUpForm";
 import Loading from "../../_components/Loading";
 
 import { HOME_PATH, PROFILE_SETUP_PATH } from "@/routes/path";
+import { unstable_setRequestLocale } from "next-intl/server";
 
-export default function ProfileSetup() {
+export default function ProfileSetup({ params }: { params: { lang: string } }) {
+  unstable_setRequestLocale(params.lang);
   const { data: session, status } = useSession();
   const t = useTranslations("auth");
 

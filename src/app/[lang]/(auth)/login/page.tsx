@@ -9,8 +9,11 @@ import { CommonTitle } from "../_components";
 import { cn } from "@/utils/cn";
 
 import { ACCOUNT_PATH } from "@/routes/path";
+import { unstable_setRequestLocale } from "next-intl/server";
 
-export default function LoginPage() {
+export default function LoginPage({ params }: { params: { lang: string } }) {
+  unstable_setRequestLocale(params.lang);
+
   const t = useTranslations("auth");
   return (
     <>

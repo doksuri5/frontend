@@ -10,8 +10,11 @@ import AIAnalystReport from "../_components/AIAnalystReport";
 import AIAnalystReportSkeleton from "../_components/skeleton/AIAnalystReportSkeleton";
 import StockAIReportSkeleton from "../_components/skeleton/StockAIReportSkeleton";
 import ReportHeaderSkeleton from "../_components/skeleton/ReportHeaderSkeleton";
+import { Locale } from "@/i18n";
+import { unstable_setRequestLocale } from "next-intl/server";
 
-export default function ReportPage({ params }: { params: { stockReutersCode: TReutersCodes } }) {
+export default function ReportPage({ params }: { params: { stockReutersCode: TReutersCodes; lang: Locale } }) {
+  unstable_setRequestLocale(params.lang);
   const { stockReutersCode } = params;
 
   return (

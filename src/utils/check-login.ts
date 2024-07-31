@@ -1,3 +1,5 @@
+"use server";
+
 import { cookies } from "next/headers";
 
 // 로그인 세션 확인 여부 체크

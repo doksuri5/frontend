@@ -2,6 +2,7 @@ import React from "react";
 import { PolicyMain } from "../_components";
 import { servicePolicyText } from "@/constants/servicePolicyText";
 import { privacyPolicyText } from "@/constants/privacyPolicyText";
+import { unstable_setRequestLocale } from "next-intl/server";
 
 const getTerms = async () => {
   try {
@@ -16,7 +17,8 @@ const getTerms = async () => {
   }
 };
 
-export default async function Terms() {
+export default async function Terms({ params }: { params: { lang: string } }) {
+  unstable_setRequestLocale(params.lang);
   const policyText = await getTerms();
   return (
     <PolicyMain

@@ -6,8 +6,10 @@ import CommonLoginBtn from "../_components/CommonLoginBtn";
 
 import { FIND_EMAIL_PATH, LOGIN_PATH } from "@/routes/path";
 import { CommonTitle } from "../_components";
+import { unstable_setRequestLocale } from "next-intl/server";
 
-export default function Page() {
+export default function Page({ params }: { params: { lang: string } }) {
+  unstable_setRequestLocale(params.lang);
   const t = useTranslations("auth");
   return (
     <>

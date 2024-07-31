@@ -1,8 +1,7 @@
-import { cookies } from "next/headers";
 import { pretendard } from "@/fonts";
 import { ToastContainer } from "react-toastify";
 
-import "react-toastify/dist/ReactToastify.css";
+import "react-toastify/ReactToastify.min.css";
 import "../globals.css";
 
 import Header from "@/components/layout/Header";
@@ -13,6 +12,7 @@ import { NextIntlClientProvider } from "next-intl";
 
 import AuthSession from "@/providers/AuthSession";
 import { getMessages, getTranslations, unstable_setRequestLocale } from "next-intl/server";
+import checkLogin from "@/utils/check-login";
 
 export async function generateStaticParams() {
   return i18n.locales.map((locale) => ({ lang: locale }));
@@ -24,6 +24,7 @@ export async function generateMetadata({ params }: { params: { lang: Locale } })
   const siteName = t("root.siteName");
 
   return {
+    metadataBase: new URL(BASE_URL),
     title: {
       template: `%s | ${siteName}`,
       default: t("root.title"),
@@ -50,7 +51,7 @@ export async function generateMetadata({ params }: { params: { lang: Locale } })
           url: "images/intro_content.png",
           width: 800,
           height: 600,
-          alt: t("ogImageAlt"),
+          alt: "intro content image",
         },
       ],
     },
@@ -62,10 +63,10 @@ export async function generateMetadata({ params }: { params: { lang: Locale } })
       description: t("root.twitter.description"),
       images: [
         {
-          url: "images/intro_content.png",
+          url: "/images/intro_content.png",
           width: 800,
           height: 600,
-          alt: t("ogImageAlt"),
+          alt: "intro content image",
         },
       ],
     },
@@ -84,9 +85,7 @@ export default async function RootLayout({
   params: { lang: Locale };
 }>) {
   unstable_setRequestLocale(params.lang);
-  const cookieStore = cookies();
-  const connectCookie = cookieStore.get("connect.sid")?.value;
-  const isLoggedIn = connectCookie ? true : false;
+  const isLoggedIn = await checkLogin();
   const messages = await getMessages();
 
   return (

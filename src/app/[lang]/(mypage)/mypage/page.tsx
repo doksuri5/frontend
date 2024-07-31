@@ -1,12 +1,11 @@
 import React from "react";
 import { auth } from "@/auth";
-import { cookies } from "next/headers";
 import { MyPageMain } from "./_components";
 import { unstable_setRequestLocale } from "next-intl/server";
+import getConnectId from "@/utils/get-connect-id";
 
 const fetchUserData = async () => {
-  const cookieStore = cookies();
-  const connectCookie = cookieStore.get("connect.sid")?.value;
+  const connectId = await getConnectId();
 
   const session = await auth();
 
@@ -15,7 +14,7 @@ const fetchUserData = async () => {
       await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/getUser/${session?.user.email}`, {
         headers: {
           "Content-Type": "application/json",
-          Cookie: `connect.sid=${connectCookie}`,
+          Cookie: `connect.sid=${connectId?.value}`,
         },
         credentials: "include",
         cache: "no-cache",

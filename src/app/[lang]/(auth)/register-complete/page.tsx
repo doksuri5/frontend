@@ -3,8 +3,10 @@ import { useTranslations } from "next-intl";
 import CommonLayout from "../_components/CommonLayout";
 import CommonLoginBtn from "../_components/CommonLoginBtn";
 import { CommonTitle } from "../_components";
+import { unstable_setRequestLocale } from "next-intl/server";
 
-export default function RegisterCompletePage() {
+export default function RegisterCompletePage({ params }: { params: { lang: string } }) {
+  unstable_setRequestLocale(params.lang);
   const t = useTranslations("auth");
   return (
     <>
