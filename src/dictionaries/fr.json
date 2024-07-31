@@ -331,7 +331,20 @@
     "preferOtherService": "Préférer un autre service",
     "lowUsage": "Fréquence d'utilisation faible",
     "contentDissatisfaction": "Insatisfaction concernant le contenu",
-    "otherReason": "Autre"
+    "otherReason": "Autre",
+    "metadata":{
+      "title": "Ma Page",
+      "description": "Gérez facilement vos paramètres personnels et vos informations sur Ma Page.",
+      "keywords": "Ma Page, paramètres de langue, modification des informations personnelles, informations personnelles, profil, suppression de compte, suppression, conditions d'utilisation, conditions",
+      "openGraph": {
+        "title": "Ma Page",
+        "description": "Gérez facilement vos paramètres personnels et vos informations sur Ma Page."
+      },
+      "twitter": {
+        "title": "Ma Page",
+        "description": "Gérez facilement vos paramètres personnels et vos informations sur Ma Page."
+      }
+    }
   },
   "lang": {
     "korean": "Coréen",
@@ -443,8 +456,7 @@
   },
   "withdraw": {
     "withdrawComplete": "Désinscription terminée.",
-    "thankYouPartOne": "Merci d'avoir utilisé AightNow.",
-    "thankYouPartTwo": "Nous continuerons à nous efforcer et à évoluer."
+    "thankYouMessage": "Merci d'avoir utilisé AightNow.\nNous continuerons à nous efforcer et à évoluer."
   },
   "investPropensity": {
     "title": "Diagnostic de Propension à l'Investissement",

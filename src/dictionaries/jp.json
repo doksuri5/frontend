@@ -331,7 +331,20 @@
     "preferOtherService": "他のサービスの方が良い",
     "lowUsage": "使用頻度が低い",
     "contentDissatisfaction": "コンテンツに不満",
-    "otherReason": "その他"
+    "otherReason": "その他",
+    "metadata": {
+      "title": "マイページ",
+      "description": "マイページで個人設定と情報を簡単に管理できます。",
+      "keywords": "マイページ, 言語設定, 個人情報編集, 個人情報, プロフィール, アカウント削除, 削除, 利用規約, 規約",
+      "openGraph": {
+        "title": "マイページ",
+        "description": "マイページで個人設定と情報を簡単に管理できます。"
+      },
+      "twitter": {
+        "title": "マイページ",
+        "description": "マイページで個人設定と情報を簡単に管理できます。"
+      }
+    }
   },
   "lang": {
     "korean": "韓国語",
@@ -443,8 +456,7 @@
   },
   "withdraw": {
     "withdrawComplete": "会員脱退が完了しました。",
-    "thankYouPartOne": "AightNowをご利用いただきありがとうございます。",
-    "thankYouPartTwo": "さらに努力して進化するAightNowになります。"
+    "thankYouMessage": "AightNowをご利用いただきありがとうございます。\nさらに努力して進化するAightNowになります。"
   },
   "investPropensity": {
     "title": "投資性向診断",
