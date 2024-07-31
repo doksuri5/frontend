@@ -19,7 +19,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: { params: { lang: Locale } }) {
-  const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}/${params.lang}`;
+  const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}`;
   const t = await getTranslations({ lang: params.lang, namespace: "metadata" });
   const siteName = t("root.siteName");
 
@@ -63,7 +63,7 @@ export async function generateMetadata({ params }: { params: { lang: Locale } })
       description: t("root.twitter.description"),
       images: [
         {
-          url: "/images/intro_content.png",
+          url: "images/intro_content.png",
           width: 800,
           height: 600,
           alt: "intro content image",
