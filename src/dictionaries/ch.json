@@ -225,12 +225,12 @@
     }
   },
   "stocks": {
-    "stockApple": "苹果",
-    "stockMicroSoft": "微软",
-    "stockAmazon": "亚马逊",
-    "stockUnity": "Unity",
-    "stockGoogle": "谷歌",
-    "stockTesla": "特斯拉"
+    "stockAAPL": "苹果",
+    "stockMSFT": "微软",
+    "stockAMZN": "亚马逊",
+    "stockGOOGL": "谷歌",
+    "stockU": "Unity",
+    "stockTSLA": "特斯拉"
   },
   "news": {
     "todaysPopularNews": "今日热门新闻",
@@ -244,17 +244,25 @@
   "currency": {
     "sign": "¥"
   },
+  "analysis": {
+    "stockPrice": "股价",
+    "investmentIndex": "投资指数",
+    "profitability": "盈利能力",
+    "growth": "成长性",
+    "interest": "兴趣",
+    "point": "分"
+  },
   "report": {
     "stock": "股票",
     "addInterestStock": "添加关注股票",
     "removeInterestStock": "取消关注股票",
     "unit": "元",
     "stockPriceChart": "股票价格图表",
-    "oneDay": "1天",
-    "threeMonths": "3个月",
-    "oneYear": "1年",
-    "threeYears": "3年",
-    "tenYears": "10年",
+    "day": "日",
+    "week": "周",
+    "month": "月",
+    "quarter": "季度",
+    "year": "年",
     "stockAIReport": "股票AI报告",
     "aightNowAIAnalystReport": "AightNow AI分析师报告",
     "userInterestStocks": "的关注股票",
@@ -264,7 +272,9 @@
     "growth": "成长性",
     "interestLevel": "关注度",
     "delete": "删除",
-    "viewDetails": "查看详情"
+    "viewDetails": "查看详情",
+    "more": "更多",
+    "less": "收起"
   },
   "chatBot": {
     "initMessage": "你好！我是NowChatBot。我能帮你什么？",

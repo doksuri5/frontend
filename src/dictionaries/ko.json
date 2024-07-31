@@ -225,12 +225,12 @@
     }
   },
   "stocks": {
-    "stockApple": "애플",
-    "stockMicroSoft": "마이크로소프트",
-    "stockAmazon": "아마존",
-    "stockUnity": "유니티",
-    "stockGoogle": "구글",
-    "stockTesla": "테슬라"
+    "stockAAPL": "애플",
+    "stockMSFT": "마이크로소프트",
+    "stockAMZN": "아마존",
+    "stockGOOGL": "구글",
+    "stockU": "유니티",
+    "stockTSLA": "테슬라"
   },
   "news": {
     "todaysPopularNews": "오늘 인기있는 뉴스",
@@ -241,17 +241,25 @@
     "AISummary": "아잇나우 AI요약",
     "AISummaryContent": "AI 요약내용"
   },
+  "analysis": {
+    "stockPrice": "주가",
+    "investmentIndex": "투자지수",
+    "profitability": "수익성",
+    "growth": "성장성",
+    "interest": "관심도",
+    "point": "점"
+  },
   "report": {
     "stock": "주식",
     "addInterestStock": "관심종목 추가",
     "removeInterestStock": "관심종목 해제",
     "unit": "원",
     "stockPriceChart": "주가 차트",
-    "oneDay": "1일",
-    "threeMonths": "3개월",
-    "oneYear": "1년",
-    "threeYears": "3년",
-    "tenYears": "10년",
+    "day": "일",
+    "week": "주",
+    "month": "월",
+    "quarter": "분기",
+    "year": "년",
     "stockAIReport": "종목 AI 리포트",
     "aightNowAIAnalystReport": "아잇나우 AI 애널리스트 리포트",
     "userInterestStocks": "님의 관심종목",
@@ -261,7 +269,9 @@
     "growth": "성장성",
     "interestLevel": "관심도",
     "delete": "삭제하기",
-    "viewDetails": "자세히 보기"
+    "viewDetails": "자세히 보기",
+    "more": "더보기",
+    "less": "접기"
   },
   "chatBot": {
     "initMessage": "안녕하세요! 나우챗봇입니다. 무엇을 도와드릴까요?",

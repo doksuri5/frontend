@@ -1,11 +1,10 @@
 import NewsItem from "@/components/common/List/NewsItem";
 import NewsItemSkeleton from "@/components/common/skeleton/NewsItemSkeleton";
-import { NewsItemType } from "@/types";
 import { cn } from "@/utils/cn";
 import { Fragment, useEffect, useRef } from "react";
 
 type TINewsListProps = {
-  newsItems: any; //NewsItemType[] | undefined;
+  newsItems: any;
   lineClamp?: "lineClamp-2" | "lineClamp-4";
   variant?: "border" | "noBorder";
   style?: string;

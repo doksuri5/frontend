@@ -225,12 +225,12 @@
     }
   },
   "stocks": {
-    "stockApple": "アップル",
-    "stockMicroSoft": "マイクロソフト",
-    "stockAmazon": "アマゾン",
-    "stockUnity": "ユニティ",
-    "stockGoogle": "グーグル",
-    "stockTesla": "テスラ"
+    "stockAAPL": "アップル",
+    "stockMSFT": "マイクロソフト",
+    "stockAMZN": "アマゾン",
+    "stockGOOGL": "グーグル",
+    "stockU": "ユニティ",
+    "stockTSLA": "テスラ"
   },
   "news": {
     "todaysPopularNews": "今日の人気ニュース",
@@ -244,17 +244,25 @@
   "currency": {
     "sign": "¥"
   },
+  "analysis": {
+    "stockPrice": "株価",
+    "investmentIndex": "投資指数",
+    "profitability": "収益性",
+    "growth": "成長性",
+    "interest": "関心度",
+    "point": "点"
+  },
   "report": {
     "stock": "株式",
     "addInterestStock": "関心銘柄を追加",
     "removeInterestStock": "関心銘柄の解除",
     "unit": "円",
     "stockPriceChart": "株価チャート",
-    "oneDay": "1日",
-    "threeMonths": "3ヶ月",
-    "oneYear": "1年",
-    "threeYears": "3年",
-    "tenYears": "10年",
+    "day": "日",
+    "week": "週",
+    "month": "月",
+    "quarter": "四半期",
+    "year": "年",
     "stockAIReport": "銘柄AIレポート",
     "aightNowAIAnalystReport": "AightNow AIアナリストレポート",
     "userInterestStocks": "の関心銘柄",
@@ -264,7 +272,9 @@
     "growth": "成長性",
     "interestLevel": "関心度",
     "delete": "削除",
-    "viewDetails": "詳細を見る"
+    "viewDetails": "詳細を見る",
+    "more": "もっと見る",
+    "less": "閉じる"
   },
   "chatBot": {
     "initMessage": "こんにちは！私はNowChatBotです。何をお手伝いしましょうか？",
