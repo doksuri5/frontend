@@ -1,10 +1,10 @@
 import { ApiRequestBody, ApiResponse, ResponseReturnType } from "@/types/ApiType";
 import { redirect } from "next/navigation";
-import { cookies } from "next/headers";
 import { ZodSchema } from "zod";
 import { revalidateTag } from "next/cache";
 import { TStockTags } from "@/actions/stock";
 import { TRecentTags } from "@/actions/search";
+import getConnectId from "@/utils/get-connect-id";
 
 export type TBaseOptions = RequestInit & {
   isFetchFromRouteHandler?: boolean;
@@ -58,7 +58,7 @@ const request = ({
     try {
       const requestBody = requestSchema && body ? ApiRequestBody(requestSchema, body, false) : body;
 
-      const sid = cookies().get("connect.sid");
+      const sid = await getConnectId();
 
       if (combinedOptions.isLoggedIn && !sid) {
         redirect("/login");

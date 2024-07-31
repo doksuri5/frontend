@@ -11,8 +11,11 @@ import RegisterForm from "../../_components/RegisterForm";
 import Loading from "../../_components/Loading";
 
 import { HOME_PATH, REGISTER_PATH } from "@/routes/path";
+import { unstable_setRequestLocale } from "next-intl/server";
 
-export default function RegisterPage() {
+export default function RegisterPage({ params }: { params: { lang: string } }) {
+  unstable_setRequestLocale(params.lang);
+
   const { data: session, status } = useSession();
   const router = useRouter();
   const t = useTranslations("auth");

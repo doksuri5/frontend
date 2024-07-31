@@ -373,7 +373,7 @@
     "lowUsage": "Fréquence d'utilisation faible",
     "contentDissatisfaction": "Insatisfaction concernant le contenu",
     "otherReason": "Autre",
-    "metadata":{
+    "metadata": {
       "title": "Ma Page",
       "description": "Gérez facilement vos paramètres personnels et vos informations sur Ma Page.",
       "keywords": "Ma Page, paramètres de langue, modification des informations personnelles, informations personnelles, profil, suppression de compte, suppression, conditions d'utilisation, conditions",
@@ -645,6 +645,7 @@
       "noRecentSearches": "Aucune consultation récente de titres."
     },
     "interestStocks": "Titres d'intérêt",
+    "notFoundInterestStocks": "Aucun titre d'intérêt trouvé.",
     "popularNews": "Actualités principales",
     "newsForUser": "Actualités boursières pour {name}",
     "aiReportFor": "Rapport IA pour {name}",

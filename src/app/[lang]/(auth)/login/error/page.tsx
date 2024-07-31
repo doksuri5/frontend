@@ -3,8 +3,10 @@ import { useTranslations } from "next-intl";
 import CommonLoginBtn from "../../_components/CommonLoginBtn";
 
 import Image from "next/image";
+import { unstable_setRequestLocale } from "next-intl/server";
 
-export default function Page() {
+export default function Page({ params }: { params: { lang: string } }) {
+  unstable_setRequestLocale(params.lang);
   const t = useTranslations("auth.loginError");
 
   return (

@@ -3,6 +3,8 @@ import { DiscoverySection, PopularSearches, RecentSearches } from "./_components
 import { getPopularSearchesName } from "@/actions/search";
 import { PopularSearchesNameDataType } from "@/types/SearchDataType";
 
+export const dynamic = "force-dynamic";
+
 export default async function Page({ params }: { params: { lang: string } }) {
   unstable_setRequestLocale(params.lang);
   const t = await getTranslations("discovery");

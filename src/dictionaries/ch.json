@@ -373,7 +373,7 @@
     "lowUsage": "使用频率低",
     "contentDissatisfaction": "对内容不满",
     "otherReason": "其他",
-    "metadata":{
+    "metadata": {
       "title": "我的页面",
       "description": "用户可以管理个人设置和信息的我的页面。轻松管理个人设置和信息。",
       "keywords": "我的页面, 语言设置, 个人信息修改, 个人信息, 资料, 注销账户, 注销, 使用条款, 条款",
@@ -645,6 +645,7 @@
       "noRecentSearches": "最近没有查看过的股票。"
     },
     "interestStocks": "关注股票",
+    "notFoundInterestStocks": "没有关注的股票。",
     "popularNews": "热门新闻",
     "newsForUser": "{name}的股票新闻",
     "aiReportFor": "{name}的AI报告",

@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import DiscoverySearchLoading from "./loading";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 
 interface generateMetadataPropsType {
   params: {
@@ -35,5 +35,6 @@ export default function DiscoverySearchLayout({
   children: React.ReactNode;
   params: { search: string; lang: string };
 }) {
+  unstable_setRequestLocale(params.lang);
   return <Suspense fallback={<DiscoverySearchLoading />}>{children}</Suspense>;
 }
