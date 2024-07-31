@@ -11,7 +11,6 @@ import ProfileSetUpForm from "../../_components/ProfileSetUpForm";
 import Loading from "../../_components/Loading";
 
 import { HOME_PATH, PROFILE_SETUP_PATH } from "@/routes/path";
-import { unstable_setRequestLocale } from "next-intl/server";
 
 export default function ProfileSetup() {
   const { data: session, status } = useSession();
