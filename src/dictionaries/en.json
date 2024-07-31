@@ -7,6 +7,37 @@
     "login": "Login",
     "logout": "Logout"
   },
+  "metadata": {
+    "root": {
+      "siteName": "AightNow",
+      "title": "AI-based Stock Analysis Platform | AightNow",
+      "description": "A next-generation AI analyst platform that combines real-time U.S. corporate disclosure information with daily news data analysis to provide customized real-time corporate analysis reports for users worldwide in various languages.",
+      "keywords": "stocks, stock analysis, stock analysis, AI, ai, AightNow, overseas stocks, news, stock news",
+      "authors": "Eagle Brothers",
+      "openGraph": {
+        "title": "AI-based Stock Analysis Platform | AightNow",
+        "description": "A next-generation AI analyst platform providing real-time corporate analysis reports.",
+        "siteName": "AightNow",
+        "locale": "en"
+      },
+      "twitter": {
+        "title": "AI-based Stock Analysis Platform | AightNow",
+        "description": "A next-generation AI analyst platform providing real-time corporate analysis reports."
+      }
+    },
+    "news": {
+      "title": "News",
+      "description": "You can check popular news, news related to your favorite stocks, and the latest news.",
+      "openGraph": {
+        "title": "News",
+        "description": "You can check popular news, news related to your favorite stocks, and the latest news."
+      },
+      "twitter": {
+        "title": "News",
+        "description": "You can check popular news, news related to your favorite stocks, and the latest news."
+      }
+    }
+  },
   "auth": {
     "title": {
       "login": "Login",
@@ -274,7 +305,14 @@
     "delete": "Delete",
     "viewDetails": "View Details",
     "more": "More",
-    "less": "Less"
+    "less": "Less",
+    "metaTitle": "{stockName} Stock Analysis | AIGHTNOW",
+    "metaDescription": "AI-powered stock analysis, financial information, and market trends for {stockName}.",
+    "metaKeywords": "stock,analysis,report,financial,news,market,AI,investment,securities,{stockName}",
+    "ogTitle": "{stockName} AI Stock Analysis - AIGHTNOW",
+    "ogDescription": "Explore AI-driven stock analysis, real-time market trends, and investment insights for {stockName}.",
+    "siteName": "AIGHTNOW",
+    "ogImageAlt": "{stockName} stock analysis image"
   },
   "chatBot": {
     "initMessage": "Hello! I'm NowChatBot. How can I help you?",
@@ -299,6 +337,16 @@
       "alertTitle": "Do you want to delete all recent searches?",
       "alertButtonText": "Delete",
       "alertCancleText": "Cancel"
+    },
+    "layout": {
+      "title": "Stock Search",
+      "description": "This is the discovery page of AIGHTNOW, an AI-based stock analysis platform where you can search and analyze various stock items in real time.",
+      "keywords": "stock search, stock analysis, real-time stock news, AI stock analysis, stock item search, aightnow, AIGHTNOW"
+    },
+    "searchLayout": {
+      "searchResult": "Search Results",
+      "description": "Check the search results for {search}.",
+      "keywords": "stock search, real-time stock news, AI stock analysis, aightnow, AIGHTNOW"
     }
   },
   "mypage": {
@@ -324,7 +372,20 @@
     "preferOtherService": "Prefer another service",
     "lowUsage": "Low usage frequency",
     "contentDissatisfaction": "Dissatisfied with content",
-    "otherReason": "Other"
+    "otherReason": "Other",
+    "metadata": {
+      "title": "My Page",
+      "description": "Manage your personal settings and information easily on My Page.",
+      "keywords": "My Page, language settings, personal information edit, personal information, profile, account deletion, deletion, terms of service, terms",
+      "openGraph": {
+        "title": "My Page",
+        "description": "Manage your personal settings and information easily on My Page."
+      },
+      "twitter": {
+        "title": "My Page",
+        "description": "Manage your personal settings and information easily on My Page."
+      }
+    }
   },
   "lang": {
     "korean": "Korean",
@@ -436,8 +497,7 @@
   },
   "withdraw": {
     "withdrawComplete": "Withdrawal complete.",
-    "thankYouPartOne": "Thank you for using AightNow.",
-    "thankYouPartTwo": "We will continue to strive and evolve."
+    "thankYouMessage": "Thank you for using AightNow.\nWe will continue to strive and evolve."
   },
   "investPropensity": {
     "title": "Investment Propensity Diagnosis",
@@ -561,11 +621,40 @@
       "modalSearchItemAdd": "Add",
       "modalRecentSearchTitle": "Recently Searched Stocks",
       "modalAllDeleteText": "Delete All",
-      "modalPopularTitle": "Popular Searches"
+      "modalPopularTitle": "Popular Searches",
+      "modalSearchItemAddLoading": "Adding item of interest...",
+      "modalSearchItemAddSuccess": "Item of interest has been added.",
+      "modalSearchItemAddError": "Failed to add item of interest.",
+      "modalSearchItemDeleteLoading": "Deleting item of interest...",
+      "modalSearchItemDeleteSuccess": "Item of interest has been deleted.",
+      "modalSearchItemDeleteError": "Failed to delete item of interest."
+    },
+    "layout": {
+      "title": "My Stocks",
+      "description": "This is the page where you can manage and move to analysis reports for the stocks you are interested in.",
+      "keywords": "My Stocks, Stock Wishlist, Stock Analysis, AI Stock Analysis, Stock Management"
     }
   },
   "searchBox": {
     "noneStock": "No search results found.",
     "informText": "Please check the spelling of the word."
+  },
+  "home": {
+    "recent": {
+      "title": "Recent Views",
+      "noRecentSearches": "No recently viewed stocks."
+    },
+    "interestStocks": "Stocks of Interest",
+    "popularNews": "Popular News",
+    "newsForUser": "Stock News for {name}",
+    "aiReportFor": "AI Report for {name}",
+    "ai": "AI",
+    "metaTitle": "Aithnow | Home",
+    "metaDescription": "Start smart investing with AI-analyzed US company information and news. Customized company reports make investing easier.",
+    "metaKeywords": "securities,stocks,analysis,stock analysis,AI,ai,aightnow,AIGHTNOW,foreign stocks,news,financial news",
+    "ogTitle": "AIGHTNOW - Smart Investing with AI",
+    "ogDescription": "Complex stock information, simplified by AI. Translated news and custom analysis make investing more enjoyable.",
+    "siteName": "AIGHTNOW",
+    "ogImageAlt": "AIGHTNOW service introduction image"
   }
 }

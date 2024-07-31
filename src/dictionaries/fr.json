@@ -7,6 +7,37 @@
     "login": "Connexion",
     "logout": "Déconnexion"
   },
+  "metadata": {
+    "root": {
+      "siteName": "AightNow",
+      "title": "Plateforme d'analyse des actions basée sur l'IA | AightNow",
+      "description": "Une plateforme d'analyste AI de nouvelle génération qui combine les informations en temps réel sur les divulgations des entreprises américaines avec l'analyse des données des actualités quotidiennes pour fournir des rapports d'analyse d'entreprises en temps réel personnalisés pour les utilisateurs du monde entier dans différentes langues.",
+      "keywords": "actions, analyse des actions, analyse des actions, IA, ia, AightNow, actions étrangères, nouvelles, nouvelles boursières",
+      "authors": "Frères Aigle",
+      "openGraph": {
+        "title": "Plateforme d'analyse des actions basée sur l'IA | AightNow",
+        "description": "Une plateforme d'analyste AI de nouvelle génération fournissant des rapports d'analyse d'entreprises en temps réel.",
+        "siteName": "AightNow",
+        "locale": "fr"
+      },
+      "twitter": {
+        "title": "Plateforme d'analyse des actions basée sur l'IA | AightNow",
+        "description": "Une plateforme d'analyste AI de nouvelle génération fournissant des rapports d'analyse d'entreprises en temps réel."
+      }
+    },
+    "news": {
+      "title": "Actualités",
+      "description": "Vous pouvez consulter les actualités populaires, les actualités liées à vos actions favorites et les dernières nouvelles.",
+      "openGraph": {
+        "title": "Actualités",
+        "description": "Vous pouvez consulter les actualités populaires, les actualités liées à vos actions favorites et les dernières nouvelles."
+      },
+      "twitter": {
+        "title": "Actualités",
+        "description": "Vous pouvez consulter les actualités populaires, les actualités liées à vos actions favorites et les dernières nouvelles."
+      }
+    }
+  },
   "auth": {
     "title": {
       "login": "Connexion",
@@ -274,7 +305,14 @@
     "delete": "Supprimer",
     "viewDetails": "Voir les détails",
     "more": "Plus",
-    "less": "Moins"
+    "less": "Moins",
+    "metaTitle": "Analyse {stockName} | AIGHTNOW",
+    "metaDescription": "Analyse des actions, informations financières et tendances du marché pour {stockName} basées sur l'IA.",
+    "metaKeywords": "actions,analyse,rapport,financier,actualités,marché,IA,investissement,titres,{stockName}",
+    "ogTitle": "Analyse IA des actions {stockName} - AIGHTNOW",
+    "ogDescription": "Découvrez l'analyse des actions basée sur l'IA, les tendances du marché en temps réel et les perspectives d'investissement pour {stockName}.",
+    "siteName": "AIGHTNOW",
+    "ogImageAlt": "Image d'analyse des actions {stockName}"
   },
   "chatBot": {
     "initMessage": "Bonjour! Je suis NowChatBot. Comment puis-je vous aider?",
@@ -299,6 +337,16 @@
       "alertTitle": "Voulez-vous supprimer toutes les recherches récentes ?",
       "alertButtonText": "Supprimer",
       "alertCancleText": "Annuler"
+    },
+    "layout": {
+      "title": "Recherche de titres",
+      "description": "Voici la page de découverte d'AIGHTNOW, une plateforme d'analyse de titres basée sur l'IA où vous pouvez rechercher et analyser divers titres en temps réel.",
+      "keywords": "recherche de titres, analyse de titres, actualités boursières en temps réel, analyse de titres par IA, recherche de titres boursiers, aightnow, AIGHTNOW"
+    },
+    "searchLayout": {
+      "searchResult": "Résultats de recherche",
+      "description": "Consultez les résultats de recherche pour {search}.",
+      "keywords": "recherche de titres, actualités boursières en temps réel, analyse de titres par IA, aightnow, AIGHTNOW"
     }
   },
   "mypage": {
@@ -324,7 +372,20 @@
     "preferOtherService": "Préférer un autre service",
     "lowUsage": "Fréquence d'utilisation faible",
     "contentDissatisfaction": "Insatisfaction concernant le contenu",
-    "otherReason": "Autre"
+    "otherReason": "Autre",
+    "metadata":{
+      "title": "Ma Page",
+      "description": "Gérez facilement vos paramètres personnels et vos informations sur Ma Page.",
+      "keywords": "Ma Page, paramètres de langue, modification des informations personnelles, informations personnelles, profil, suppression de compte, suppression, conditions d'utilisation, conditions",
+      "openGraph": {
+        "title": "Ma Page",
+        "description": "Gérez facilement vos paramètres personnels et vos informations sur Ma Page."
+      },
+      "twitter": {
+        "title": "Ma Page",
+        "description": "Gérez facilement vos paramètres personnels et vos informations sur Ma Page."
+      }
+    }
   },
   "lang": {
     "korean": "Coréen",
@@ -436,8 +497,7 @@
   },
   "withdraw": {
     "withdrawComplete": "Désinscription terminée.",
-    "thankYouPartOne": "Merci d'avoir utilisé AightNow.",
-    "thankYouPartTwo": "Nous continuerons à nous efforcer et à évoluer."
+    "thankYouMessage": "Merci d'avoir utilisé AightNow.\nNous continuerons à nous efforcer et à évoluer."
   },
   "investPropensity": {
     "title": "Diagnostic de Propension à l'Investissement",
@@ -561,11 +621,40 @@
       "modalSearchItemAdd": "Ajouter",
       "modalRecentSearchTitle": "Actions récemment recherchées",
       "modalAllDeleteText": "Tout supprimer",
-      "modalPopularTitle": "Recherches populaires"
+      "modalPopularTitle": "Recherches populaires",
+      "modalSearchItemAddLoading": "Ajout de l'élément d'intérêt...",
+      "modalSearchItemAddSuccess": "L'élément d'intérêt a été ajouté.",
+      "modalSearchItemAddError": "Échec de l'ajout de l'élément d'intérêt.",
+      "modalSearchItemDeleteLoading": "Suppression de l'élément d'intérêt...",
+      "modalSearchItemDeleteSuccess": "L'élément d'intérêt a été supprimé.",
+      "modalSearchItemDeleteError": "Échec de la suppression de l'élément d'intérêt."
+    },
+    "layout": {
+      "title": "Mes Actions",
+      "description": "C'est la page où vous pouvez gérer et passer aux rapports d'analyse pour les actions qui vous intéressent.",
+      "keywords": "Mes Actions, Liste de souhaits des actions, Analyse des actions, Analyse des actions par IA, Gestion des actions"
     }
   },
   "searchBox": {
     "noneStock": "Aucun résultat de recherche trouvé.",
     "informText": "Veuillez vérifier l'orthographe du mot."
+  },
+  "home": {
+    "recent": {
+      "title": "Consultations récentes",
+      "noRecentSearches": "Aucune consultation récente de titres."
+    },
+    "interestStocks": "Titres d'intérêt",
+    "popularNews": "Actualités principales",
+    "newsForUser": "Actualités boursières pour {name}",
+    "aiReportFor": "Rapport IA pour {name}",
+    "ai": "IA",
+    "metaTitle": "Aithnow | Accueil",
+    "metaDescription": "Commencez un investissement intelligent avec des informations et des actualités sur les entreprises américaines analysées par l'IA. Des rapports d'entreprise personnalisés facilitent l'investissement.",
+    "metaKeywords": "titres,actions,analyse,analyse boursière,AI,ia,aightnow,AIGHTNOW,actions étrangères,actualités,actualités financières",
+    "ogTitle": "AIGHTNOW - Investissement Intelligent avec l'IA",
+    "ogDescription": "Informations boursières complexes, simplifiées par l'IA. Les actualités traduites et l'analyse personnalisée rendent l'investissement plus agréable.",
+    "siteName": "AIGHTNOW",
+    "ogImageAlt": "Image de présentation du service AIGHTNOW"
   }
 }

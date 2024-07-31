@@ -8,7 +8,6 @@ import { Input, Button, Alert } from "@/components/common";
 import Avatar from "@/public/icons/avatar_default.svg";
 import EditIcon from "@/public/icons/avatar_edit.svg";
 import { cn } from "@/utils/cn";
-import { stockList } from "../_constants/stock";
 import { createProfileImgURL, getStockCodesFromOptions, mapInterestStocksToInitialValue } from "../_utils/profileUtils";
 import { useRouter } from "next/navigation";
 import useUserStore from "@/stores/useUserStore";
@@ -16,6 +15,7 @@ import reduceImageSize from "@/utils/reduce-image-size";
 import { updateUserProfile } from "../_api/profileApi";
 import useAlert from "@/hooks/use-alert";
 import { useTranslations } from "next-intl";
+import { getStockLangName } from "../_api/getStockLangName";
 export interface IOption {
   value: string;
   label: string;
@@ -59,7 +59,6 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
   });
 
   const nickname = watch("nickname");
-  const interestStocks = mapInterestStocksToInitialValue(userStoreData?.interest_stocks as string[], stockList);
   const gender = watch("gender");
 
   const [imageUrl, setImageUrl] = useState(createProfileImgURL(userStoreData?.profile as string, false));
@@ -69,9 +68,21 @@ export default function EditProfileForm({ closeModal }: TEditProfileFormProps) {
   const [nicknameChange, setNicknameChange] = useState(false);
   const [activeDuplicateBtn, setActiveDuplicateBtn] = useState(false);
 
-  const [selectedStocks, setSelectedStocks] = useState<IOption[]>(interestStocks);
+  const [stockList, setStockList] = useState([]);
+  const [selectedStocks, setSelectedStocks] = useState<IOption[] | []>([]);
 
   const [formValid, setFormValid] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await getStockLangName();
+
+      setStockList(response.data);
+      const interestStocks = mapInterestStocksToInitialValue(userStoreData?.interest_stocks as string[], response.data);
+      setSelectedStocks(interestStocks);
+    };
+    fetchData();
+  }, []);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (imageUrl) {

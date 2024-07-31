@@ -4,7 +4,7 @@ import { NEWS_PATH } from "@/routes/path";
 import { NewsItemType } from "@/types";
 import { cn } from "@/utils/cn";
 import { getTimeDifference } from "@/utils/getTimeDifference";
-import { useSession } from "next-auth/react";
+import { useLocale } from "next-intl";
 
 export type TNewsItemProps = NewsItemType & {
   variant?: "lineClamp-2" | "lineClamp-4";
@@ -35,8 +35,8 @@ export default function NewsItem({
   style,
 }: TNewsItemProps) {
   const selectedVariantStyles = variantStyles[variant];
-  const { data: session } = useSession();
-  const language = session?.user.language || "ko";
+  const locale = useLocale();
+  const language = locale || "ko";
 
   return (
     <Link href={`${NEWS_PATH}/${_id}`}>

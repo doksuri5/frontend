@@ -7,7 +7,15 @@ import { formatOnlyIndicator, getTextColor } from "@/utils/stockPriceUtils";
 import { Skeleton } from "./Skeleton";
 import ClientCountUp from "./CountUp";
 
-const StockPrice = ({ reutersCode, vertical = false }: { reutersCode: TReutersCodes; vertical?: boolean }) => {
+const StockPrice = ({
+  reutersCode,
+  vertical = false,
+  style,
+}: {
+  reutersCode: TReutersCodes;
+  vertical?: boolean;
+  style?: string;
+}) => {
   const { stock, loading } = useStockPrice(reutersCode);
 
   if (!stock || stock.closePrice === 0 || loading) {
@@ -30,12 +38,12 @@ const StockPrice = ({ reutersCode, vertical = false }: { reutersCode: TReutersCo
         "flex-row": !vertical,
       })}
     >
-      <div className="body_4 font-medium">
+      <div className={cn(`body_4 font-medium ${style}`)}>
         <span>
           $<ClientCountUp preserveValue end={Math.abs(stock?.closePrice)} decimals={2} />
         </span>
       </div>
-      <div className={cn(`body_4 flex gap-[0.8rem] font-normal ${getTextColor(stock?.fluctuationsRatio)}`)}>
+      <div className={cn(`body_4 flex gap-[0.8rem] font-normal ${getTextColor(stock?.fluctuationsRatio)} ${style}`)}>
         <span>
           {formatOnlyIndicator(stock?.compareToPreviousClosePrice)}
           <ClientCountUp preserveValue end={Math.abs(stock?.compareToPreviousClosePrice)} decimals={2} />

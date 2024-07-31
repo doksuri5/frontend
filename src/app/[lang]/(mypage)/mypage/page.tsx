@@ -2,6 +2,7 @@ import React from "react";
 import { auth } from "@/auth";
 import { cookies } from "next/headers";
 import { MyPageMain } from "./_components";
+import { unstable_setRequestLocale } from "next-intl/server";
 
 const fetchUserData = async () => {
   const cookieStore = cookies();
@@ -40,7 +41,8 @@ const fetchUserData = async () => {
   }
 };
 
-export default async function MyPage() {
+export default async function MyPage({ params }: { params: { lang: string } }) {
+  unstable_setRequestLocale(params.lang);
   const userData = await fetchUserData();
   return <MyPageMain userData={userData} />;
 }
