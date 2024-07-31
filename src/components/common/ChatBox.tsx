@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState, useLayoutEffect } from "react";
 import { Button } from "./Button";
 import { Input } from "./Input";
 import CloseIcon from "@/public/icons/close_icon.svg?component";
@@ -21,6 +21,7 @@ export default function ChatBox({ close }: ChatBoxProps) {
   const messagesContainerRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const t = useTranslations();
+  const [chatBoxHeight, setChatBoxHeight] = useState("64rem");
 
   const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat({
     initialMessages: [
@@ -38,8 +39,30 @@ export default function ChatBox({ close }: ChatBoxProps) {
     }
   }, [messages]);
 
+  useLayoutEffect(() => {
+    const handleResize = () => {
+      const viewportHeight = window.innerHeight;
+      const headerHeight = 8 * 16; // 8rem in pixels
+      const adjustedHeight = viewportHeight - headerHeight - 20; // 20px buffer
+
+      if (adjustedHeight < 1024) {
+        setChatBoxHeight(`${adjustedHeight}px`);
+      } else {
+        setChatBoxHeight("64rem");
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
-    <div className="z-999 fixed bottom-[2rem] right-[2rem] mx-auto flex h-[64rem] w-[48rem] flex-col overflow-hidden rounded-t-[4rem] bg-white shadow-lg">
+    <div
+      className="z-999 fixed bottom-[2rem] right-[2rem] mx-auto flex w-[48rem] flex-col overflow-hidden rounded-t-[4rem] bg-white shadow-lg"
+      style={{ height: chatBoxHeight }}
+    >
       <div className="flex justify-between border-b bg-navy-900 p-[1.6rem] px-[3rem]">
         <h1 className="body_1 font-semibold text-white">나우챗봇</h1>
         <Button variant="iconButton" className="h-[3rem] w-[2rem]" onClick={() => close()}>
