@@ -59,6 +59,8 @@ export const middleware = async (req: NextRequest) => {
     `{/:${locale}}?/find-password`,
     `{/:${locale}}?/exist`,
     `{/:${locale}}?/withdraw`,
+    `/sitemap.xml`,
+    `/robots.txt`,
   ];
 
   // 인증이 필요없는 페이지에 현재 경로가 포함되어 있는지 체크
@@ -81,5 +83,5 @@ export const middleware = async (req: NextRequest) => {
 };
 
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|icons/.*|images/.*).*)"],
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|icons/.*|images/.*|sitemap.xml|robots.txt).*)"],
 };
