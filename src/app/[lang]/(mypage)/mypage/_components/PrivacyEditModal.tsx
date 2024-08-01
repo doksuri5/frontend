@@ -15,7 +15,7 @@ export default function PrivacyEditModal({ isOpen, onClose, openWithdrawModal }:
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      title= {t("editInfo", { defaultMessage: "정보 수정" })}
+      title={t("editInfo", { defaultMessage: "정보 수정" })}
       isBackdropClosable={true}
       panelStyle="px-[10.2rem] py-[8rem] rounded-[3.2rem] w-[59rem]"
     >
@@ -25,7 +25,7 @@ export default function PrivacyEditModal({ isOpen, onClose, openWithdrawModal }:
           variant="textButton"
           size="sm"
           bgColor="bg-inherit"
-          className="w-[6.4rem] text-warning-100 underline"
+          className="w-[17rem] text-warning-100 underline"
           onClick={openWithdrawModal}
         >
           {t("withdraw", { defaultMessage: "회원 탈퇴" })}
