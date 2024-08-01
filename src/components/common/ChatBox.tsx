@@ -112,7 +112,7 @@ export default function ChatBox({ close }: ChatBoxProps) {
                                   ),
                                 }}
                               >
-                                {message.content}
+                                {toolInvocation.result.explanation}
                               </ReactMarkdown>
                             </div>
                           ) : (
