@@ -11,7 +11,7 @@
     "root": {
       "siteName": "AightNow",
       "title": "AI-based Stock Analysis Platform | AightNow",
-      "description": "A next-generation AI analyst platform that combines real-time U.S. corporate disclosure information with daily news data analysis to provide customized real-time corporate analysis reports for users worldwide in various languages.",
+      "description": "An AI analyst platform that analyzes real-time US company disclosures and daily news in multiple languages to provide customized company analysis reports for users worldwide.",
       "keywords": "stocks, stock analysis, stock analysis, AI, ai, AightNow, overseas stocks, news, stock news",
       "authors": "Eagle Brothers",
       "openGraph": {
