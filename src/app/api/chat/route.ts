@@ -21,7 +21,7 @@ export const POST = async (req: NextRequest) => {
     const model = ai.chat(AI_MODEL);
     const result = await streamText({
       model,
-      system: `You are a helpful stock analyst. Answer my questions about the stock market. please answer in ${LANGUAGE_MAP[session?.user.language ?? "ko"]}.`,
+      system: `You are a helpful stock analyst. Answer my questions about the stock market. please answer in ${LANGUAGE_MAP[session?.user.language ?? "ko"]} and use markdown.`,
       tools: {
         getStockInformation: tool({
           description: "Get the stock information from yahoo finance",
@@ -80,7 +80,9 @@ export const POST = async (req: NextRequest) => {
             - investmentIndex: An overall cumulative score above (profitability, interest, growth) of the stock , expressed as a percentage.
           `,
           parameters: z.object({
-            explanation: z.string().describe("explain the investment indicators of the stock analysis"),
+            explanation: z
+              .string()
+              .describe("explain the investment indicators of the stock analysis please answer in markdown"),
           }),
           execute: async ({ explanation }) => {
             if (!explanation) {
