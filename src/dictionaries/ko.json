@@ -329,7 +329,9 @@
     "linkCommentStockPrice": "현재 주가",
     "linkCommentStockPriceChange": "가격 변동",
     "linkCommentStockDescription": "설명",
-    "linkButton": "분석 페이지로 이동"
+    "linkButton": "분석 페이지로 이동",
+    "yesButton": "네",
+    "noButton": "아니요"
   },
   "discovery": {
     "inputPlaceholder": "종목을 검색해주세요",

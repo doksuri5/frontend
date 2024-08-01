@@ -43,19 +43,25 @@ export default function StockChartSection({ reutersCode }: TChartData) {
 
         setChartData(response.data);
       };
-      startTransition(async () => {
-        await fetchData();
-      });
+      if (!isUSMarketOpen() || process.env.NODE_ENV === "development") {
+        startTransition(() => {
+          fetchData();
+        });
+      }
     },
     [period, reutersCode],
   );
 
   useEffect(
     function setEventSourceForSSE() {
-      if (isUSMarketOpen() && period === "day") {
+      if (isUSMarketOpen() && period === "day" && process.env.NODE_ENV === "production") {
         const eventSource = new EventSource(`${process.env.NEXT_PUBLIC_BASE_URL}/api/stock/price/sse/${reutersCode}`);
 
         eventSource.onmessage = (event) => {
+          if (event.data === "undefined") {
+            return;
+          }
+
           const newData = JSON.parse(event.data);
 
           setChartData((prev) => {

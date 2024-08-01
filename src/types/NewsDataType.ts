@@ -30,4 +30,9 @@ export const NewsSummarySchema = z.object({
   newsSummary: z.string(),
 });
 
+export const ContentSummarySchema = z.object({
+  contentSummary: z.string(),
+});
+
+export type ContentSummaryType = z.infer<typeof ContentSummarySchema>;
 export type NewsSummaryType = z.infer<typeof NewsSummarySchema>;

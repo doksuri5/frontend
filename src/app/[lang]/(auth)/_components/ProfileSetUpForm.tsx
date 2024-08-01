@@ -12,6 +12,7 @@ import Image from "next/image";
 
 import { Input, Button, Modal, Alert } from "@/components/common";
 import InvestPropensity from "@/components/common/InvestPropensity";
+import CircleSpinner from "@/components/common/CircleSpinner";
 import CommonLoadingBtn from "./CommonLoadingBtn";
 
 import useZodSchemaForm from "@/hooks/useZodSchemaForm";
@@ -62,6 +63,8 @@ export default function ProfileSetUpForm() {
   const [isOpenOfInvestPropensity, setIsOpenOfInvestPropensity] = useState(false);
   const [isOpenOfSuggestion, setIsOpenOfSuggestion] = useState(false);
   const [isReadyToSubmit, setIsReadyToSubmit] = useState(false);
+
+  const [isLoadingToDupName, setIsLoadingToDupName] = useState(false);
 
   const router = useRouter();
   const { data: session } = useSession();
@@ -154,6 +157,7 @@ export default function ProfileSetUpForm() {
 
     if (valid) {
       try {
+        setIsLoadingToDupName(true);
         const response = await (
           await fetch(`/api/auth/nickname`, {
             method: "POST",
@@ -173,6 +177,8 @@ export default function ProfileSetUpForm() {
         }
       } catch (e) {
         console.log(e);
+      } finally {
+        setIsLoadingToDupName(false);
       }
     }
   };
@@ -308,9 +314,17 @@ export default function ProfileSetUpForm() {
                   : t("profileSetUp.checkDuplicate", { defaultMessage: "중복 확인" }),
               )}
             >
-              {isNicknameChk
-                ? t("profileSetUp.changeNickname", { defaultMessage: "닉네임 변경" })
-                : t("profileSetUp.checkDuplicate", { defaultMessage: "중복 확인" })}
+              {isNicknameChk ? (
+                <div>{t("profileSetUp.changeNickname", { defaultMessage: "닉네임 변경" })}</div>
+              ) : (
+                <>
+                  {isLoadingToDupName ? (
+                    <CircleSpinner style="w-[2rem] h-[2rem] text-white m-0" />
+                  ) : (
+                    <span>{t("profileSetUp.checkDuplicate", { defaultMessage: "중복 확인" })}</span>
+                  )}
+                </>
+              )}
             </Button>
           }
         />
