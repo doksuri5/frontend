@@ -15,7 +15,7 @@ export default function NotFound() {
     <section className="flex h-screen w-full items-center justify-center">
       <div className="flex max-w-[69rem] flex-col items-center gap-[1.6rem] rounded-[3.2rem] bg-white px-[8.2rem] py-[8.3rem]">
         <Image src="/icons/warning_icon.svg" alt="waring icon" width={64} height={64} />
-        <h4 className="heading_4 font-bold text-navy-900">{t("notFoundTitle")}</h4>
+        <h4 className="heading_4 font-bold text-navy-900 text-center">{t("notFoundTitle")}</h4>
         <span className="body_3 text-center font-medium text-navy-900 whitespace-pre-wrap">
           {t("notFoundDescription")}
         </span>
