@@ -7,7 +7,7 @@
     "login": "登录",
     "logout": "登出"
   },
-  "main": {
+  "root": {
     "part1": "海外股票与",
     "part2": "AightNow",
     "part3": "一起！",

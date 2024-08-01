@@ -314,7 +314,7 @@
     "siteName": "AIGHTNOW",
     "ogImageAlt": "{stockName} stock analysis image"
   },
-  "main": {
+  "root": {
     "part1": "Invest in international stocks with",
     "part2": "AightNow",
     "part3": "!",

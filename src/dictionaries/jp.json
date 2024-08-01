@@ -7,7 +7,7 @@
     "login": "ログイン",
     "logout": "ログアウト"
   },
-  "main": {
+  "root": {
     "part1": "海外株は",
     "part2": "AightNow",
     "part3": "と一緒に！",

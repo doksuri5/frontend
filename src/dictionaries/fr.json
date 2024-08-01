@@ -7,7 +7,7 @@
     "login": "Connexion",
     "logout": "Déconnexion"
   },
-  "main": {
+  "root": {
     "part1": "Investissez dans des actions internationales avec",
     "part2": "AightNow",
     "part3": "!",
