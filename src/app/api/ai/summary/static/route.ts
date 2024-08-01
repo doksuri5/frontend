@@ -1,6 +1,6 @@
 import { openai } from "@ai-sdk/openai";
-import { streamObject } from "ai";
-import { NewsSummarySchema } from "@/types/NewsDataType";
+import { generateObject } from "ai";
+import { ContentSummarySchema } from "@/types/NewsDataType";
 import { auth } from "@/auth";
 import { AI_MODEL, LANGUAGE_MAP } from "@/constants/ai-info";
 
@@ -10,14 +10,16 @@ export async function POST(req: Request) {
   const { content } = await req.json();
   const session = await auth();
 
-  const result = await streamObject({
+  const result = await generateObject({
     model: openai(AI_MODEL),
-    schema: NewsSummarySchema,
+    schema: ContentSummarySchema,
     system: "Summarize the following content",
     prompt:
-      `Summarize the following this content in (please answer in ${LANGUAGE_MAP[session?.user.language ?? "ko"]}):` +
+      `Summarize the following this content only 50 token in (please answer in ${LANGUAGE_MAP[session?.user.language ?? "ko"]}):` +
       content,
   });
 
-  return result.toTextStreamResponse();
+  return Response.json({
+    ...result.object,
+  });
 }

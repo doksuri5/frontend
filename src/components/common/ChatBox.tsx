@@ -23,7 +23,7 @@ export default function ChatBox({ close }: ChatBoxProps) {
   const t = useTranslations();
   const [chatBoxHeight, setChatBoxHeight] = useState("64rem");
 
-  const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat({
+  const { messages, input, handleInputChange, handleSubmit, addToolResult } = useChat({
     initialMessages: [
       {
         id: generateId(),
@@ -91,12 +91,38 @@ export default function ChatBox({ close }: ChatBoxProps) {
                 {message.toolInvocations?.map((toolInvocation: ToolInvocation) => {
                   const toolCallId = toolInvocation.toolCallId;
 
-                  if (toolInvocation.toolName === "getStockInformation") {
+                  if (toolInvocation.toolName === "explainInvestmentIndicators") {
                     return (
                       <div key={toolCallId}>
                         <div>
                           {"result" in toolInvocation ? (
                             <div className="flex flex-col gap-[0.8rem] p-[0.8rem]">
+                              {toolInvocation.result.explanation.split("-").length > 1 ? (
+                                <ul>
+                                  {toolInvocation.result.explanation.split("-").map((explanation: string) => (
+                                    <li key={explanation}>{explanation}</li>
+                                  ))}
+                                </ul>
+                              ) : (
+                                <p>{toolInvocation.result.explanation}</p>
+                              )}
+                            </div>
+                          ) : (
+                            <div className="flex_row_center flex h-[1.6rem] w-[1.6rem]">
+                              <CircleSpinner />
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  }
+
+                  if (toolInvocation.toolName === "getStockInformation") {
+                    return (
+                      <div key={toolCallId}>
+                        <div>
+                          {"result" in toolInvocation ? (
+                            <div className="my-[1.6rem] flex flex-col gap-[0.8rem] p-[0.8rem]">
                               <p>
                                 {t("chatBot.linkCommentStockName")} :{" "}
                                 <strong>{toolInvocation.result.quoteSummary.price.shortName}</strong>
@@ -115,26 +141,32 @@ export default function ChatBox({ close }: ChatBoxProps) {
                                   %
                                 </strong>
                               </p>
-                              <p>
-                                {t("chatBot.linkCommentStockDescription")} : {toolInvocation.result.description}
-                              </p>
-                              <div>
-                                <p className="pb-[0.8rem] font-bold">
-                                  {t("chatBot.linkComment", { defaultMessage: "이 종목에 대한 분석이 필요하신가요?" })}
-                                </p>
-                                <Button
-                                  variant="textButton"
-                                  size="sm"
-                                  bgColor="bg-navy-900"
-                                  onClick={() => {
-                                    router.push(
-                                      `/report/${SYMBOL_TO_REUTERS[toolInvocation.result.quoteSummary.price.symbol]}`,
-                                    );
-                                  }}
-                                >
-                                  {t("chatBot.linkButton", { defaultMessage: "분석 페이지로 이동" })}
-                                </Button>
-                              </div>
+                              {toolInvocation.result.summary && (
+                                <>
+                                  <p>
+                                    {t("chatBot.linkCommentStockDescription")} : {toolInvocation.result.summary}
+                                  </p>
+                                  <div>
+                                    <p className="pb-[0.8rem] font-bold">
+                                      {t("chatBot.linkComment", {
+                                        defaultMessage: "이 종목에 대한 분석이 필요하신가요?",
+                                      })}
+                                    </p>
+                                    <Button
+                                      variant="textButton"
+                                      size="sm"
+                                      bgColor="bg-navy-900"
+                                      onClick={() => {
+                                        router.push(
+                                          `/report/${SYMBOL_TO_REUTERS[toolInvocation.result.quoteSummary.price.symbol]}`,
+                                        );
+                                      }}
+                                    >
+                                      {t("chatBot.linkButton", { defaultMessage: "분석 페이지로 이동" })}
+                                    </Button>
+                                  </div>
+                                </>
+                              )}
                             </div>
                           ) : (
                             <div className="flex_row_center flex h-[1.6rem] w-[1.6rem]">

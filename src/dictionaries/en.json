@@ -332,7 +332,9 @@
     "linkCommentStockPrice": "Current Stock Price",
     "linkCommentStockPriceChange": "Price Change",
     "linkCommentStockDescription": "Description",
-    "linkButton": "Go to Analysis Page"
+    "linkButton": "Go to Analysis Page",
+    "yesButton": "Yes",
+    "noButton": "No"
   },
   "discovery": {
     "inputPlaceholder": "Search for stocks",

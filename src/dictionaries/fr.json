@@ -332,7 +332,9 @@
     "linkCommentStockPrice": "Prix actuel de l'action",
     "linkCommentStockPriceChange": "Changement de prix",
     "linkCommentStockDescription": "Description",
-    "linkButton": "Aller à la page d'analyse"
+    "linkButton": "Aller à la page d'analyse",
+    "yesButton": "Oui",
+    "noButton": "Non"
   },
   "discovery": {
     "inputPlaceholder": "Recherchez des actions",
