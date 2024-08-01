@@ -13,6 +13,11 @@
     "part3": "一起！",
     "message": "实时翻译的海外股票新闻和\n由AI分析师提供的难懂的海外股票报告"
   },
+  "notFound": {
+    "notFoundTitle": "找不到您请求的页面。",
+    "notFoundDescription": "您输入的页面地址有误，或者\n该地址已更改或删除，因此无法找到您请求的页面。",
+    "backToHome": "返回首页"
+  },
   "metadata": {
     "root": {
       "siteName": "AightNow",
