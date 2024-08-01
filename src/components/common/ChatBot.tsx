@@ -13,6 +13,8 @@ const ChatBot = () => {
       {isOpen && <ChatBox close={close} />}
       {!isOpen && (
         <Button
+          type="button"
+          aria-label="chatbot-button"
           onClick={() => open()}
           variant="iconButton"
           className="fixed bottom-[2rem] right-[2rem] h-[8rem] w-[8rem] rounded-full"

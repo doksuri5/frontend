@@ -1,7 +1,9 @@
-const CircleSpinner = () => {
+import { cn } from "@/utils/cn";
+
+const CircleSpinner = ({ style }: { style?: string }) => {
   return (
     <svg
-      className="-ml-1 mr-3 h-16 w-16 animate-spin text-gray-500"
+      className={cn(`-ml-1 mr-3 h-16 w-16 animate-spin text-gray-500 ${style}`)}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"

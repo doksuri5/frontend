@@ -39,7 +39,7 @@ const Header = ({ isLoggedIn }: THeaderProps) => {
     >
       <div className="flex_row h-full w-[120rem] justify-between">
         <div className="flex_row h-full">
-          <Link href={isLoggedIn ? HOME_PATH : MAIN_PATH}>
+          <Link href={isLoggedIn ? HOME_PATH : MAIN_PATH} aria-label="Move to Main Page">
             {filterMainPath(pathname) && !isLoggedIn ? <LightLogo /> : <DarkLogo />}
           </Link>
           {isLoggedIn && (

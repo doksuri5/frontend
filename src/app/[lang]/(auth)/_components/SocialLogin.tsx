@@ -52,6 +52,7 @@ export default function SocialLogin() {
         </Button>
         <Button
           type="button"
+          size="md"
           className={cn("gap-[1.6rem] bg-[#03C75A] font-medium text-white")}
           onClick={() => handleSocialLogin("naver")}
         >
@@ -60,6 +61,7 @@ export default function SocialLogin() {
         </Button>
         <Button
           type="button"
+          size="md"
           className={cn("gap-[1.6rem] border-[.1rem] border-[#E3E3E3] bg-grayscale-0 font-medium text-grayscale-900")}
           onClick={() => handleSocialLogin("google")}
         >

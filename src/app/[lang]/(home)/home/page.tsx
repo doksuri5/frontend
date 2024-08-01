@@ -1,17 +1,18 @@
 import NewsBox from "./_components/news-box";
-import AiReports from "./_components/ai-reports";
 import RecentLookup from "./_components/recent-lookup";
 import { Suspense } from "react";
 import InterestStocks from "./_components/interest-stocks";
-import { Locale } from "@/i18n";
 import { Skeleton } from "@/components/common";
+import { unstable_setRequestLocale } from "next-intl/server";
 
 export const dynamic = "force-dynamic";
+export const revalidate = 30;
 
-export default function HomePage() {
+export default function HomePage({ params }: { params: { lang: string } }) {
+  unstable_setRequestLocale(params.lang);
+
   return (
-    <div className="flex h-full flex-col gap-[4.8rem] bg-background-100 pb-[10rem]">
-      <AiReports />
+    <>
       <section className="flex w-full gap-[2rem]">
         <Suspense
           fallback={
@@ -35,6 +36,6 @@ export default function HomePage() {
         </Suspense>
       </section>
       <NewsBox />
-    </div>
+    </>
   );
 }

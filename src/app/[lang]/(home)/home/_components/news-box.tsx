@@ -11,7 +11,10 @@ const NewsBox = async () => {
 
   return (
     <section>
-      <h2 className="heading_4 pb-[2.4rem] font-bold">{t("newsForUser", { name: session?.user.name ?? "김스팩" })}</h2>
+      <h2 className="heading_4 pb-[2.4rem] font-bold">
+        {session?.user.name ?? "김스팩"}
+        {t("newsForUser")}
+      </h2>
       <div className="flex flex-col rounded-[1.6rem] bg-white p-[4.8rem]">
         <Suspense fallback={<Skeleton className="h-[49rem] w-full" />}>
           <PopularInterestNews />

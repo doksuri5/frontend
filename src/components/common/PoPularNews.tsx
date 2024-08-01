@@ -22,6 +22,7 @@ const PopularNews = async () => {
           date={getDateWithoutTime(popularNewsData[0].date)}
           publisher={popularNewsData[0].publisher}
           style="w-1/2 h-full"
+          priority={true}
         />
         <div className="flex w-1/2 flex-col gap-[2rem]">
           <Card
@@ -33,6 +34,7 @@ const PopularNews = async () => {
             publisher={popularNewsData[1].publisher}
             variant="fullMediaCard"
             size="small"
+            priority={true}
           />
           <Card
             _id={popularNewsData[2]._id}
@@ -43,6 +45,7 @@ const PopularNews = async () => {
             publisher={popularNewsData[2].publisher}
             variant="fullMediaCard"
             size="small"
+            priority={true}
           />
         </div>
       </div>

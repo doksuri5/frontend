@@ -11,12 +11,13 @@
  */
 
 import Image, { StaticImageData } from "next/image";
+import Link from "next/link";
+import { memo } from "react";
+import { NEWS_PATH } from "@/routes/path";
+import { cn } from "@/utils/cn";
 import LargeRect from "@/public/icons/card3Rectangle_large.svg";
 import SmallRect from "@/public/icons/card3Rectangle_small.svg";
 import Rectangle from "@/public/icons/card2Rectangle.svg";
-import { cn } from "@/utils/cn";
-import Link from "next/link";
-import { NEWS_PATH } from "@/routes/path";
 
 type TCardProps = {
   variant: "iconCard" | "halfMediaCard" | "fullMediaCard";
@@ -29,9 +30,10 @@ type TCardProps = {
   publisher?: string;
   size?: "large" | "small";
   style?: string;
+  priority?: boolean;
 };
 
-export default function Card({
+function Card({
   variant = "iconCard",
   _id,
   date,
@@ -42,6 +44,7 @@ export default function Card({
   publisher,
   size = "large",
   style,
+  priority = false,
 }: TCardProps) {
   switch (variant) {
     case "iconCard":
@@ -63,6 +66,7 @@ export default function Card({
                 alt="logo"
                 width={48}
                 height={48}
+                priority={priority}
               />
             ) : (
               <div className="h-[4.8rem] w-[4.8rem] rounded-[50%] bg-grayscale-200"></div>
@@ -73,9 +77,20 @@ export default function Card({
     case "halfMediaCard":
       return (
         <Link href={`${NEWS_PATH}/${_id}`}>
-          <div className={cn(`flex min-h-[36rem] min-w-[38.8rem] flex-col overflow-hidden rounded-[1.6rem] ${style}`)}>
-            <div className="relative min-h-[23.6rem] w-[100%]">
-              <Image src={image || Rectangle} alt="news-image" className="object-cover" sizes="388px" fill />
+          <div
+            className={cn(
+              `flex min-h-[36rem] min-w-[38.8rem] flex-col overflow-hidden rounded-[1.6rem] ${style} group`,
+            )}
+          >
+            <div className="relative min-h-[23.6rem] w-[100%] overflow-hidden">
+              <Image
+                src={image || Rectangle}
+                alt="news-image"
+                className="object-cover transition-transform duration-300 group-hover:scale-110"
+                sizes="388px"
+                fill
+                priority={priority}
+              />
             </div>
             <div className="flex w-full flex-col gap-[.8rem] rounded-b-[1.6rem] bg-grayscale-0 px-[2.4rem] py-[1.6rem] font-medium">
               <div className="body_3 line-clamp-2 h-[5.6rem] cursor-pointer text-ellipsis text-grayscale-900">
@@ -98,16 +113,17 @@ export default function Card({
         <Link href={`${NEWS_PATH}/${_id}`}>
           <div
             className={cn(
-              `container relative flex ${size === "large" ? "min-h-[42rem]" : "min-h-[20rem]"} min-w-[59rem] flex-col overflow-hidden rounded-[1.6rem] ${style}`,
+              `container relative flex ${size === "large" ? "min-h-[42rem]" : "min-h-[20rem]"} min-w-[59rem] flex-col overflow-hidden rounded-[1.6rem] ${style} group`,
             )}
           >
             <div className={cn(`relative w-[100%] ${size === "large" ? "min-h-[42rem]" : "min-h-[20rem]"}`)}>
               <Image
                 fill
                 sizes={`${size === "large" ? "min-h-[42rem]" : "min-h-[20rem]"}`}
-                className="object-cover"
+                className="object-cover transition-transform duration-300 group-hover:scale-110"
                 src={image || (size === "large" ? LargeRect : SmallRect)}
                 alt="news-image"
+                priority={priority}
               />
             </div>
             <div className="absolute bottom-0 w-full bg-gradient-to-t from-black to-transparent p-[2.4rem]">
@@ -130,3 +146,5 @@ export default function Card({
       );
   }
 }
+
+export default memo(Card);
