@@ -119,10 +119,10 @@ export default function ChatBox({ close }: ChatBoxProps) {
 
                   if (toolInvocation.toolName === "getStockInformation") {
                     return (
-                      <div key={toolCallId}>
+                      <div key={toolCallId} className="px-[1.6rem] pt-[1.6rem]">
                         <div>
                           {"result" in toolInvocation ? (
-                            <div className="my-[1.6rem] flex flex-col gap-[0.8rem] p-[0.8rem]">
+                            <div className="flex flex-col gap-[0.8rem]">
                               <p>
                                 {t("chatBot.linkCommentStockName")} :{" "}
                                 <strong>{toolInvocation.result.quoteSummary.price.shortName}</strong>
@@ -167,6 +167,7 @@ export default function ChatBox({ close }: ChatBoxProps) {
                                   </div>
                                 </>
                               )}
+                              <div className="h-[0.1rem] w-full bg-black" />
                             </div>
                           ) : (
                             <div className="flex_row_center flex h-[1.6rem] w-[1.6rem]">
