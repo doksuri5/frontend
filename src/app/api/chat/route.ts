@@ -31,10 +31,12 @@ export const POST = async (req: NextRequest) => {
           }),
           execute: async ({ stockSymbolCode, reutersCode }) => {
             const quoteSummary = await yahooFinance.quoteSummary(stockSymbolCode);
-            console.log(REUTERS_CODES.includes(reutersCode as any));
             if (REUTERS_CODES.includes(reutersCode as any)) {
               const res = await fetch(
                 `${process.env.NEXT_PUBLIC_BASE_URL}/api/report/stock-analysis/${reutersCode}/ai-tool`,
+                {
+                  cache: "no-store",
+                },
               );
               const analysis = (await res.json()).data[0];
               const description = analysis.description[`${session?.user.language ?? "ko"}`];
