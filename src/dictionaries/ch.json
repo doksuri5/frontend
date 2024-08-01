@@ -332,7 +332,9 @@
     "linkCommentStockPrice": "当前股价",
     "linkCommentStockPriceChange": "价格变动",
     "linkCommentStockDescription": "描述",
-    "linkButton": "转到分析页面"
+    "linkButton": "转到分析页面",
+    "yesButton": "是",
+    "noButton": "否"
   },
   "discovery": {
     "inputPlaceholder": "请搜索股票",

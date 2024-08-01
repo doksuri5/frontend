@@ -6,12 +6,12 @@ import { FetchedNaverStockDataType } from "@/types/StockDataType";
 import yahooFinance from "yahoo-finance2";
 import { AI_MODEL } from "@/constants/ai-info";
 import * as deepl from "deepl-node";
-import connectDB from "@/lib/db";
+import connectDB, { disconnectDB } from "@/lib/db";
 import { StockAnalysis } from "@/models/stock-analysis-schema";
 
 export const maxDuration = 60;
 
-export const POST = async (request: NextRequest, { params }: { params: { code: string } }) => {
+export const GET = async (request: NextRequest, { params }: { params: { code: string } }) => {
   try {
     await connectDB();
 
@@ -184,5 +184,7 @@ export const POST = async (request: NextRequest, { params }: { params: { code: s
   } catch (error) {
     console.error(error);
     return Response.error();
+  } finally {
+    await disconnectDB();
   }
 };

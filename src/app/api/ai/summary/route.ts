@@ -13,9 +13,9 @@ export async function POST(req: Request) {
   const result = await streamObject({
     model: openai(AI_MODEL),
     schema: NewsSummarySchema,
-    system: "Summarize the following news article",
+    system: "Summarize the following content",
     prompt:
-      `Summarize the following news article in (please answer in ${LANGUAGE_MAP[session?.user.language ?? "ko"]}):` +
+      `Summarize the following this content in (please answer in ${LANGUAGE_MAP[session?.user.language ?? "ko"]}):` +
       content,
   });
 
