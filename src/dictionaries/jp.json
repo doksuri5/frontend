@@ -13,6 +13,11 @@
     "part3": "と一緒に！",
     "message": "海外株ニュースのリアルタイム翻訳と\nAIアナリストが教える難しい海外株レポート"
   },
+  "notFound": {
+    "notFoundTitle": "リクエストされたページが見つかりません。",
+    "notFoundDescription": "ページのアドレスが間違って入力されたか、\nアドレスが変更されたか削除されたため、リクエストされたページが見つかりません。",
+    "backToHome": "ホームへ戻る"
+  },
   "metadata": {
     "root": {
       "siteName": "AightNow",

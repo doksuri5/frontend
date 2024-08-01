@@ -13,6 +13,11 @@
     "part3": "!",
     "message": "Traductions en temps réel des nouvelles sur les actions internationales et\nrapports internationaux difficiles expliqués par des analystes AI"
   },
+  "notFound": {
+    "notFoundTitle": "La page demandée est introuvable.",
+    "notFoundDescription": "L'adresse de la page a été mal saisie ou\nl'adresse a été modifiée ou supprimée, donc la page que vous avez demandée est introuvable.",
+    "backToHome": "Retour à l'accueil"
+  },
   "metadata": {
     "root": {
       "siteName": "AightNow",

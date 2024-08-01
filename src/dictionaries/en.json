@@ -320,6 +320,11 @@
     "part3": "!",
     "message": "Real-time translations of international stock news and\nDifficult international stock reports explained by AI analysts"
   },
+  "notFound": {
+    "notFoundTitle": "The page you requested cannot be found.",
+    "notFoundDescription": "The page address was entered incorrectly, or\nthe address has been changed or deleted, so the page you requested cannot be found.",
+    "backToHome": "Back to Home"
+  },
   "chatBot": {
     "initMessage": "Hello! I'm NowChatBot. How can I help you?",
     "linkComment": "Need analysis on this stock?",
