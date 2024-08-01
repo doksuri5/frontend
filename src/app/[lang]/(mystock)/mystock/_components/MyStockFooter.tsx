@@ -1,25 +1,40 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
+import Link from "next/link";
 import { deleteInterestStock } from "@/actions/stock";
 import { Alert, Button } from "@/components/common";
 import { TReutersCodes } from "@/constants/stockCodes";
 import { REPORT_PATH } from "@/routes/path";
-import Link from "next/link";
-import { useTranslations } from "next-intl";
+import useToast from "@/hooks/use-toast";
 
 const MyStockFooter = ({ reutersCode }: { reutersCode: TReutersCodes }) => {
   const t = useTranslations("myStock");
 
   const [showAlert, setShowAlert] = useState(false);
 
+  const { showLoadingToast, updateToast } = useToast();
+
   const handleDeleteClick = () => {
     setShowAlert(true);
   };
 
   const handleAlertConfirm = async (reutersCode: string) => {
-    await deleteInterestStock(undefined, { params: reutersCode });
-    setShowAlert(false);
+    const toast = showLoadingToast(t("modal.modalSearchItemDeleteLoading"));
+    try {
+      const response = await deleteInterestStock(undefined, { params: reutersCode });
+      if (response.ok) {
+        updateToast(toast, t("modal.modalSearchItemDeleteSuccess"), "success", 1000);
+      } else {
+        updateToast(toast, t("modal.modalSearchItemDeleteError"), "error", 1000);
+      }
+    } catch (err) {
+      updateToast(toast, t("modal.modalSearchItemDeleteError"), "error", 1000);
+      console.log(err);
+    } finally {
+      setShowAlert(false);
+    }
   };
 
   const handleAlertClose = () => {

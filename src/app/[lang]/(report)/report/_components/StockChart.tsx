@@ -5,6 +5,7 @@ import { TPeriod } from "@/stores/useReportStore";
 import { StockChartDataType } from "@/types/StockDataType";
 import { useEffect, useState } from "react";
 import { Area, AreaChart, Tooltip, XAxis, YAxis, ResponsiveContainer } from "recharts";
+import CustomTooltip from "./StockTooltip";
 
 type TChartData = {
   chartData: StockChartDataType[];
@@ -68,7 +69,7 @@ export default function StockChart({ chartData, period }: TChartData) {
           tickLine={false}
           tick={{ fontSize: 12, fontWeight: 400, fill: "#9F9F9F" }} // 레이블 스타일
         />
-        <Tooltip />
+        <Tooltip content={CustomTooltip} />
         <Area type="monotone" dataKey="closePrice" stroke="#47B4E1" fillOpacity={1} fill="url(#customGradient)" />
       </AreaChart>
     </ResponsiveContainer>

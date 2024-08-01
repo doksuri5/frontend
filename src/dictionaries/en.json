@@ -314,6 +314,12 @@
     "siteName": "AIGHTNOW",
     "ogImageAlt": "{stockName} stock analysis image"
   },
+  "root": {
+    "part1": "Invest in international stocks with",
+    "part2": "AightNow",
+    "part3": "!",
+    "message": "Real-time translations of international stock news and\nDifficult international stock reports explained by AI analysts"
+  },
   "chatBot": {
     "initMessage": "Hello! I'm NowChatBot. How can I help you?",
     "linkComment": "Need analysis on this stock?",
