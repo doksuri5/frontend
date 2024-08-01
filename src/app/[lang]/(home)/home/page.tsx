@@ -1,4 +1,3 @@
-import NewsBox from "./_components/news-box";
 import RecentLookup from "./_components/recent-lookup";
 import { Suspense } from "react";
 import InterestStocks from "./_components/interest-stocks";
@@ -6,7 +5,6 @@ import { Skeleton } from "@/components/common";
 import { unstable_setRequestLocale } from "next-intl/server";
 
 export const dynamic = "force-dynamic";
-export const revalidate = 30;
 
 export default function HomePage({ params }: { params: { lang: string } }) {
   unstable_setRequestLocale(params.lang);
