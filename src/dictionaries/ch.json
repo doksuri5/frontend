@@ -7,6 +7,12 @@
     "login": "登录",
     "logout": "登出"
   },
+  "root": {
+    "part1": "海外股票与",
+    "part2": "AightNow",
+    "part3": "一起！",
+    "message": "实时翻译的海外股票新闻和\n由AI分析师提供的难懂的海外股票报告"
+  },
   "metadata": {
     "root": {
       "siteName": "AightNow",

@@ -7,6 +7,12 @@
     "login": "Connexion",
     "logout": "Déconnexion"
   },
+  "root": {
+    "part1": "Investissez dans des actions internationales avec",
+    "part2": "AightNow",
+    "part3": "!",
+    "message": "Traductions en temps réel des nouvelles sur les actions internationales et\nrapports internationaux difficiles expliqués par des analystes AI"
+  },
   "metadata": {
     "root": {
       "siteName": "AightNow",
