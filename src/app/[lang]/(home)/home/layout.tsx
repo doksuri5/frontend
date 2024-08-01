@@ -13,9 +13,11 @@ export async function generateStaticParams() {
 
 export default async function HomeLayout({
   children,
+  news,
   params,
 }: {
   children: React.ReactNode;
+  news: React.ReactNode;
   params: { lang: Locale };
 }) {
   unstable_setRequestLocale(params.lang);
@@ -33,6 +35,12 @@ export default async function HomeLayout({
       <div className="flex w-full flex-col gap-[4.8rem]">
         <AiReports />
         {children}
+        <div>
+          <div className="pb-[2.4rem]">
+            <ReportTitle title={t("newsForUser")} />
+          </div>
+          {news}
+        </div>
       </div>
     </div>
   );
