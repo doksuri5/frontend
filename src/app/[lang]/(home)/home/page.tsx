@@ -35,7 +35,6 @@ export default function HomePage({ params }: { params: { lang: string } }) {
           <InterestStocks />
         </Suspense>
       </section>
-      <NewsBox />
     </>
   );
 }
