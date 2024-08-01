@@ -5,8 +5,6 @@ import ReportTitle from "./_components/report-title";
 import { Button } from "@/components/common";
 import AIIcon from "@/public/icons/AI_icon.svg?component";
 
-export const revalidate = 1800;
-
 export async function generateStaticParams() {
   return i18n.locales.map((lang) => ({ params: { lang } }));
 }

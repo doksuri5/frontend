@@ -83,7 +83,7 @@ export default function InvestPropensity({ onSubmit, initialData }: TInvestPrope
             setIsChecked(!isChecked);
             setIsEnabled(!isEnabled);
           }}
-          label={t('button.agree')}
+          label={t("button.agree")}
           id="propensityInvest"
           name="propensityInvest"
           variants="radio"
@@ -131,6 +131,7 @@ export default function InvestPropensity({ onSubmit, initialData }: TInvestPrope
         ))}
         <Button
           type="submit"
+          size="md"
           disabled={!initialData ? !isAllFieldsFilled || !isChecked : false}
           bgColor={(!initialData && isAllFieldsFilled && isChecked) || initialData ? "bg-navy-900" : "bg-grayscale-200"}
           className={cn(

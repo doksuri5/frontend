@@ -25,8 +25,12 @@ export default function SocialLogin() {
   const t = useTranslations("auth");
 
   const handleSocialLogin = async (provider: string) => {
-    const redirectTo = provider === "naver" ? PROFILE_SETUP_PATH : REGISTER_PATH;
-    await SocialLoginAction(provider, redirectTo);
+    if (provider === "naver") {
+      alert("네이버 검수 진행 중입니다.");
+      return;
+    } else {
+      await SocialLoginAction(provider, REGISTER_PATH);
+    }
   };
 
   return (

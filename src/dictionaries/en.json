@@ -11,7 +11,7 @@
     "root": {
       "siteName": "AightNow",
       "title": "AI-based Stock Analysis Platform | AightNow",
-      "description": "A next-generation AI analyst platform that combines real-time U.S. corporate disclosure information with daily news data analysis to provide customized real-time corporate analysis reports for users worldwide in various languages.",
+      "description": "An AI analyst platform that analyzes real-time US company disclosures and daily news in multiple languages to provide customized company analysis reports for users worldwide.",
       "keywords": "stocks, stock analysis, stock analysis, AI, ai, AightNow, overseas stocks, news, stock news",
       "authors": "Eagle Brothers",
       "openGraph": {
@@ -319,6 +319,11 @@
     "part2": "AightNow",
     "part3": "!",
     "message": "Real-time translations of international stock news and\nDifficult international stock reports explained by AI analysts"
+  },
+  "notFound": {
+    "notFoundTitle": "The page you requested cannot be found.",
+    "notFoundDescription": "The page address was entered incorrectly, or\nthe address has been changed or deleted, so the page you requested cannot be found.",
+    "backToHome": "Back to Home"
   },
   "chatBot": {
     "initMessage": "Hello! I'm NowChatBot. How can I help you?",
