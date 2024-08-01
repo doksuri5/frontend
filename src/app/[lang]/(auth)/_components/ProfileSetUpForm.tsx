@@ -35,12 +35,12 @@ type TOption = {
 };
 
 const getOptions = (t: TFunction) => [
-  { value: "TSLA.O", label: `# ${t("stockTesla", { defaultMessage: "테슬라" })} ∙ TSLA` },
-  { value: "AAPL.O", label: `# ${t("stockApple", { defaultMessage: "애플" })} ∙ APPL` },
-  { value: "AMZN.O", label: `# ${t("stockAmazon", { defaultMessage: "아마존" })} ∙ AMZN` },
-  { value: "MSFT.O", label: `# ${t("stockMicroSoft", { defaultMessage: "MS" })} ∙ MSFT` },
-  { value: "GOOGL.O", label: `# ${t("stockGoogle", { defaultMessage: "구글" })} ∙ GOOGL` },
-  { value: "U", label: `# ${t("stockUnity", { defaultMessage: "유니티" })} ∙ U` },
+  { value: "TSLA.O", label: `# ${t("stockTSLA", { defaultMessage: "테슬라" })} ∙ TSLA` },
+  { value: "AAPL.O", label: `# ${t("stockAAPL", { defaultMessage: "애플" })} ∙ APPL` },
+  { value: "AMZN.O", label: `# ${t("stockAMZN", { defaultMessage: "아마존" })} ∙ AMZN` },
+  { value: "MSFT.O", label: `# ${t("stockMSFT", { defaultMessage: "MS" })} ∙ MSFT` },
+  { value: "GOOGL.O", label: `# ${t("stockGOOGL", { defaultMessage: "구글" })} ∙ GOOGL` },
+  { value: "U", label: `# ${t("stockU", { defaultMessage: "유니티" })} ∙ U` },
 ];
 
 const extractString = (value: string | undefined) => {
