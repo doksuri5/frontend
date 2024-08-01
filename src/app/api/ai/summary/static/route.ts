@@ -11,7 +11,7 @@ export async function POST(req: Request) {
   const result = await generateObject({
     model: openai(AI_MODEL),
     schema: ContentSummarySchema,
-    system: "Summarize the following content",
+    system: "Summarize the following content please answer in content's language",
     prompt: `Summarize the following this content only 50 token :` + content,
   });
 
