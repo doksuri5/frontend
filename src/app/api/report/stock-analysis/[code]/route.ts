@@ -1,6 +1,6 @@
 import type { NextRequest } from "next/server";
 import { StockAnalysis } from "@/models/stock-analysis-schema";
-import connectDB, { disconnectDB } from "@/lib/db";
+import connectDB from "@/lib/db";
 
 export const maxDuration = 30;
 
@@ -38,7 +38,5 @@ export const GET = async (request: NextRequest, { params }: { params: { code: st
   } catch (error) {
     console.error(error);
     return Response.error();
-  } finally {
-    await disconnectDB();
   }
 };

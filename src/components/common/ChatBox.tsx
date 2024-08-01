@@ -12,6 +12,8 @@ import { useRouter } from "next/navigation";
 import { SYMBOL_TO_REUTERS } from "@/constants/stockCodes";
 import CircleSpinner from "./CircleSpinner";
 import ClientCountUp from "./CountUp";
+import { ReactMarkdown } from "react-markdown/lib/react-markdown";
+import remarkGfm from "remark-gfm";
 
 type ChatBoxProps = {
   close: () => void;
@@ -60,7 +62,7 @@ export default function ChatBox({ close }: ChatBoxProps) {
 
   return (
     <div
-      className="z-999 fixed bottom-[2rem] right-[2rem] mx-auto flex w-[48rem] flex-col overflow-hidden rounded-t-[4rem] bg-white shadow-lg"
+      className="z-999 fixed bottom-[2rem] right-[2rem] mx-auto flex w-[55rem] flex-col overflow-hidden rounded-t-[4rem] bg-white shadow-lg"
       style={{ height: chatBoxHeight }}
     >
       <div className="flex justify-between border-b bg-navy-900 p-[1.6rem] px-[3rem]">
@@ -97,15 +99,21 @@ export default function ChatBox({ close }: ChatBoxProps) {
                         <div>
                           {"result" in toolInvocation ? (
                             <div className="flex flex-col gap-[0.8rem] p-[0.8rem]">
-                              {toolInvocation.result.explanation.split("-").length > 1 ? (
-                                <ul>
-                                  {toolInvocation.result.explanation.split("-").map((explanation: string) => (
-                                    <li key={explanation}>{explanation}</li>
-                                  ))}
-                                </ul>
-                              ) : (
-                                <p>{toolInvocation.result.explanation}</p>
-                              )}
+                              <ReactMarkdown
+                                remarkPlugins={[remarkGfm]}
+                                components={{
+                                  a: ({ node, ...props }) => (
+                                    <a
+                                      {...props}
+                                      target="_blank"
+                                      rel="noreferrer"
+                                      className="text-blue-500 underline"
+                                    />
+                                  ),
+                                }}
+                              >
+                                {message.content}
+                              </ReactMarkdown>
                             </div>
                           ) : (
                             <div className="flex_row_center flex h-[1.6rem] w-[1.6rem]">
@@ -179,7 +187,16 @@ export default function ChatBox({ close }: ChatBoxProps) {
                     );
                   }
                 })}
-                {message.content}
+                <ReactMarkdown
+                  remarkPlugins={[remarkGfm]}
+                  components={{
+                    a: ({ node, ...props }) => (
+                      <a {...props} target="_blank" rel="noreferrer" className="text-blue-500 underline" />
+                    ),
+                  }}
+                >
+                  {message.content}
+                </ReactMarkdown>
               </div>
             </div>
           </div>
