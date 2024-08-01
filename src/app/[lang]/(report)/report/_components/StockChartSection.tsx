@@ -43,11 +43,9 @@ export default function StockChartSection({ reutersCode }: TChartData) {
 
         setChartData(response.data);
       };
-      if (!isUSMarketOpen() || process.env.NODE_ENV === "development") {
-        startTransition(() => {
-          fetchData();
-        });
-      }
+      startTransition(() => {
+        fetchData();
+      });
     },
     [period, reutersCode],
   );
