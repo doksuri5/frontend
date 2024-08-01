@@ -11,6 +11,9 @@ type TNewsDetailProps = {
 export default function NewsDetail({ newsData }: TNewsDetailProps) {
   const { image, title, description, publishedTime, publisher } = newsData;
 
+  const replaceDescription = description
+    .replace("<저작권자(c) 연합뉴스, 무단 전재-재배포, AI 학습 및 활용 금지>", "")
+    .replace("(끝)", "");
   return (
     <div className="flex min-w-[79.2rem] flex-col gap-[3.2rem] rounded-[1.6rem] bg-white p-[3.2rem]">
       <div>
@@ -23,12 +26,12 @@ export default function NewsDetail({ newsData }: TNewsDetailProps) {
           </div>
         </div>
       </div>
-      <AiSummary content={description} />
+      <AiSummary content={replaceDescription} />
       <article>
         <div className="relative mb-[2.4rem] h-[38rem] w-full overflow-hidden rounded-2xl">
           <Image alt="news-image" src={image} fill />
         </div>
-        <DescriptionWithLineBreaks description={description} />
+        <DescriptionWithLineBreaks description={replaceDescription} />
       </article>
     </div>
   );

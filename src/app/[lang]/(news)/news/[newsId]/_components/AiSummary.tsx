@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/common";
+import CircleSpinner from "@/components/common/CircleSpinner";
 import AI_Summary from "@/public/icons/AI_Summary.svg?component";
 import { NewsSummarySchema } from "@/types/NewsDataType";
 import debounce from "@/utils/debounce";
@@ -35,7 +36,10 @@ const AiSummary = ({ content }: { content: string }) => {
       >
         <div className="flex items-center">
           <AI_Summary />
-          <span className="body_5 font-semibold">{t("news.AISummary", { defaultMessage: "아잇나우 AI요약" })}</span>
+          <div className="body_5 flex gap-[1.5rem] font-semibold">
+            <span>{t("news.AISummary", { defaultMessage: "아잇나우 AI요약" })}</span>
+            {isLoading && <CircleSpinner style="w-[2rem] h-[2rem] text-white" />}
+          </div>
         </div>
       </Button>
       {object?.newsSummary && (

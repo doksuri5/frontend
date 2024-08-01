@@ -40,13 +40,19 @@ export default function NewsItem({
 
   return (
     <Link href={`${NEWS_PATH}/${_id}`}>
-      <div className={cn(`flex w-full gap-[2rem] ${selectedVariantStyles.height} ${style}`)}>
+      <div className={cn(`flex w-full gap-[2rem] ${selectedVariantStyles.height} ${style} group`)}>
         <div
           className={cn(
             `relative h-[10rem] w-[17.2rem] flex-shrink-0 overflow-hidden rounded-2xl ${selectedVariantStyles.imageSize}`,
           )}
         >
-          <Image src={image} fill className="object-cover" sizes="252px" alt="news-image" />
+          <Image
+            src={image}
+            fill
+            className="object-cover transition-transform duration-300 group-hover:scale-110"
+            sizes="252px"
+            alt="news-image"
+          />
         </div>
         <div className="flex w-full flex-1 flex-col gap-[1.6rem]">
           <div className="flex items-center justify-between">
