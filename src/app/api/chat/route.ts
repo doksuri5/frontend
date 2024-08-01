@@ -31,6 +31,7 @@ export const POST = async (req: NextRequest) => {
           }),
           execute: async ({ stockSymbolCode, reutersCode }) => {
             const quoteSummary = await yahooFinance.quoteSummary(stockSymbolCode);
+
             if (REUTERS_CODES.includes(reutersCode as any)) {
               const res = await fetch(
                 `${process.env.NEXT_PUBLIC_BASE_URL}/api/report/stock-analysis/${reutersCode}/ai-tool`,
@@ -39,8 +40,8 @@ export const POST = async (req: NextRequest) => {
                 },
               );
               const analysis = (await res.json()).data[0];
-              const description = analysis.description[`${session?.user.language ?? "ko"}`];
 
+              const description = analysis.description[`${session?.user.language ?? "ko"}`];
               const summaryRes = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/ai/summary/static`, {
                 method: "POST",
                 headers: {
