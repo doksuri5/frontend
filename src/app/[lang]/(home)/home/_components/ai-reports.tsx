@@ -18,13 +18,13 @@ const AiReports = async () => {
         </Button>
       </div>
       <div className="flex w-full gap-4">
-        <section className="max-h-[28rem] flex-1 rounded-[1.6rem] bg-white p-[3.2rem]">
+        <section className="h-[28rem] flex-1 rounded-[1.6rem] bg-white p-[3.2rem]">
           <SimpleReportCard reutersCode="AAPL.O" />
         </section>
-        <section className="max-h-[28rem] flex-1 rounded-[1.6rem] bg-white p-[3.2rem]">
+        <section className="h-[28rem] flex-1 rounded-[1.6rem] bg-white p-[3.2rem]">
           <SimpleReportCard reutersCode="TSLA.O" />
         </section>
-        <section className="max-h-[28rem] flex-1 rounded-[1.6rem] bg-white p-[3.2rem]">
+        <section className="h-[28rem] flex-1 rounded-[1.6rem] bg-white p-[3.2rem]">
           <SimpleReportCard reutersCode="AMZN.O" />
         </section>
       </div>
