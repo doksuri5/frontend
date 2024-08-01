@@ -25,7 +25,8 @@ export default function RelatedStocks({ relatedStocks }: any) {
           Array(4)
             .fill(0)
             .map((_, index) => <StockItemSkeleton variant="findStock" key={index} />)}
-        {!loading && stockData.map((stock) => <StockItem variant="findStock" key={stock._id} {...stock} />)}
+        {!loading &&
+          stockData.map((stock) => <StockItem variant="findStock" key={stock._id} {...stock} style="w-full" />)}
       </div>
     </section>
   );

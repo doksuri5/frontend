@@ -46,7 +46,7 @@ function StockItem({ iconSize = 50, style, variant = "stock", clickNone = false,
     <Link href={`${REPORT_PATH}/${reutersCode}`} className={`${clickNone && "pointer-events-none"}`}>
       <div
         className={cn(
-          `flex items-center justify-between text-grayscale-900 ${selectedVariantStyles.weight} ${selectedVariantStyles.height} ${style}`,
+          `flex items-center justify-between rounded-[.8rem] p-[.8rem] text-grayscale-900 ${selectedVariantStyles.weight} ${selectedVariantStyles.height} ${style} transition duration-300 ease-in-out hover:bg-grayscale-100`,
         )}
       >
         <div className="flex items-center gap-[1.3rem]">

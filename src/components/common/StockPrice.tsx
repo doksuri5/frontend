@@ -38,7 +38,7 @@ const StockPrice = ({
         "flex-row": !vertical,
       })}
     >
-      <div className={cn(`body_4 font-medium ${style}`)}>
+      <div className={cn(`body_4 text-end font-medium ${style}`)}>
         <span>
           $<ClientCountUp preserveValue end={Math.abs(stock?.closePrice)} decimals={2} />
         </span>
