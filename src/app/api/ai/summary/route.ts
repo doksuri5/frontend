@@ -15,7 +15,7 @@ export async function POST(req: Request) {
     schema: NewsSummarySchema,
     system: "Summarize the following content",
     prompt:
-      `Summarize the following this content in (please answer in ${LANGUAGE_MAP[session?.user.language ?? "ko"]}):` +
+      `Summarize the following this content 100 token in (please answer in ${LANGUAGE_MAP[session?.user.language ?? "ko"]}):` +
       content,
   });
 
