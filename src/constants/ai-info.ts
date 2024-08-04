@@ -1,6 +1,6 @@
 import { TLanguages } from "@/types/AuthType";
 
-const AI_MODEL = "gpt-4o";
+const AI_MODEL = "gpt-3.5-turbo";
 
 export { AI_MODEL };
 
