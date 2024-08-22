@@ -447,6 +447,19 @@
 
 ![image](https://github.com/user-attachments/assets/25152b34-b9e0-444e-807d-d25095fcff6c)
 
+### Notion을 사용하여 협업 및 문서화
+<div style="display: flex; flex-direction: column; justify-content: center; align-items: font-weight">
+  <p align="center"><img src='https://github.com/user-attachments/assets/5fd8fb1c-da27-4158-a8cc-468b5b2fd1b6' height="600"/></p>
+  <br>
+  <p style="margin-bottom: 5px">노션 링크: https://psychedelic-mercury-b2f.notion.site/5-1a21b4fcac824f61aff61bb81fbc1192</p>
+  <ul style="font-size: 16px">
+    <li style="margin-bottom: 5px">모든 팀원이 개발 문서에 쉽게 접근하고 최신 정보를 유지할 수 있도록 문서 중앙화</li>
+    <li style="margin-bottom: 5px">DB, API 설계서를 작성하여 각 기능에 필요한 데이터와 API를 명확히 정의</li>
+    <li style="margin-bottom: 5px">회의 내용을 노션에 기록 및 공유하여 팀원들이 회의 진행 시 결정된 사항을 쉽게 참고할 수 있도록 함</li>
+    <li style="margin-bottom: 5px">QA 진행 시 발생한 버그와 이슈를 노션에 트래킹하여, 해결 상태와 우선순위를 팀원들과 실시간으로 공유</li>
+  </ul>
+</div>
+
 ### [📕 커밋 컨벤션](https://github.com/doksuri5/frontend/wiki/%F0%9F%93%8CGit-Commit-Convention)
 
 ### [📘 코드 컨벤션](https://github.com/doksuri5/frontend/wiki/%F0%9F%93%91-Code-Convention)
